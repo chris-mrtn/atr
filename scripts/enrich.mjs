@@ -55,7 +55,14 @@ async function pooled(items, limit, worker) {
 async function main() {
   const key = process.env.TMDB_API_KEY;
   if (!key) {
-    console.warn('TMDB_API_KEY is not set — skipping enrichment, leaving data/tmdb.json untouched.');
+    // Locally, skipping is a convenience. In CI it is a misconfiguration: the
+    // step exists to fetch this data, so passing silently would let a green
+    // run hide the fact that nothing happened.
+    if (process.env.CI) {
+      console.error('TMDB_API_KEY is empty or unset in CI. Add it at Settings > Secrets and variables > Actions.');
+      process.exit(1);
+    }
+    console.warn('TMDB_API_KEY is not set - skipping enrichment, leaving data/tmdb.json untouched.');
     return;
   }
 
