@@ -3,8 +3,27 @@
 <head>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>atr</title>
+<title>Avoid The Rut</title>
+<meta name="description" content="Every film the club has watched, year by year.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%238a3324'/%3E%3Cg fill='%23fff'%3E%3Crect x='3' y='3' width='2' height='2'/%3E%3Crect x='3' y='7' width='2' height='2'/%3E%3Crect x='3' y='11' width='2' height='2'/%3E%3Crect x='11' y='3' width='2' height='2'/%3E%3Crect x='11' y='7' width='2' height='2'/%3E%3Crect x='11' y='11' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="preconnect" href="https://image.tmdb.org" crossorigin>
+<link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
+<main>
+  <header class="masthead">
+    <h1>Avoid The Rut</h1>
+    <p class="tagline">Every film the club has watched.</p>
+    <p class="stats" id="stats" aria-live="polite">Loading&hellip;</p>
+  </header>
+
+  <div id="years"></div>
+
+  <footer>
+    <p id="tmdb-note"></p>
+    <p>Film list from <a href="https://letterboxd.com/chrismrtn/">Letterboxd</a>.</p>
+  </footer>
+</main>
+<script src="assets/app.js"></script>
 </body>
 </html>

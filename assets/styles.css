@@ -1,0 +1,176 @@
+:root {
+  color-scheme: light dark;
+  --bg: #faf9f7;
+  --fg: #17150f;
+  --muted: #6f6a5f;
+  --faint: #98928a;
+  --rule: #e3dfd6;
+  --card: #ffffff;
+  --shadow: 0 1px 2px rgba(0,0,0,.06), 0 8px 24px rgba(0,0,0,.05);
+  --accent: #8a3324;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #100f0e;
+    --fg: #ece9e3;
+    --muted: #98938a;
+    --faint: #6d685f;
+    --rule: #292723;
+    --card: #1a1917;
+    --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+    --accent: #d97757;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 20px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.55 ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+main { max-width: 62rem; margin: 0 auto; padding-block: clamp(2.5rem, 8vh, 5rem); }
+
+a { color: inherit; }
+
+/* Masthead ---------------------------------------------------------- */
+
+.masthead { margin-bottom: clamp(2.5rem, 6vh, 4rem); }
+
+h1 {
+  font-size: clamp(2.25rem, 8vw, 4rem);
+  line-height: 1;
+  letter-spacing: -0.035em;
+  margin: 0 0 .6rem;
+}
+
+.tagline { color: var(--muted); margin: 0 0 .35rem; font-size: 1.05rem; }
+
+.stats {
+  margin: 0;
+  color: var(--faint);
+  font-size: .8rem;
+  letter-spacing: .06em;
+  text-transform: uppercase;
+}
+
+/* Year sections ------------------------------------------------------ */
+
+.year { margin-bottom: clamp(2.5rem, 6vh, 4rem); }
+
+.year-head {
+  display: flex;
+  align-items: baseline;
+  gap: .75rem;
+  margin: 0 0 1.25rem;
+  padding-bottom: .6rem;
+  border-bottom: 1px solid var(--rule);
+}
+.year-head h2 {
+  font-size: 1.5rem;
+  letter-spacing: -0.02em;
+  margin: 0;
+  font-variant-numeric: tabular-nums;
+}
+.year-count { color: var(--faint); font-size: .8rem; }
+.year-link {
+  margin-left: auto;
+  font-size: .8rem;
+  color: var(--faint);
+  text-decoration: none;
+  white-space: nowrap;
+}
+.year-link:hover { color: var(--accent); text-decoration: underline; }
+
+/* Film grid ---------------------------------------------------------- */
+
+.films {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: 1.5rem 1rem;
+  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
+}
+@media (max-width: 26rem) {
+  .films { grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr)); gap: 1.25rem .75rem; }
+}
+
+.film a {
+  text-decoration: none;
+  display: block;
+  border-radius: 8px;
+}
+.film a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+
+.poster {
+  position: relative;
+  aspect-ratio: 2 / 3;
+  max-width: 100%;
+  border-radius: 6px;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  box-shadow: var(--shadow);
+  transition: transform .18s ease;
+}
+.film a:hover .poster { transform: translateY(-3px); }
+@media (prefers-reduced-motion: reduce) {
+  .poster, .film a:hover .poster { transition: none; transform: none; }
+}
+
+.poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Films with no TMDB match still get a tile, with their title in it. */
+.poster.empty {
+  display: grid;
+  place-items: center;
+  padding: .75rem;
+  text-align: center;
+}
+.poster.empty span {
+  font-size: .8rem;
+  color: var(--faint);
+  line-height: 1.3;
+}
+
+.film-title {
+  display: block;
+  margin-top: .5rem;
+  font-size: .875rem;
+  font-weight: 600;
+  line-height: 1.25;
+  /* Reserve two lines so the year/director line sits on the same baseline
+     across a row, whether or not the title wraps. */
+  min-height: 2.5em;
+}
+.film-meta {
+  display: block;
+  margin-top: .15rem;
+  font-size: .78rem;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+.film a:hover .film-title { color: var(--accent); }
+
+/* Footer ------------------------------------------------------------- */
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding-top: 1.5rem;
+  color: var(--faint);
+  font-size: .8rem;
+}
+footer p { margin: 0 0 .35rem; }
+
+.error {
+  border: 1px solid var(--rule);
+  background: var(--card);
+  border-radius: 8px;
+  padding: 1.25rem;
+  color: var(--muted);
+}

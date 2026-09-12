@@ -68,6 +68,18 @@ The sync refuses to write when a year that previously had films returns none,
 so a markup change or a rate limit fails the build instead of quietly emptying
 the archive.
 
+## The site
+
+```
+index.html          markup and element hooks
+assets/styles.css   all styling; light and dark
+assets/app.js       merges films.json with tmdb.json and renders
+```
+
+The page reads both data files at load. `films.json` is required; `tmdb.json`
+is optional, so a film with no TMDB match still gets a tile with its title in
+it, and the page works even if enrichment has never run.
+
 ## Running the site locally
 
 ```sh
