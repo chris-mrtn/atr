@@ -1,0 +1,65 @@
+name: Sync Letterboxd
+
+on:
+  schedule:
+    # 06:15 UTC daily. Off the hour so we are not in the crowd of :00 jobs.
+    - cron: '15 6 * * *'
+  workflow_dispatch:
+  push:
+    branches: [main]
+    paths:
+      - 'scripts/**'
+      - '.github/workflows/sync-letterboxd.yml'
+
+# Only what the job needs: it commits data/films.json and nothing else.
+permissions:
+  contents: write
+
+concurrency:
+  group: sync-letterboxd
+  cancel-in-progress: false
+
+jobs:
+  sync:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-node@v4
+        with:
+          node-version: '22'
+
+      # Parser tests run first: if the shape of the data changed, fail here
+      # rather than committing something wrong.
+      - name: Test the parser
+        run: node --test scripts/*.test.mjs
+
+      - name: Sync from Letterboxd
+        run: node scripts/sync.mjs
+
+      - name: Commit if the data changed
+        run: |
+          if git diff --quiet -- data/films.json; then
+            echo "No change."
+            exit 0
+          fi
+          git config user.name  "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+          git add data/films.json
+          git commit -m "Sync films from Letterboxd
+
+          Automated by .github/workflows/sync-letterboxd.yml"
+          git push
+
+      - name: Summary
+        if: always()
+        run: |
+          if [ -f data/films.json ]; then
+            node -e '
+              const db = require("./data/films.json");
+              const rows = db.years.map(y => `| ${y.year} | ${y.films.length} |`).join("\n");
+              console.log(`**${db.totalFilms} films** across ${db.years.length} years\n\n| Year | Films |\n|---|---|\n${rows}`);
+            ' >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "No data/films.json produced." >> "$GITHUB_STEP_SUMMARY"
+          fi
