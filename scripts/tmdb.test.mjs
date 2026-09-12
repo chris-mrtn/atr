@@ -64,8 +64,13 @@ test('accepts a release year one out, for festival vs general release', () => {
   assert.equal(got.confidence, 'year-off-by-one');
 });
 
-test('a two-year gap is not accepted', () => {
-  const got = chooseMatch({ title: 'Broker', year: 2022 }, [r(7, 'Broker', '2024-03-02')]);
+test('a wide year gap is refused once there is more than one candidate', () => {
+  // With alternatives in play, a two-year gap is not good enough: this is the
+  // case where a remake or a same-titled film could be picked by mistake.
+  const got = chooseMatch({ title: 'Broker', year: 2022 }, [
+    r(7, 'Broker', '2024-03-02', { poster_path: '/a.jpg', vote_count: 10 }),
+    r(8, 'Broker', '1998-01-01', { poster_path: '/b.jpg', vote_count: 10 }),
+  ]);
   assert.equal(got.match, null);
 });
 
@@ -138,4 +143,44 @@ test('a bad key fails loudly', async () => {
     createClient('k', { fetchImpl: fake }).search('X', 2000),
     /rejected the key/,
   );
+});
+
+test('an empty duplicate record is discarded rather than causing a refusal', () => {
+  const got = chooseMatch(
+    { title: 'Aftersun', year: 2022 },
+    [
+      r(1, 'Aftersun', '2022-11-18', { poster_path: '/a.jpg', vote_count: 2200 }),
+      r(2, 'Aftersun', '2022-01-01', { poster_path: null, vote_count: 0, release_date: '2022-01-01' }),
+    ],
+  );
+  assert.equal(got.match.id, 1);
+  assert.equal(got.confidence, 'exact-deduped');
+});
+
+test('two real duplicates are still a refusal', () => {
+  const got = chooseMatch(
+    { title: 'Close', year: 2022 },
+    [
+      r(1, 'Close', '2022-11-01', { poster_path: '/a.jpg', vote_count: 900 }),
+      r(2, 'Close', '2022-03-01', { poster_path: '/b.jpg', vote_count: 400 }),
+    ],
+  );
+  assert.equal(got.match, null);
+});
+
+test('a lone exact title is accepted when the year is well out, and flagged', () => {
+  const got = chooseMatch(
+    { title: 'Hundreds of Beavers', year: 2022 },
+    [r(1, 'Hundreds of Beavers', '2024-01-26', { poster_path: '/a.jpg', vote_count: 300 })],
+  );
+  assert.equal(got.match.id, 1);
+  assert.equal(got.confidence, 'title-exact-year-differs');
+});
+
+test('a lone result whose title does not match is still refused', () => {
+  const got = chooseMatch(
+    { title: 'Old Joy', year: 2006 },
+    [r(1, 'Old', '2021-07-21', { poster_path: '/a.jpg', vote_count: 5000 })],
+  );
+  assert.equal(got.match, null);
 });

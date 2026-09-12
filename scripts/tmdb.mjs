@@ -23,6 +23,14 @@ export function normalizeTitle(s) {
     .trim();
 }
 
+/**
+ * Whether a TMDB record has any actual content, as opposed to being one of the
+ * empty duplicate stubs the database accumulates.
+ */
+export function isSubstantive(result) {
+  return Boolean(result?.poster_path) || (result?.vote_count ?? 0) > 0;
+}
+
 export function releaseYear(result) {
   const d = result?.release_date;
   if (!d || d.length < 4) return null;
@@ -54,6 +62,12 @@ export function chooseMatch(film, results) {
     const exact = list.filter(r => titleHit(r) && releaseYear(r) === film.year);
     if (exact.length === 1) return { match: exact[0], confidence: 'exact' };
     if (exact.length > 1) {
+      // TMDB carries genuine duplicate records: one real entry plus a stub with
+      // no poster and no votes. Discarding the empty ones is not the same as
+      // picking the popular one - we are dropping records with no content, not
+      // ranking real candidates against each other.
+      const substantive = exact.filter(isSubstantive);
+      if (substantive.length === 1) return { match: substantive[0], confidence: 'exact-deduped' };
       return { match: null, reason: `${exact.length} results share that title and year`, candidates: list.slice(0, 5) };
     }
 
@@ -62,6 +76,15 @@ export function chooseMatch(film, results) {
 
     if (list.length === 1 && releaseYear(list[0]) === film.year) {
       return { match: list[0], confidence: 'sole-result' };
+    }
+
+    // Exactly one result, title matches exactly, but the year is further out
+    // than one. Festival premiere vs general release can be several years
+    // apart. One unambiguous title is enough to accept, flagged so it is
+    // visible in the data.
+    const titled = list.filter(titleHit);
+    if (titled.length === 1 && list.length === 1) {
+      return { match: titled[0], confidence: 'title-exact-year-differs' };
     }
     return { match: null, reason: 'no title+year match', candidates: list.slice(0, 5) };
   }
