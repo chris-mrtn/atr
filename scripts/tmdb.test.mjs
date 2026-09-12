@@ -1,0 +1,141 @@
+import { test } from 'node:test';
+import assert from 'node:assert/strict';
+import { normalizeTitle, releaseYear, chooseMatch, summarize, createClient } from './tmdb.mjs';
+
+const r = (id, title, date, extra = {}) =>
+  ({ id, title, original_title: title, release_date: date, ...extra });
+
+test('normalize strips case, accents, apostrophes and punctuation', () => {
+  assert.equal(normalizeTitle('Amélie'), 'amelie');
+  assert.equal(normalizeTitle("Don't Look Up"), 'dont look up');
+  assert.equal(normalizeTitle('Fanny & Alexander'), 'fanny alexander');
+  assert.equal(normalizeTitle('WALL·E'), 'wall e');
+  assert.equal(normalizeTitle('Am I OK?'), 'am i ok');
+});
+
+test('releaseYear handles missing and malformed dates', () => {
+  assert.equal(releaseYear({ release_date: '1994-07-14' }), 1994);
+  assert.equal(releaseYear({ release_date: '' }), null);
+  assert.equal(releaseYear({}), null);
+});
+
+test('matches on exact title and year', () => {
+  const got = chooseMatch(
+    { title: 'Chungking Express', year: 1994 },
+    [r(11104, 'Chungking Express', '1994-07-14')],
+  );
+  assert.equal(got.match.id, 11104);
+  assert.equal(got.confidence, 'exact');
+});
+
+test('matches when Letterboxd shows the English title and TMDB the original', () => {
+  const got = chooseMatch(
+    { title: 'Beyond Utopia', year: 2023 },
+    [r(1, 'Flucht aus Nordkorea', '2023-01-20', { original_title: 'Beyond Utopia' })],
+  );
+  assert.equal(got.match.id, 1);
+});
+
+test('refuses to guess between two films of the same title and year', () => {
+  const got = chooseMatch(
+    { title: 'Persuasion', year: 2022 },
+    [r(1, 'Persuasion', '2022-07-15', { popularity: 900 }), r(2, 'Persuasion', '2022-04-01', { popularity: 3 })],
+  );
+  assert.equal(got.match, null);
+  assert.match(got.reason, /share that title and year/);
+  assert.equal(got.candidates.length, 2);
+});
+
+test('popularity is never used as a tiebreaker', () => {
+  // A hugely popular film with the wrong title must not win.
+  const got = chooseMatch(
+    { title: 'Old Joy', year: 2006 },
+    [r(99, 'Old', '2021-07-21', { popularity: 5000 }), r(100, 'Joy', '2015-12-24', { popularity: 4000 })],
+  );
+  assert.equal(got.match, null);
+});
+
+test('accepts a release year one out, for festival vs general release', () => {
+  const got = chooseMatch(
+    { title: 'Broker', year: 2022 },
+    [r(7, 'Broker', '2023-03-02')],
+  );
+  assert.equal(got.match.id, 7);
+  assert.equal(got.confidence, 'year-off-by-one');
+});
+
+test('a two-year gap is not accepted', () => {
+  const got = chooseMatch({ title: 'Broker', year: 2022 }, [r(7, 'Broker', '2024-03-02')]);
+  assert.equal(got.match, null);
+});
+
+test('a sole result with the right year is accepted even if the title differs', () => {
+  const got = chooseMatch(
+    { title: 'In This Corner of the World', year: 2016 },
+    [r(8, 'In This Corner of the World (and Other Corners)', '2016-11-12')],
+  );
+  assert.equal(got.match.id, 8);
+  assert.equal(got.confidence, 'sole-result');
+});
+
+test('no results is a clean refusal', () => {
+  const got = chooseMatch({ title: 'Nonexistent', year: 1999 }, []);
+  assert.equal(got.match, null);
+  assert.equal(got.reason, 'no results');
+});
+
+test('without a year, only an unambiguous title match is accepted', () => {
+  assert.equal(chooseMatch({ title: 'Stalker', year: null },
+    [r(1, 'Stalker', '1979-05-25'), r(2, 'Stalker', '2010-01-01')]).match, null);
+  assert.equal(chooseMatch({ title: 'Stalker', year: null },
+    [r(1, 'Stalker', '1979-05-25')]).match.id, 1);
+});
+
+test('summarize pulls directors out of the credits crew', () => {
+  const got = summarize({
+    id: 5, original_title: 'Stalker', release_date: '1979-05-25', runtime: 162,
+    overview: 'A guide leads two men.', poster_path: '/p.jpg', backdrop_path: '/b.jpg',
+    credits: { crew: [
+      { job: 'Director', name: 'Andrei Tarkovsky' },
+      { job: 'Editor', name: 'Lyudmila Feiginova' },
+    ] },
+  });
+  assert.deepEqual(got.directors, ['Andrei Tarkovsky']);
+  assert.equal(got.runtime, 162);
+  assert.equal(got.tmdbUrl, 'https://www.themoviedb.org/movie/5');
+});
+
+test('a v3 key goes in the query string, a v4 token in the header', async () => {
+  const seen = [];
+  const fake = async (url, opts) => {
+    seen.push({ url: url.toString(), auth: opts.headers.authorization });
+    return { ok: true, status: 200, json: async () => ({ results: [] }) };
+  };
+  await createClient('abc123', { fetchImpl: fake }).search('Stalker', 1979);
+  assert.match(seen[0].url, /api_key=abc123/);
+  assert.equal(seen[0].auth, undefined);
+
+  await createClient('eyJhbGciOi.fake.token', { fetchImpl: fake }).search('Stalker', 1979);
+  assert.doesNotMatch(seen[1].url, /api_key=/);
+  assert.match(seen[1].auth, /^Bearer eyJ/);
+});
+
+test('a rate limit is retried, not thrown', async () => {
+  let calls = 0;
+  const fake = async () => {
+    calls++;
+    if (calls === 1) return { ok: false, status: 429, headers: { get: () => '0' } };
+    return { ok: true, status: 200, json: async () => ({ results: [r(1, 'X', '2000-01-01')] }) };
+  };
+  const out = await createClient('k', { fetchImpl: fake }).search('X', 2000);
+  assert.equal(calls, 2);
+  assert.equal(out.length, 1);
+});
+
+test('a bad key fails loudly', async () => {
+  const fake = async () => ({ ok: false, status: 401, headers: { get: () => null } });
+  await assert.rejects(
+    createClient('k', { fetchImpl: fake }).search('X', 2000),
+    /rejected the key/,
+  );
+});

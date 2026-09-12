@@ -11,17 +11,44 @@ one list per year from 2020. It is generated — don't edit it by hand.
 
 ```
 scripts/letterboxd.mjs       fetches and parses a list page
-scripts/letterboxd.test.mjs  parser tests, run against a captured fixture
 scripts/sync.mjs             walks the years, writes data/films.json
+scripts/tmdb.mjs             TMDB client and match rules
+scripts/enrich.mjs           adds TMDB metadata, writes data/tmdb.json
+scripts/summary.mjs          renders the Actions run summary
+scripts/*.test.mjs           tests, no network required
 ```
+
+`data/films.json` and `data/tmdb.json` are kept separate on purpose. The first
+is rewritten wholesale on every sync; the second is a cache keyed by Letterboxd
+slug. A re-sync therefore cannot wipe the TMDB data, and enrichment cannot
+corrupt the list.
 
 ### Running it
 
 ```sh
-node --test scripts/*.test.mjs   # parser tests, no network
-node scripts/sync.mjs            # rebuild data/films.json
-node scripts/sync.mjs --check    # fail if the committed data is stale
+node --test scripts/*.test.mjs           # tests, no network
+node scripts/sync.mjs                    # rebuild data/films.json
+node scripts/sync.mjs --check            # fail if the committed data is stale
+TMDB_API_KEY=... node scripts/enrich.mjs # add TMDB metadata
 ```
+
+### When TMDB gets a film wrong
+
+Matching is deliberately strict: a film is only accepted when the title and
+year line up, and ties are never broken by popularity, because a confident
+wrong poster is worse than none. Anything ambiguous lands in the `unmatched`
+section of `data/tmdb.json` with the candidates that were considered, and is
+listed in the Actions run summary.
+
+To settle one by hand, put its TMDB id in `data/tmdb-overrides.json`:
+
+```json
+{ "some-letterboxd-slug": 12345 }
+```
+
+Then re-run the workflow. Overrides always win.
+
+This product uses the TMDB API but is not endorsed or certified by TMDB.
 
 ### Automation
 
