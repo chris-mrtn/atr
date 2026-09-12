@@ -25,6 +25,7 @@
 * { box-sizing: border-box; }
 
 body {
+  position: relative;
   margin: 0;
   padding: 0 20px;
   background: var(--bg);
@@ -33,19 +34,51 @@ body {
   -webkit-font-smoothing: antialiased;
 }
 
-main { max-width: 62rem; margin: 0 auto; padding-block: clamp(2.5rem, 8vh, 5rem); }
+/* Top-of-page wash --------------------------------------------------- */
+
+/* Sits behind everything and scrolls away with the page. The colour is
+   sampled from the hero poster at runtime; until then it is transparent, so
+   there is nothing to see rather than a wrong colour that corrects itself. */
+.backdrop {
+  position: absolute;
+  inset: 0 0 auto;
+  height: min(70vh, 40rem);
+  z-index: -1;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .6s ease;
+  background:
+    linear-gradient(
+      to bottom,
+      rgb(var(--hero-rgb) / .85) 0%,
+      rgb(var(--hero-rgb) / .55) 28%,
+      rgb(var(--hero-rgb) / .22) 58%,
+      rgb(var(--hero-rgb) / 0) 100%
+    );
+}
+.backdrop.is-lit { opacity: 1; }
+
+@media (prefers-reduced-motion: reduce) {
+  .backdrop { transition: none; }
+}
+
+main { max-width: 40rem; margin: 0 auto; padding-block: clamp(2.5rem, 8vh, 5rem); }
 
 a { color: inherit; }
 
 /* Masthead ---------------------------------------------------------- */
 
-.masthead { margin-bottom: clamp(2.5rem, 6vh, 4rem); }
+.masthead {
+  margin-bottom: clamp(2.5rem, 6vh, 4rem);
+  text-align: center;
+}
 
 h1 {
-  font-size: clamp(2.25rem, 8vw, 4rem);
+  font-size: 1.15rem;
+  font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.035em;
-  margin: 0 0 .6rem;
+  letter-spacing: .18em;
+  margin: 0 0 .4rem;
 }
 
 .stats {
@@ -54,6 +87,75 @@ h1 {
   font-size: .8rem;
   letter-spacing: .06em;
   text-transform: uppercase;
+}
+
+/* Hero - the next film ----------------------------------------------- */
+
+.hero { margin-bottom: clamp(3rem, 8vh, 5rem); }
+
+/* No card around it: at this size the poster is the object, and a border
+   would just draw a box around a picture that already has edges. */
+.hero-inner {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 1.5rem;
+  text-decoration: none;
+  border-radius: 12px;
+}
+.hero-inner:focus-visible { outline: 2px solid var(--accent); outline-offset: 6px; }
+
+.hero-poster {
+  width: clamp(12rem, 55vw, 20rem);
+  max-width: 100%;
+  aspect-ratio: 2 / 3;
+  border-radius: 8px;
+  overflow: hidden;
+  background: var(--rule);
+  box-shadow: 0 2px 4px rgba(0,0,0,.08), 0 18px 44px rgba(0,0,0,.16);
+}
+@media (prefers-color-scheme: dark) {
+  .hero-poster { box-shadow: 0 2px 4px rgba(0,0,0,.5), 0 18px 44px rgba(0,0,0,.45); }
+}
+.hero-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.hero-body { max-width: 32rem; }
+
+.hero-label {
+  margin: 0 0 .6rem;
+  font-size: .7rem;
+  font-weight: 600;
+  letter-spacing: .14em;
+  text-transform: uppercase;
+  color: var(--accent);
+}
+
+.hero-title {
+  margin: 0 0 .4rem;
+  font-size: clamp(1.6rem, 5vw, 2.25rem);
+  line-height: 1.1;
+  letter-spacing: -0.025em;
+}
+
+.hero-meta {
+  margin: 0 0 1rem;
+  font-size: .85rem;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+
+.hero-overview {
+  margin: 0;
+  font-size: .9rem;
+  line-height: 1.6;
+  color: var(--muted);
+  text-wrap: pretty;
+  display: -webkit-box;
+  -webkit-line-clamp: 4;
+  line-clamp: 4;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
 }
 
 /* Year sections ------------------------------------------------------ */
@@ -84,76 +186,64 @@ h1 {
 }
 .year-link:hover { color: var(--accent); text-decoration: underline; }
 
-/* Film grid ---------------------------------------------------------- */
+/* Film list -------------------------------------------------------- */
 
-.films {
-  list-style: none;
-  margin: 0;
-  padding: 0;
-  display: grid;
-  gap: 1.5rem 1rem;
-  grid-template-columns: repeat(auto-fill, minmax(9.5rem, 1fr));
-}
-@media (max-width: 26rem) {
-  .films { grid-template-columns: repeat(auto-fill, minmax(7.5rem, 1fr)); gap: 1.25rem .75rem; }
-}
+.films { list-style: none; margin: 0; padding: 0; }
+
+.film + .film { border-top: 1px solid var(--rule); }
 
 .film a {
+  display: flex;
+  align-items: center;
+  gap: .9rem;
+  padding: .6rem .5rem;
+  margin: 0 -.5rem;
   text-decoration: none;
-  display: block;
-  border-radius: 8px;
+  border-radius: 6px;
 }
-.film a:focus-visible { outline: 2px solid var(--accent); outline-offset: 4px; }
+.film a:hover { background: var(--card); }
+.film a:focus-visible { outline: 2px solid var(--accent); outline-offset: 2px; }
 
 .poster {
-  position: relative;
+  flex: none;
+  width: 3rem;
   aspect-ratio: 2 / 3;
-  max-width: 100%;
-  border-radius: 6px;
+  border-radius: 3px;
   overflow: hidden;
   background: var(--card);
   border: 1px solid var(--rule);
-  box-shadow: var(--shadow);
-  transition: transform .18s ease;
 }
-.film a:hover .poster { transform: translateY(-3px); }
-@media (prefers-reduced-motion: reduce) {
-  .poster, .film a:hover .poster { transition: none; transform: none; }
-}
-
 .poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+.poster.empty { background: var(--rule); }
 
-/* Films with no TMDB match still get a tile, with their title in it. */
-.poster.empty {
-  display: grid;
-  place-items: center;
-  padding: .75rem;
-  text-align: center;
-}
-.poster.empty span {
-  font-size: .8rem;
-  color: var(--faint);
-  line-height: 1.3;
-}
+.film-text { min-width: 0; }
 
 .film-title {
   display: block;
-  margin-top: .5rem;
-  font-size: .875rem;
+  font-size: .95rem;
   font-weight: 600;
-  line-height: 1.25;
-  /* Reserve two lines so the year/director line sits on the same baseline
-     across a row, whether or not the title wraps. */
-  min-height: 2.5em;
+  line-height: 1.3;
 }
 .film-meta {
   display: block;
-  margin-top: .15rem;
-  font-size: .78rem;
+  margin-top: .1rem;
+  font-size: .8rem;
   color: var(--faint);
   font-variant-numeric: tabular-nums;
 }
 .film a:hover .film-title { color: var(--accent); }
+
+.film-runtime {
+  margin-left: auto;
+  padding-left: 1rem;
+  flex: none;
+  font-size: .8rem;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
+}
+@media (max-width: 30rem) {
+  .film-runtime { display: none; }
+}
 
 /* Footer ------------------------------------------------------------- */
 
