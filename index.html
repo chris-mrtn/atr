@@ -1,0 +1,91 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Movie Club</title>
+<style>
+  :root {
+    color-scheme: light dark;
+    --bg: #faf9f7;
+    --fg: #1a1a1a;
+    --muted: #6b6b6b;
+    --rule: #e2e0dc;
+  }
+  @media (prefers-color-scheme: dark) {
+    :root {
+      --bg: #131313;
+      --fg: #ededed;
+      --muted: #969696;
+      --rule: #2b2b2b;
+    }
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    padding: 0 20px;
+    background: var(--bg);
+    color: var(--fg);
+    font: 16px/1.6 ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
+  }
+  main {
+    max-width: 40rem;
+    margin: 0 auto;
+    padding-block: clamp(3rem, 12vh, 7rem);
+  }
+  h1 {
+    font-size: clamp(2rem, 7vw, 3rem);
+    line-height: 1.1;
+    letter-spacing: -0.02em;
+    margin: 0 0 0.5rem;
+  }
+  .tagline { color: var(--muted); margin: 0 0 3rem; }
+  h2 {
+    font-size: 0.8rem;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    font-weight: 600;
+    margin: 0 0 1rem;
+    padding-bottom: 0.5rem;
+    border-bottom: 1px solid var(--rule);
+  }
+  section { margin-bottom: 3rem; }
+  ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
+  li { margin-bottom: 0.4rem; }
+  footer {
+    border-top: 1px solid var(--rule);
+    padding-top: 1.5rem;
+    color: var(--muted);
+    font-size: 0.85rem;
+  }
+</style>
+</head>
+<body>
+<main>
+  <h1>Movie Club</h1>
+  <p class="tagline">A placeholder. The real thing is coming.</p>
+
+  <section>
+    <h2>Next screening</h2>
+    <ul>
+      <li>To be announced</li>
+    </ul>
+  </section>
+
+  <section>
+    <h2>Planned</h2>
+    <ul>
+      <li>Screening schedule</li>
+      <li>Members and who picks next</li>
+      <li>Archive of what we've watched</li>
+      <li>Ratings</li>
+    </ul>
+  </section>
+
+  <footer>
+    Scaffold only — nothing here is final.
+  </footer>
+</main>
+</body>
+</html>
