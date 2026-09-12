@@ -1,0 +1,2061 @@
+{
+  "generatedAt": "2026-09-12T18:38:26.607Z",
+  "note": "This product uses the TMDB API but is not endorsed or certified by TMDB.",
+  "imageBase": "https://image.tmdb.org/t/p",
+  "matched": 113,
+  "unmatchedCount": 9,
+  "films": {
+    "3-idiots": {
+      "tmdbId": 20453,
+      "originalTitle": "3 Idiots",
+      "releaseDate": "2009-12-23",
+      "runtime": 171,
+      "overview": "Rascal. Joker. Dreamer. Genius... You've never met a college student quite like \"Rancho.\" From the moment he arrives at India's most prestigious university, Rancho's outlandish schemes turn the campus upside down—along with the lives of his two newfound best friends. Together, they make life miserable for \"Virus,\" the school’s uptight and heartless dean. But when Rancho catches the eye of the dean's daughter, Virus sets his sights on flunking out the \"3 idiots\" once and for all.",
+      "posterPath": "/66A9MqXOyVFCssoloscw79z8Tew.jpg",
+      "backdropPath": "/8gT3UKtglLVpu0YfccwbmXZ5Eis.jpg",
+      "directors": [
+        "Rajkumar Hirani"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/20453",
+      "letterboxdTitle": "3 Idiots",
+      "letterboxdYear": 2009,
+      "confidence": "exact"
+    },
+    "a-ghost-story-2017": {
+      "tmdbId": 428449,
+      "originalTitle": "A Ghost Story",
+      "releaseDate": "2017-04-24",
+      "runtime": 93,
+      "overview": "Recently deceased, a white-sheeted ghost returns to his suburban home to console his bereft wife, only to find that in his spectral state he has become unstuck in time, forced to watch passively as the life he knew and the woman he loves slowly slip away.",
+      "posterPath": "/rp5JPIyZi9sMob15l46zNQLe5cO.jpg",
+      "backdropPath": "/2y2aqaScd7jsUee0ddI1iRNgwGq.jpg",
+      "directors": [
+        "David Lowery"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/428449",
+      "letterboxdTitle": "A Ghost Story",
+      "letterboxdYear": 2017,
+      "confidence": "exact"
+    },
+    "a-prophet": {
+      "tmdbId": 21575,
+      "originalTitle": "Un prophète",
+      "releaseDate": "2009-08-26",
+      "runtime": 155,
+      "overview": "Sentenced to six years in prison, Malik El Djebena is alone in the world and can neither read nor write. On his arrival at the prison, he seems younger and more brittle than the others detained there. At once he falls under the sway of a group of Corsicans who enforce their rule in the prison. As the 'missions' go by, he toughens himself and wins the confidence of the Corsican group.",
+      "posterPath": "/x9Jb8kewBHPzjTtgCQvoQoDsy4d.jpg",
+      "backdropPath": "/jEJDjDBT6KCoS4WOBq68vZMbFk2.jpg",
+      "directors": [
+        "Jacques Audiard"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/21575",
+      "letterboxdTitle": "A Prophet",
+      "letterboxdYear": 2009,
+      "confidence": "exact"
+    },
+    "after-yang": {
+      "tmdbId": 585378,
+      "originalTitle": "After Yang",
+      "releaseDate": "2022-03-04",
+      "runtime": 96,
+      "overview": "When his young daughter's beloved companion — an android named Yang — malfunctions, Jake searches for a way to repair him. In the process, Jake discovers the life that has been passing in front of him, reconnecting with his wife and daughter across a distance he didn't know was there.",
+      "posterPath": "/s2Zaj1WFKiP7Y7GHp57b5KbKG8f.jpg",
+      "backdropPath": "/y8ZholsWIn4jR3JoDWOSSFY87vf.jpg",
+      "directors": [
+        "Kogonada"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/585378",
+      "letterboxdTitle": "After Yang",
+      "letterboxdYear": 2021,
+      "confidence": "exact"
+    },
+    "alien-3": {
+      "tmdbId": 8077,
+      "originalTitle": "Alien³",
+      "releaseDate": "1992-05-22",
+      "runtime": 114,
+      "overview": "After escaping with Newt and Hicks from the alien planet, Ripley crash lands on Fiorina 161, a prison planet and host to a correctional facility. Unfortunately, although Newt and Hicks do not survive the crash, a more unwelcome visitor does. The prison does not allow weapons of any kind, and with aid being a long time away, the prisoners must simply survive in any way they can.",
+      "posterPath": "/xh5wI0UoW7DfS1IyLy3d2CgrCEP.jpg",
+      "backdropPath": "/lU0zVj8KcQVkPczdGGraYGiRC72.jpg",
+      "directors": [
+        "David Fincher"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/8077",
+      "letterboxdTitle": "Alien³",
+      "letterboxdYear": 1992,
+      "confidence": "exact"
+    },
+    "all-about-eve": {
+      "tmdbId": 705,
+      "originalTitle": "All About Eve",
+      "releaseDate": "1950-11-09",
+      "runtime": 139,
+      "overview": "From the moment she glimpses her idol at the stage door, Eve Harrington is determined to take the reins of power away from the great actress Margo Channing. Eve maneuvers her way into Margo's Broadway role, becomes a sensation and even causes turmoil in the lives of Margo's director boyfriend, her playwright and his wife. Only the cynical drama critic sees through Eve, admiring her audacity and perfect pattern of deceit.",
+      "posterPath": "/blBzZaatPWVuWpXEnPscMA4Xp6m.jpg",
+      "backdropPath": "/zAL3LOswagN9onjN8DPcNFTqKuD.jpg",
+      "directors": [
+        "Joseph L. Mankiewicz"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/705",
+      "letterboxdTitle": "All About Eve",
+      "letterboxdYear": 1950,
+      "confidence": "exact"
+    },
+    "all-of-us-strangers": {
+      "tmdbId": 994108,
+      "originalTitle": "All of Us Strangers",
+      "releaseDate": "2023-12-22",
+      "runtime": 105,
+      "overview": "One night in his near-empty tower block in contemporary London, Adam has a chance encounter with a mysterious neighbor, which punctures the rhythm of his everyday life.",
+      "posterPath": "/aviJMFZSnnCAsCVyJGaPNx4Ef3i.jpg",
+      "backdropPath": "/8yjHiSuSEhzR916LcIecuQ8tETG.jpg",
+      "directors": [
+        "Andrew Haigh"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/994108",
+      "letterboxdTitle": "All of Us Strangers",
+      "letterboxdYear": 2023,
+      "confidence": "exact"
+    },
+    "all-you-need-is-kill-2025": {
+      "tmdbId": 1432547,
+      "originalTitle": "ALL YOU NEED IS KILL",
+      "releaseDate": "2026-01-09",
+      "runtime": 86,
+      "overview": "When a massive alien flower known as \"Darol\" unexpectedly erupts in a deadly event, unleashing monstrous creatures that decimate the population of Japan, Rita is caught in the destruction—and killed. But then she wakes up again. And again. Caught in an endless time loop, Rita must navigate the trauma and repetition of death until she crosses paths with Keiji, a shy young man trapped in the same cycle. Together, they fight to break free from the loop and find meaning in the chaos around them.",
+      "posterPath": "/kznh3ACnXYVyyAYes7JN6i1wy2d.jpg",
+      "backdropPath": "/c2UTBDLSIFgxlz4XdjSooNGrMXb.jpg",
+      "directors": [
+        "Kenichiro Akimoto"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1432547",
+      "letterboxdTitle": "All You Need Is Kill",
+      "letterboxdYear": 2025,
+      "confidence": "exact"
+    },
+    "american-animals": {
+      "tmdbId": 489931,
+      "originalTitle": "American Animals",
+      "releaseDate": "2018-06-01",
+      "runtime": 117,
+      "overview": "Lexington, Kentucky, 2004. Four young men attempt to execute one of the most audacious art heists in the history of the United States.",
+      "posterPath": "/aLbdKxgxuOPvs6CTlmzoOQ4Yg3j.jpg",
+      "backdropPath": "/i28c1bKsnl1O0uqy6HeRWtioOXl.jpg",
+      "directors": [
+        "Bart Layton"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/489931",
+      "letterboxdTitle": "American Animals",
+      "letterboxdYear": 2018,
+      "confidence": "exact"
+    },
+    "anatomy-of-a-fall": {
+      "tmdbId": 915935,
+      "originalTitle": "Anatomie d'une chute",
+      "releaseDate": "2023-08-23",
+      "runtime": 151,
+      "overview": "A woman is suspected of her husband's murder, and their blind son faces a moral dilemma as the sole witness.",
+      "posterPath": "/1ho0d4LNZw3Y0voeKmSvPSgJOJ2.jpg",
+      "backdropPath": "/lDVl2jf6VB8ODl1olZ6FLvOV1gX.jpg",
+      "directors": [
+        "Justine Triet"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/915935",
+      "letterboxdTitle": "Anatomy of a Fall",
+      "letterboxdYear": 2023,
+      "confidence": "exact"
+    },
+    "another-round": {
+      "tmdbId": 580175,
+      "originalTitle": "Druk",
+      "releaseDate": "2020-09-24",
+      "runtime": 117,
+      "overview": "Four stagnant high school teachers decide to test out a theory that maintaining a constant level of intoxication will improve their overall lives.",
+      "posterPath": "/aDcIt4NHURLKnAEu7gow51Yd00Q.jpg",
+      "backdropPath": "/a2pPepVPtKY7E4XEkT7W3ZxUOY5.jpg",
+      "directors": [
+        "Thomas Vinterberg"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/580175",
+      "letterboxdTitle": "Another Round",
+      "letterboxdYear": 2020,
+      "confidence": "exact"
+    },
+    "bacurau": {
+      "tmdbId": 446159,
+      "originalTitle": "Bacurau",
+      "releaseDate": "2019-08-29",
+      "runtime": 131,
+      "overview": "Bacurau, a small town in the Brazilian sertão, mourns the loss of its matriarch, Carmelita, who lived to be 94. Days later, its inhabitants notice that their community has vanished from most maps.",
+      "posterPath": "/tBa4zMGzZUco26XT3WfZZCwQ76i.jpg",
+      "backdropPath": "/nhsC7Q1Zb5n2p4H3UKy422zP5XC.jpg",
+      "directors": [
+        "Kleber Mendonça Filho",
+        "Juliano Dornelles"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/446159",
+      "letterboxdTitle": "Bacurau",
+      "letterboxdYear": 2019,
+      "confidence": "exact"
+    },
+    "bad-education-2019": {
+      "tmdbId": 530723,
+      "originalTitle": "Bad Education",
+      "releaseDate": "2019-09-08",
+      "runtime": 109,
+      "overview": "A superintendent of a school district works for the betterment of the student’s education when an embezzlement scheme is discovered, threatening to destroy everything.",
+      "posterPath": "/gizz5FphOtfSnLaGpRALOZgILd5.jpg",
+      "backdropPath": "/kriOlxu4KVEjd0ZaY3dW7YYyP4z.jpg",
+      "directors": [
+        "Cory Finley"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/530723",
+      "letterboxdTitle": "Bad Education",
+      "letterboxdYear": 2019,
+      "confidence": "exact"
+    },
+    "before-the-devil-knows-youre-dead": {
+      "tmdbId": 7972,
+      "originalTitle": "Before the Devil Knows You're Dead",
+      "releaseDate": "2007-09-26",
+      "runtime": 117,
+      "overview": "When two brothers organize the robbery of their parents' jewelry store, the job goes horribly wrong, triggering a series of events that send them and their family hurtling towards a shattering climax.",
+      "posterPath": "/h4QXi4Ysuc3zICiK9jHxjCAK9Oh.jpg",
+      "backdropPath": "/ocAiyzGWhfr3PtNXxYih5s19c1h.jpg",
+      "directors": [
+        "Sidney Lumet"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/7972",
+      "letterboxdTitle": "Before the Devil Knows You're Dead",
+      "letterboxdYear": 2007,
+      "confidence": "exact"
+    },
+    "belle-2021": {
+      "tmdbId": 776305,
+      "originalTitle": "竜とそばかすの姫",
+      "releaseDate": "2021-07-16",
+      "runtime": 121,
+      "overview": "Suzu is a 17-year-old high-school student living in a rural town with her father. Wounded by the loss of her mother at a young age, Suzu one day discovers the massive online world \"U\" and dives into this alternate reality as her avatar, Belle. Before long, all of U's eyes are fixed on Belle, when, suddenly, a mysterious, dragon-like figure appears before her.",
+      "posterPath": "/fYHOD4pxZQk4rsP2tQrZI5uBlZV.jpg",
+      "backdropPath": "/7aiVtavsu145yo6n4ZpazwMDLXL.jpg",
+      "directors": [
+        "Mamoru Hosoda"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/776305",
+      "letterboxdTitle": "Belle",
+      "letterboxdYear": 2021,
+      "confidence": "exact"
+    },
+    "belly": {
+      "tmdbId": 12888,
+      "originalTitle": "Belly",
+      "releaseDate": "1998-11-04",
+      "runtime": 96,
+      "overview": "Tommy Bundy and Sincere are best friends as well as infamous and ruthless criminals and shot-callers in the hood. Respected by many but feared by all.  As the police are closing in on them and new players are looking for a come up, will their reign last?",
+      "posterPath": "/i4QhjdZXxdOpKOhc9kh4qqWjRWr.jpg",
+      "backdropPath": "/bmyugjdRl1aEOfBePwUpykIY3x3.jpg",
+      "directors": [
+        "Hype Williams"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/12888",
+      "letterboxdTitle": "Belly",
+      "letterboxdYear": 1998,
+      "confidence": "exact"
+    },
+    "black-bag-2025": {
+      "tmdbId": 1233575,
+      "originalTitle": "Black Bag",
+      "releaseDate": "2025-03-12",
+      "runtime": 94,
+      "overview": "When intelligence agent Kathryn Woodhouse is suspected of betraying the nation, her husband – also a legendary agent – faces the ultimate test of whether to be loyal to his marriage, or his country.",
+      "posterPath": "/hHPovtU4b96LHcoeEwRkGHI5btw.jpg",
+      "backdropPath": "/gxO51FVgADhYGGnnRPIlutVqb30.jpg",
+      "directors": [
+        "Steven Soderbergh"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1233575",
+      "letterboxdTitle": "Black Bag",
+      "letterboxdYear": 2025,
+      "confidence": "exact"
+    },
+    "blindspotting": {
+      "tmdbId": 489930,
+      "originalTitle": "Blindspotting",
+      "releaseDate": "2018-07-20",
+      "runtime": 95,
+      "overview": "Collin must make it through his final three days of probation for a chance at a new beginning. He and his troublemaking childhood best friend, Miles, work as movers, and when Collin witnesses a police shooting, the two men’s friendship is tested as they grapple with identity and their changed realities in the rapidly-gentrifying neighborhood they grew up in.",
+      "posterPath": "/x4DRZfTqOlmzNWAvy4vcKWkgEGL.jpg",
+      "backdropPath": "/d3m59GlnJQdb4taaHYTGVT7c3RJ.jpg",
+      "directors": [
+        "Carlos López Estrada"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/489930",
+      "letterboxdTitle": "Blindspotting",
+      "letterboxdYear": 2018,
+      "confidence": "exact"
+    },
+    "bonnie-and-clyde": {
+      "tmdbId": 475,
+      "originalTitle": "Bonnie and Clyde",
+      "releaseDate": "1967-08-13",
+      "runtime": 111,
+      "overview": "In the 1930s, bored waitress Bonnie Parker falls in love with an ex-con named Clyde Barrow, and together they start a violent crime spree throughout the country, stealing cars and robbing banks.",
+      "posterPath": "/sCSQFK9kMsprT4jgWqgw82dT6WI.jpg",
+      "backdropPath": "/vmMC9rC2Z3iptDj2K5AiK0wlVAF.jpg",
+      "directors": [
+        "Arthur Penn"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/475",
+      "letterboxdTitle": "Bonnie and Clyde",
+      "letterboxdYear": 1967,
+      "confidence": "exact"
+    },
+    "broker-2022": {
+      "tmdbId": 736732,
+      "originalTitle": "브로커",
+      "releaseDate": "2022-06-08",
+      "runtime": 129,
+      "overview": "When a young mother reconsiders abandoning her baby, she discovers a scheme selling foundlings for adoption.",
+      "posterPath": "/x86xaUnxU31JYiwlO35corDEV1i.jpg",
+      "backdropPath": "/dom8lzl2iU46nDu6s4lBolBNjQs.jpg",
+      "directors": [
+        "Hirokazu Kore-eda"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/736732",
+      "letterboxdTitle": "Broker",
+      "letterboxdYear": 2022,
+      "confidence": "exact"
+    },
+    "central-station": {
+      "tmdbId": 666,
+      "originalTitle": "Central do Brasil",
+      "releaseDate": "1998-04-03",
+      "runtime": 111,
+      "overview": "An emotional journey of a former school teacher, who writes letters for illiterate people, and a young boy, whose mother has just died, as they search for the father he never knew.",
+      "posterPath": "/zJvp7XjQ2LhPbDVYhFXyucs40vR.jpg",
+      "backdropPath": "/lrLIy9OFRQg4VkhrCyolfNXJEUH.jpg",
+      "directors": [
+        "Walter Salles"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/666",
+      "letterboxdTitle": "Central Station",
+      "letterboxdYear": 1998,
+      "confidence": "exact"
+    },
+    "chungking-express": {
+      "tmdbId": 11104,
+      "originalTitle": "重慶森林",
+      "releaseDate": "1994-07-14",
+      "runtime": 103,
+      "overview": "Two melancholic Hong Kong policemen fall in love: one with a mysterious underworld figure, the other with a beautiful and ethereal server at a late-night restaurant.",
+      "posterPath": "/43I9DcNoCzpyzK8JCkJYpHqHqGG.jpg",
+      "backdropPath": "/vuglA60RqvpHK9rIcG8sXaiWw1L.jpg",
+      "directors": [
+        "Wong Kar-Wai"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/11104",
+      "letterboxdTitle": "Chungking Express",
+      "letterboxdYear": 1994,
+      "confidence": "exact"
+    },
+    "cleo-from-5-to-7": {
+      "tmdbId": 499,
+      "originalTitle": "Cléo de 5 à 7",
+      "releaseDate": "1962-04-11",
+      "runtime": 90,
+      "overview": "Agnès Varda eloquently captures Paris in the sixties with this real-time portrait of a singer set adrift in the city as she awaits test results of a biopsy. A chronicle of the minutes of one woman’s life, Cléo from 5 to 7 is a spirited mix of vivid vérité and melodrama, featuring a score by Michel Legrand and cameos by Jean-Luc Godard and Anna Karina.",
+      "posterPath": "/oelBStY4xpguaplRv15P3Za7Xsr.jpg",
+      "backdropPath": "/oyatchDPpS4I9jpIIezFJGrmXcR.jpg",
+      "directors": [
+        "Agnès Varda"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/499",
+      "letterboxdTitle": "Cléo from 5 to 7",
+      "letterboxdYear": 1962,
+      "confidence": "exact"
+    },
+    "coherence": {
+      "tmdbId": 220289,
+      "originalTitle": "Coherence",
+      "releaseDate": "2014-04-06",
+      "runtime": 89,
+      "overview": "Four couples gather for dinner the night a mysterious and powerful comet passes overhead.",
+      "posterPath": "/ezUtb9m5DeLwL2gxi4gktzNCvQv.jpg",
+      "backdropPath": "/cvGE73s935bXEAVt2W0zADPPegG.jpg",
+      "directors": [
+        "James Ward Byrkit"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/220289",
+      "letterboxdTitle": "Coherence",
+      "letterboxdYear": 2013,
+      "confidence": "exact"
+    },
+    "come-and-see": {
+      "tmdbId": 25237,
+      "originalTitle": "Иди и смотри",
+      "releaseDate": "1985-10-17",
+      "runtime": 142,
+      "overview": "The invasion of a village in Belarus by German forces sends young Flyora into the forest to join the weary Resistance fighters, against his family's wishes. There he meets a girl, Glasha, who accompanies him back to his village. On returning home, Flyora finds his family and fellow peasants massacred. His continued survival amidst the brutal debris of war becomes increasingly nightmarish, a battle between despair and hope.",
+      "posterPath": "/qNbMsKVzigERgJUbwf8pKyZogpb.jpg",
+      "backdropPath": "/3Na31ta8vDuKOgQuPLdSZLs8bCB.jpg",
+      "directors": [
+        "Elem Klimov"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/25237",
+      "letterboxdTitle": "Come and See",
+      "letterboxdYear": 1985,
+      "confidence": "exact"
+    },
+    "decision-to-leave": {
+      "tmdbId": 705996,
+      "originalTitle": "헤어질 결심",
+      "releaseDate": "2022-06-29",
+      "runtime": 139,
+      "overview": "From a mountain peak in South Korea, a man plummets to his death. Did he jump, or was he pushed? When detective Hae-joon arrives on the scene, he begins to suspect the dead man’s wife Seo-rae. But as he digs deeper into the investigation, he finds himself trapped in a web of deception and desire.",
+      "posterPath": "/zI8KZ4EdLUymWKX1YEkpZ0gtPUa.jpg",
+      "backdropPath": "/uUXgaOxPsr0jsBhGnkyIgw0g2ge.jpg",
+      "directors": [
+        "Park Chan-wook"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/705996",
+      "letterboxdTitle": "Decision to Leave",
+      "letterboxdYear": 2022,
+      "confidence": "exact"
+    },
+    "derek-delgaudios-in-of-itself": {
+      "tmdbId": 681459,
+      "originalTitle": "Derek DelGaudio's In & of Itself",
+      "releaseDate": "2020-10-24",
+      "runtime": 90,
+      "overview": "Storyteller and Conceptual Magician Derek DelGaudio attempts to understand the illusory nature of identity and answer the deceptively simple question 'Who am I?'",
+      "posterPath": "/bgnXNBdjqQmVrIthQI5B8eKDKp1.jpg",
+      "backdropPath": "/jYzNKWYermxipANIwbcMhTEAk8r.jpg",
+      "directors": [
+        "Frank Oz"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/681459",
+      "letterboxdTitle": "Derek DelGaudio's In & of Itself",
+      "letterboxdYear": 2020,
+      "confidence": "exact"
+    },
+    "donbass": {
+      "tmdbId": 519187,
+      "originalTitle": "Донбас",
+      "releaseDate": "2018-08-30",
+      "runtime": 122,
+      "overview": "In the historic Donbass region of eastern Ukraine, despite the cruel war that has been raging since 2014 between the self-proclaimed People's Republics of Donetsk and Luhansk and the Ukrainian government, people try to survive in the rotten heart of chaos, where violence disguises itself as peace, propaganda becomes univocal truth and hatred reigns in the name of love.",
+      "posterPath": "/egjOYURjYL1VzwOCgm9cUjWX6FF.jpg",
+      "backdropPath": "/sesIy1vPnT7wwCuZG95iuJN9IFv.jpg",
+      "directors": [
+        "Sergei Loznitsa"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/519187",
+      "letterboxdTitle": "Donbass",
+      "letterboxdYear": 2018,
+      "confidence": "exact"
+    },
+    "dont-look-up-2021": {
+      "tmdbId": 646380,
+      "originalTitle": "Don't Look Up",
+      "releaseDate": "2021-12-08",
+      "runtime": 138,
+      "overview": "Two astronomers go on a media tour to warn humankind of a planet-killing comet hurtling toward Earth. The response from a distracted world: Meh.",
+      "posterPath": "/th4E1yqsE8DGpAseLiUrI60Hf8V.jpg",
+      "backdropPath": "/nvxrQQspxmSblCYDtvDAbVFX8Jt.jpg",
+      "directors": [
+        "Adam McKay"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/646380",
+      "letterboxdTitle": "Don't Look Up",
+      "letterboxdYear": 2021,
+      "confidence": "exact"
+    },
+    "drowning-by-numbers": {
+      "tmdbId": 27362,
+      "originalTitle": "Drowning by Numbers",
+      "releaseDate": "1988-09-02",
+      "runtime": 119,
+      "overview": "Cissie Colpitts drowns her cheating husband and,  in the ensuing cover-up, enlists the help of lonely coroner Henry Madgett, an old friend with a longstanding weakness for her charms. But when Cissie's daughter and granddaughter—both also named Cissie Colpitts—decide to resort to the same methods for solving conflicts with their own frustrating husbands, the women and their repeated appeals for help begin to wear on Madgett's conscience.",
+      "posterPath": "/7VSvsr87TazqEvxqTDTWMDCbjwt.jpg",
+      "backdropPath": "/8HiCwYGET0rHwAQnMridjgPD2uk.jpg",
+      "directors": [
+        "Peter Greenaway"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/27362",
+      "letterboxdTitle": "Drowning by Numbers",
+      "letterboxdYear": 1988,
+      "confidence": "exact"
+    },
+    "el-camino-a-breaking-bad-movie": {
+      "tmdbId": 559969,
+      "originalTitle": "El Camino: A Breaking Bad Movie",
+      "releaseDate": "2019-10-11",
+      "runtime": 123,
+      "overview": "In the wake of his dramatic escape from captivity, Jesse Pinkman must come to terms with his past in order to forge some kind of future.",
+      "posterPath": "/ePXuKdXZuJx8hHMNr2yM4jY2L7Z.jpg",
+      "backdropPath": "/uLXK1LQM28XovWHPao3ViTeggXA.jpg",
+      "directors": [
+        "Vince Gilligan"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/559969",
+      "letterboxdTitle": "El Camino: A Breaking Bad Movie",
+      "letterboxdYear": 2019,
+      "confidence": "exact"
+    },
+    "everything-everywhere-all-at-once": {
+      "tmdbId": 545611,
+      "originalTitle": "Everything Everywhere All at Once",
+      "releaseDate": "2022-03-24",
+      "runtime": 140,
+      "overview": "An aging Chinese immigrant is swept up in an insane adventure, where she alone can save what's important to her by connecting with the lives she could have led in other universes.",
+      "posterPath": "/u68AjlvlutfEIcpmbYpKcdi09ut.jpg",
+      "backdropPath": "/ss0Os3uWJfQAENILHZUdX8Tt1OC.jpg",
+      "directors": [
+        "Daniel Scheinert",
+        "Daniel Kwan"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/545611",
+      "letterboxdTitle": "Everything Everywhere All at Once",
+      "letterboxdYear": 2022,
+      "confidence": "exact"
+    },
+    "eyes-without-a-face": {
+      "tmdbId": 31417,
+      "originalTitle": "Les Yeux sans visage",
+      "releaseDate": "1960-01-11",
+      "runtime": 84,
+      "overview": "Dr. Génessier is riddled with guilt after an accident that he caused disfigures the face of his daughter, the once beautiful Christiane, who outsiders believe is dead. Dr. Génessier, along with accomplice and laboratory assistant Louise, kidnaps young women and brings them to the Génessier mansion. After rendering his victims unconscious, Dr. Génessier removes their faces and attempts to graft them on to Christiane's.",
+      "posterPath": "/8y7Z9Gvcq52uOlJlUWyn2epGGRd.jpg",
+      "backdropPath": "/pZVrDhIPF30JTRSkal2Lfk7NwrI.jpg",
+      "directors": [
+        "Georges Franju"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/31417",
+      "letterboxdTitle": "Eyes Without a Face",
+      "letterboxdYear": 1960,
+      "confidence": "exact"
+    },
+    "fire-of-love-2022": {
+      "tmdbId": 913823,
+      "originalTitle": "Fire of Love",
+      "releaseDate": "2022-07-06",
+      "runtime": 94,
+      "overview": "A doomed love triangle between intrepid French scientists Katia and Maurice Krafft, and their beloved volcanoes.",
+      "posterPath": "/9smEX8UP84yb2GisLwyAyQKvCWS.jpg",
+      "backdropPath": "/3oRwn7WIMt4Vtw65mnydDQHthwQ.jpg",
+      "directors": [
+        "Sara Dosa"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/913823",
+      "letterboxdTitle": "Fire of Love",
+      "letterboxdYear": 2022,
+      "confidence": "exact"
+    },
+    "first-reformed": {
+      "tmdbId": 458737,
+      "originalTitle": "First Reformed",
+      "releaseDate": "2018-05-18",
+      "runtime": 113,
+      "overview": "A pastor of a small church in upstate New York starts to spiral out of control after a soul-shaking encounter with an unstable environmental activist and his pregnant wife.",
+      "posterPath": "/8HKA3Hwf8jQWy8TCYWr7C8Wft23.jpg",
+      "backdropPath": "/mLwIDLa1FMkbKLteZRTatyvWLHX.jpg",
+      "directors": [
+        "Paul Schrader"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/458737",
+      "letterboxdTitle": "First Reformed",
+      "letterboxdYear": 2017,
+      "confidence": "exact"
+    },
+    "flee-2021": {
+      "tmdbId": 680813,
+      "originalTitle": "Flugt",
+      "releaseDate": "2021-06-17",
+      "runtime": 89,
+      "overview": "Recounted mostly through animation to protect his identity, Amin looks back over his past as a child refugee from Afghanistan as he grapples with a secret he’s kept hidden for 20 years.",
+      "posterPath": "/vlMIbqOpYG553J1kOJXA7mwQvE6.jpg",
+      "backdropPath": "/CKGSEnFTpcxPJM5TzTFUJz53s.jpg",
+      "directors": [
+        "Jonas Poher Rasmussen"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/680813",
+      "letterboxdTitle": "Flee",
+      "letterboxdYear": 2021,
+      "confidence": "exact"
+    },
+    "flucht-aus-nordkorea": {
+      "tmdbId": 1070032,
+      "originalTitle": "Beyond Utopia",
+      "releaseDate": "2023-10-23",
+      "runtime": 116,
+      "overview": "A courageous pastor uses his underground network to rescue and aid North Korean families as they risk their lives to embrace freedom.",
+      "posterPath": "/fcyCtyXabv0X8TInqoL9yq5DCdb.jpg",
+      "backdropPath": "/2pBDP2Ip5mQemw3PYTjDLYv9XI9.jpg",
+      "directors": [
+        "Madeleine Gavin"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1070032",
+      "letterboxdTitle": "Beyond Utopia",
+      "letterboxdYear": 2023,
+      "confidence": "exact"
+    },
+    "good-luck-have-fun-dont-die": {
+      "tmdbId": 1119449,
+      "originalTitle": "Good Luck, Have Fun, Don't Die",
+      "releaseDate": "2026-02-13",
+      "runtime": 134,
+      "overview": "A 'Man from the Future' arrives at an LA diner where he must recruit the precise combination of disgruntled patrons to join him on a one-night quest to save the world from the terminal threat of a rogue artificial intelligence.",
+      "posterPath": "/af7yguGbWQyvYtk6QCD5l4yBbKN.jpg",
+      "backdropPath": "/drRxbu2OHG0DEENptZ8wI5f0uEU.jpg",
+      "directors": [
+        "Gore Verbinski"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1119449",
+      "letterboxdTitle": "Good Luck, Have Fun, Don't Die",
+      "letterboxdYear": 2025,
+      "confidence": "exact"
+    },
+    "goodnight-mommy": {
+      "tmdbId": 284303,
+      "originalTitle": "Ich seh, Ich seh",
+      "releaseDate": "2015-01-08",
+      "runtime": 100,
+      "overview": "In the heat of the summer lays a lonesome house in the countryside where nine year old twin brothers await their mother’s return.  When she comes home, bandaged after cosmetic surgery, nothing is like before and the children start to doubt whether this woman is actually who she says she is.",
+      "posterPath": "/u3G2gF7M9dmH4Vcs54PUjieOi0C.jpg",
+      "backdropPath": "/g2fziL6LeOSnCCR8zEthQjj5EvO.jpg",
+      "directors": [
+        "Severin Fiala",
+        "Veronika Franz"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/284303",
+      "letterboxdTitle": "Goodnight Mommy",
+      "letterboxdYear": 2014,
+      "confidence": "exact"
+    },
+    "graduation-2016": {
+      "tmdbId": 374458,
+      "originalTitle": "Bacalaureat",
+      "releaseDate": "2016-05-20",
+      "runtime": 128,
+      "overview": "After his daughter is assaulted and left with an injury that may jeopardize her opportunity to study in the UK, a Romanian doctor decides to do whatever it takes to secure her future.",
+      "posterPath": "/FLocEtNx189qFvqRpaYArNK8w2.jpg",
+      "backdropPath": "/LLVvgPXBmIvVPG6MQaPLYVE9HE.jpg",
+      "directors": [
+        "Cristian Mungiu"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/374458",
+      "letterboxdTitle": "Graduation",
+      "letterboxdYear": 2016,
+      "confidence": "exact"
+    },
+    "harakiri": {
+      "tmdbId": 14537,
+      "originalTitle": "切腹",
+      "releaseDate": "1962-09-15",
+      "runtime": 135,
+      "overview": "Down-on-his-luck veteran Tsugumo Hanshirō enters the courtyard of the prosperous House of Iyi. Unemployed, and with no family, he hopes to find a place to commit seppuku—and a worthy second to deliver the coup de grâce in his suicide ritual. The senior counselor for the Iyi clan questions the ronin’s resolve and integrity, suspecting Hanshirō of seeking charity rather than an honorable end. What follows is a pair of interlocking stories which lay bare the difference between honor and respect, and promises to examine the legendary foundations of the Samurai code.",
+      "posterPath": "/zK7HsOC7QxW1ldKIeFG8YJ5F2Eb.jpg",
+      "backdropPath": "/e3hG3uadtcP0pYdRa5ch4ysQW76.jpg",
+      "directors": [
+        "Masaki Kobayashi"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/14537",
+      "letterboxdTitle": "Harakiri",
+      "letterboxdYear": 1962,
+      "confidence": "exact"
+    },
+    "hi-mom-2021": {
+      "tmdbId": 758891,
+      "originalTitle": "你好，李焕英",
+      "releaseDate": "2021-02-12",
+      "runtime": 128,
+      "overview": "Devastated after her mom's serious accident and grief-stricken because she hasn't become the daughter she wanted to be for her mother, a Chinese woman finds herself transported back in time to the year 1981, where she meets her younger mother before she was her mom.",
+      "posterPath": "/31W7qLEMqQKgdCeCtV9EbVi3bwG.jpg",
+      "backdropPath": "/3UIAPRd4uu1IuYy8I3VfE55mdTd.jpg",
+      "directors": [
+        "Jia Ling"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/758891",
+      "letterboxdTitle": "Hi, Mom",
+      "letterboxdYear": 2021,
+      "confidence": "exact"
+    },
+    "high-and-low": {
+      "tmdbId": 12493,
+      "originalTitle": "天国と地獄",
+      "releaseDate": "1963-03-01",
+      "runtime": 142,
+      "overview": "A Yokohama shoe executive faces a wrenching choice when kidnappers mistakenly seize his chauffeur’s son but demand the ransom anyway.",
+      "posterPath": "/tgNjemQPG96uIezpiUiXFcer5ga.jpg",
+      "backdropPath": "/i1NjlccZcuqbgDCS92RHdhEnx59.jpg",
+      "directors": [
+        "Akira Kurosawa"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/12493",
+      "letterboxdTitle": "High and Low",
+      "letterboxdYear": 1963,
+      "confidence": "exact"
+    },
+    "in-this-corner-of-the-world": {
+      "tmdbId": 378108,
+      "originalTitle": "この世界の片隅に",
+      "releaseDate": "2016-11-12",
+      "runtime": 130,
+      "overview": "Japan, 1943, during World War II. Young Suzu leaves her village near Hiroshima to marry and live with her in-laws in Kure, a military harbor. Her creativity to overcome deprivation quickly makes her indispensable at home. Inhabited by an ancestral wisdom, Suzu impregnates the simple gestures of everyday life with poetry and beauty. The many hardships, the loss of loved ones, the frequent air raids of the enemy, nothing alters her enthusiasm…",
+      "posterPath": "/9Z4H4M2F8OQTB04YC1Opds8MFBb.jpg",
+      "backdropPath": "/bh5jnK2SeUw7iTbg9QHIi24S01Q.jpg",
+      "directors": [
+        "Sunao Katabuchi"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/378108",
+      "letterboxdTitle": "In This Corner of the World",
+      "letterboxdYear": 2016,
+      "confidence": "exact"
+    },
+    "incendies": {
+      "tmdbId": 46738,
+      "originalTitle": "Incendies",
+      "releaseDate": "2010-09-17",
+      "runtime": 131,
+      "overview": "A mother's last wishes send twins Jeanne and Simon on a journey to Middle East in search of their tangled roots. Adapted from Wajdi Mouawad's acclaimed play, Incendies tells the powerful and moving tale of two young adults' voyage to the core of deep-rooted hatred, never-ending wars and enduring love.",
+      "posterPath": "/yH6DAQVgbyj72S66gN4WWVoTjuf.jpg",
+      "backdropPath": "/f3ATwil5vmUeTsogBaMEKbBYBth.jpg",
+      "directors": [
+        "Denis Villeneuve"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/46738",
+      "letterboxdTitle": "Incendies",
+      "letterboxdYear": 2010,
+      "confidence": "exact"
+    },
+    "it-was-just-an-accident": {
+      "tmdbId": 1456349,
+      "originalTitle": "Un simple accident",
+      "releaseDate": "2025-10-01",
+      "runtime": 104,
+      "overview": "An unassuming mechanic is reminded of his time in an Iranian prison when he encounters a man he suspects to be his sadistic jailhouse captor.",
+      "posterPath": "/eNYGj2DG3n8OrVPTfYunpPW9uas.jpg",
+      "backdropPath": "/zhoMwQofjgVec5Sin05hWECJtVQ.jpg",
+      "directors": [
+        "Jafar Panahi"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1456349",
+      "letterboxdTitle": "It Was Just an Accident",
+      "letterboxdYear": 2025,
+      "confidence": "exact"
+    },
+    "kaante": {
+      "tmdbId": 35907,
+      "originalTitle": "कांटे",
+      "releaseDate": "2002-12-20",
+      "runtime": 152,
+      "overview": "Six men meet in a lock-up, where they've been wrongfully detained. Seeking revenge, they make the perfect plan to rob the very bank where police department's salaries are deposited",
+      "posterPath": "/ekNwKxMMXy5pWauS9FqnuzhXAE9.jpg",
+      "backdropPath": "/nppIdZbfRefoeIAqXR9vlJsxtHG.jpg",
+      "directors": [
+        "Sanjay Gupta"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/35907",
+      "letterboxdTitle": "Kaante",
+      "letterboxdYear": 2002,
+      "confidence": "exact"
+    },
+    "kids": {
+      "tmdbId": 9344,
+      "originalTitle": "Kids",
+      "releaseDate": "1995-07-21",
+      "runtime": 91,
+      "overview": "A group of bored, disaffected New York City teenagers spend a day skating, smoking, drinking, partying, deflowering virgins, and getting into fights.",
+      "posterPath": "/8qV8hUVCUnFIQKewzlhaFWhdszK.jpg",
+      "backdropPath": "/3gmreIMvzQgd1q4hsiUN5ADV88W.jpg",
+      "directors": [
+        "Larry Clark"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/9344",
+      "letterboxdTitle": "Kids",
+      "letterboxdYear": 1995,
+      "confidence": "exact"
+    },
+    "killing": {
+      "tmdbId": 531753,
+      "originalTitle": "斬、",
+      "releaseDate": "2018-10-08",
+      "runtime": 80,
+      "overview": "In mid-19th century Edo period, a masterless rōnin named Mokunoshin Tsuzuki resides in a peaceful village among those he helps. However, as the prevalent peace and tranquility are sure to be replaced by war and conflict across the land, the swordsman feels restlessness creeping upon him.",
+      "posterPath": "/9YZkePtrSaAsL509v0mBwve2c7n.jpg",
+      "backdropPath": "/daDjGXeRlxgHEwO8RSAkZQo1NVq.jpg",
+      "directors": [
+        "Shinya Tsukamoto"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/531753",
+      "letterboxdTitle": "Killing",
+      "letterboxdYear": 2018,
+      "confidence": "exact"
+    },
+    "kind-hearts-and-coronets": {
+      "tmdbId": 11898,
+      "originalTitle": "Kind Hearts and Coronets",
+      "releaseDate": "1949-06-23",
+      "runtime": 104,
+      "overview": "When his mother eloped with an Italian opera singer, Louis Mazzini was cut off from her aristocratic family. After the family refuses to let her be buried in the family mausoleum, Louis avenges his mother's death by attempting to murder every family member who stands between himself and the family fortune. But when he finds himself torn between his longtime love and the widow of one of his victims, his plans go awry.",
+      "posterPath": "/eBvpyRjD3DcCsWgdV6Y9oqPS7dO.jpg",
+      "backdropPath": "/r7jtS16I3vgVvqapgCa7RMkZnvj.jpg",
+      "directors": [
+        "Robert Hamer"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/11898",
+      "letterboxdTitle": "Kind Hearts and Coronets",
+      "letterboxdYear": 1949,
+      "confidence": "exact"
+    },
+    "last-year-at-marienbad": {
+      "tmdbId": 4024,
+      "originalTitle": "L'Année dernière à Marienbad",
+      "releaseDate": "1961-09-29",
+      "runtime": 95,
+      "overview": "At a weekend gathering, a man tells a woman that they had spent time there together a year prior. But, the woman has no recollection whatsoever and is convinced that he is simply fabricating the encounter. The more he speaks about their activities the previous year however, the more compelling he becomes. The question remains however – did they meet previously or not?",
+      "posterPath": "/syIJCqiSkGRJTlyaBtyI5jqPtE7.jpg",
+      "backdropPath": "/h1ov8VcVCiZsnWRu4EjZ74R33GP.jpg",
+      "directors": [
+        "Alain Resnais"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/4024",
+      "letterboxdTitle": "Last Year at Marienbad",
+      "letterboxdYear": 1961,
+      "confidence": "exact"
+    },
+    "leave-no-trace": {
+      "tmdbId": 443463,
+      "originalTitle": "Leave No Trace",
+      "releaseDate": "2018-06-29",
+      "runtime": 109,
+      "overview": "A father and daughter live a perfect but mysterious existence in Forest Park, a beautiful nature reserve near Portland, Oregon, rarely making contact with the world. But when a small mistake tips them off to authorities, they are sent on an increasingly erratic journey in search of a place to call their own.",
+      "posterPath": "/sygnLx3sZV5P8M2dyaGRegHdEL1.jpg",
+      "backdropPath": "/ax6LwhsAXesGCsBagE21DgwUYZf.jpg",
+      "directors": [
+        "Debra Granik"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/443463",
+      "letterboxdTitle": "Leave No Trace",
+      "letterboxdYear": 2018,
+      "confidence": "exact"
+    },
+    "look-back-2024": {
+      "tmdbId": 1244492,
+      "originalTitle": "ルックバック",
+      "releaseDate": "2024-06-28",
+      "runtime": 58,
+      "overview": "Popular, outgoing Fujino is celebrated by her classmates for her funny comics in the class newspaper. One day, her teacher asks her to share the space with Kyomoto, a truant recluse whose beautiful artwork sparks a competitive fervor in Fujino. What starts as jealousy transforms when Fujino realizes their shared passion for drawing.",
+      "posterPath": "/4f2EcNkp1Mvp9wE5w7HKxcmACWg.jpg",
+      "backdropPath": "/2okfik8YwzSfdETpT5cUClSiGFO.jpg",
+      "directors": [
+        "Kiyotaka Oshiyama"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1244492",
+      "letterboxdTitle": "Look Back",
+      "letterboxdYear": 2024,
+      "confidence": "exact"
+    },
+    "mad-bastards": {
+      "tmdbId": 73066,
+      "originalTitle": "Mad Bastards",
+      "releaseDate": "2010-01-21",
+      "runtime": 94,
+      "overview": "TJ is a mad bastard, and his estranged 13‐year‐old son Bullet is on the fast track to becoming one, too. After being turned away from his mother’s house, TJ sets off across the country to the Kimberly region of northwestern Australia to make things right with his son.  Grandpa Tex has lived a tough life, and now, as a local cop in the outback town of Five Rivers, he wants to change things for the men in his community.",
+      "posterPath": "/uzGthpIoPx1gde2PiLVnNjPtXWM.jpg",
+      "backdropPath": "/jZEFbvbpUUXNU065agHqkfvRdAI.jpg",
+      "directors": [
+        "Brendan Fletcher"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/73066",
+      "letterboxdTitle": "Mad Bastards",
+      "letterboxdYear": 2010,
+      "confidence": "exact"
+    },
+    "mad-god": {
+      "tmdbId": 846867,
+      "originalTitle": "Mad God",
+      "releaseDate": "2021-09-17",
+      "runtime": 84,
+      "overview": "A silent figure known as The Assassin travels through a nightmare underworld of tortured souls, ruined cities and wretched monstrosities forged from the primordial horrors of the unconscious mind of Phil Tippett, the world's preeminent stop-motion animator.",
+      "posterPath": "/105stT9GkiENXiYqvWYKoAuHKQL.jpg",
+      "backdropPath": "/eMDQdKeoWTrCm2wEs7I7OD3bTQl.jpg",
+      "directors": [
+        "Phil Tippett"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/846867",
+      "letterboxdTitle": "Mad God",
+      "letterboxdYear": 2021,
+      "confidence": "exact"
+    },
+    "maquia-when-the-promised-flower-blooms": {
+      "tmdbId": 476292,
+      "originalTitle": "さよならの朝に約束の花をかざろう",
+      "releaseDate": "2018-02-24",
+      "runtime": 115,
+      "overview": "Fleeing the war, the immortal Maquia, graced with eternal youth, finds a baby abandoned in the forest and decides to raise it as her own child, sparking a moving story between a mortal and a being who does not age.",
+      "posterPath": "/hL3NqRE2ccR4Y2sYSJTrmalRjrz.jpg",
+      "backdropPath": "/5nkKy7eEDsXqsxFLJy3GxZhE90J.jpg",
+      "directors": [
+        "Mari Okada"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/476292",
+      "letterboxdTitle": "Maquia: When the Promised Flower Blooms",
+      "letterboxdYear": 2018,
+      "confidence": "exact"
+    },
+    "mars-express": {
+      "tmdbId": 586810,
+      "originalTitle": "Mars Express",
+      "releaseDate": "2023-11-22",
+      "runtime": 89,
+      "overview": "In 2200, private detective Aline Ruby and her android partner Carlos Rivera are hired by a wealthy businessman to track down a notorious hacker. On Mars, they descend deep into the underbelly of the planet's capital city where they uncover a darker story of brain farms, political corruption, and a missing girl who holds a secret about the robots that threatens to change the face of the universe.",
+      "posterPath": "/g8rUn0khoYB3G4gPPGTF1Xv9Olu.jpg",
+      "backdropPath": "/yIOw17XdfsoCaydtrkzlZBCcHk6.jpg",
+      "directors": [
+        "Jérémie Périn"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/586810",
+      "letterboxdTitle": "Mars Express",
+      "letterboxdYear": 2023,
+      "confidence": "exact"
+    },
+    "mass-2021": {
+      "tmdbId": 423333,
+      "originalTitle": "Mass",
+      "releaseDate": "2021-10-08",
+      "runtime": 111,
+      "overview": "Two couples meet for a painful and raw conversation in the aftermath of a violent tragedy.",
+      "posterPath": "/c3MQ3YZKJadrH2Yv45i07qMHGPM.jpg",
+      "backdropPath": "/cv6Nn8Yt9mgFoUSievEdW9JK82A.jpg",
+      "directors": [
+        "Fran Kranz"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/423333",
+      "letterboxdTitle": "Mass",
+      "letterboxdYear": 2021,
+      "confidence": "exact"
+    },
+    "minari": {
+      "tmdbId": 615643,
+      "originalTitle": "Minari",
+      "releaseDate": "2021-02-12",
+      "runtime": 115,
+      "overview": "A Korean American family moves to an Arkansas farm in search of its own American dream. Amidst the challenges of this new life in the strange and rugged Ozarks, they discover the undeniable resilience of family and what really makes a home.",
+      "posterPath": "/6mPNdmjdbVKPITv3LLCmQoKs9Zw.jpg",
+      "backdropPath": "/bKCpRjjTKcr3KAITmwjVMobbBYg.jpg",
+      "directors": [
+        "Lee Isaac Chung"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/615643",
+      "letterboxdTitle": "Minari",
+      "letterboxdYear": 2020,
+      "confidence": "exact"
+    },
+    "mirai": {
+      "tmdbId": 475215,
+      "originalTitle": "未来のミライ",
+      "releaseDate": "2018-07-20",
+      "runtime": 98,
+      "overview": "Four-year-old Kun struggles with jealousy after his newborn sister, Mirai, begins receiving most of his family’s attention. Retreating to the garden, he encounters Mirai as a teenager from the future and embarks on extraordinary journeys across his family’s past, gradually discovering new perspectives on love, belonging and what it means to become an older brother.",
+      "posterPath": "/b9XvI4Nehzi0nXyNVD6DtT39P6l.jpg",
+      "backdropPath": "/r2FXILO1vUKXGS9xnPva4kkjdHo.jpg",
+      "directors": [
+        "Mamoru Hosoda"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/475215",
+      "letterboxdTitle": "Mirai",
+      "letterboxdYear": 2018,
+      "confidence": "exact"
+    },
+    "modern-times": {
+      "tmdbId": 3082,
+      "originalTitle": "Modern Times",
+      "releaseDate": "1936-02-05",
+      "runtime": 87,
+      "overview": "A bumbling tramp desires to build a home with a young woman, yet is thwarted time and time again by his lack of experience and habit of being in the wrong place at the wrong time...",
+      "posterPath": "/AthaPakkuCLROdKxtRbKWclkDBK.jpg",
+      "backdropPath": "/kSlO1pHpwQfPQdgVPr7dJiJNtJ8.jpg",
+      "directors": [
+        "Charlie Chaplin"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/3082",
+      "letterboxdTitle": "Modern Times",
+      "letterboxdYear": 1936,
+      "confidence": "exact"
+    },
+    "mon-oncle": {
+      "tmdbId": 427,
+      "originalTitle": "Mon oncle",
+      "releaseDate": "1958-05-10",
+      "runtime": 118,
+      "overview": "Genial, bumbling Monsieur Hulot loves his top-floor apartment in a grimy corner of the city, and cannot fathom why his sister's family has moved to the suburbs. Their house is an ultra-modern nightmare, which Hulot only visits for the sake of stealing away his rambunctious young nephew. Hulot's sister, however, wants to win him over to her new way of life, and conspires to set him up with a wife and job.",
+      "posterPath": "/wH6RyPiXFy8INLbViVkchLVOmBc.jpg",
+      "backdropPath": "/3yYNJeR6JynSE3Y1AfVIJQ6g3UX.jpg",
+      "directors": [
+        "Jacques Tati"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/427",
+      "letterboxdTitle": "Mon Oncle",
+      "letterboxdYear": 1958,
+      "confidence": "exact"
+    },
+    "next-floor": {
+      "tmdbId": 99343,
+      "originalTitle": "Next Floor",
+      "releaseDate": "2008-05-15",
+      "runtime": 12,
+      "overview": "During an opulent and luxurious banquet, complete with hordes of servers and valets, eleven pampered guests participate in what appears to be a ritualistic gastronomic carnage. In this absurd and grotesque universe, an unexpected sequence of events destabilizes the endless symphony of abundance.",
+      "posterPath": "/1HBizk472Kb0SY8NM8XTbig2xpm.jpg",
+      "backdropPath": "/ebdXwGc3y5lcbnUs9lJMlkycmsu.jpg",
+      "directors": [
+        "Denis Villeneuve"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/99343",
+      "letterboxdTitle": "Next Floor",
+      "letterboxdYear": 2008,
+      "confidence": "exact"
+    },
+    "no-other-choice-2025": {
+      "tmdbId": 639988,
+      "originalTitle": "어쩔수가없다",
+      "releaseDate": "2025-09-24",
+      "runtime": 139,
+      "overview": "After being laid off and humiliated by a ruthless job market, a veteran paper mill manager descends into violence in a desperate bid to reclaim his dignity.",
+      "posterPath": "/vc2S0dvgpsM0XfSiXZDMVkRCSSU.jpg",
+      "backdropPath": "/1eM6Ey1FzpgJigrxRiSYtntSWq7.jpg",
+      "directors": [
+        "Park Chan-wook"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/639988",
+      "letterboxdTitle": "No Other Choice",
+      "letterboxdYear": 2025,
+      "confidence": "exact"
+    },
+    "no-other-land": {
+      "tmdbId": 1232493,
+      "originalTitle": "لا أرض أخرى",
+      "releaseDate": "2024-11-01",
+      "runtime": 92,
+      "overview": "This film made by a Palestinian-Israeli collective shows the destruction of the occupied West Bank's Masafer Yatta by Israeli soldiers and the alliance which develops between the Palestinian activist Basel and Israeli journalist Yuval.",
+      "posterPath": "/s7XYieuZg9kMe07i9VI4bfGN4Pw.jpg",
+      "backdropPath": "/bBleQSVXH97a0G2oF9MDAYCOlLG.jpg",
+      "directors": [
+        "Basel Adra",
+        "Hamdan Ballal",
+        "Yuval Abraham",
+        "Rachel Szor"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1232493",
+      "letterboxdTitle": "No Other Land",
+      "letterboxdYear": 2024,
+      "confidence": "exact"
+    },
+    "old-joy": {
+      "tmdbId": 26518,
+      "originalTitle": "Old Joy",
+      "releaseDate": "2006-03-25",
+      "runtime": 74,
+      "overview": "Soon to be a father, Mark feels the pressure of domestic responsibility closing in, so he is more than happy to accept when his old friend Kurt proposes a camping trip in the Oregon wilderness. During their time together, the men come to grips with the changes in their lives and the effect on their relationship.",
+      "posterPath": "/AdFKZOf0LtPpGq8be9T8qsNHTbs.jpg",
+      "backdropPath": "/t9lOz9dFflcHo3QjdtDND6cKGnF.jpg",
+      "directors": [
+        "Kelly Reichardt"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/26518",
+      "letterboxdTitle": "Old Joy",
+      "letterboxdYear": 2006,
+      "confidence": "exact"
+    },
+    "paper-moon": {
+      "tmdbId": 11293,
+      "originalTitle": "Paper Moon",
+      "releaseDate": "1973-05-09",
+      "runtime": 102,
+      "overview": "During the Great Depression, a con man finds himself saddled with a young girl who may or may not be his daughter, and the two forge an unlikely partnership.",
+      "posterPath": "/3GHG0kTcBWHKdXjj3RdK8GjBCd6.jpg",
+      "backdropPath": "/2Cf8V0iQx0c52IxeLdxOvjI2bBf.jpg",
+      "directors": [
+        "Peter Bogdanovich"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/11293",
+      "letterboxdTitle": "Paper Moon",
+      "letterboxdYear": 1973,
+      "confidence": "exact"
+    },
+    "pennies-from-heaven-2023": {
+      "tmdbId": 1098587,
+      "originalTitle": "Pennies from Heaven",
+      "releaseDate": "2023-03-13",
+      "runtime": 11,
+      "overview": "Two eccentric twin sisters stumble upon a pickup truck full of pennies and follow the adventure, wherever it takes them.",
+      "posterPath": "/gxJYqHeavUNARrkNyDC9XCTPONJ.jpg",
+      "backdropPath": null,
+      "directors": [
+        "Sandy Honig"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1098587",
+      "letterboxdTitle": "Pennies from Heaven",
+      "letterboxdYear": 2023,
+      "confidence": "exact"
+    },
+    "persona": {
+      "tmdbId": 797,
+      "originalTitle": "Persona",
+      "releaseDate": "1966-10-18",
+      "runtime": 85,
+      "overview": "A young nurse, Alma, is put in charge of Elisabeth Vogler: an actress who is seemingly healthy in all respects, but will not talk. As they spend time together, Alma speaks to Elisabeth constantly, never receiving any answer.",
+      "posterPath": "/hloUDKausII3Zf8ROsEZJHSkXza.jpg",
+      "backdropPath": "/amr72SENYz7AM4Hq5WBXxFBJEY6.jpg",
+      "directors": [
+        "Ingmar Bergman"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/797",
+      "letterboxdTitle": "Persona",
+      "letterboxdYear": 1966,
+      "confidence": "exact"
+    },
+    "pig-2021": {
+      "tmdbId": 635731,
+      "originalTitle": "Pig",
+      "releaseDate": "2021-07-16",
+      "runtime": 92,
+      "overview": "A truffle hunter who lives alone in the Oregon wilderness must visit Portland to find the mysterious person who stole his beloved foraging pig.",
+      "posterPath": "/1InMm4Mbjx8wCKvIy5gglo5i3HN.jpg",
+      "backdropPath": "/uFvueAhlKsXQacjiKxGBgnBqarf.jpg",
+      "directors": [
+        "Michael Sarnoski"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/635731",
+      "letterboxdTitle": "Pig",
+      "letterboxdYear": 2021,
+      "confidence": "exact"
+    },
+    "possession": {
+      "tmdbId": 21484,
+      "originalTitle": "Possession",
+      "releaseDate": "1981-05-27",
+      "runtime": 124,
+      "overview": "A young woman left her family for an unspecified reason. The husband determines to find out the truth and starts following his wife. At first, he suspects that a man is involved. But gradually, he finds out more and more strange behaviors and bizarre incidents that indicate something more than a possessed love affair.",
+      "posterPath": "/A9bnRn05riOKWftvQlLKa2gl51n.jpg",
+      "backdropPath": "/zfw3fcF7d4KcWYEvps4zUfl303b.jpg",
+      "directors": [
+        "Andrzej Żuławski"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/21484",
+      "letterboxdTitle": "Possession",
+      "letterboxdYear": 1981,
+      "confidence": "exact"
+    },
+    "project-hail-mary": {
+      "tmdbId": 687163,
+      "originalTitle": "Project Hail Mary",
+      "releaseDate": "2026-03-15",
+      "runtime": 157,
+      "overview": "Science teacher Ryland Grace wakes up on a spaceship light years from home with no recollection of who he is or how he got there. As his memory returns, he begins to uncover his mission: solve the riddle of the mysterious substance causing the sun to die out. He must call on his scientific knowledge and unorthodox ideas to save everything on Earth from extinction.",
+      "posterPath": "/yihdXomYb5kTeSivtFndMy5iDmf.jpg",
+      "backdropPath": "/2I1OFQJ0L9T0dpU6FobKFWV2PxX.jpg",
+      "directors": [
+        "Phil Lord",
+        "Christopher Miller"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/687163",
+      "letterboxdTitle": "Project Hail Mary",
+      "letterboxdYear": 2026,
+      "confidence": "exact"
+    },
+    "promising-young-woman": {
+      "tmdbId": 582014,
+      "originalTitle": "Promising Young Woman",
+      "releaseDate": "2020-12-13",
+      "runtime": 114,
+      "overview": "A young woman, traumatized by a tragic event in her past, seeks out vengeance against those who crossed her path.",
+      "posterPath": "/2h4EkRxy36zSsBDkijXSUMJFDaz.jpg",
+      "backdropPath": "/gESm6yc2MZpSXakgqLF0OlLaRn1.jpg",
+      "directors": [
+        "Emerald Fennell"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/582014",
+      "letterboxdTitle": "Promising Young Woman",
+      "letterboxdYear": 2020,
+      "confidence": "exact"
+    },
+    "qala": {
+      "tmdbId": 934419,
+      "originalTitle": "क़ला",
+      "releaseDate": "2022-11-24",
+      "runtime": 119,
+      "overview": "Haunted by her past, a talented singer with a rising career copes with the pressure of success, a mother's disdain and the voices of doubt within her.",
+      "posterPath": "/4d2xoBGXMpfeQ6QgpVI4qm34bKP.jpg",
+      "backdropPath": "/iwRZjIftnFy2vjSAQEKU3JUgv3m.jpg",
+      "directors": [
+        "Anvita Dutt"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/934419",
+      "letterboxdTitle": "Qala",
+      "letterboxdYear": 2022,
+      "confidence": "exact"
+    },
+    "riders-of-justice": {
+      "tmdbId": 663870,
+      "originalTitle": "Retfærdighedens ryttere",
+      "releaseDate": "2020-11-19",
+      "runtime": 116,
+      "overview": "Markus returns home to care for his daughter when his wife dies in a tragic train accident. However, when a survivor of the wreck surfaces and claims foul play, Markus suspects his wife was murdered and embarks on a mission to find those responsible.",
+      "posterPath": "/sshNnwmQLk720iBQ0dZg3GVGKfK.jpg",
+      "backdropPath": "/7XZsVVnqTsMJXg3J4CHzeV2Lro9.jpg",
+      "directors": [
+        "Anders Thomas Jensen"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/663870",
+      "letterboxdTitle": "Riders of Justice",
+      "letterboxdYear": 2020,
+      "confidence": "exact"
+    },
+    "ruby-sparks": {
+      "tmdbId": 103332,
+      "originalTitle": "Ruby Sparks",
+      "releaseDate": "2012-07-25",
+      "runtime": 104,
+      "overview": "Calvin is a young novelist who achieved phenomenal success early in his career but is now struggling with his writing – as well as his romantic life. Finally, he makes a breakthrough and creates a character named Ruby who inspires him. When Calvin finds Ruby, in the flesh, sitting on his couch about a week later, he is completely flabbergasted that his words have turned into a living, breathing person.",
+      "posterPath": "/zELurt0GVRkR5X5ymuk7KXUxhC8.jpg",
+      "backdropPath": "/4EqTcyWfO807ihMzGHequR7x1Co.jpg",
+      "directors": [
+        "Jonathan Dayton",
+        "Valerie Faris"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/103332",
+      "letterboxdTitle": "Ruby Sparks",
+      "letterboxdYear": 2012,
+      "confidence": "exact"
+    },
+    "stalker": {
+      "tmdbId": 1398,
+      "originalTitle": "Сталкер",
+      "releaseDate": "1979-05-25",
+      "runtime": 162,
+      "overview": "Near a gray and unnamed city is the Zone, a place guarded by barbed wire and soldiers, and where the normal laws of physics are victim to frequent anomalies. A stalker guides two men into the Zone, specifically to an area in which deep-seated desires are granted.",
+      "posterPath": "/1qhOyf5C4s9ZdvY8d5JDx9DFMeT.jpg",
+      "backdropPath": "/6yrbWzzrPp7pwz6zHdifspJk8t3.jpg",
+      "directors": [
+        "Andrei Tarkovsky"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1398",
+      "letterboxdTitle": "Stalker",
+      "letterboxdYear": 1979,
+      "confidence": "exact"
+    },
+    "suzume": {
+      "tmdbId": 916224,
+      "originalTitle": "すずめの戸締まり",
+      "releaseDate": "2022-11-11",
+      "runtime": 122,
+      "overview": "Suzume, 17, lost her mother as a little girl. On her way to school, she meets a mysterious young man. But her curiosity unleashes a calamity that endangers the entire population of Japan, and so Suzume embarks on a journey to set things right.",
+      "posterPath": "/yStW1TXF5s7Tbtu9KjIZEaWl6HL.jpg",
+      "backdropPath": "/4tdV5AeojEdbvn6VpeQrbuDlmzs.jpg",
+      "directors": [
+        "Makoto Shinkai"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/916224",
+      "letterboxdTitle": "Suzume",
+      "letterboxdYear": 2022,
+      "confidence": "exact"
+    },
+    "sweet-country-2017": {
+      "tmdbId": 468210,
+      "originalTitle": "Sweet Country",
+      "releaseDate": "2018-01-25",
+      "runtime": 113,
+      "overview": "In 1929, an Australian Aboriginal stockman kills a white station owner in self-defense and goes on the lam, pursued by a posse.",
+      "posterPath": "/szJdZCSiEIYybmPymoP2UTEvOUC.jpg",
+      "backdropPath": "/5R5O1IkKz4Otrhax39AwYRPkh1h.jpg",
+      "directors": [
+        "Warwick Thornton"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/468210",
+      "letterboxdTitle": "Sweet Country",
+      "letterboxdYear": 2017,
+      "confidence": "exact"
+    },
+    "taste-of-cherry": {
+      "tmdbId": 30020,
+      "originalTitle": "طعم گيلاس",
+      "releaseDate": "1997-09-28",
+      "runtime": 99,
+      "overview": "A middle-aged Tehranian man, Mr. Badii is intent on killing himself and seeks someone to bury him after his demise. Driving around the city, the seemingly well-to-do Badii meets with numerous people, including a Muslim student, asking them to take on the job, but initially he has little luck. Eventually, Badii finds a man who is up for the task because he needs the money, but his new associate soon tries to talk him out of committing suicide.",
+      "posterPath": "/vgPwjgbSdbYWrS1ty8TIZtmi6Tn.jpg",
+      "backdropPath": "/44SNTCSZTdbF5bzgUy4IfPV3DUq.jpg",
+      "directors": [
+        "Abbas Kiarostami"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/30020",
+      "letterboxdTitle": "Taste of Cherry",
+      "letterboxdYear": 1997,
+      "confidence": "exact"
+    },
+    "terms-of-endearment": {
+      "tmdbId": 11050,
+      "originalTitle": "Terms of Endearment",
+      "releaseDate": "1983-11-20",
+      "runtime": 132,
+      "overview": "Aurora, a finicky woman, is in search of true love while her daughter faces marital issues. Together, they help each other deal with problems and find reasons to live a joyful life.",
+      "posterPath": "/l77DRjJuykqKMtD9GTK4YT7qKHW.jpg",
+      "backdropPath": "/rZXTcmx7mKysaseyWZHs6wzPAcZ.jpg",
+      "directors": [
+        "James L. Brooks"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/11050",
+      "letterboxdTitle": "Terms of Endearment",
+      "letterboxdYear": 1983,
+      "confidence": "exact"
+    },
+    "the-death-of-mr-lazarescu": {
+      "tmdbId": 31032,
+      "originalTitle": "Moartea domnului Lăzărescu",
+      "releaseDate": "2005-05-27",
+      "runtime": 154,
+      "overview": "After suffering terrible headaches and stomach cramps, Mr. Lăzărescu, a lonely 63 year-old man, calls for an ambulance, beginning one man’s hellish journey through Bucharest hospitals in search of proper medical care. As the night unfolds, his health starts to deteriorate fast.",
+      "posterPath": "/c3B7GwMYgNi15VMdcKZawgt6mf5.jpg",
+      "backdropPath": "/pU10J7w0FBaxStZXokKW0adLU16.jpg",
+      "directors": [
+        "Cristi Puiu"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/31032",
+      "letterboxdTitle": "The Death of Mr. Lazarescu",
+      "letterboxdYear": 2005,
+      "confidence": "exact"
+    },
+    "the-diamond-2022": {
+      "tmdbId": 959036,
+      "originalTitle": "The Diamond",
+      "releaseDate": "2022-04-05",
+      "runtime": 14,
+      "overview": "Stefan is lonely, with a blinding ambition to make friends. One day he stumbles upon a diamond in the woods. Unable to reach it, a solution presents itself in the form of an even smaller man.",
+      "posterPath": "/mdMASM63GOlh3YCYQvhU65D60mE.jpg",
+      "backdropPath": null,
+      "directors": [
+        "Vedran Rupic"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/959036",
+      "letterboxdTitle": "The Diamond",
+      "letterboxdYear": 2022,
+      "confidence": "exact"
+    },
+    "the-florida-project": {
+      "tmdbId": 394117,
+      "originalTitle": "The Florida Project",
+      "releaseDate": "2017-10-06",
+      "runtime": 112,
+      "overview": "The story of a precocious six year-old and her ragtag group of friends whose summer break is filled with childhood wonder, possibility and a sense of adventure while the adults around them struggle with hard times.",
+      "posterPath": "/5QnDxdJg1fi6uMSkSi4x8tHsltm.jpg",
+      "backdropPath": "/GOwNU7Z9G3ORjNxdZnURfuIGS6.jpg",
+      "directors": [
+        "Sean Baker"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/394117",
+      "letterboxdTitle": "The Florida Project",
+      "letterboxdYear": 2017,
+      "confidence": "exact"
+    },
+    "the-french-connection": {
+      "tmdbId": 1051,
+      "originalTitle": "The French Connection",
+      "releaseDate": "1971-10-09",
+      "runtime": 104,
+      "overview": "Tough narcotics detective 'Popeye' Doyle is in hot pursuit of a suave French drug dealer who may be the key to a huge heroin-smuggling operation.",
+      "posterPath": "/pH4saPwMjhnVGwmSH6RkMaHrt3s.jpg",
+      "backdropPath": "/AsaW2VwcArvQmYjf2wsDjqWEn6f.jpg",
+      "directors": [
+        "William Friedkin"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1051",
+      "letterboxdTitle": "The French Connection",
+      "letterboxdYear": 1971,
+      "confidence": "exact"
+    },
+    "the-green-knight": {
+      "tmdbId": 559907,
+      "originalTitle": "The Green Knight",
+      "releaseDate": "2021-07-29",
+      "runtime": 130,
+      "overview": "An epic fantasy adventure based on the timeless Arthurian legend, The Green Knight tells the story of Sir Gawain, King Arthur's reckless and headstrong nephew, who embarks on a daring quest to confront the eponymous Green Knight, a gigantic emerald-skinned stranger and tester of men.",
+      "posterPath": "/if4hw3Ou5Sav9Em7WWHj66mnywp.jpg",
+      "backdropPath": "/kIQc0kkqIYTo65x5XjlKgqdDQ6a.jpg",
+      "directors": [
+        "David Lowery"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/559907",
+      "letterboxdTitle": "The Green Knight",
+      "letterboxdYear": 2021,
+      "confidence": "exact"
+    },
+    "the-inauguration-of-the-pleasure-dome": {
+      "tmdbId": 43337,
+      "originalTitle": "The Inauguration of the Pleasure Dome",
+      "releaseDate": "1954-03-29",
+      "runtime": 38,
+      "overview": "Lord Shiva wakes. A convocation of magicians in the guise of figures from mythology; a masquerade party at which Pan is the prize. The wine of Hecate is poured: Pan's cup is poisoned by Shiva. Kali blesses the assembly as a bacchic rite ensues.",
+      "posterPath": "/egGNw5f9Y4mVEUaMxWMFvySbEPr.jpg",
+      "backdropPath": "/wAeuqzuJUI5xsjlfZGmnLV3avYG.jpg",
+      "directors": [
+        "Kenneth Anger"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/43337",
+      "letterboxdTitle": "The Inauguration of the Pleasure Dome",
+      "letterboxdYear": 1954,
+      "confidence": "exact"
+    },
+    "the-last-black-man-in-san-francisco": {
+      "tmdbId": 522039,
+      "originalTitle": "The Last Black Man in San Francisco",
+      "releaseDate": "2019-06-07",
+      "runtime": 121,
+      "overview": "Jimmie Fails dreams of reclaiming the Victorian home his grandfather built in the heart of San Francisco. Joined on his quest by his best friend Mont, Jimmie searches for belonging in a rapidly changing city that seems to have left them behind.",
+      "posterPath": "/ow9zjibNrz5TYVZ6cqwmvCR1YX1.jpg",
+      "backdropPath": "/n0FzDpOvVhkj3uN7WHXXnAXOKFi.jpg",
+      "directors": [
+        "Joe Talbot"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/522039",
+      "letterboxdTitle": "The Last Black Man in San Francisco",
+      "letterboxdYear": 2019,
+      "confidence": "exact"
+    },
+    "the-last-detail": {
+      "tmdbId": 14886,
+      "originalTitle": "The Last Detail",
+      "releaseDate": "1973-12-11",
+      "runtime": 104,
+      "overview": "Two Navy men are ordered to bring a young offender to prison, but decide to show him one last good time along the way.",
+      "posterPath": "/zQoNkO99qfaBjh5aoA0pKau1prp.jpg",
+      "backdropPath": "/kyDesXA3VEx74ua1ZGAoYmzvjCc.jpg",
+      "directors": [
+        "Hal Ashby"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/14886",
+      "letterboxdTitle": "The Last Detail",
+      "letterboxdYear": 1973,
+      "confidence": "exact"
+    },
+    "the-last-duel-2021": {
+      "tmdbId": 617653,
+      "originalTitle": "The Last Duel",
+      "releaseDate": "2021-10-13",
+      "runtime": 153,
+      "overview": "King Charles VI declares that Knight Jean de Carrouges settle his dispute with his squire, Jacques Le Gris, by challenging him to a duel.",
+      "posterPath": "/zjrJE0fpzPvX8saJXj8VNfcjBoU.jpg",
+      "backdropPath": "/4LrL40XecjGLRpX5I2gzMTUt04l.jpg",
+      "directors": [
+        "Ridley Scott"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/617653",
+      "letterboxdTitle": "The Last Duel",
+      "letterboxdYear": 2021,
+      "confidence": "exact"
+    },
+    "the-life-of-chuck": {
+      "tmdbId": 842924,
+      "originalTitle": "The Life of Chuck",
+      "releaseDate": "2025-06-02",
+      "runtime": 111,
+      "overview": "In this extraordinary story of an ordinary man, Charles 'Chuck' Krantz experiences the wonder of love, the heartbreak of loss, and the multitudes contained in all of us.",
+      "posterPath": "/oumprkO9bThExP8NwxBIBnvBu2v.jpg",
+      "backdropPath": "/1SgD8XMa6dDSBKbPU4TDe2cmfGK.jpg",
+      "directors": [
+        "Mike Flanagan"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/842924",
+      "letterboxdTitle": "The Life of Chuck",
+      "letterboxdYear": 2024,
+      "confidence": "exact"
+    },
+    "the-long-goodbye": {
+      "tmdbId": 1847,
+      "originalTitle": "The Long Goodbye",
+      "releaseDate": "1973-03-08",
+      "runtime": 112,
+      "overview": "In 1970s Hollywood, Detective Philip Marlowe tries to help a friend who is accused of murdering his wife.",
+      "posterPath": "/16Gu0Vg7tBdoRxg1NJDwlTKx1hG.jpg",
+      "backdropPath": "/eXCKkX8LVo1vRK4GhVoo0bA8jHM.jpg",
+      "directors": [
+        "Robert Altman"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1847",
+      "letterboxdTitle": "The Long Goodbye",
+      "letterboxdYear": 1973,
+      "confidence": "exact"
+    },
+    "the-long-goodbye-2020": {
+      "tmdbId": 681015,
+      "originalTitle": "The Long Goodbye",
+      "releaseDate": "2021-03-10",
+      "runtime": 12,
+      "overview": "A short about racism and Islamophobia in the UK.",
+      "posterPath": "/8APp0RcuICPfgOiZWX5lnLYtOMZ.jpg",
+      "backdropPath": "/oTd2B7GwPrTu3jj2nhcT4aH2nom.jpg",
+      "directors": [
+        "Aneil Karia"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/681015",
+      "letterboxdTitle": "The Long Goodbye",
+      "letterboxdYear": 2020,
+      "confidence": "exact"
+    },
+    "the-lunchbox": {
+      "tmdbId": 191714,
+      "originalTitle": "The Lunchbox",
+      "releaseDate": "2013-09-20",
+      "runtime": 104,
+      "overview": "A mistaken delivery in Mumbai's famously efficient lunchbox delivery system (Mumbai's Dabbawallahs) connects a young housewife to a stranger in the dusk of his life. They build a fantasy world together through notes in the lunchbox. Gradually, this fantasy threatens to overwhelm their reality.",
+      "posterPath": "/jSOiz1h97i3qwjZJXY8SeLvjPsl.jpg",
+      "backdropPath": "/uwj3rzni98tEYqJae4Cy2k78Xmm.jpg",
+      "directors": [
+        "Ritesh Batra"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/191714",
+      "letterboxdTitle": "The Lunchbox",
+      "letterboxdYear": 2013,
+      "confidence": "exact"
+    },
+    "the-menu-2022": {
+      "tmdbId": 593643,
+      "originalTitle": "The Menu",
+      "releaseDate": "2022-11-17",
+      "runtime": 107,
+      "overview": "A young couple travels to a remote island to eat at an exclusive restaurant where the chef has prepared a lavish menu, with some shocking surprises.",
+      "posterPath": "/fPtUgMcLIboqlTlPrq0bQpKK8eq.jpg",
+      "backdropPath": "/4vSBj7BYsyuKCx96EJzGyp20WfY.jpg",
+      "directors": [
+        "Mark Mylod"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/593643",
+      "letterboxdTitle": "The Menu",
+      "letterboxdYear": 2022,
+      "confidence": "exact"
+    },
+    "the-monk-and-the-gun": {
+      "tmdbId": 1109237,
+      "originalTitle": "The Monk and the Gun",
+      "releaseDate": "2023-10-17",
+      "runtime": 107,
+      "overview": "An American travels to Bhutan searching for a valuable antique rifle and crosses paths with a young monk who wanders through the serene mountains, instructed by his teacher to make things right again.",
+      "posterPath": "/nhGaCXeBvFo7495aIZr261l6kb0.jpg",
+      "backdropPath": "/bM3uB05kO12okK2PTKHp0m823fe.jpg",
+      "directors": [
+        "Pawo Choyning Dorji"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1109237",
+      "letterboxdTitle": "The Monk and the Gun",
+      "letterboxdYear": 2023,
+      "confidence": "exact"
+    },
+    "the-red-turtle": {
+      "tmdbId": 337703,
+      "originalTitle": "La tortue rouge",
+      "releaseDate": "2016-03-27",
+      "runtime": 81,
+      "overview": "The dialogue-less film follows the major life stages of a castaway on a deserted tropical island populated by turtles, crabs and birds.",
+      "posterPath": "/wOBU3SLjQ9358Km9YWYasPZyebp.jpg",
+      "backdropPath": "/dotEMpAXmAp6lAYulMVK4lqKFiX.jpg",
+      "directors": [
+        "Michael Dudok de Wit"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/337703",
+      "letterboxdTitle": "The Red Turtle",
+      "letterboxdYear": 2016,
+      "confidence": "exact"
+    },
+    "the-remarkable-life-of-ibelin": {
+      "tmdbId": 1167027,
+      "originalTitle": "Ibelin",
+      "releaseDate": "2024-03-08",
+      "runtime": 103,
+      "overview": "The secret life of a young World of Warcraft gamer is vividly reimagined when his online friends contact his family after his death.",
+      "posterPath": "/73vRLcc0syVTMXmXyztUWaPJiK3.jpg",
+      "backdropPath": "/8QAqAqZY6qoIWBuL7aoA6QuR6Jn.jpg",
+      "directors": [
+        "Benjamin Ree"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1167027",
+      "letterboxdTitle": "The Remarkable Life of Ibelin",
+      "letterboxdYear": 2024,
+      "confidence": "exact"
+    },
+    "the-sparks-brothers": {
+      "tmdbId": 776485,
+      "originalTitle": "The Sparks Brothers",
+      "releaseDate": "2021-06-18",
+      "runtime": 140,
+      "overview": "Take a musical odyssey through five weird and wonderful decades with brothers Ron & Russell Mael, celebrating the inspiring legacy of Sparks: your favorite band’s favorite band.",
+      "posterPath": "/e8jtG3WS0Ku7Dh4fBne1rgriXZt.jpg",
+      "backdropPath": "/8elBDylFThvAsuwYdBAsCQC9l0Z.jpg",
+      "directors": [
+        "Edgar Wright"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/776485",
+      "letterboxdTitle": "The Sparks Brothers",
+      "letterboxdYear": 2021,
+      "confidence": "exact"
+    },
+    "the-square-2017": {
+      "tmdbId": 401246,
+      "originalTitle": "The Square",
+      "releaseDate": "2017-08-25",
+      "runtime": 151,
+      "overview": "A prestigious Stockholm museum's chief art curator finds himself in times of both professional and personal crisis as he attempts to set up a controversial new exhibit.",
+      "posterPath": "/pefcv5VNspSK4Dt8doei5bJmmln.jpg",
+      "backdropPath": "/bYZM4DoHrmzY3oq2qrcXAYQmLNp.jpg",
+      "directors": [
+        "Ruben Östlund"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/401246",
+      "letterboxdTitle": "The Square",
+      "letterboxdYear": 2017,
+      "confidence": "exact"
+    },
+    "the-substance": {
+      "tmdbId": 933260,
+      "originalTitle": "The Substance",
+      "releaseDate": "2024-09-07",
+      "runtime": 141,
+      "overview": "A fading celebrity decides to use a black market drug, a cell-replicating substance that temporarily creates a younger, better version of herself.",
+      "posterPath": "/lqoMzCcZYEFK729d6qzt349fB4o.jpg",
+      "backdropPath": "/bVSOgrxasVJF6V71T7v2KfBRSzu.jpg",
+      "directors": [
+        "Coralie Fargeat"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/933260",
+      "letterboxdTitle": "The Substance",
+      "letterboxdYear": 2024,
+      "confidence": "exact"
+    },
+    "the-two-popes": {
+      "tmdbId": 551332,
+      "originalTitle": "The Two Popes",
+      "releaseDate": "2019-11-27",
+      "runtime": 125,
+      "overview": "Frustrated with the direction of the church, Cardinal Bergoglio requests permission to retire in 2012 from Pope Benedict. Instead, facing scandal and self-doubt, the introspective Pope Benedict summons his harshest critic and future successor to Rome to reveal a secret that would shake the foundations of the Catholic Church.",
+      "posterPath": "/4d4mTSfDIFIbUbMLUfaKodvxYXA.jpg",
+      "backdropPath": "/bOPessdyd0dChHy70FM8Om7CgDg.jpg",
+      "directors": [
+        "Fernando Meirelles"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/551332",
+      "letterboxdTitle": "The Two Popes",
+      "letterboxdYear": 2019,
+      "confidence": "exact"
+    },
+    "the-wailing": {
+      "tmdbId": 293670,
+      "originalTitle": "곡성",
+      "releaseDate": "2016-05-12",
+      "runtime": 156,
+      "overview": "A stranger arrives in a little village and soon after a mysterious sickness starts spreading. A policeman is drawn into the incident and is forced to solve the mystery in order to save his daughter.",
+      "posterPath": "/lWE9ih9qgjx8HatYboP7fG0nri.jpg",
+      "backdropPath": "/9qxBNfI1QFbiZS62fsgaUd563t2.jpg",
+      "directors": [
+        "Na Hong-jin"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/293670",
+      "letterboxdTitle": "The Wailing",
+      "letterboxdYear": 2016,
+      "confidence": "exact"
+    },
+    "the-worst-person-in-the-world": {
+      "tmdbId": 660120,
+      "originalTitle": "Verdens verste menneske",
+      "releaseDate": "2021-10-13",
+      "runtime": 128,
+      "overview": "The chronicles of four years in the life of Julie, a young woman who navigates the troubled waters of her love life and struggles to find her career path, leading her to take a realistic look at who she really is.",
+      "posterPath": "/1NxGNQchGBTHXJ6RShLY1IlZqWn.jpg",
+      "backdropPath": "/woYGBHERSMhIHqmkkRCbCXp81l4.jpg",
+      "directors": [
+        "Joachim Trier"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/660120",
+      "letterboxdTitle": "The Worst Person in the World",
+      "letterboxdYear": 2021,
+      "confidence": "exact"
+    },
+    "thunder-road-2018": {
+      "tmdbId": 502422,
+      "originalTitle": "Thunder Road",
+      "releaseDate": "2018-09-12",
+      "runtime": 91,
+      "overview": "A police officer faces a personal meltdown following a divorce and the death of his mother.",
+      "posterPath": "/ynljTdiGVUCJJ6THSZi22SBoQAR.jpg",
+      "backdropPath": "/g9uDiHKpk2LvzG3RlmtYZ3ybYZS.jpg",
+      "directors": [
+        "Jim Cummings"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/502422",
+      "letterboxdTitle": "Thunder Road",
+      "letterboxdYear": 2018,
+      "confidence": "exact"
+    },
+    "tokyo-godfathers": {
+      "tmdbId": 13398,
+      "originalTitle": "東京ゴッドファーザーズ",
+      "releaseDate": "2003-12-05",
+      "runtime": 92,
+      "overview": "On Christmas Eve, three homeless people living on the streets of Tokyo discover a newborn baby among the trash and set out to find its parents.",
+      "posterPath": "/sPC66btzQlzuRdPKiSDYZ5Hvxgc.jpg",
+      "backdropPath": "/mnppPdfdtKPNoRemzIZDwOKpgfv.jpg",
+      "directors": [
+        "Satoshi Kon"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/13398",
+      "letterboxdTitle": "Tokyo Godfathers",
+      "letterboxdYear": 2003,
+      "confidence": "exact"
+    },
+    "touki-bouki": {
+      "tmdbId": 77771,
+      "originalTitle": "Touki-Bouki",
+      "releaseDate": "1973-05-10",
+      "runtime": 91,
+      "overview": "Mory, a cowherd, and Anta, a university student, try to make money in order to go to Paris and leave their boring past behind.",
+      "posterPath": "/kcBYKHyg9GcQqa6DWq0AuQDhtPI.jpg",
+      "backdropPath": "/7DlEixaKiNJyK0tHri0AEUAQrk8.jpg",
+      "directors": [
+        "Djibril Diop Mambéty"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/77771",
+      "letterboxdTitle": "Touki Bouki",
+      "letterboxdYear": 1973,
+      "confidence": "exact"
+    },
+    "toy-story-4": {
+      "tmdbId": 301528,
+      "originalTitle": "Toy Story 4",
+      "releaseDate": "2019-06-19",
+      "runtime": 100,
+      "overview": "Woody has always been confident about his place in the world, devoted to taking care of his kid—whether that's Andy or Bonnie. But after Bonnie creates a reluctant new toy called \"Forky\", a road trip adventure alongside old and new friends challenges everything Woody believes about loyalty, purpose, and what it truly means to be a toy.",
+      "posterPath": "/w9kR8qbmQ01HwnvK4alvnQ2ca0L.jpg",
+      "backdropPath": "/q62bpQ67qaXY0u6b2wFEnQYIbPd.jpg",
+      "directors": [
+        "Josh Cooley"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/301528",
+      "letterboxdTitle": "Toy Story 4",
+      "letterboxdYear": 2019,
+      "confidence": "exact"
+    },
+    "trouble-in-paradise": {
+      "tmdbId": 195,
+      "originalTitle": "Trouble in Paradise",
+      "releaseDate": "1932-10-30",
+      "runtime": 83,
+      "overview": "Thief Gaston Monescu and pickpocket Lily are partners in crime and love. Working for perfume company executive Mariette Colet, the two crooks decide to combine their criminal talents to rob their employer. Under the alias of Monsieur Laval, Gaston uses his position as Mariette's personal secretary to become closer to her. However, he takes things too far when he actually falls in love with Mariette, and has to choose between her and Lily.",
+      "posterPath": "/FBxuoLRD3Biyul14unT5m3PYNS.jpg",
+      "backdropPath": "/8xFIubJoxyidKaGjO1dc0btC9e7.jpg",
+      "directors": [
+        "Ernst Lubitsch"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/195",
+      "letterboxdTitle": "Trouble in Paradise",
+      "letterboxdYear": 1932,
+      "confidence": "exact"
+    },
+    "tumbbad": {
+      "tmdbId": 538858,
+      "originalTitle": "तुम्बाड",
+      "releaseDate": "2018-10-12",
+      "runtime": 113,
+      "overview": "India, 1918. On the outskirts of Tumbbad, a cursed village where it always rains, Vinayak, along with his mother and his brother, care of a mysterious old woman who keeps the secret of an ancestral treasure that Vinayak gets obsessed with.",
+      "posterPath": "/vzjZAKozbDplHWcQXbXo0APKxst.jpg",
+      "backdropPath": "/l0YKBu3LaehIFzBNjseLjx7MbaN.jpg",
+      "directors": [
+        "Rahi Anil Barve"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/538858",
+      "letterboxdTitle": "Tumbbad",
+      "letterboxdYear": 2018,
+      "confidence": "exact"
+    },
+    "twinless": {
+      "tmdbId": 1245347,
+      "originalTitle": "Twinless",
+      "releaseDate": "2025-09-04",
+      "runtime": 100,
+      "overview": "Two men who lost their respective twin brothers develop a growing friendship after meeting in a support group. However, both harbor long-hidden secrets that threaten to tear them apart.",
+      "posterPath": "/9vaw9Az5tPLMjNLj426KgKsp0k8.jpg",
+      "backdropPath": "/fnvTC96lA7pf8ZlMKI2FgBZ86AP.jpg",
+      "directors": [
+        "James Sweeney"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1245347",
+      "letterboxdTitle": "Twinless",
+      "letterboxdYear": 2025,
+      "confidence": "exact"
+    },
+    "uncut-gems": {
+      "tmdbId": 473033,
+      "originalTitle": "Uncut Gems",
+      "releaseDate": "2019-08-30",
+      "runtime": 136,
+      "overview": "A charismatic New York City jeweler always on the lookout for the next big score makes a series of high-stakes bets that could lead to the windfall of a lifetime. Howard must perform a precarious high-wire act, balancing business, family, and encroaching adversaries on all sides in his relentless pursuit of the ultimate win.",
+      "posterPath": "/6XN1vxHc7kUSqNWtaQKN45J5x2v.jpg",
+      "backdropPath": "/eGljNfNCrPhFYG2RXXmmE0OKu5.jpg",
+      "directors": [
+        "Josh Safdie",
+        "Benny Safdie"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/473033",
+      "letterboxdTitle": "Uncut Gems",
+      "letterboxdYear": 2019,
+      "confidence": "exact"
+    },
+    "weathering-with-you": {
+      "tmdbId": 568160,
+      "originalTitle": "天気の子",
+      "releaseDate": "2019-07-19",
+      "runtime": 112,
+      "overview": "The summer of his high school freshman year, Hodaka runs away from his remote island home to Tokyo, and quickly finds himself pushed to his financial and personal limits. The weather is unusually gloomy and rainy every day, as if taking its cue from his life. After many days of solitude, he finally finds work as a freelance writer for a mysterious occult magazine. Then, one day, Hodaka meets Hina on a busy street corner. This bright and strong-willed girl possesses a strange and wonderful ability: the power to stop the rain and clear the sky.",
+      "posterPath": "/qgrk7r1fV4IjuoeiGS5HOhXNdLJ.jpg",
+      "backdropPath": "/ize3ZieqSy0TCWljmVoEiy8fSFS.jpg",
+      "directors": [
+        "Makoto Shinkai"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/568160",
+      "letterboxdTitle": "Weathering with You",
+      "letterboxdYear": 2019,
+      "confidence": "exact"
+    }
+  },
+  "unmatched": {
+    "aftersun": {
+      "title": "Aftersun",
+      "year": 2022,
+      "reason": "2 results share that title and year",
+      "candidates": [
+        {
+          "tmdbId": 965150,
+          "title": "Aftersun",
+          "releaseDate": "2022-10-21"
+        },
+        {
+          "tmdbId": 969829,
+          "title": "Aftersun",
+          "releaseDate": "2022-05-01"
+        }
+      ]
+    },
+    "an-irish-goodbye": {
+      "title": "An Irish Goodbye",
+      "year": 2022,
+      "reason": "2 results share that title and year",
+      "candidates": [
+        {
+          "tmdbId": 1209878,
+          "title": "An Irish Goodbye",
+          "releaseDate": "2022-10-17"
+        },
+        {
+          "tmdbId": 889598,
+          "title": "An Irish Goodbye",
+          "releaseDate": "2022-03-04"
+        }
+      ]
+    },
+    "close-2022": {
+      "title": "Close",
+      "year": 2022,
+      "reason": "4 results share that title and year",
+      "candidates": [
+        {
+          "tmdbId": 901563,
+          "title": "Close",
+          "releaseDate": "2022-11-01"
+        },
+        {
+          "tmdbId": 1049300,
+          "title": "Too Close",
+          "releaseDate": "2022-11-16"
+        },
+        {
+          "tmdbId": 508664,
+          "title": "Danger Close: The Battle of Long Tan",
+          "releaseDate": "2019-08-08"
+        },
+        {
+          "tmdbId": 1204596,
+          "title": "Close",
+          "releaseDate": "2022-01-22"
+        },
+        {
+          "tmdbId": 965235,
+          "title": "Hotter Up Close",
+          "releaseDate": "2022-05-05"
+        }
+      ]
+    },
+    "hundreds-of-beavers": {
+      "title": "Hundreds of Beavers",
+      "year": 2022,
+      "reason": "no title+year match",
+      "candidates": [
+        {
+          "tmdbId": 1019939,
+          "title": "Hundreds of Beavers",
+          "releaseDate": "2024-01-26"
+        }
+      ]
+    },
+    "monster-2023": {
+      "title": "Monster",
+      "year": 2023,
+      "reason": "2 results share that title and year",
+      "candidates": [
+        {
+          "tmdbId": 1050035,
+          "title": "Monster",
+          "releaseDate": "2023-06-02"
+        },
+        {
+          "tmdbId": 823609,
+          "title": "Monster Family 2",
+          "releaseDate": "2021-10-15"
+        },
+        {
+          "tmdbId": 1203484,
+          "title": "Monster",
+          "releaseDate": "2023-11-29"
+        },
+        {
+          "tmdbId": 943344,
+          "title": "Underground Monster",
+          "releaseDate": "2023-04-27"
+        },
+        {
+          "tmdbId": 1028318,
+          "title": "Goodbye Monster",
+          "releaseDate": "2022-08-13"
+        }
+      ]
+    },
+    "mother-2009": {
+      "title": "Mother",
+      "year": 2009,
+      "reason": "3 results share that title and year",
+      "candidates": [
+        {
+          "tmdbId": 30018,
+          "title": "Mother",
+          "releaseDate": "2009-05-28"
+        },
+        {
+          "tmdbId": 37080,
+          "title": "Mother and Child",
+          "releaseDate": "2009-11-07"
+        },
+        {
+          "tmdbId": 698885,
+          "title": "Mother",
+          "releaseDate": "2009-04-01"
+        },
+        {
+          "tmdbId": 140489,
+          "title": "The Mother of Invention",
+          "releaseDate": "2009-05-02"
+        },
+        {
+          "tmdbId": 176005,
+          "title": "Mother Fish",
+          "releaseDate": "2010-08-05"
+        }
+      ]
+    },
+    "talk-to-me-2022": {
+      "title": "Talk to Me",
+      "year": 2022,
+      "reason": "2 results share that title and year",
+      "candidates": [
+        {
+          "tmdbId": 1008042,
+          "title": "Talk to Me",
+          "releaseDate": "2023-07-26"
+        },
+        {
+          "tmdbId": 1463098,
+          "title": "Talk to Me in Silence",
+          "releaseDate": "2023-03-28"
+        },
+        {
+          "tmdbId": 1118584,
+          "title": "Talk to Me",
+          "releaseDate": "2022-10-24"
+        },
+        {
+          "tmdbId": 1035088,
+          "title": "Talk to Me",
+          "releaseDate": "2022-10-21"
+        },
+        {
+          "tmdbId": 1001330,
+          "title": "Don't Talk to Me Like That",
+          "releaseDate": "2022-09-17"
+        }
+      ]
+    },
+    "the-lighthouse-2019": {
+      "title": "The Lighthouse",
+      "year": 2019,
+      "reason": "2 results share that title and year",
+      "candidates": [
+        {
+          "tmdbId": 503919,
+          "title": "The Lighthouse",
+          "releaseDate": "2019-10-18"
+        },
+        {
+          "tmdbId": 426487,
+          "title": "The Lighthouse",
+          "releaseDate": "2016-07-08"
+        },
+        {
+          "tmdbId": 930717,
+          "title": "The Lighthouse",
+          "releaseDate": "2017-09-07"
+        },
+        {
+          "tmdbId": 1021772,
+          "title": "The Lighthouse",
+          "releaseDate": "2019-02-09"
+        }
+      ]
+    },
+    "tuesday-2015-1": {
+      "title": "Tuesday",
+      "year": 2015,
+      "reason": "2 results share that title and year",
+      "candidates": [
+        {
+          "tmdbId": 972611,
+          "title": "Tuesday",
+          "releaseDate": "2015-11-19"
+        },
+        {
+          "tmdbId": 360783,
+          "title": "Tuesday",
+          "releaseDate": "2015-09-20"
+        },
+        {
+          "tmdbId": 448249,
+          "title": "Tuesday Slumber",
+          "releaseDate": "2015-06-16"
+        },
+        {
+          "tmdbId": 338611,
+          "title": "Tuesday Morning",
+          "releaseDate": "2015-01-01"
+        },
+        {
+          "tmdbId": 791491,
+          "title": "Tuesday Overnight",
+          "releaseDate": "2015-11-12"
+        }
+      ]
+    }
+  }
+}
