@@ -1,0 +1,913 @@
+{
+  "generatedAt": "2026-09-12T18:04:11.131Z",
+  "source": {
+    "kind": "letterboxd-list",
+    "member": "chrismrtn"
+  },
+  "totalFilms": 122,
+  "years": [
+    {
+      "year": 2020,
+      "listTitle": "Avoid the Rut 2020",
+      "listUrl": "https://letterboxd.com/chrismrtn/list/avoid-the-rut-2020/",
+      "films": [
+        {
+          "position": 1,
+          "title": "The Two Popes",
+          "year": 2019,
+          "slug": "the-two-popes",
+          "letterboxdUrl": "https://letterboxd.com/film/the-two-popes/"
+        },
+        {
+          "position": 2,
+          "title": "Uncut Gems",
+          "year": 2019,
+          "slug": "uncut-gems",
+          "letterboxdUrl": "https://letterboxd.com/film/uncut-gems/"
+        },
+        {
+          "position": 3,
+          "title": "Toy Story 4",
+          "year": 2019,
+          "slug": "toy-story-4",
+          "letterboxdUrl": "https://letterboxd.com/film/toy-story-4/"
+        },
+        {
+          "position": 4,
+          "title": "El Camino: A Breaking Bad Movie",
+          "year": 2019,
+          "slug": "el-camino-a-breaking-bad-movie",
+          "letterboxdUrl": "https://letterboxd.com/film/el-camino-a-breaking-bad-movie/"
+        },
+        {
+          "position": 5,
+          "title": "Bad Education",
+          "year": 2019,
+          "slug": "bad-education-2019",
+          "letterboxdUrl": "https://letterboxd.com/film/bad-education-2019/"
+        },
+        {
+          "position": 6,
+          "title": "Ruby Sparks",
+          "year": 2012,
+          "slug": "ruby-sparks",
+          "letterboxdUrl": "https://letterboxd.com/film/ruby-sparks/"
+        },
+        {
+          "position": 7,
+          "title": "The Lighthouse",
+          "year": 2019,
+          "slug": "the-lighthouse-2019",
+          "letterboxdUrl": "https://letterboxd.com/film/the-lighthouse-2019/"
+        },
+        {
+          "position": 8,
+          "title": "The Florida Project",
+          "year": 2017,
+          "slug": "the-florida-project",
+          "letterboxdUrl": "https://letterboxd.com/film/the-florida-project/"
+        },
+        {
+          "position": 9,
+          "title": "Weathering with You",
+          "year": 2019,
+          "slug": "weathering-with-you",
+          "letterboxdUrl": "https://letterboxd.com/film/weathering-with-you/"
+        },
+        {
+          "position": 10,
+          "title": "Bacurau",
+          "year": 2019,
+          "slug": "bacurau",
+          "letterboxdUrl": "https://letterboxd.com/film/bacurau/"
+        },
+        {
+          "position": 11,
+          "title": "A Ghost Story",
+          "year": 2017,
+          "slug": "a-ghost-story-2017",
+          "letterboxdUrl": "https://letterboxd.com/film/a-ghost-story-2017/"
+        },
+        {
+          "position": 12,
+          "title": "Mother",
+          "year": 2009,
+          "slug": "mother-2009",
+          "letterboxdUrl": "https://letterboxd.com/film/mother-2009/"
+        },
+        {
+          "position": 13,
+          "title": "In This Corner of the World",
+          "year": 2016,
+          "slug": "in-this-corner-of-the-world",
+          "letterboxdUrl": "https://letterboxd.com/film/in-this-corner-of-the-world/"
+        }
+      ]
+    },
+    {
+      "year": 2021,
+      "listTitle": "Avoid the Rut 2021",
+      "listUrl": "https://letterboxd.com/chrismrtn/list/avoid-the-rut-2021/",
+      "films": [
+        {
+          "position": 1,
+          "title": "The Last Black Man in San Francisco",
+          "year": 2019,
+          "slug": "the-last-black-man-in-san-francisco",
+          "letterboxdUrl": "https://letterboxd.com/film/the-last-black-man-in-san-francisco/"
+        },
+        {
+          "position": 2,
+          "title": "Another Round",
+          "year": 2020,
+          "slug": "another-round",
+          "letterboxdUrl": "https://letterboxd.com/film/another-round/"
+        },
+        {
+          "position": 3,
+          "title": "Promising Young Woman",
+          "year": 2020,
+          "slug": "promising-young-woman",
+          "letterboxdUrl": "https://letterboxd.com/film/promising-young-woman/"
+        },
+        {
+          "position": 4,
+          "title": "Minari",
+          "year": 2020,
+          "slug": "minari",
+          "letterboxdUrl": "https://letterboxd.com/film/minari/"
+        },
+        {
+          "position": 5,
+          "title": "The Last Detail",
+          "year": 1973,
+          "slug": "the-last-detail",
+          "letterboxdUrl": "https://letterboxd.com/film/the-last-detail/"
+        },
+        {
+          "position": 6,
+          "title": "Blindspotting",
+          "year": 2018,
+          "slug": "blindspotting",
+          "letterboxdUrl": "https://letterboxd.com/film/blindspotting/"
+        },
+        {
+          "position": 7,
+          "title": "Graduation",
+          "year": 2016,
+          "slug": "graduation-2016",
+          "letterboxdUrl": "https://letterboxd.com/film/graduation-2016/"
+        },
+        {
+          "position": 8,
+          "title": "Killing",
+          "year": 2018,
+          "slug": "killing",
+          "letterboxdUrl": "https://letterboxd.com/film/killing/"
+        },
+        {
+          "position": 9,
+          "title": "Mirai",
+          "year": 2018,
+          "slug": "mirai",
+          "letterboxdUrl": "https://letterboxd.com/film/mirai/"
+        },
+        {
+          "position": 10,
+          "title": "Eyes Without a Face",
+          "year": 1960,
+          "slug": "eyes-without-a-face",
+          "letterboxdUrl": "https://letterboxd.com/film/eyes-without-a-face/"
+        },
+        {
+          "position": 11,
+          "title": "Kaante",
+          "year": 2002,
+          "slug": "kaante",
+          "letterboxdUrl": "https://letterboxd.com/film/kaante/"
+        },
+        {
+          "position": 12,
+          "title": "Pig",
+          "year": 2021,
+          "slug": "pig-2021",
+          "letterboxdUrl": "https://letterboxd.com/film/pig-2021/"
+        },
+        {
+          "position": 13,
+          "title": "Cléo from 5 to 7",
+          "year": 1962,
+          "slug": "cleo-from-5-to-7",
+          "letterboxdUrl": "https://letterboxd.com/film/cleo-from-5-to-7/"
+        },
+        {
+          "position": 14,
+          "title": "The Green Knight",
+          "year": 2021,
+          "slug": "the-green-knight",
+          "letterboxdUrl": "https://letterboxd.com/film/the-green-knight/"
+        },
+        {
+          "position": 15,
+          "title": "A Prophet",
+          "year": 2009,
+          "slug": "a-prophet",
+          "letterboxdUrl": "https://letterboxd.com/film/a-prophet/"
+        },
+        {
+          "position": 16,
+          "title": "Harakiri",
+          "year": 1962,
+          "slug": "harakiri",
+          "letterboxdUrl": "https://letterboxd.com/film/harakiri/"
+        },
+        {
+          "position": 17,
+          "title": "Mon Oncle",
+          "year": 1958,
+          "slug": "mon-oncle",
+          "letterboxdUrl": "https://letterboxd.com/film/mon-oncle/"
+        },
+        {
+          "position": 18,
+          "title": "Goodnight Mommy",
+          "year": 2014,
+          "slug": "goodnight-mommy",
+          "letterboxdUrl": "https://letterboxd.com/film/goodnight-mommy/"
+        },
+        {
+          "position": 19,
+          "title": "Last Year at Marienbad",
+          "year": 1961,
+          "slug": "last-year-at-marienbad",
+          "letterboxdUrl": "https://letterboxd.com/film/last-year-at-marienbad/"
+        },
+        {
+          "position": 20,
+          "title": "The Last Duel",
+          "year": 2021,
+          "slug": "the-last-duel-2021",
+          "letterboxdUrl": "https://letterboxd.com/film/the-last-duel-2021/"
+        }
+      ]
+    },
+    {
+      "year": 2022,
+      "listTitle": "Avoid the Rut 2022",
+      "listUrl": "https://letterboxd.com/chrismrtn/list/avoid-the-rut-2022/",
+      "films": [
+        {
+          "position": 1,
+          "title": "Don't Look Up",
+          "year": 2021,
+          "slug": "dont-look-up-2021",
+          "letterboxdUrl": "https://letterboxd.com/film/dont-look-up-2021/"
+        },
+        {
+          "position": 2,
+          "title": "The Wailing",
+          "year": 2016,
+          "slug": "the-wailing",
+          "letterboxdUrl": "https://letterboxd.com/film/the-wailing/"
+        },
+        {
+          "position": 3,
+          "title": "Mass",
+          "year": 2021,
+          "slug": "mass-2021",
+          "letterboxdUrl": "https://letterboxd.com/film/mass-2021/"
+        },
+        {
+          "position": 4,
+          "title": "Donbass",
+          "year": 2018,
+          "slug": "donbass",
+          "letterboxdUrl": "https://letterboxd.com/film/donbass/"
+        },
+        {
+          "position": 5,
+          "title": "Mad God",
+          "year": 2021,
+          "slug": "mad-god",
+          "letterboxdUrl": "https://letterboxd.com/film/mad-god/"
+        },
+        {
+          "position": 6,
+          "title": "Kind Hearts and Coronets",
+          "year": 1949,
+          "slug": "kind-hearts-and-coronets",
+          "letterboxdUrl": "https://letterboxd.com/film/kind-hearts-and-coronets/"
+        },
+        {
+          "position": 7,
+          "title": "Flee",
+          "year": 2021,
+          "slug": "flee-2021",
+          "letterboxdUrl": "https://letterboxd.com/film/flee-2021/"
+        },
+        {
+          "position": 8,
+          "title": "Everything Everywhere All at Once",
+          "year": 2022,
+          "slug": "everything-everywhere-all-at-once",
+          "letterboxdUrl": "https://letterboxd.com/film/everything-everywhere-all-at-once/"
+        },
+        {
+          "position": 9,
+          "title": "Derek DelGaudio's In & of Itself",
+          "year": 2020,
+          "slug": "derek-delgaudios-in-of-itself",
+          "letterboxdUrl": "https://letterboxd.com/film/derek-delgaudios-in-of-itself/"
+        },
+        {
+          "position": 10,
+          "title": "Riders of Justice",
+          "year": 2020,
+          "slug": "riders-of-justice",
+          "letterboxdUrl": "https://letterboxd.com/film/riders-of-justice/"
+        },
+        {
+          "position": 11,
+          "title": "Belle",
+          "year": 2021,
+          "slug": "belle-2021",
+          "letterboxdUrl": "https://letterboxd.com/film/belle-2021/"
+        },
+        {
+          "position": 12,
+          "title": "Come and See",
+          "year": 1985,
+          "slug": "come-and-see",
+          "letterboxdUrl": "https://letterboxd.com/film/come-and-see/"
+        },
+        {
+          "position": 13,
+          "title": "The Square",
+          "year": 2017,
+          "slug": "the-square-2017",
+          "letterboxdUrl": "https://letterboxd.com/film/the-square-2017/"
+        },
+        {
+          "position": 14,
+          "title": "Tumbbad",
+          "year": 2018,
+          "slug": "tumbbad",
+          "letterboxdUrl": "https://letterboxd.com/film/tumbbad/"
+        },
+        {
+          "position": 15,
+          "title": "Incendies",
+          "year": 2010,
+          "slug": "incendies",
+          "letterboxdUrl": "https://letterboxd.com/film/incendies/"
+        },
+        {
+          "position": 16,
+          "title": "After Yang",
+          "year": 2021,
+          "slug": "after-yang",
+          "letterboxdUrl": "https://letterboxd.com/film/after-yang/"
+        },
+        {
+          "position": 17,
+          "title": "Broker",
+          "year": 2022,
+          "slug": "broker-2022",
+          "letterboxdUrl": "https://letterboxd.com/film/broker-2022/"
+        }
+      ]
+    },
+    {
+      "year": 2023,
+      "listTitle": "Avoid the Rut 2023",
+      "listUrl": "https://letterboxd.com/chrismrtn/list/avoid-the-rut-2023/",
+      "films": [
+        {
+          "position": 1,
+          "title": "Fire of Love",
+          "year": 2022,
+          "slug": "fire-of-love-2022",
+          "letterboxdUrl": "https://letterboxd.com/film/fire-of-love-2022/"
+        },
+        {
+          "position": 2,
+          "title": "Decision to Leave",
+          "year": 2022,
+          "slug": "decision-to-leave",
+          "letterboxdUrl": "https://letterboxd.com/film/decision-to-leave/"
+        },
+        {
+          "position": 3,
+          "title": "Close",
+          "year": 2022,
+          "slug": "close-2022",
+          "letterboxdUrl": "https://letterboxd.com/film/close-2022/"
+        },
+        {
+          "position": 4,
+          "title": "The Sparks Brothers",
+          "year": 2021,
+          "slug": "the-sparks-brothers",
+          "letterboxdUrl": "https://letterboxd.com/film/the-sparks-brothers/"
+        },
+        {
+          "position": 5,
+          "title": "Drowning by Numbers",
+          "year": 1988,
+          "slug": "drowning-by-numbers",
+          "letterboxdUrl": "https://letterboxd.com/film/drowning-by-numbers/"
+        },
+        {
+          "position": 6,
+          "title": "Chungking Express",
+          "year": 1994,
+          "slug": "chungking-express",
+          "letterboxdUrl": "https://letterboxd.com/film/chungking-express/"
+        },
+        {
+          "position": 7,
+          "title": "Possession",
+          "year": 1981,
+          "slug": "possession",
+          "letterboxdUrl": "https://letterboxd.com/film/possession/"
+        },
+        {
+          "position": 8,
+          "title": "3 Idiots",
+          "year": 2009,
+          "slug": "3-idiots",
+          "letterboxdUrl": "https://letterboxd.com/film/3-idiots/"
+        },
+        {
+          "position": 9,
+          "title": "Qala",
+          "year": 2022,
+          "slug": "qala",
+          "letterboxdUrl": "https://letterboxd.com/film/qala/"
+        },
+        {
+          "position": 10,
+          "title": "The Diamond",
+          "year": 2022,
+          "slug": "the-diamond-2022",
+          "letterboxdUrl": "https://letterboxd.com/film/the-diamond-2022/"
+        },
+        {
+          "position": 11,
+          "title": "The Long Goodbye",
+          "year": 2020,
+          "slug": "the-long-goodbye-2020",
+          "letterboxdUrl": "https://letterboxd.com/film/the-long-goodbye-2020/"
+        },
+        {
+          "position": 12,
+          "title": "Tuesday",
+          "year": 2015,
+          "slug": "tuesday-2015-1",
+          "letterboxdUrl": "https://letterboxd.com/film/tuesday-2015-1/"
+        },
+        {
+          "position": 13,
+          "title": "Pennies from Heaven",
+          "year": 2023,
+          "slug": "pennies-from-heaven-2023",
+          "letterboxdUrl": "https://letterboxd.com/film/pennies-from-heaven-2023/"
+        },
+        {
+          "position": 14,
+          "title": "Next Floor",
+          "year": 2008,
+          "slug": "next-floor",
+          "letterboxdUrl": "https://letterboxd.com/film/next-floor/"
+        },
+        {
+          "position": 15,
+          "title": "An Irish Goodbye",
+          "year": 2022,
+          "slug": "an-irish-goodbye",
+          "letterboxdUrl": "https://letterboxd.com/film/an-irish-goodbye/"
+        },
+        {
+          "position": 16,
+          "title": "Thunder Road",
+          "year": 2018,
+          "slug": "thunder-road-2018",
+          "letterboxdUrl": "https://letterboxd.com/film/thunder-road-2018/"
+        },
+        {
+          "position": 17,
+          "title": "Aftersun",
+          "year": 2022,
+          "slug": "aftersun",
+          "letterboxdUrl": "https://letterboxd.com/film/aftersun/"
+        },
+        {
+          "position": 18,
+          "title": "Suzume",
+          "year": 2022,
+          "slug": "suzume",
+          "letterboxdUrl": "https://letterboxd.com/film/suzume/"
+        },
+        {
+          "position": 19,
+          "title": "The French Connection",
+          "year": 1971,
+          "slug": "the-french-connection",
+          "letterboxdUrl": "https://letterboxd.com/film/the-french-connection/"
+        },
+        {
+          "position": 20,
+          "title": "The Menu",
+          "year": 2022,
+          "slug": "the-menu-2022",
+          "letterboxdUrl": "https://letterboxd.com/film/the-menu-2022/"
+        },
+        {
+          "position": 21,
+          "title": "Modern Times",
+          "year": 1936,
+          "slug": "modern-times",
+          "letterboxdUrl": "https://letterboxd.com/film/modern-times/"
+        },
+        {
+          "position": 22,
+          "title": "Talk to Me",
+          "year": 2022,
+          "slug": "talk-to-me-2022",
+          "letterboxdUrl": "https://letterboxd.com/film/talk-to-me-2022/"
+        },
+        {
+          "position": 23,
+          "title": "Belly",
+          "year": 1998,
+          "slug": "belly",
+          "letterboxdUrl": "https://letterboxd.com/film/belly/"
+        }
+      ]
+    },
+    {
+      "year": 2024,
+      "listTitle": "Avoid the Rut 2024",
+      "listUrl": "https://letterboxd.com/chrismrtn/list/avoid-the-rut-2024/",
+      "films": [
+        {
+          "position": 1,
+          "title": "Leave No Trace",
+          "year": 2018,
+          "slug": "leave-no-trace",
+          "letterboxdUrl": "https://letterboxd.com/film/leave-no-trace/"
+        },
+        {
+          "position": 2,
+          "title": "The Lunchbox",
+          "year": 2013,
+          "slug": "the-lunchbox",
+          "letterboxdUrl": "https://letterboxd.com/film/the-lunchbox/"
+        },
+        {
+          "position": 3,
+          "title": "Mad Bastards",
+          "year": 2010,
+          "slug": "mad-bastards",
+          "letterboxdUrl": "https://letterboxd.com/film/mad-bastards/"
+        },
+        {
+          "position": 4,
+          "title": "All of Us Strangers",
+          "year": 2023,
+          "slug": "all-of-us-strangers",
+          "letterboxdUrl": "https://letterboxd.com/film/all-of-us-strangers/"
+        },
+        {
+          "position": 5,
+          "title": "The Worst Person in the World",
+          "year": 2021,
+          "slug": "the-worst-person-in-the-world",
+          "letterboxdUrl": "https://letterboxd.com/film/the-worst-person-in-the-world/"
+        },
+        {
+          "position": 6,
+          "title": "Anatomy of a Fall",
+          "year": 2023,
+          "slug": "anatomy-of-a-fall",
+          "letterboxdUrl": "https://letterboxd.com/film/anatomy-of-a-fall/"
+        },
+        {
+          "position": 7,
+          "title": "Mars Express",
+          "year": 2023,
+          "slug": "mars-express",
+          "letterboxdUrl": "https://letterboxd.com/film/mars-express/"
+        },
+        {
+          "position": 8,
+          "title": "First Reformed",
+          "year": 2017,
+          "slug": "first-reformed",
+          "letterboxdUrl": "https://letterboxd.com/film/first-reformed/"
+        },
+        {
+          "position": 9,
+          "title": "The Monk and the Gun",
+          "year": 2023,
+          "slug": "the-monk-and-the-gun",
+          "letterboxdUrl": "https://letterboxd.com/film/the-monk-and-the-gun/"
+        },
+        {
+          "position": 10,
+          "title": "Monster",
+          "year": 2023,
+          "slug": "monster-2023",
+          "letterboxdUrl": "https://letterboxd.com/film/monster-2023/"
+        },
+        {
+          "position": 11,
+          "title": "American Animals",
+          "year": 2018,
+          "slug": "american-animals",
+          "letterboxdUrl": "https://letterboxd.com/film/american-animals/"
+        },
+        {
+          "position": 12,
+          "title": "Kids",
+          "year": 1995,
+          "slug": "kids",
+          "letterboxdUrl": "https://letterboxd.com/film/kids/"
+        },
+        {
+          "position": 13,
+          "title": "Hi, Mom",
+          "year": 2021,
+          "slug": "hi-mom-2021",
+          "letterboxdUrl": "https://letterboxd.com/film/hi-mom-2021/"
+        },
+        {
+          "position": 14,
+          "title": "Persona",
+          "year": 1966,
+          "slug": "persona",
+          "letterboxdUrl": "https://letterboxd.com/film/persona/"
+        },
+        {
+          "position": 15,
+          "title": "Touki Bouki",
+          "year": 1973,
+          "slug": "touki-bouki",
+          "letterboxdUrl": "https://letterboxd.com/film/touki-bouki/"
+        },
+        {
+          "position": 16,
+          "title": "Hundreds of Beavers",
+          "year": 2022,
+          "slug": "hundreds-of-beavers",
+          "letterboxdUrl": "https://letterboxd.com/film/hundreds-of-beavers/"
+        }
+      ]
+    },
+    {
+      "year": 2025,
+      "listTitle": "Avoid the Rut 2025",
+      "listUrl": "https://letterboxd.com/chrismrtn/list/avoid-the-rut-2025/",
+      "films": [
+        {
+          "position": 1,
+          "title": "Look Back",
+          "year": 2024,
+          "slug": "look-back-2024",
+          "letterboxdUrl": "https://letterboxd.com/film/look-back-2024/"
+        },
+        {
+          "position": 2,
+          "title": "The Remarkable Life of Ibelin",
+          "year": 2024,
+          "slug": "the-remarkable-life-of-ibelin",
+          "letterboxdUrl": "https://letterboxd.com/film/the-remarkable-life-of-ibelin/"
+        },
+        {
+          "position": 3,
+          "title": "The Substance",
+          "year": 2024,
+          "slug": "the-substance",
+          "letterboxdUrl": "https://letterboxd.com/film/the-substance/"
+        },
+        {
+          "position": 4,
+          "title": "Maquia: When the Promised Flower Blooms",
+          "year": 2018,
+          "slug": "maquia-when-the-promised-flower-blooms",
+          "letterboxdUrl": "https://letterboxd.com/film/maquia-when-the-promised-flower-blooms/"
+        },
+        {
+          "position": 5,
+          "title": "Terms of Endearment",
+          "year": 1983,
+          "slug": "terms-of-endearment",
+          "letterboxdUrl": "https://letterboxd.com/film/terms-of-endearment/"
+        },
+        {
+          "position": 6,
+          "title": "The Inauguration of the Pleasure Dome",
+          "year": 1954,
+          "slug": "the-inauguration-of-the-pleasure-dome",
+          "letterboxdUrl": "https://letterboxd.com/film/the-inauguration-of-the-pleasure-dome/"
+        },
+        {
+          "position": 7,
+          "title": "Alien³",
+          "year": 1992,
+          "slug": "alien-3",
+          "letterboxdUrl": "https://letterboxd.com/film/alien-3/"
+        },
+        {
+          "position": 8,
+          "title": "Coherence",
+          "year": 2013,
+          "slug": "coherence",
+          "letterboxdUrl": "https://letterboxd.com/film/coherence/"
+        },
+        {
+          "position": 9,
+          "title": "No Other Land",
+          "year": 2024,
+          "slug": "no-other-land",
+          "letterboxdUrl": "https://letterboxd.com/film/no-other-land/"
+        },
+        {
+          "position": 10,
+          "title": "The Death of Mr. Lazarescu",
+          "year": 2005,
+          "slug": "the-death-of-mr-lazarescu",
+          "letterboxdUrl": "https://letterboxd.com/film/the-death-of-mr-lazarescu/"
+        },
+        {
+          "position": 11,
+          "title": "The Red Turtle",
+          "year": 2016,
+          "slug": "the-red-turtle",
+          "letterboxdUrl": "https://letterboxd.com/film/the-red-turtle/"
+        },
+        {
+          "position": 12,
+          "title": "Taste of Cherry",
+          "year": 1997,
+          "slug": "taste-of-cherry",
+          "letterboxdUrl": "https://letterboxd.com/film/taste-of-cherry/"
+        },
+        {
+          "position": 13,
+          "title": "High and Low",
+          "year": 1963,
+          "slug": "high-and-low",
+          "letterboxdUrl": "https://letterboxd.com/film/high-and-low/"
+        },
+        {
+          "position": 14,
+          "title": "Trouble in Paradise",
+          "year": 1932,
+          "slug": "trouble-in-paradise",
+          "letterboxdUrl": "https://letterboxd.com/film/trouble-in-paradise/"
+        },
+        {
+          "position": 15,
+          "title": "The Long Goodbye",
+          "year": 1973,
+          "slug": "the-long-goodbye",
+          "letterboxdUrl": "https://letterboxd.com/film/the-long-goodbye/"
+        },
+        {
+          "position": 16,
+          "title": "Black Bag",
+          "year": 2025,
+          "slug": "black-bag-2025",
+          "letterboxdUrl": "https://letterboxd.com/film/black-bag-2025/"
+        },
+        {
+          "position": 17,
+          "title": "Twinless",
+          "year": 2025,
+          "slug": "twinless",
+          "letterboxdUrl": "https://letterboxd.com/film/twinless/"
+        },
+        {
+          "position": 18,
+          "title": "Tokyo Godfathers",
+          "year": 2003,
+          "slug": "tokyo-godfathers",
+          "letterboxdUrl": "https://letterboxd.com/film/tokyo-godfathers/"
+        },
+        {
+          "position": 19,
+          "title": "Before the Devil Knows You're Dead",
+          "year": 2007,
+          "slug": "before-the-devil-knows-youre-dead",
+          "letterboxdUrl": "https://letterboxd.com/film/before-the-devil-knows-youre-dead/"
+        }
+      ]
+    },
+    {
+      "year": 2026,
+      "listTitle": "Avoid The Rut 2026",
+      "listUrl": "https://letterboxd.com/chrismrtn/list/avoid-the-rut-2026/",
+      "films": [
+        {
+          "position": 1,
+          "title": "Sweet Country",
+          "year": 2017,
+          "slug": "sweet-country-2017",
+          "letterboxdUrl": "https://letterboxd.com/film/sweet-country-2017/"
+        },
+        {
+          "position": 2,
+          "title": "Beyond Utopia",
+          "year": 2023,
+          "slug": "flucht-aus-nordkorea",
+          "letterboxdUrl": "https://letterboxd.com/film/flucht-aus-nordkorea/"
+        },
+        {
+          "position": 3,
+          "title": "It Was Just an Accident",
+          "year": 2025,
+          "slug": "it-was-just-an-accident",
+          "letterboxdUrl": "https://letterboxd.com/film/it-was-just-an-accident/"
+        },
+        {
+          "position": 4,
+          "title": "No Other Choice",
+          "year": 2025,
+          "slug": "no-other-choice-2025",
+          "letterboxdUrl": "https://letterboxd.com/film/no-other-choice-2025/"
+        },
+        {
+          "position": 5,
+          "title": "The Life of Chuck",
+          "year": 2024,
+          "slug": "the-life-of-chuck",
+          "letterboxdUrl": "https://letterboxd.com/film/the-life-of-chuck/"
+        },
+        {
+          "position": 6,
+          "title": "All About Eve",
+          "year": 1950,
+          "slug": "all-about-eve",
+          "letterboxdUrl": "https://letterboxd.com/film/all-about-eve/"
+        },
+        {
+          "position": 7,
+          "title": "Central Station",
+          "year": 1998,
+          "slug": "central-station",
+          "letterboxdUrl": "https://letterboxd.com/film/central-station/"
+        },
+        {
+          "position": 8,
+          "title": "Project Hail Mary",
+          "year": 2026,
+          "slug": "project-hail-mary",
+          "letterboxdUrl": "https://letterboxd.com/film/project-hail-mary/"
+        },
+        {
+          "position": 9,
+          "title": "Bonnie and Clyde",
+          "year": 1967,
+          "slug": "bonnie-and-clyde",
+          "letterboxdUrl": "https://letterboxd.com/film/bonnie-and-clyde/"
+        },
+        {
+          "position": 10,
+          "title": "Old Joy",
+          "year": 2006,
+          "slug": "old-joy",
+          "letterboxdUrl": "https://letterboxd.com/film/old-joy/"
+        },
+        {
+          "position": 11,
+          "title": "Good Luck, Have Fun, Don't Die",
+          "year": 2025,
+          "slug": "good-luck-have-fun-dont-die",
+          "letterboxdUrl": "https://letterboxd.com/film/good-luck-have-fun-dont-die/"
+        },
+        {
+          "position": 12,
+          "title": "All You Need Is Kill",
+          "year": 2025,
+          "slug": "all-you-need-is-kill-2025",
+          "letterboxdUrl": "https://letterboxd.com/film/all-you-need-is-kill-2025/"
+        },
+        {
+          "position": 13,
+          "title": "Paper Moon",
+          "year": 1973,
+          "slug": "paper-moon",
+          "letterboxdUrl": "https://letterboxd.com/film/paper-moon/"
+        },
+        {
+          "position": 14,
+          "title": "Stalker",
+          "year": 1979,
+          "slug": "stalker",
+          "letterboxdUrl": "https://letterboxd.com/film/stalker/"
+        }
+      ]
+    }
+  ]
+}
