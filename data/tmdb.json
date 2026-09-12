@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-12T18:38:26.607Z",
+  "generatedAt": "2026-09-12T18:43:47.415Z",
   "note": "This product uses the TMDB API but is not endorsed or certified by TMDB.",
   "imageBase": "https://image.tmdb.org/t/p",
-  "matched": 113,
-  "unmatchedCount": 9,
+  "matched": 114,
+  "unmatchedCount": 8,
   "films": {
     "3-idiots": {
       "tmdbId": 20453,
@@ -694,6 +694,22 @@
       "tmdbUrl": "https://www.themoviedb.org/movie/12493",
       "letterboxdTitle": "High and Low",
       "letterboxdYear": 1963,
+      "confidence": "exact"
+    },
+    "hundreds-of-beavers": {
+      "tmdbId": 1019939,
+      "originalTitle": "Hundreds of Beavers",
+      "releaseDate": "2024-01-26",
+      "runtime": 108,
+      "overview": "In the 19th century, a drunken applejack salesman must go from zero to hero and become North America's greatest fur trapper by defeating hundreds of beavers.",
+      "posterPath": "/jBg64OA2QEWL0zaOFMoAGipeGjJ.jpg",
+      "backdropPath": "/krN2V7leYVBp6dOLzP11sM44eNb.jpg",
+      "directors": [
+        "Mike Cheslik"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1019939",
+      "letterboxdTitle": "Hundreds of Beavers",
+      "letterboxdYear": 2022,
       "confidence": "exact"
     },
     "in-this-corner-of-the-world": {
@@ -1887,18 +1903,6 @@
           "tmdbId": 965235,
           "title": "Hotter Up Close",
           "releaseDate": "2022-05-05"
-        }
-      ]
-    },
-    "hundreds-of-beavers": {
-      "title": "Hundreds of Beavers",
-      "year": 2022,
-      "reason": "no title+year match",
-      "candidates": [
-        {
-          "tmdbId": 1019939,
-          "title": "Hundreds of Beavers",
-          "releaseDate": "2024-01-26"
         }
       ]
     },
