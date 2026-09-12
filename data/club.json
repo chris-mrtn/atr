@@ -1,0 +1,33 @@
+{
+  "club": {
+    "name": "atr",
+    "tagline": "A movie club."
+  },
+  "rotation": {
+    "order": ["Chris", "Sam", "Priya", "Dev"],
+    "lastPickedBy": "Priya"
+  },
+  "archive": [
+    {
+      "title": "Chungking Express",
+      "year": 1994,
+      "director": "Wong Kar-wai",
+      "watchedOn": "2026-08-21",
+      "pickedBy": "Priya"
+    },
+    {
+      "title": "The Long Goodbye",
+      "year": 1973,
+      "director": "Robert Altman",
+      "watchedOn": "2026-07-17",
+      "pickedBy": "Sam"
+    },
+    {
+      "title": "Picnic at Hanging Rock",
+      "year": 1975,
+      "director": "Peter Weir",
+      "watchedOn": "2026-06-19",
+      "pickedBy": "Chris"
+    }
+  ]
+}

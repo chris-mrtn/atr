@@ -1,0 +1,139 @@
+:root {
+  color-scheme: light dark;
+  --bg: #faf9f7;
+  --fg: #171614;
+  --muted: #6f6c66;
+  --rule: #e4e1db;
+  --card: #ffffff;
+  --accent: #8a3324;
+}
+@media (prefers-color-scheme: dark) {
+  :root {
+    --bg: #121211;
+    --fg: #eceae6;
+    --muted: #97938c;
+    --rule: #2c2b28;
+    --card: #1a1917;
+    --accent: #d97757;
+  }
+}
+
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  padding: 0 20px;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.6 ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+main {
+  max-width: 44rem;
+  margin: 0 auto;
+  padding-block: clamp(2.5rem, 10vh, 6rem);
+}
+
+header { margin-bottom: 3.5rem; }
+
+h1 {
+  font-size: clamp(2rem, 7vw, 3.25rem);
+  line-height: 1.05;
+  letter-spacing: -0.03em;
+  margin: 0 0 0.4rem;
+}
+
+.tagline { color: var(--muted); margin: 0; }
+
+section { margin-bottom: 3.5rem; }
+
+h2 {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--muted);
+  font-weight: 600;
+  margin: 0 0 1.25rem;
+  padding-bottom: 0.6rem;
+  border-bottom: 1px solid var(--rule);
+}
+
+/* Whose turn */
+.turn {
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  padding: 1.75rem;
+}
+.turn-name {
+  font-size: clamp(1.75rem, 6vw, 2.5rem);
+  font-weight: 650;
+  letter-spacing: -0.02em;
+  line-height: 1.1;
+  margin: 0 0 0.35rem;
+  color: var(--accent);
+}
+.turn-note { color: var(--muted); margin: 0; font-size: 0.925rem; }
+
+.order {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.4rem;
+  margin-top: 1.5rem;
+  padding-top: 1.25rem;
+  border-top: 1px solid var(--rule);
+  list-style: none;
+}
+.order li {
+  font-size: 0.8rem;
+  color: var(--muted);
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: 0.15rem 0.7rem;
+}
+.order li[aria-current="true"] {
+  color: var(--bg);
+  background: var(--accent);
+  border-color: var(--accent);
+  font-weight: 600;
+}
+
+/* Archive */
+.archive { list-style: none; margin: 0; padding: 0; }
+.archive li {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem 0.75rem;
+  align-items: baseline;
+  padding: 0.9rem 0;
+  border-bottom: 1px solid var(--rule);
+}
+.archive li:last-child { border-bottom: 0; }
+.film-title { font-weight: 600; }
+.film-year { color: var(--muted); font-variant-numeric: tabular-nums; }
+.film-meta {
+  color: var(--muted);
+  font-size: 0.875rem;
+  margin-left: auto;
+  text-align: right;
+}
+@media (max-width: 30rem) {
+  .film-meta { margin-left: 0; text-align: left; flex-basis: 100%; }
+}
+
+.empty { color: var(--muted); font-style: italic; }
+
+footer {
+  border-top: 1px solid var(--rule);
+  padding-top: 1.5rem;
+  color: var(--muted);
+  font-size: 0.85rem;
+}
+footer code {
+  font-size: 0.85em;
+  background: var(--card);
+  border: 1px solid var(--rule);
+  border-radius: 4px;
+  padding: 0.1rem 0.35rem;
+}

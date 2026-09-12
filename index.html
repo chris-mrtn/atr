@@ -4,88 +4,35 @@
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
 <title>Movie Club</title>
-<style>
-  :root {
-    color-scheme: light dark;
-    --bg: #faf9f7;
-    --fg: #1a1a1a;
-    --muted: #6b6b6b;
-    --rule: #e2e0dc;
-  }
-  @media (prefers-color-scheme: dark) {
-    :root {
-      --bg: #131313;
-      --fg: #ededed;
-      --muted: #969696;
-      --rule: #2b2b2b;
-    }
-  }
-  * { box-sizing: border-box; }
-  body {
-    margin: 0;
-    padding: 0 20px;
-    background: var(--bg);
-    color: var(--fg);
-    font: 16px/1.6 ui-sans-serif, -apple-system, "Helvetica Neue", sans-serif;
-  }
-  main {
-    max-width: 40rem;
-    margin: 0 auto;
-    padding-block: clamp(3rem, 12vh, 7rem);
-  }
-  h1 {
-    font-size: clamp(2rem, 7vw, 3rem);
-    line-height: 1.1;
-    letter-spacing: -0.02em;
-    margin: 0 0 0.5rem;
-  }
-  .tagline { color: var(--muted); margin: 0 0 3rem; }
-  h2 {
-    font-size: 0.8rem;
-    text-transform: uppercase;
-    letter-spacing: 0.08em;
-    color: var(--muted);
-    font-weight: 600;
-    margin: 0 0 1rem;
-    padding-bottom: 0.5rem;
-    border-bottom: 1px solid var(--rule);
-  }
-  section { margin-bottom: 3rem; }
-  ul { margin: 0; padding-left: 1.1rem; color: var(--muted); }
-  li { margin-bottom: 0.4rem; }
-  footer {
-    border-top: 1px solid var(--rule);
-    padding-top: 1.5rem;
-    color: var(--muted);
-    font-size: 0.85rem;
-  }
-</style>
+<meta name="description" content="What we've watched and whose turn it is to pick.">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3E%3Crect width='16' height='16' rx='3' fill='%238a3324'/%3E%3Cg fill='%23fff'%3E%3Crect x='3' y='3' width='2' height='2'/%3E%3Crect x='3' y='7' width='2' height='2'/%3E%3Crect x='3' y='11' width='2' height='2'/%3E%3Crect x='11' y='3' width='2' height='2'/%3E%3Crect x='11' y='7' width='2' height='2'/%3E%3Crect x='11' y='11' width='2' height='2'/%3E%3C/g%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/styles.css">
 </head>
 <body>
 <main>
-  <h1>Movie Club</h1>
-  <p class="tagline">A placeholder. The real thing is coming.</p>
+  <header>
+    <h1 id="club-name">Movie Club</h1>
+    <p class="tagline" id="club-tagline"></p>
+  </header>
 
-  <section>
-    <h2>Next screening</h2>
-    <ul>
-      <li>To be announced</li>
-    </ul>
+  <section aria-labelledby="turn-heading">
+    <h2 id="turn-heading">Whose turn to pick</h2>
+    <div class="turn">
+      <p class="turn-name" id="next-picker">&hellip;</p>
+      <p class="turn-note" id="turn-note"></p>
+      <ul class="order" id="rotation-order"></ul>
+    </div>
   </section>
 
-  <section>
-    <h2>Planned</h2>
-    <ul>
-      <li>Screening schedule</li>
-      <li>Members and who picks next</li>
-      <li>Archive of what we've watched</li>
-      <li>Ratings</li>
-    </ul>
+  <section aria-labelledby="archive-heading">
+    <h2 id="archive-heading">What we've watched</h2>
+    <ul class="archive" id="archive"></ul>
   </section>
 
   <footer>
-    Scaffold only — nothing here is final.
+    Add a film or change the rotation by editing <code>data/club.json</code>.
   </footer>
 </main>
+<script src="assets/app.js"></script>
 </body>
 </html>
