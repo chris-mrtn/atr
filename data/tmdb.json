@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-12T18:43:47.415Z",
+  "generatedAt": "2026-09-13T07:17:28.349Z",
   "note": "This product uses the TMDB API but is not endorsed or certified by TMDB.",
   "imageBase": "https://image.tmdb.org/t/p",
   "matched": 114,
@@ -15,6 +15,10 @@
       "backdropPath": "/8gT3UKtglLVpu0YfccwbmXZ5Eis.jpg",
       "directors": [
         "Rajkumar Hirani"
+      ],
+      "genres": [
+        "Drama",
+        "Comedy"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/20453",
       "letterboxdTitle": "3 Idiots",
@@ -32,6 +36,11 @@
       "directors": [
         "David Lowery"
       ],
+      "genres": [
+        "Drama",
+        "Fantasy",
+        "Romance"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/428449",
       "letterboxdTitle": "A Ghost Story",
       "letterboxdYear": 2017,
@@ -47,6 +56,10 @@
       "backdropPath": "/jEJDjDBT6KCoS4WOBq68vZMbFk2.jpg",
       "directors": [
         "Jacques Audiard"
+      ],
+      "genres": [
+        "Crime",
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/21575",
       "letterboxdTitle": "A Prophet",
@@ -64,6 +77,10 @@
       "directors": [
         "Kogonada"
       ],
+      "genres": [
+        "Science Fiction",
+        "Drama"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/585378",
       "letterboxdTitle": "After Yang",
       "letterboxdYear": 2021,
@@ -79,6 +96,11 @@
       "backdropPath": "/lU0zVj8KcQVkPczdGGraYGiRC72.jpg",
       "directors": [
         "David Fincher"
+      ],
+      "genres": [
+        "Science Fiction",
+        "Action",
+        "Horror"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/8077",
       "letterboxdTitle": "Alien³",
@@ -96,6 +118,9 @@
       "directors": [
         "Joseph L. Mankiewicz"
       ],
+      "genres": [
+        "Drama"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/705",
       "letterboxdTitle": "All About Eve",
       "letterboxdYear": 1950,
@@ -111,6 +136,11 @@
       "backdropPath": "/8yjHiSuSEhzR916LcIecuQ8tETG.jpg",
       "directors": [
         "Andrew Haigh"
+      ],
+      "genres": [
+        "Romance",
+        "Drama",
+        "Fantasy"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/994108",
       "letterboxdTitle": "All of Us Strangers",
@@ -128,6 +158,12 @@
       "directors": [
         "Kenichiro Akimoto"
       ],
+      "genres": [
+        "Animation",
+        "Action",
+        "Mystery",
+        "Science Fiction"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1432547",
       "letterboxdTitle": "All You Need Is Kill",
       "letterboxdYear": 2025,
@@ -143,6 +179,11 @@
       "backdropPath": "/i28c1bKsnl1O0uqy6HeRWtioOXl.jpg",
       "directors": [
         "Bart Layton"
+      ],
+      "genres": [
+        "Drama",
+        "Crime",
+        "Documentary"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/489931",
       "letterboxdTitle": "American Animals",
@@ -160,6 +201,11 @@
       "directors": [
         "Justine Triet"
       ],
+      "genres": [
+        "Thriller",
+        "Mystery",
+        "Crime"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/915935",
       "letterboxdTitle": "Anatomy of a Fall",
       "letterboxdYear": 2023,
@@ -175,6 +221,10 @@
       "backdropPath": "/a2pPepVPtKY7E4XEkT7W3ZxUOY5.jpg",
       "directors": [
         "Thomas Vinterberg"
+      ],
+      "genres": [
+        "Comedy",
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/580175",
       "letterboxdTitle": "Another Round",
@@ -193,6 +243,11 @@
         "Kleber Mendonça Filho",
         "Juliano Dornelles"
       ],
+      "genres": [
+        "Mystery",
+        "Western",
+        "Thriller"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/446159",
       "letterboxdTitle": "Bacurau",
       "letterboxdYear": 2019,
@@ -208,6 +263,11 @@
       "backdropPath": "/kriOlxu4KVEjd0ZaY3dW7YYyP4z.jpg",
       "directors": [
         "Cory Finley"
+      ],
+      "genres": [
+        "Drama",
+        "Crime",
+        "History"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/530723",
       "letterboxdTitle": "Bad Education",
@@ -225,6 +285,11 @@
       "directors": [
         "Sidney Lumet"
       ],
+      "genres": [
+        "Crime",
+        "Drama",
+        "Thriller"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/7972",
       "letterboxdTitle": "Before the Devil Knows You're Dead",
       "letterboxdYear": 2007,
@@ -240,6 +305,12 @@
       "backdropPath": "/7aiVtavsu145yo6n4ZpazwMDLXL.jpg",
       "directors": [
         "Mamoru Hosoda"
+      ],
+      "genres": [
+        "Animation",
+        "Science Fiction",
+        "Drama",
+        "Music"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/776305",
       "letterboxdTitle": "Belle",
@@ -257,6 +328,10 @@
       "directors": [
         "Hype Williams"
       ],
+      "genres": [
+        "Crime",
+        "Drama"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/12888",
       "letterboxdTitle": "Belly",
       "letterboxdYear": 1998,
@@ -272,6 +347,11 @@
       "backdropPath": "/gxO51FVgADhYGGnnRPIlutVqb30.jpg",
       "directors": [
         "Steven Soderbergh"
+      ],
+      "genres": [
+        "Drama",
+        "Mystery",
+        "Thriller"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1233575",
       "letterboxdTitle": "Black Bag",
@@ -289,6 +369,11 @@
       "directors": [
         "Carlos López Estrada"
       ],
+      "genres": [
+        "Comedy",
+        "Crime",
+        "Drama"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/489930",
       "letterboxdTitle": "Blindspotting",
       "letterboxdYear": 2018,
@@ -304,6 +389,10 @@
       "backdropPath": "/vmMC9rC2Z3iptDj2K5AiK0wlVAF.jpg",
       "directors": [
         "Arthur Penn"
+      ],
+      "genres": [
+        "Crime",
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/475",
       "letterboxdTitle": "Bonnie and Clyde",
@@ -321,6 +410,9 @@
       "directors": [
         "Hirokazu Kore-eda"
       ],
+      "genres": [
+        "Drama"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/736732",
       "letterboxdTitle": "Broker",
       "letterboxdYear": 2022,
@@ -336,6 +428,9 @@
       "backdropPath": "/lrLIy9OFRQg4VkhrCyolfNXJEUH.jpg",
       "directors": [
         "Walter Salles"
+      ],
+      "genres": [
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/666",
       "letterboxdTitle": "Central Station",
@@ -353,6 +448,11 @@
       "directors": [
         "Wong Kar-Wai"
       ],
+      "genres": [
+        "Drama",
+        "Comedy",
+        "Romance"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/11104",
       "letterboxdTitle": "Chungking Express",
       "letterboxdYear": 1994,
@@ -368,6 +468,9 @@
       "backdropPath": "/oyatchDPpS4I9jpIIezFJGrmXcR.jpg",
       "directors": [
         "Agnès Varda"
+      ],
+      "genres": [
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/499",
       "letterboxdTitle": "Cléo from 5 to 7",
@@ -385,6 +488,10 @@
       "directors": [
         "James Ward Byrkit"
       ],
+      "genres": [
+        "Thriller",
+        "Science Fiction"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/220289",
       "letterboxdTitle": "Coherence",
       "letterboxdYear": 2013,
@@ -400,6 +507,12 @@
       "backdropPath": "/3Na31ta8vDuKOgQuPLdSZLs8bCB.jpg",
       "directors": [
         "Elem Klimov"
+      ],
+      "genres": [
+        "Drama",
+        "War",
+        "Horror",
+        "History"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/25237",
       "letterboxdTitle": "Come and See",
@@ -417,6 +530,11 @@
       "directors": [
         "Park Chan-wook"
       ],
+      "genres": [
+        "Thriller",
+        "Mystery",
+        "Romance"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/705996",
       "letterboxdTitle": "Decision to Leave",
       "letterboxdYear": 2022,
@@ -432,6 +550,10 @@
       "backdropPath": "/jYzNKWYermxipANIwbcMhTEAk8r.jpg",
       "directors": [
         "Frank Oz"
+      ],
+      "genres": [
+        "Drama",
+        "Documentary"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/681459",
       "letterboxdTitle": "Derek DelGaudio's In & of Itself",
@@ -449,6 +571,10 @@
       "directors": [
         "Sergei Loznitsa"
       ],
+      "genres": [
+        "Drama",
+        "War"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/519187",
       "letterboxdTitle": "Donbass",
       "letterboxdYear": 2018,
@@ -464,6 +590,11 @@
       "backdropPath": "/nvxrQQspxmSblCYDtvDAbVFX8Jt.jpg",
       "directors": [
         "Adam McKay"
+      ],
+      "genres": [
+        "Comedy",
+        "Science Fiction",
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/646380",
       "letterboxdTitle": "Don't Look Up",
@@ -481,6 +612,11 @@
       "directors": [
         "Peter Greenaway"
       ],
+      "genres": [
+        "Comedy",
+        "Crime",
+        "Drama"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/27362",
       "letterboxdTitle": "Drowning by Numbers",
       "letterboxdYear": 1988,
@@ -496,6 +632,11 @@
       "backdropPath": "/uLXK1LQM28XovWHPao3ViTeggXA.jpg",
       "directors": [
         "Vince Gilligan"
+      ],
+      "genres": [
+        "Crime",
+        "Drama",
+        "Thriller"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/559969",
       "letterboxdTitle": "El Camino: A Breaking Bad Movie",
@@ -514,6 +655,11 @@
         "Daniel Scheinert",
         "Daniel Kwan"
       ],
+      "genres": [
+        "Action",
+        "Adventure",
+        "Science Fiction"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/545611",
       "letterboxdTitle": "Everything Everywhere All at Once",
       "letterboxdYear": 2022,
@@ -529,6 +675,11 @@
       "backdropPath": "/pZVrDhIPF30JTRSkal2Lfk7NwrI.jpg",
       "directors": [
         "Georges Franju"
+      ],
+      "genres": [
+        "Drama",
+        "Horror",
+        "Thriller"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/31417",
       "letterboxdTitle": "Eyes Without a Face",
@@ -546,6 +697,9 @@
       "directors": [
         "Sara Dosa"
       ],
+      "genres": [
+        "Documentary"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/913823",
       "letterboxdTitle": "Fire of Love",
       "letterboxdYear": 2022,
@@ -561,6 +715,9 @@
       "backdropPath": "/mLwIDLa1FMkbKLteZRTatyvWLHX.jpg",
       "directors": [
         "Paul Schrader"
+      ],
+      "genres": [
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/458737",
       "letterboxdTitle": "First Reformed",
@@ -578,6 +735,10 @@
       "directors": [
         "Jonas Poher Rasmussen"
       ],
+      "genres": [
+        "Documentary",
+        "Animation"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/680813",
       "letterboxdTitle": "Flee",
       "letterboxdYear": 2021,
@@ -594,6 +755,10 @@
       "directors": [
         "Madeleine Gavin"
       ],
+      "genres": [
+        "Documentary",
+        "History"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1070032",
       "letterboxdTitle": "Beyond Utopia",
       "letterboxdYear": 2023,
@@ -609,6 +774,11 @@
       "backdropPath": "/drRxbu2OHG0DEENptZ8wI5f0uEU.jpg",
       "directors": [
         "Gore Verbinski"
+      ],
+      "genres": [
+        "Science Fiction",
+        "Action",
+        "Comedy"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1119449",
       "letterboxdTitle": "Good Luck, Have Fun, Don't Die",
@@ -627,6 +797,11 @@
         "Severin Fiala",
         "Veronika Franz"
       ],
+      "genres": [
+        "Horror",
+        "Mystery",
+        "Thriller"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/284303",
       "letterboxdTitle": "Goodnight Mommy",
       "letterboxdYear": 2014,
@@ -642,6 +817,9 @@
       "backdropPath": "/LLVvgPXBmIvVPG6MQaPLYVE9HE.jpg",
       "directors": [
         "Cristian Mungiu"
+      ],
+      "genres": [
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/374458",
       "letterboxdTitle": "Graduation",
@@ -659,6 +837,11 @@
       "directors": [
         "Masaki Kobayashi"
       ],
+      "genres": [
+        "Action",
+        "Drama",
+        "History"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/14537",
       "letterboxdTitle": "Harakiri",
       "letterboxdYear": 1962,
@@ -674,6 +857,11 @@
       "backdropPath": "/3UIAPRd4uu1IuYy8I3VfE55mdTd.jpg",
       "directors": [
         "Jia Ling"
+      ],
+      "genres": [
+        "Drama",
+        "Comedy",
+        "Fantasy"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/758891",
       "letterboxdTitle": "Hi, Mom",
@@ -691,6 +879,12 @@
       "directors": [
         "Akira Kurosawa"
       ],
+      "genres": [
+        "Drama",
+        "Crime",
+        "Thriller",
+        "Mystery"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/12493",
       "letterboxdTitle": "High and Low",
       "letterboxdYear": 1963,
@@ -706,6 +900,11 @@
       "backdropPath": "/krN2V7leYVBp6dOLzP11sM44eNb.jpg",
       "directors": [
         "Mike Cheslik"
+      ],
+      "genres": [
+        "Comedy",
+        "Adventure",
+        "Action"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1019939",
       "letterboxdTitle": "Hundreds of Beavers",
@@ -723,6 +922,12 @@
       "directors": [
         "Sunao Katabuchi"
       ],
+      "genres": [
+        "Animation",
+        "Drama",
+        "War",
+        "History"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/378108",
       "letterboxdTitle": "In This Corner of the World",
       "letterboxdYear": 2016,
@@ -738,6 +943,11 @@
       "backdropPath": "/f3ATwil5vmUeTsogBaMEKbBYBth.jpg",
       "directors": [
         "Denis Villeneuve"
+      ],
+      "genres": [
+        "Drama",
+        "War",
+        "Mystery"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/46738",
       "letterboxdTitle": "Incendies",
@@ -755,6 +965,12 @@
       "directors": [
         "Jafar Panahi"
       ],
+      "genres": [
+        "Drama",
+        "Thriller",
+        "Crime",
+        "Mystery"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1456349",
       "letterboxdTitle": "It Was Just an Accident",
       "letterboxdYear": 2025,
@@ -770,6 +986,11 @@
       "backdropPath": "/nppIdZbfRefoeIAqXR9vlJsxtHG.jpg",
       "directors": [
         "Sanjay Gupta"
+      ],
+      "genres": [
+        "Crime",
+        "Thriller",
+        "Action"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/35907",
       "letterboxdTitle": "Kaante",
@@ -787,6 +1008,10 @@
       "directors": [
         "Larry Clark"
       ],
+      "genres": [
+        "Drama",
+        "Crime"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/9344",
       "letterboxdTitle": "Kids",
       "letterboxdYear": 1995,
@@ -802,6 +1027,10 @@
       "backdropPath": "/daDjGXeRlxgHEwO8RSAkZQo1NVq.jpg",
       "directors": [
         "Shinya Tsukamoto"
+      ],
+      "genres": [
+        "Drama",
+        "Action"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/531753",
       "letterboxdTitle": "Killing",
@@ -819,6 +1048,10 @@
       "directors": [
         "Robert Hamer"
       ],
+      "genres": [
+        "Comedy",
+        "Crime"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/11898",
       "letterboxdTitle": "Kind Hearts and Coronets",
       "letterboxdYear": 1949,
@@ -834,6 +1067,10 @@
       "backdropPath": "/h1ov8VcVCiZsnWRu4EjZ74R33GP.jpg",
       "directors": [
         "Alain Resnais"
+      ],
+      "genres": [
+        "Drama",
+        "Romance"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/4024",
       "letterboxdTitle": "Last Year at Marienbad",
@@ -851,6 +1088,9 @@
       "directors": [
         "Debra Granik"
       ],
+      "genres": [
+        "Drama"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/443463",
       "letterboxdTitle": "Leave No Trace",
       "letterboxdYear": 2018,
@@ -866,6 +1106,10 @@
       "backdropPath": "/2okfik8YwzSfdETpT5cUClSiGFO.jpg",
       "directors": [
         "Kiyotaka Oshiyama"
+      ],
+      "genres": [
+        "Animation",
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1244492",
       "letterboxdTitle": "Look Back",
@@ -883,6 +1127,9 @@
       "directors": [
         "Brendan Fletcher"
       ],
+      "genres": [
+        "Drama"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/73066",
       "letterboxdTitle": "Mad Bastards",
       "letterboxdYear": 2010,
@@ -898,6 +1145,12 @@
       "backdropPath": "/eMDQdKeoWTrCm2wEs7I7OD3bTQl.jpg",
       "directors": [
         "Phil Tippett"
+      ],
+      "genres": [
+        "Animation",
+        "Fantasy",
+        "Horror",
+        "Science Fiction"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/846867",
       "letterboxdTitle": "Mad God",
@@ -915,6 +1168,11 @@
       "directors": [
         "Mari Okada"
       ],
+      "genres": [
+        "Animation",
+        "Drama",
+        "Fantasy"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/476292",
       "letterboxdTitle": "Maquia: When the Promised Flower Blooms",
       "letterboxdYear": 2018,
@@ -930,6 +1188,11 @@
       "backdropPath": "/yIOw17XdfsoCaydtrkzlZBCcHk6.jpg",
       "directors": [
         "Jérémie Périn"
+      ],
+      "genres": [
+        "Animation",
+        "Science Fiction",
+        "Thriller"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/586810",
       "letterboxdTitle": "Mars Express",
@@ -947,6 +1210,9 @@
       "directors": [
         "Fran Kranz"
       ],
+      "genres": [
+        "Drama"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/423333",
       "letterboxdTitle": "Mass",
       "letterboxdYear": 2021,
@@ -962,6 +1228,9 @@
       "backdropPath": "/bKCpRjjTKcr3KAITmwjVMobbBYg.jpg",
       "directors": [
         "Lee Isaac Chung"
+      ],
+      "genres": [
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/615643",
       "letterboxdTitle": "Minari",
@@ -979,6 +1248,13 @@
       "directors": [
         "Mamoru Hosoda"
       ],
+      "genres": [
+        "Animation",
+        "Family",
+        "Fantasy",
+        "Adventure",
+        "Drama"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/475215",
       "letterboxdTitle": "Mirai",
       "letterboxdYear": 2018,
@@ -994,6 +1270,11 @@
       "backdropPath": "/kSlO1pHpwQfPQdgVPr7dJiJNtJ8.jpg",
       "directors": [
         "Charlie Chaplin"
+      ],
+      "genres": [
+        "Comedy",
+        "Drama",
+        "Romance"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/3082",
       "letterboxdTitle": "Modern Times",
@@ -1011,6 +1292,9 @@
       "directors": [
         "Jacques Tati"
       ],
+      "genres": [
+        "Comedy"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/427",
       "letterboxdTitle": "Mon Oncle",
       "letterboxdYear": 1958,
@@ -1027,6 +1311,9 @@
       "directors": [
         "Denis Villeneuve"
       ],
+      "genres": [
+        "Comedy"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/99343",
       "letterboxdTitle": "Next Floor",
       "letterboxdYear": 2008,
@@ -1042,6 +1329,11 @@
       "backdropPath": "/1eM6Ey1FzpgJigrxRiSYtntSWq7.jpg",
       "directors": [
         "Park Chan-wook"
+      ],
+      "genres": [
+        "Comedy",
+        "Crime",
+        "Thriller"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/639988",
       "letterboxdTitle": "No Other Choice",
@@ -1062,6 +1354,9 @@
         "Yuval Abraham",
         "Rachel Szor"
       ],
+      "genres": [
+        "Documentary"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1232493",
       "letterboxdTitle": "No Other Land",
       "letterboxdYear": 2024,
@@ -1077,6 +1372,9 @@
       "backdropPath": "/t9lOz9dFflcHo3QjdtDND6cKGnF.jpg",
       "directors": [
         "Kelly Reichardt"
+      ],
+      "genres": [
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/26518",
       "letterboxdTitle": "Old Joy",
@@ -1094,6 +1392,11 @@
       "directors": [
         "Peter Bogdanovich"
       ],
+      "genres": [
+        "Comedy",
+        "Crime",
+        "Drama"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/11293",
       "letterboxdTitle": "Paper Moon",
       "letterboxdYear": 1973,
@@ -1110,6 +1413,9 @@
       "directors": [
         "Sandy Honig"
       ],
+      "genres": [
+        "Comedy"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1098587",
       "letterboxdTitle": "Pennies from Heaven",
       "letterboxdYear": 2023,
@@ -1121,10 +1427,13 @@
       "releaseDate": "1966-10-18",
       "runtime": 85,
       "overview": "A young nurse, Alma, is put in charge of Elisabeth Vogler: an actress who is seemingly healthy in all respects, but will not talk. As they spend time together, Alma speaks to Elisabeth constantly, never receiving any answer.",
-      "posterPath": "/hloUDKausII3Zf8ROsEZJHSkXza.jpg",
+      "posterPath": "/cl0HEZT8UfzLqaMrYTvGNHOfPYj.jpg",
       "backdropPath": "/amr72SENYz7AM4Hq5WBXxFBJEY6.jpg",
       "directors": [
         "Ingmar Bergman"
+      ],
+      "genres": [
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/797",
       "letterboxdTitle": "Persona",
@@ -1142,6 +1451,11 @@
       "directors": [
         "Michael Sarnoski"
       ],
+      "genres": [
+        "Drama",
+        "Thriller",
+        "Mystery"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/635731",
       "letterboxdTitle": "Pig",
       "letterboxdYear": 2021,
@@ -1157,6 +1471,9 @@
       "backdropPath": "/zfw3fcF7d4KcWYEvps4zUfl303b.jpg",
       "directors": [
         "Andrzej Żuławski"
+      ],
+      "genres": [
+        "Horror"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/21484",
       "letterboxdTitle": "Possession",
@@ -1175,6 +1492,10 @@
         "Phil Lord",
         "Christopher Miller"
       ],
+      "genres": [
+        "Science Fiction",
+        "Adventure"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/687163",
       "letterboxdTitle": "Project Hail Mary",
       "letterboxdYear": 2026,
@@ -1190,6 +1511,11 @@
       "backdropPath": "/gESm6yc2MZpSXakgqLF0OlLaRn1.jpg",
       "directors": [
         "Emerald Fennell"
+      ],
+      "genres": [
+        "Thriller",
+        "Crime",
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/582014",
       "letterboxdTitle": "Promising Young Woman",
@@ -1207,6 +1533,10 @@
       "directors": [
         "Anvita Dutt"
       ],
+      "genres": [
+        "Drama",
+        "Music"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/934419",
       "letterboxdTitle": "Qala",
       "letterboxdYear": 2022,
@@ -1222,6 +1552,12 @@
       "backdropPath": "/7XZsVVnqTsMJXg3J4CHzeV2Lro9.jpg",
       "directors": [
         "Anders Thomas Jensen"
+      ],
+      "genres": [
+        "Action",
+        "Comedy",
+        "Drama",
+        "Thriller"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/663870",
       "letterboxdTitle": "Riders of Justice",
@@ -1240,6 +1576,12 @@
         "Jonathan Dayton",
         "Valerie Faris"
       ],
+      "genres": [
+        "Comedy",
+        "Romance",
+        "Fantasy",
+        "Drama"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/103332",
       "letterboxdTitle": "Ruby Sparks",
       "letterboxdYear": 2012,
@@ -1255,6 +1597,10 @@
       "backdropPath": "/6yrbWzzrPp7pwz6zHdifspJk8t3.jpg",
       "directors": [
         "Andrei Tarkovsky"
+      ],
+      "genres": [
+        "Science Fiction",
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1398",
       "letterboxdTitle": "Stalker",
@@ -1272,6 +1618,12 @@
       "directors": [
         "Makoto Shinkai"
       ],
+      "genres": [
+        "Animation",
+        "Drama",
+        "Adventure",
+        "Fantasy"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/916224",
       "letterboxdTitle": "Suzume",
       "letterboxdYear": 2022,
@@ -1287,6 +1639,12 @@
       "backdropPath": "/5R5O1IkKz4Otrhax39AwYRPkh1h.jpg",
       "directors": [
         "Warwick Thornton"
+      ],
+      "genres": [
+        "Western",
+        "Crime",
+        "Thriller",
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/468210",
       "letterboxdTitle": "Sweet Country",
@@ -1304,6 +1662,9 @@
       "directors": [
         "Abbas Kiarostami"
       ],
+      "genres": [
+        "Drama"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/30020",
       "letterboxdTitle": "Taste of Cherry",
       "letterboxdYear": 1997,
@@ -1319,6 +1680,10 @@
       "backdropPath": "/rZXTcmx7mKysaseyWZHs6wzPAcZ.jpg",
       "directors": [
         "James L. Brooks"
+      ],
+      "genres": [
+        "Drama",
+        "Comedy"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/11050",
       "letterboxdTitle": "Terms of Endearment",
@@ -1336,6 +1701,10 @@
       "directors": [
         "Cristi Puiu"
       ],
+      "genres": [
+        "Drama",
+        "Comedy"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/31032",
       "letterboxdTitle": "The Death of Mr. Lazarescu",
       "letterboxdYear": 2005,
@@ -1352,6 +1721,7 @@
       "directors": [
         "Vedran Rupic"
       ],
+      "genres": [],
       "tmdbUrl": "https://www.themoviedb.org/movie/959036",
       "letterboxdTitle": "The Diamond",
       "letterboxdYear": 2022,
@@ -1367,6 +1737,9 @@
       "backdropPath": "/GOwNU7Z9G3ORjNxdZnURfuIGS6.jpg",
       "directors": [
         "Sean Baker"
+      ],
+      "genres": [
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/394117",
       "letterboxdTitle": "The Florida Project",
@@ -1384,6 +1757,11 @@
       "directors": [
         "William Friedkin"
       ],
+      "genres": [
+        "Action",
+        "Crime",
+        "Thriller"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1051",
       "letterboxdTitle": "The French Connection",
       "letterboxdYear": 1971,
@@ -1399,6 +1777,11 @@
       "backdropPath": "/kIQc0kkqIYTo65x5XjlKgqdDQ6a.jpg",
       "directors": [
         "David Lowery"
+      ],
+      "genres": [
+        "Adventure",
+        "Drama",
+        "Fantasy"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/559907",
       "letterboxdTitle": "The Green Knight",
@@ -1416,6 +1799,10 @@
       "directors": [
         "Kenneth Anger"
       ],
+      "genres": [
+        "Fantasy",
+        "Horror"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/43337",
       "letterboxdTitle": "The Inauguration of the Pleasure Dome",
       "letterboxdYear": 1954,
@@ -1431,6 +1818,9 @@
       "backdropPath": "/n0FzDpOvVhkj3uN7WHXXnAXOKFi.jpg",
       "directors": [
         "Joe Talbot"
+      ],
+      "genres": [
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/522039",
       "letterboxdTitle": "The Last Black Man in San Francisco",
@@ -1448,6 +1838,10 @@
       "directors": [
         "Hal Ashby"
       ],
+      "genres": [
+        "Drama",
+        "Comedy"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/14886",
       "letterboxdTitle": "The Last Detail",
       "letterboxdYear": 1973,
@@ -1463,6 +1857,11 @@
       "backdropPath": "/4LrL40XecjGLRpX5I2gzMTUt04l.jpg",
       "directors": [
         "Ridley Scott"
+      ],
+      "genres": [
+        "Drama",
+        "History",
+        "Thriller"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/617653",
       "letterboxdTitle": "The Last Duel",
@@ -1480,6 +1879,10 @@
       "directors": [
         "Mike Flanagan"
       ],
+      "genres": [
+        "Fantasy",
+        "Drama"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/842924",
       "letterboxdTitle": "The Life of Chuck",
       "letterboxdYear": 2024,
@@ -1495,6 +1898,11 @@
       "backdropPath": "/eXCKkX8LVo1vRK4GhVoo0bA8jHM.jpg",
       "directors": [
         "Robert Altman"
+      ],
+      "genres": [
+        "Mystery",
+        "Drama",
+        "Crime"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1847",
       "letterboxdTitle": "The Long Goodbye",
@@ -1512,6 +1920,10 @@
       "directors": [
         "Aneil Karia"
       ],
+      "genres": [
+        "Drama",
+        "Thriller"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/681015",
       "letterboxdTitle": "The Long Goodbye",
       "letterboxdYear": 2020,
@@ -1527,6 +1939,10 @@
       "backdropPath": "/uwj3rzni98tEYqJae4Cy2k78Xmm.jpg",
       "directors": [
         "Ritesh Batra"
+      ],
+      "genres": [
+        "Drama",
+        "Romance"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/191714",
       "letterboxdTitle": "The Lunchbox",
@@ -1544,6 +1960,10 @@
       "directors": [
         "Mark Mylod"
       ],
+      "genres": [
+        "Comedy",
+        "Horror"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/593643",
       "letterboxdTitle": "The Menu",
       "letterboxdYear": 2022,
@@ -1559,6 +1979,10 @@
       "backdropPath": "/bM3uB05kO12okK2PTKHp0m823fe.jpg",
       "directors": [
         "Pawo Choyning Dorji"
+      ],
+      "genres": [
+        "Comedy",
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1109237",
       "letterboxdTitle": "The Monk and the Gun",
@@ -1576,6 +2000,12 @@
       "directors": [
         "Michael Dudok de Wit"
       ],
+      "genres": [
+        "Animation",
+        "Drama",
+        "Fantasy",
+        "Family"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/337703",
       "letterboxdTitle": "The Red Turtle",
       "letterboxdYear": 2016,
@@ -1591,6 +2021,10 @@
       "backdropPath": "/8QAqAqZY6qoIWBuL7aoA6QuR6Jn.jpg",
       "directors": [
         "Benjamin Ree"
+      ],
+      "genres": [
+        "Documentary",
+        "Animation"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1167027",
       "letterboxdTitle": "The Remarkable Life of Ibelin",
@@ -1608,6 +2042,10 @@
       "directors": [
         "Edgar Wright"
       ],
+      "genres": [
+        "Documentary",
+        "Music"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/776485",
       "letterboxdTitle": "The Sparks Brothers",
       "letterboxdYear": 2021,
@@ -1623,6 +2061,9 @@
       "backdropPath": "/bYZM4DoHrmzY3oq2qrcXAYQmLNp.jpg",
       "directors": [
         "Ruben Östlund"
+      ],
+      "genres": [
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/401246",
       "letterboxdTitle": "The Square",
@@ -1640,6 +2081,10 @@
       "directors": [
         "Coralie Fargeat"
       ],
+      "genres": [
+        "Horror",
+        "Science Fiction"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/933260",
       "letterboxdTitle": "The Substance",
       "letterboxdYear": 2024,
@@ -1655,6 +2100,10 @@
       "backdropPath": "/bOPessdyd0dChHy70FM8Om7CgDg.jpg",
       "directors": [
         "Fernando Meirelles"
+      ],
+      "genres": [
+        "Drama",
+        "History"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/551332",
       "letterboxdTitle": "The Two Popes",
@@ -1672,6 +2121,10 @@
       "directors": [
         "Na Hong-jin"
       ],
+      "genres": [
+        "Horror",
+        "Mystery"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/293670",
       "letterboxdTitle": "The Wailing",
       "letterboxdYear": 2016,
@@ -1687,6 +2140,11 @@
       "backdropPath": "/woYGBHERSMhIHqmkkRCbCXp81l4.jpg",
       "directors": [
         "Joachim Trier"
+      ],
+      "genres": [
+        "Drama",
+        "Romance",
+        "Comedy"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/660120",
       "letterboxdTitle": "The Worst Person in the World",
@@ -1704,6 +2162,10 @@
       "directors": [
         "Jim Cummings"
       ],
+      "genres": [
+        "Comedy",
+        "Drama"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/502422",
       "letterboxdTitle": "Thunder Road",
       "letterboxdYear": 2018,
@@ -1719,6 +2181,11 @@
       "backdropPath": "/mnppPdfdtKPNoRemzIZDwOKpgfv.jpg",
       "directors": [
         "Satoshi Kon"
+      ],
+      "genres": [
+        "Animation",
+        "Drama",
+        "Comedy"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/13398",
       "letterboxdTitle": "Tokyo Godfathers",
@@ -1736,6 +2203,10 @@
       "directors": [
         "Djibril Diop Mambéty"
       ],
+      "genres": [
+        "Drama",
+        "Romance"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/77771",
       "letterboxdTitle": "Touki Bouki",
       "letterboxdYear": 1973,
@@ -1751,6 +2222,12 @@
       "backdropPath": "/q62bpQ67qaXY0u6b2wFEnQYIbPd.jpg",
       "directors": [
         "Josh Cooley"
+      ],
+      "genres": [
+        "Family",
+        "Comedy",
+        "Animation",
+        "Adventure"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/301528",
       "letterboxdTitle": "Toy Story 4",
@@ -1768,6 +2245,11 @@
       "directors": [
         "Ernst Lubitsch"
       ],
+      "genres": [
+        "Comedy",
+        "Crime",
+        "Romance"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/195",
       "letterboxdTitle": "Trouble in Paradise",
       "letterboxdYear": 1932,
@@ -1784,6 +2266,10 @@
       "directors": [
         "Rahi Anil Barve"
       ],
+      "genres": [
+        "Fantasy",
+        "Horror"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/538858",
       "letterboxdTitle": "Tumbbad",
       "letterboxdYear": 2018,
@@ -1799,6 +2285,10 @@
       "backdropPath": "/fnvTC96lA7pf8ZlMKI2FgBZ86AP.jpg",
       "directors": [
         "James Sweeney"
+      ],
+      "genres": [
+        "Comedy",
+        "Drama"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1245347",
       "letterboxdTitle": "Twinless",
@@ -1817,6 +2307,11 @@
         "Josh Safdie",
         "Benny Safdie"
       ],
+      "genres": [
+        "Drama",
+        "Thriller",
+        "Crime"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/473033",
       "letterboxdTitle": "Uncut Gems",
       "letterboxdYear": 2019,
@@ -1832,6 +2327,12 @@
       "backdropPath": "/ize3ZieqSy0TCWljmVoEiy8fSFS.jpg",
       "directors": [
         "Makoto Shinkai"
+      ],
+      "genres": [
+        "Animation",
+        "Drama",
+        "Fantasy",
+        "Romance"
       ],
       "tmdbUrl": "https://www.themoviedb.org/movie/568160",
       "letterboxdTitle": "Weathering with You",

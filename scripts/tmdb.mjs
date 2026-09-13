@@ -142,6 +142,7 @@ export function summarize(details) {
   const directors = (details?.credits?.crew ?? [])
     .filter(c => c.job === 'Director')
     .map(c => c.name);
+  const genres = (details?.genres ?? []).map(g => g.name);
   return {
     tmdbId: details.id,
     originalTitle: details.original_title ?? null,
@@ -151,6 +152,7 @@ export function summarize(details) {
     posterPath: details.poster_path ?? null,
     backdropPath: details.backdrop_path ?? null,
     directors,
+    genres,
     tmdbUrl: `https://www.themoviedb.org/movie/${details.id}`,
   };
 }

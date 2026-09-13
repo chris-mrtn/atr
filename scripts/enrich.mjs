@@ -85,7 +85,12 @@ async function main() {
 
   const needsLookup = films.filter(f => {
     if (overrides[f.slug] && cache.films?.[f.slug]?.tmdbId !== overrides[f.slug]) return true;
-    if (cache.films?.[f.slug]) return false;
+    if (cache.films?.[f.slug]) {
+      // One-time backfill: entries resolved before genres was tracked are
+      // missing the field entirely (as opposed to holding an empty array,
+      // which means TMDB genuinely listed none), so re-fetch just those.
+      return !('genres' in cache.films[f.slug]);
+    }
     if (cache.unmatched?.[f.slug] && !RETRY_UNMATCHED) return false;
     return true;
   });
