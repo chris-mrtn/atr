@@ -977,14 +977,18 @@ function setupDebugPanel({ allFilms, tmdb, imageBase, upcoming, waitingName }) {
     'font-size: .75rem', 'display: none', 'flex-direction: column', 'gap: .9rem',
   ].join(';');
 
+  // Invisible on purpose - this is a dev-only panel, not something a
+  // visitor should be able to find. The click target is still a real
+  // 2.2rem circle bottom-right, there's just nothing to see there.
   const toggle = document.createElement('button');
   toggle.textContent = '⚙️ settings';
+  toggle.setAttribute('aria-hidden', 'true');
+  toggle.tabIndex = -1;
   toggle.style.cssText = [
     'position: fixed', 'bottom: 12px', 'right: 12px', 'z-index: 999',
-    'padding: .5rem .9rem', 'font-size: .75rem', 'border-radius: 999px',
-    'border: 1px solid rgba(127,127,127,.4)', 'background: rgba(127,127,127,.2)',
-    'color: inherit', 'backdrop-filter: blur(6px)', 'cursor: pointer',
-    'font-family: inherit',
+    'width: 2.2rem', 'height: 2.2rem', 'padding: 0', 'border: none',
+    'border-radius: 999px', 'background: transparent', 'color: transparent',
+    'cursor: default', 'font-family: inherit', 'opacity: 0',
   ].join(';');
   toggle.addEventListener('click', () => {
     panel.style.display = panel.style.display === 'none' ? 'flex' : 'none';

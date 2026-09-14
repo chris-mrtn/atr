@@ -13,6 +13,20 @@
 
 * { box-sizing: border-box; }
 
+/* Reserves the scrollbar's own width permanently, so toggling
+   body.stats-open's overflow:hidden (see the stats page rules further
+   down) never changes the document's content width - without this, losing
+   the scrollbar mid-interaction shifts everything sideways by its width.
+   The scrollbar itself is then made fully transparent below - the gutter
+   stays, nothing is painted into it. */
+html {
+  scrollbar-gutter: stable;
+  scrollbar-color: transparent transparent; /* Firefox */
+}
+::-webkit-scrollbar { width: 12px; background: transparent; }
+::-webkit-scrollbar-thumb { background: transparent; }
+::-webkit-scrollbar-track { background: transparent; }
+
 body {
   position: relative;
   margin: 0;
@@ -596,6 +610,9 @@ h1 {
   padding: 0;
 }
 .films-grid .poster { width: 100%; }
+@media (max-width: 640px) {
+  .films-grid { grid-template-columns: repeat(3, 1fr); }
+}
 
 /* One of these per filter (year, genre, ...) - a positioning context so
    each dropdown's menu opens directly under its own pill rather than under
