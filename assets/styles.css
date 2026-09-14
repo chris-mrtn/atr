@@ -181,6 +181,177 @@ main { max-width: 40rem; margin: 0 auto; padding-top: 20pt; padding-bottom: clam
 
 a { color: inherit; }
 
+/* Stats page --------------------------------------------------------- */
+
+/* Fading main out (rather than removing it) leaves the backdrop effect
+   running behind the stats page exactly as it was - the whole point being
+   that only the content swaps, not the mood. pointer-events is dropped
+   immediately so faded-out content can't be tabbed to or clicked through
+   to while it's on its way out. */
+body.stats-open main {
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s ease;
+}
+main { transition: opacity .4s ease; }
+/* Without this, the page behind the (fixed, independently-scrolling)
+   stats overlay is still just as tall as ever and scrolls right along
+   with it - two different scroll positions moving at once, even though
+   only one is visible. */
+body.stats-open { overflow: hidden; }
+
+.stats-toggle {
+  position: absolute;
+  top: 16px;
+  right: 16px;
+  z-index: 30;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / .3);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+  /* Lets whatever's behind it (the backdrop mesh) light the button up
+     additively, like macOS's "plus lighter" vibrancy material, rather than
+     just sitting flat on top of it. */
+  mix-blend-mode: plus-lighter;
+}
+.stats-toggle svg { width: 1.1rem; height: 1.1rem; }
+.stats-toggle:hover {
+  border-color: rgb(255 255 255 / .5);
+}
+/* The close (x) state reads better top-left, out of the way of whatever
+   content ends up on the right side of the stats page. */
+body.stats-open .stats-toggle {
+  right: auto;
+  left: 16px;
+}
+
+.stats-page {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  overflow-y: auto;
+  padding: 20pt 20px clamp(2.5rem, 8vh, 5rem);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s ease;
+}
+body.stats-open .stats-page {
+  opacity: 1;
+  pointer-events: auto;
+}
+.stats-page[hidden] { display: none; }
+
+/* Reserved for when the fact list comes back one item at a time - not
+   currently used, kept here so the styling doesn't need reinventing.
+.stats-page-head {
+  max-width: 40rem;
+  margin: 0 auto .5rem;
+  font-size: clamp(1.3rem, 3vw, 1.5rem);
+  font-weight: 700;
+}
+
+.stats-list {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+  max-width: 40rem;
+  margin: 1.5rem auto 0;
+  padding: 0;
+  list-style: none;
+}
+.stats-list li {
+  padding-top: 1rem;
+  border-top: 1px solid var(--rule);
+  font-size: 1rem;
+  line-height: 1.4;
+}
+.stats-list li:first-child {
+  padding-top: 0;
+  border-top: none;
+}
+*/
+
+/* The one stat currently shown: total hours, big. Same family/weight/stretch
+   as the masthead h1 (the site's "wide" font treatment) but scaled way up -
+   h1's own .35em letter-spacing is tuned for a 1rem logo and would blow the
+   digits apart at hero size, so that's tightened instead. "hours" reuses
+   .hero-label directly so it's a guaranteed match to "waiting for selection",
+   colour-shift included. */
+/* Inner grid lines only, no outer frame - a thin/plus-lighter divider
+   between cells, same treatment as the stats toggle button. Fixed at 3
+   columns (currently 6 stats = 2 rows); the nth-child math below rides on
+   that "3", so it keeps working as long as the stat count stays a multiple
+   of 3 - only revisit it if the column count itself needs to change. */
+.stats-hero {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(8rem, 1fr));
+  max-width: 44rem;
+  margin: 0 auto;
+  align-content: center;
+  min-height: 70vh;
+}
+.stats-hero-item {
+  aspect-ratio: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: .35rem;
+  mix-blend-mode: plus-lighter;
+}
+.stats-hero-item:not(:nth-child(3n)) {
+  border-right: 1px solid rgb(255 255 255 / .2);
+}
+.stats-hero-item:not(:nth-last-child(-n+3)) {
+  border-bottom: 1px solid rgb(255 255 255 / .2);
+}
+.stats-hero-number {
+  font-family: 'Mona Sans', ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 900;
+  font-stretch: 125%;
+  letter-spacing: .01em;
+  line-height: 1;
+  font-size: clamp(2rem, 6vw, 3.25rem);
+  mix-blend-mode: normal;
+}
+/* A headline that's a title/name (a film, a genre) rather than a short
+   number - the numeric size/tight tracking above would blow a whole title
+   past the edges of a square cell, so this is smaller, less aggressively
+   stretched, and allowed to wrap onto a couple of lines. */
+.stats-hero-number--text {
+  font-stretch: 110%;
+  letter-spacing: 0;
+  line-height: 1.15;
+  font-size: clamp(1rem, 3.2vw, 1.4rem);
+  padding: 0 .5rem;
+  text-wrap: balance;
+}
+
+/* A third, quieter tier under the label - same treatment as .film-meta:
+   small, faint, regular weight, sentence case, so it reads as a footnote
+   rather than competing with the label above it. */
+.stats-hero-sub {
+  margin-top: .3rem;
+  padding: 0 .5rem;
+  font-size: .75rem;
+  font-weight: 400;
+  color: var(--faint);
+  text-transform: none;
+  letter-spacing: normal;
+  text-wrap: balance;
+}
+
 /* Masthead ---------------------------------------------------------- */
 
 .masthead {
@@ -211,7 +382,7 @@ h1 {
 
 /* Hero - the next film ----------------------------------------------- */
 
-#hero { margin-bottom: clamp(7rem, 20vh, 11rem); }
+#hero { margin-bottom: clamp(2.5rem, 8vh, 5rem); }
 
 /* No card around it: at this size the poster is the object, and a border
    would just draw a box around a picture that already has edges. */
@@ -224,6 +395,7 @@ h1 {
 }
 
 .hero-poster {
+  position: relative;
   width: clamp(12rem, 55vw, 20rem);
   max-width: 100%;
   aspect-ratio: 2 / 3;
@@ -234,22 +406,59 @@ h1 {
 }
 .hero-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
+/* No film chosen yet - rather than faking a colour that can drift from
+   the backdrop's own (which is animated - saturation pulses, drift), this
+   is a frosted window onto the real backdrop mesh sitting behind it, so
+   poster and background are always exactly the same colours in real time. */
+.hero-poster.empty {
+  background: rgb(255 255 255 / .04);
+  backdrop-filter: blur(30px) saturate(1.4);
+  -webkit-backdrop-filter: blur(30px) saturate(1.4);
+}
+
 .hero-body {
   display: flex;
   flex-direction: column;
+  align-items: center;
   gap: 1.25rem;
   width: 100%;
+  text-align: center;
+}
+
+.hero-info { text-align: center; }
+
+/* A rounded "platter" the date/time and button sit on, rather than
+   floating loose against the backdrop - full width, date/time to the
+   left and the button to the right. */
+.hero-schedule-row {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem 1.5rem;
+  width: 100%;
+  padding: 1rem 1.25rem;
+  border-radius: 12px;
+  background: rgb(255 255 255 / .06);
+  border: 1px solid rgb(255 255 255 / .1);
   text-align: left;
 }
 
-.hero-info { text-align: left; }
+.hero-schedule-text { display: flex; flex-direction: column; gap: .15rem; }
 
-.hero-schedule-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  flex-wrap: wrap;
-  gap: .75rem 1.5rem;
+/* Primary - same size/weight as a film title in the archive. */
+.hero-date {
+  margin: 0;
+  font-size: 1.15rem;
+  font-weight: 600;
+  line-height: 1.3;
+}
+
+/* Secondary - quieter and smaller, under the date. */
+.hero-time {
+  margin: 0;
+  font-size: .85rem;
+  color: var(--muted);
 }
 
 .hero-label {
@@ -258,9 +467,15 @@ h1 {
   font-weight: 600;
   letter-spacing: .14em;
   text-transform: uppercase;
-  /* Matches the poster's own dominant swatch rather than the fixed accent
-     colour; falls back to the old accent colour before a poster is sampled. */
-  color: rgb(var(--hero-rgb-1, 217 119 87));
+  /* Blends all three backdrop colours rather than just the first blob, so the
+     label tracks the mesh's overall tone (any one blob alone can be a minority
+     hue - e.g. an orange blob-1 sitting inside an otherwise purple mesh).
+     Falls back to the old accent colour before a poster/palette is set. */
+  color: color-mix(
+    in srgb,
+    color-mix(in srgb, rgb(var(--hero-rgb-1, 217 119 87)) 50%, rgb(var(--hero-rgb-2, 217 119 87)) 50%) 50%,
+    rgb(var(--hero-rgb-3, 217 119 87)) 50%
+  );
 }
 
 .hero-title {
@@ -284,14 +499,10 @@ h1 {
   font-variant-numeric: tabular-nums;
 }
 
-/* Same size/weight as a film title in the archive, so it reads as a
-   second headline rather than a small metadata line. */
-.hero-schedule {
-  display: block;
-  margin: 0;
-  font-size: 1.15rem;
-  font-weight: 600;
-  line-height: 1.3;
+.hero-picker {
+  margin: .3rem 0 0;
+  font-size: .85rem;
+  color: var(--faint);
 }
 
 .hero-calendar-btn {
@@ -314,6 +525,235 @@ h1 {
 
 /* Year sections ------------------------------------------------------ */
 
+.archive-toolbar {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: .75rem 1.5rem;
+  margin: 0 0 1.25rem;
+}
+
+.archive-head {
+  font-family: 'Mona Sans', ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 850;
+  font-stretch: 120%;
+  font-size: clamp(1.3rem, 3vw, 1.5rem);
+  letter-spacing: -0.02em;
+  margin: 0;
+}
+
+.archive-toolbar-right {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  gap: .75rem 1rem;
+}
+
+.year-filters {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: flex-end;
+  gap: .6rem;
+  margin: 0;
+}
+
+/* List/Grid segmented control - same "full white, reversed text" active
+   state as the filter chips, so it reads as part of the same language. */
+.view-toggle {
+  display: inline-flex;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  padding: .2rem;
+  gap: .2rem;
+}
+.view-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2rem;
+  height: 2rem;
+  padding: 0;
+  border: none;
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background .15s, color .15s;
+}
+.view-toggle-btn svg { width: 1.05rem; height: 1.05rem; }
+.view-toggle-btn:hover { color: var(--fg); }
+.view-toggle-btn.is-active { background: rgb(255 255 255 / .12); color: var(--fg); }
+
+/* Grid view - posters only, no text. */
+.films-grid {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: .75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.films-grid .poster { width: 100%; }
+
+/* One of these per filter (year, genre, ...) - a positioning context so
+   each dropdown's menu opens directly under its own pill rather than under
+   the whole filter bar. */
+.filter-group {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: .4rem;
+}
+
+.pill-select-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: .5rem;
+  padding: .4rem .9rem;
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: border-color .15s, color .15s;
+}
+.pill-select-btn::after {
+  content: '';
+  width: .45rem;
+  height: .45rem;
+  border-right: 1.5px solid currentColor;
+  border-bottom: 1.5px solid currentColor;
+  transform: rotate(45deg) translateY(-2px);
+  opacity: .6;
+}
+.pill-select-btn:hover { border-color: var(--faint); }
+
+.pill-menu {
+  position: absolute;
+  top: calc(100% + .4rem);
+  left: 0;
+  z-index: 20;
+  min-width: 7rem;
+  border: 1px solid var(--rule);
+  border-radius: 12px;
+  background: var(--card);
+  box-shadow: var(--shadow);
+}
+/* The list scrolls in here, not on .pill-menu itself - keeping .pill-menu
+   as a non-scrolling wrapper is what lets the bottom-fade cue below stay
+   pinned to the visible edge. (An absolutely-positioned pseudo-element
+   scrolls right along with the content when it's a descendant of the
+   element that actually has the overflow - it has to live one level up.) */
+.pill-menu-list {
+  /* Matches .pill-menu-option's own box model (font-size * line-height,
+     plus its top/bottom padding) so the "peek" below is tied to the real
+     row height rather than a guessed pixel value. */
+  --option-height: calc(.8rem * 1.55 + 2 * .45rem);
+  display: flex;
+  flex-direction: column;
+  /* 7 full rows plus half a row peeking out beneath the fade, so it's
+     obvious there's more to scroll to even before you touch it. */
+  max-height: calc(7.5 * var(--option-height) + 2 * .35rem + 5px);
+  overflow-y: auto;
+  padding: .35rem;
+}
+/* Bottom scroll cue: pinned to the visible bottom edge of the menu (this
+   only works because it sits on .pill-menu, which never scrolls - see
+   above). Fades the last option into the panel color to hint there's
+   more below. Hidden by default; JS (updateFade) adds
+   .pill-menu--fade-bottom only while menuList can still scroll further
+   down, so it's absent for short lists and disappears once you reach
+   the true end. */
+.pill-menu::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 2rem;
+  background: linear-gradient(to bottom, transparent, var(--card) 85%);
+  border-radius: 0 0 11px 11px;
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity .15s ease;
+}
+.pill-menu.pill-menu--fade-bottom::after {
+  opacity: 1;
+}
+/* Without this, the plain `display: flex` above outranks the browser's
+   default [hidden] rule (an author declaration beats a user-agent one
+   regardless of specificity), so setting menu.hidden from JS did nothing
+   and the menu never actually closed. */
+.pill-menu[hidden] { display: none; }
+
+.pill-menu-option {
+  padding: .45rem .7rem;
+  border: none;
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: .8rem;
+  font-variant-numeric: tabular-nums;
+  text-align: left;
+  cursor: pointer;
+}
+.pill-menu-option:hover { background: rgb(255 255 255 / .08); color: var(--fg); }
+.pill-menu-option.is-selected { color: #fff; font-weight: 600; }
+
+/* Chips for whatever's currently selected, one per active filter - "2022",
+   "Action", etc - sitting under the filter bar so a query can be built up
+   from more than one at a time. Each chip carries its own remove (x) rather
+   than the pill above it doing double duty as a value + a clear button. */
+.filter-chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  margin: 0 0 1.75rem;
+}
+.filter-chips[hidden] { display: none; }
+
+.filter-chip {
+  display: inline-flex;
+  align-items: center;
+  gap: .35rem;
+  padding: .3rem .3rem .3rem .85rem;
+  border-radius: 999px;
+  background: #fff;
+  color: var(--bg);
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+}
+
+.filter-chip-remove {
+  --pill-size: calc(.8rem * 1.55 + 2 * .2rem);
+  width: var(--pill-size);
+  height: var(--pill-size);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  border: none;
+  border-radius: 50%;
+  background: transparent;
+  color: inherit;
+  font: inherit;
+  font-size: 1.1rem;
+  line-height: 1;
+  cursor: pointer;
+  opacity: .7;
+  transition: opacity .15s;
+}
+.filter-chip-remove:hover { opacity: 1; }
+
 .year { margin-bottom: clamp(2.5rem, 6vh, 4rem); }
 
 .year-head {
@@ -326,20 +766,13 @@ h1 {
   border-bottom: 1px solid var(--rule);
 }
 .year-head h2 {
-  font-size: 1.5rem;
-  letter-spacing: -0.02em;
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
   margin: 0;
   font-variant-numeric: tabular-nums;
 }
 .year-count { color: var(--faint); font-size: .8rem; }
-.year-link {
-  margin-left: auto;
-  font-size: .8rem;
-  color: var(--faint);
-  text-decoration: none;
-  white-space: nowrap;
-}
-.year-link:hover { color: var(--accent); text-decoration: underline; }
 
 /* Film list -------------------------------------------------------- */
 
@@ -357,23 +790,58 @@ h1 {
 
 .poster {
   flex: none;
-  width: 6rem;
+  width: 8rem;
   aspect-ratio: 2 / 3;
-  border-radius: 3px;
+  border-radius: 8px;
   overflow: hidden;
   background: var(--card);
   border: 1px solid var(--rule);
+  transition: transform .15s ease;
 }
+.poster-link:hover .poster { transform: scale(1.03); }
 .poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .poster.empty { background: var(--rule); }
+/* Wraps the poster in a link out to IMDb without adding a box of its own -
+   the .poster div underneath still drives the flex sizing exactly as if
+   the link weren't there. */
+.poster-link { display: contents; }
 
 .film-text { min-width: 0; }
 
+/* Sits above the title rather than in the meta line, since who picked a
+   film is a different kind of fact from its year/runtime/genre - worth
+   calling out at a glance, not buried in with the rest. */
+.film-picker {
+  display: inline-flex;
+  margin-bottom: .3rem;
+  margin-left: -.3rem;
+  padding: .15rem .55rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / .06);
+  color: var(--muted);
+  font-size: .7rem;
+  font-weight: 600;
+  line-height: 1.4;
+  letter-spacing: .01em;
+}
+
 .film-title {
-  display: block;
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: .5rem;
   font-size: 1.15rem;
   font-weight: 600;
   line-height: 1.3;
+}
+.film-title-link { color: inherit; text-decoration: none; }
+.film-title-link:hover { text-decoration: underline; }
+/* Same look the year had in the meta line below - just relocated. */
+.film-year {
+  font-size: .8rem;
+  font-weight: 400;
+  color: var(--faint);
+  font-variant-numeric: tabular-nums;
 }
 .film-meta {
   display: block;
@@ -396,17 +864,6 @@ h1 {
   overflow: hidden;
 }
 
-.film-runtime {
-  margin-left: auto;
-  padding-left: 1rem;
-  flex: none;
-  font-size: .8rem;
-  color: var(--faint);
-  font-variant-numeric: tabular-nums;
-}
-@media (max-width: 30rem) {
-  .film-runtime { display: none; }
-}
 
 /* Footer ------------------------------------------------------------- */
 
@@ -425,4 +882,13 @@ footer p { margin: 0 0 .35rem; }
   border-radius: 8px;
   padding: 1.25rem;
   color: var(--muted);
+}
+
+.no-results {
+  padding: 2.5rem 1rem;
+  border: 1px dashed var(--rule);
+  border-radius: 12px;
+  color: var(--muted);
+  text-align: center;
+  font-size: .9rem;
 }

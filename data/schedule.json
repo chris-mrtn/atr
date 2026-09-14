@@ -1,0 +1,9 @@
+{
+  "_note": "The current pick cycle. picker is whoever picked (or, once scheduledFor has passed, whoever picked last - used with data/members.json to work out whose turn is next). pick + scheduledFor are set once a film and screening time are locked in. Once scheduledFor passes, the site falls back to Waiting for Selection on its own - nothing needs clearing by hand, just fill these back in once the next pick and time are decided.",
+  "picker": "Frank",
+  "pick": {
+    "year": 2026,
+    "slug": "stalker"
+  },
+  "scheduledFor": "2026-09-13T10:00:00+10:00"
+}

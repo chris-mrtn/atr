@@ -18,6 +18,12 @@
   <div class="blob blob-2"></div>
   <div class="blob blob-3"></div>
 </div>
+<button id="stats-toggle" class="stats-toggle" type="button" aria-pressed="false" aria-controls="stats-page" aria-label="View stats" title="Stats">
+  <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 21v-6"/><path d="M12 21V3"/><path d="M19 21V9"/></svg>
+</button>
+<section id="stats-page" class="stats-page" hidden aria-hidden="true">
+  <!-- Content comes next - for now this is just the fade-to/from-main scaffolding. -->
+</section>
 <main>
   <header class="masthead">
     <h1>ATR</h1>
@@ -26,6 +32,21 @@
 
   <section id="hero" hidden></section>
 
+  <div class="archive-toolbar">
+    <h2 class="archive-head">Archive</h2>
+    <div class="archive-toolbar-right">
+      <div id="year-filters" class="year-filters"></div>
+      <div id="view-toggle" class="view-toggle" role="group" aria-label="Archive view">
+        <button type="button" class="view-toggle-btn is-active" data-view="list" aria-label="List view" title="List">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 5H3"/><path d="M15 12H3"/><path d="M17 19H3"/></svg>
+        </button>
+        <button type="button" class="view-toggle-btn" data-view="grid" aria-label="Grid view" title="Grid">
+          <svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect width="12" height="20" x="6" y="2" rx="2"/></svg>
+        </button>
+      </div>
+    </div>
+  </div>
+  <div id="filter-chips" class="filter-chips" hidden></div>
   <div id="years"></div>
 
   <footer>

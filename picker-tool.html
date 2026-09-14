@@ -1,0 +1,609 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Who Picked It? — ATR</title>
+<link rel="preconnect" href="https://image.tmdb.org" crossorigin>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Mona+Sans:wght,wdth@200..900,75..125&display=swap">
+<style>
+:root {
+  color-scheme: dark;
+  --bg: #100f0e;
+  --fg: #ece9e3;
+  --muted: #98938a;
+  --faint: #6d685f;
+  --rule: #292723;
+  --card: #1a1917;
+  --shadow: 0 1px 2px rgba(0,0,0,.4), 0 8px 24px rgba(0,0,0,.3);
+}
+* { box-sizing: border-box; }
+body {
+  margin: 0;
+  padding: 1.5rem 1.25rem 7rem;
+  background: var(--bg);
+  color: var(--fg);
+  font: 16px/1.5 'Mona Sans', ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  -webkit-font-smoothing: antialiased;
+}
+main { max-width: 46rem; margin: 0 auto; }
+
+.tool-head { margin-bottom: 1.5rem; }
+h1 {
+  font-size: clamp(1.5rem, 5vw, 2rem);
+  font-weight: 850;
+  font-stretch: 120%;
+  letter-spacing: -0.02em;
+  margin: 0 0 .4rem;
+}
+.tool-sub { margin: 0 0 1rem; color: var(--muted); font-size: .9rem; }
+
+.progress-row { display: flex; align-items: center; gap: .75rem; margin-bottom: .5rem; }
+.progress-track {
+  flex: 1 1 auto;
+  height: .5rem;
+  border-radius: 999px;
+  background: var(--rule);
+  overflow: hidden;
+}
+.progress-fill {
+  height: 100%;
+  background: linear-gradient(90deg, #d97757, #e0b563);
+  border-radius: inherit;
+  transition: width .25s ease;
+  width: 0%;
+}
+.progress-label {
+  flex: none;
+  font-size: .8rem;
+  color: var(--muted);
+  font-variant-numeric: tabular-nums;
+  white-space: nowrap;
+}
+
+.toolbar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  flex-wrap: wrap;
+  margin-bottom: 1.75rem;
+}
+.toggle-row {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  font-size: .85rem;
+  color: var(--muted);
+  cursor: pointer;
+  user-select: none;
+}
+.toggle-row input { accent-color: #d97757; width: 1rem; height: 1rem; cursor: pointer; }
+
+.year-block { margin-bottom: 2rem; }
+.year-block h2 {
+  font-size: 1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  margin: 0 0 .75rem;
+  padding-bottom: .4rem;
+  border-bottom: 1px solid var(--rule);
+  font-variant-numeric: tabular-nums;
+}
+
+.film-row {
+  display: flex;
+  gap: .85rem;
+  align-items: flex-start;
+  padding: .75rem 0;
+  border-bottom: 1px solid var(--rule);
+  transition: opacity .2s;
+}
+.film-row.is-hidden { display: none; }
+.film-row.just-picked { animation: rowPop .35s ease; }
+@keyframes rowPop {
+  0% { transform: scale(1); }
+  35% { transform: scale(1.015); }
+  100% { transform: scale(1); }
+}
+
+.thumb {
+  flex: none;
+  width: 2.75rem;
+  height: 4.1rem;
+  border-radius: 5px;
+  overflow: hidden;
+  background: var(--card);
+  border: 1px solid var(--rule);
+}
+.thumb img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+.film-info { flex: 1 1 auto; min-width: 0; }
+.film-title-row {
+  display: flex;
+  align-items: baseline;
+  gap: .5rem;
+  flex-wrap: wrap;
+  margin-bottom: .5rem;
+}
+.film-title { font-weight: 600; font-size: .95rem; }
+.film-year { font-size: .75rem; color: var(--faint); font-variant-numeric: tabular-nums; }
+
+.pill-row { display: flex; flex-wrap: wrap; gap: .4rem; position: relative; }
+.member-pill {
+  position: relative;
+  padding: .35rem .75rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: .78rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .15s, color .15s, background-color .15s, transform .1s;
+}
+.member-pill:hover { border-color: var(--faint); color: var(--fg); }
+.member-pill:active { transform: scale(.94); }
+.member-pill.is-picked {
+  border-color: transparent;
+  color: #100f0e;
+  font-weight: 700;
+}
+.member-pill.unknown-pill {
+  border-style: dashed;
+}
+.member-pill.unknown-pill.is-picked {
+  border-style: solid;
+  border-color: var(--faint);
+  background: var(--rule);
+  color: var(--muted);
+}
+
+.confetti-dot {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: .3rem;
+  height: .3rem;
+  border-radius: 50%;
+  pointer-events: none;
+  animation: confettiPop .55s ease-out forwards;
+}
+@keyframes confettiPop {
+  0% { transform: translate(-50%, -50%) scale(1); opacity: 1; }
+  100% {
+    transform: translate(calc(-50% + var(--dx)), calc(-50% + var(--dy))) scale(.3);
+    opacity: 0;
+  }
+}
+
+.no-match { padding: 3rem 1rem; text-align: center; color: var(--muted); font-size: .9rem; }
+
+.export-bar {
+  position: fixed;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 30;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: .75rem;
+  flex-wrap: wrap;
+  padding: .85rem 1rem;
+  background: rgba(16, 15, 14, .92);
+  backdrop-filter: blur(10px);
+  border-top: 1px solid var(--rule);
+}
+.export-bar button {
+  padding: .55rem 1.1rem;
+  border-radius: 999px;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  color: var(--fg);
+  font: inherit;
+  font-size: .85rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: border-color .15s, background-color .15s;
+}
+.export-bar button:hover { border-color: var(--faint); }
+.export-bar button.primary {
+  background: #fff;
+  color: var(--bg);
+  border-color: #fff;
+}
+.export-bar .export-note {
+  font-size: .78rem;
+  color: var(--muted);
+  flex-basis: 100%;
+  text-align: center;
+}
+
+.json-preview {
+  max-width: 46rem;
+  margin: 0 auto 1.5rem;
+}
+.json-preview textarea {
+  width: 100%;
+  min-height: 8rem;
+  padding: .75rem;
+  border-radius: 10px;
+  border: 1px solid var(--rule);
+  background: var(--card);
+  color: var(--muted);
+  font: .75rem/1.4 ui-monospace, "SF Mono", Menlo, monospace;
+  resize: vertical;
+}
+.json-preview[hidden] { display: none; }
+.json-toggle {
+  background: none;
+  border: none;
+  color: var(--faint);
+  font-size: .78rem;
+  cursor: pointer;
+  text-decoration: underline;
+  padding: 0;
+  margin: 0 auto 1.5rem;
+  display: block;
+}
+
+.error-box {
+  border: 1px solid var(--rule);
+  background: var(--card);
+  border-radius: 10px;
+  padding: 1.25rem;
+  color: var(--muted);
+}
+</style>
+</head>
+<body>
+<main>
+  <div class="tool-head">
+    <h1>Who Picked It?</h1>
+    <p class="tool-sub">Tap a name on each film to say who picked it. Not sure? There's a button for that too. Everything autosaves as you go - refreshing won't lose anything.</p>
+    <div class="progress-row">
+      <div class="progress-track"><div class="progress-fill" id="progress-fill"></div></div>
+      <span class="progress-label" id="progress-label">Loading&hellip;</span>
+    </div>
+  </div>
+
+  <div class="toolbar">
+    <label class="toggle-row">
+      <input type="checkbox" id="unreviewed-toggle">
+      Show only films left to review
+    </label>
+  </div>
+
+  <div id="list"></div>
+  <button class="json-toggle" id="json-toggle" hidden>Show raw JSON</button>
+  <div class="json-preview" id="json-preview" hidden>
+    <textarea id="json-text" readonly></textarea>
+  </div>
+</main>
+
+<div class="export-bar" id="export-bar" hidden>
+  <span class="export-note">When you're done, get the data back to Claude one of these ways:</span>
+  <button id="copy-btn">Copy JSON</button>
+  <button class="primary" id="download-btn">Download pickers.json</button>
+</div>
+
+<script>
+const DRAFT_KEY = 'atr-pickers-tool-draft';
+const UNKNOWN = '__unknown__';
+
+// Same hash + palette the live site uses for its "Waiting for Selection"
+// colours, so a member's colour here matches their colour there.
+function hashName(name) {
+  let hash = 0;
+  for (const ch of name) hash = (hash * 31 + ch.charCodeAt(0)) >>> 0;
+  return hash;
+}
+function rgbToHsl([r, g, b]) {
+  r /= 255; g /= 255; b /= 255;
+  const max = Math.max(r, g, b), min = Math.min(r, g, b);
+  const l = (max + min) / 2;
+  const d = max - min;
+  if (!d) return [0, 0, l];
+  const s = l > 0.5 ? d / (2 - max - min) : d / (max + min);
+  const h = max === r ? ((g - b) / d + (g < b ? 6 : 0))
+          : max === g ? (b - r) / d + 2
+          : (r - g) / d + 4;
+  return [h / 6, s, l];
+}
+function hslToRgb([h, s, l]) {
+  if (!s) { const v = Math.round(l * 255); return [v, v, v]; }
+  const q = l < 0.5 ? l * (1 + s) : l + s - l * s;
+  const p = 2 * l - q;
+  const f = t => {
+    t = (t + 1) % 1;
+    if (t < 1 / 6) return p + (q - p) * 6 * t;
+    if (t < 1 / 2) return q;
+    if (t < 2 / 3) return p + (q - p) * (2 / 3 - t) * 6;
+    return p;
+  };
+  return [f(h + 1 / 3), f(h), f(h - 1 / 3)].map(v => Math.round(v * 255));
+}
+function vivify(rgb, { minSat = 0.5, minLight = 0.45, maxLight = 0.65 } = {}) {
+  const [h, s, l] = rgbToHsl(rgb);
+  return hslToRgb([h, Math.max(s, minSat), Math.min(Math.max(l, minLight), maxLight)]);
+}
+const WAITING_PALETTES = [
+  [[200, 130, 80], [70, 100, 150], [120, 80, 140]],
+  [[180, 60, 70], [60, 140, 120], [200, 170, 60]],
+  [[90, 150, 110], [150, 90, 130], [70, 90, 160]],
+  [[210, 90, 60], [80, 130, 170], [160, 140, 70]],
+];
+function memberColor(name) {
+  const seed = WAITING_PALETTES[hashName(name) % WAITING_PALETTES.length][0];
+  const [r, g, b] = vivify(seed);
+  return `rgb(${r} ${g} ${b})`;
+}
+
+function el(tag, className, text) {
+  const node = document.createElement(tag);
+  if (className) node.className = className;
+  if (text != null) node.textContent = text;
+  return node;
+}
+
+async function loadJson(path, { required }) {
+  try {
+    const res = await fetch(path, { cache: 'no-cache' });
+    if (!res.ok) throw new Error(`HTTP ${res.status}`);
+    return await res.json();
+  } catch (err) {
+    if (required) throw new Error(`${path}: ${err.message}`);
+    return null;
+  }
+}
+
+function loadDraft() {
+  try {
+    const raw = localStorage.getItem(DRAFT_KEY);
+    return raw ? JSON.parse(raw) : null;
+  } catch {
+    return null;
+  }
+}
+
+function saveDraft(assignments) {
+  try {
+    localStorage.setItem(DRAFT_KEY, JSON.stringify(assignments));
+  } catch {
+    // best effort - a full or unavailable localStorage shouldn't break the tool
+  }
+}
+
+function burstConfetti(container, color) {
+  for (let i = 0; i < 10; i++) {
+    const dot = el('span', 'confetti-dot');
+    const angle = (Math.PI * 2 * i) / 10 + Math.random() * 0.5;
+    const dist = 18 + Math.random() * 14;
+    dot.style.setProperty('--dx', `${Math.cos(angle) * dist}px`);
+    dot.style.setProperty('--dy', `${Math.sin(angle) * dist}px`);
+    dot.style.background = color;
+    container.append(dot);
+    dot.addEventListener('animationend', () => dot.remove(), { once: true });
+  }
+}
+
+async function main() {
+  const listEl = document.getElementById('list');
+  let films, tmdb, members, pickers;
+  try {
+    films = await loadJson('data/films.json', { required: true });
+  } catch (err) {
+    listEl.replaceChildren(el('div', 'error-box', `Could not load the film list. ${err.message}`));
+    return;
+  }
+  tmdb = await loadJson('data/tmdb.json', { required: false });
+  members = await loadJson('data/members.json', { required: false });
+  pickers = await loadJson('data/pickers.json', { required: false });
+
+  const roster = members?.order ?? [];
+  if (!roster.length) {
+    listEl.replaceChildren(el('div', 'error-box', 'No members found in data/members.json - add the club roster there first.'));
+    return;
+  }
+
+  // Seed from the existing pickers.json, then let a saved draft (more
+  // recent than whatever's on disk) override anything it has an opinion on.
+  const assignments = { ...(pickers?.picks ?? {}) };
+  const draft = loadDraft();
+  if (draft) Object.assign(assignments, draft);
+
+  const years = [...(films.years ?? [])].sort((a, b) => b.year - a.year);
+  const allFilms = years.flatMap(y => y.films.map(f => ({ ...f, year: y.year })));
+  const totalCount = allFilms.length;
+
+  const exportBar = document.getElementById('export-bar');
+  const progressFill = document.getElementById('progress-fill');
+  const progressLabel = document.getElementById('progress-label');
+  const unreviewedToggle = document.getElementById('unreviewed-toggle');
+  const jsonToggle = document.getElementById('json-toggle');
+  const jsonPreview = document.getElementById('json-preview');
+  const jsonText = document.getElementById('json-text');
+
+  function keyFor(year, slug) { return `${year}:${slug}`; }
+
+  // "Not sure" marks a film as looked-at, but it isn't a real attribution -
+  // it should keep showing up under "left to review" rather than being
+  // counted as done, so it doesn't quietly get lost.
+  function isReviewed(key) {
+    const value = assignments[key];
+    return Boolean(value) && value !== UNKNOWN;
+  }
+
+  function updateProgress() {
+    const reviewed = allFilms.filter(f => isReviewed(keyFor(f.year, f.slug))).length;
+    progressFill.style.width = `${totalCount ? (reviewed / totalCount) * 100 : 0}%`;
+    progressLabel.textContent = `${reviewed} of ${totalCount} reviewed`;
+    exportBar.hidden = reviewed === 0;
+  }
+
+  function currentExportJson() {
+    const picks = {};
+    for (const [key, value] of Object.entries(assignments)) {
+      if (value && value !== UNKNOWN) picks[key] = value;
+    }
+    const sortedPicks = Object.fromEntries(Object.entries(picks).sort(([a], [b]) => a.localeCompare(b)));
+    return JSON.stringify({
+      _note: pickers?._note ?? 'Maps "<year>:<slug>" to the club member who picked that film. Not generated by scripts/sync.mjs - edit this file by hand as picks are sourced. A film with no entry here just renders with no attribution.',
+      picks: sortedPicks,
+    }, null, 2);
+  }
+
+  function refreshJsonPreview() {
+    if (!jsonPreview.hidden) jsonText.value = currentExportJson();
+  }
+
+  function setAssignment(year, slug, value, rowEl, pillRow) {
+    const key = keyFor(year, slug);
+    if (assignments[key] === value) {
+      delete assignments[key];
+    } else {
+      assignments[key] = value;
+    }
+    saveDraft(assignments);
+    updateProgress();
+    refreshJsonPreview();
+
+    for (const pill of pillRow.children) {
+      pill.classList.toggle('is-picked', assignments[key] === pill.dataset.value);
+      if (pill.dataset.value !== UNKNOWN) {
+        pill.style.background = assignments[key] === pill.dataset.value ? memberColor(pill.dataset.value) : 'transparent';
+      }
+    }
+    rowEl.classList.remove('just-picked');
+    void rowEl.offsetWidth;
+    rowEl.classList.add('just-picked');
+    if (assignments[key] && assignments[key] !== UNKNOWN) {
+      burstConfetti(pillRow, memberColor(assignments[key]));
+    }
+    if (unreviewedToggle.checked) applyFilter();
+  }
+
+  function buildFilmRow(film) {
+    const row = el('div', 'film-row');
+    row.dataset.key = keyFor(film.year, film.slug);
+
+    const thumb = el('div', 'thumb');
+    const posterPath = tmdb?.films?.[film.slug]?.posterPath;
+    const imageBase = tmdb?.imageBase ?? 'https://image.tmdb.org/t/p';
+    if (posterPath) {
+      const img = document.createElement('img');
+      img.src = `${imageBase}/w92${posterPath}`;
+      img.alt = '';
+      img.loading = 'lazy';
+      thumb.append(img);
+    }
+    row.append(thumb);
+
+    const info = el('div', 'film-info');
+    const titleRow = el('div', 'film-title-row');
+    titleRow.append(el('span', 'film-title', film.title));
+    titleRow.append(el('span', 'film-year', String(film.year)));
+    info.append(titleRow);
+
+    const pillRow = el('div', 'pill-row');
+    const key = keyFor(film.year, film.slug);
+    for (const name of roster) {
+      const pill = el('button', 'member-pill', name);
+      pill.type = 'button';
+      pill.dataset.value = name;
+      if (assignments[key] === name) {
+        pill.classList.add('is-picked');
+        pill.style.background = memberColor(name);
+      }
+      pill.addEventListener('click', () => setAssignment(film.year, film.slug, name, row, pillRow));
+      pillRow.append(pill);
+    }
+    const unknownPill = el('button', 'member-pill unknown-pill', "🤷 Not sure");
+    unknownPill.type = 'button';
+    unknownPill.dataset.value = UNKNOWN;
+    if (assignments[key] === UNKNOWN) unknownPill.classList.add('is-picked');
+    unknownPill.addEventListener('click', () => setAssignment(film.year, film.slug, UNKNOWN, row, pillRow));
+    pillRow.append(unknownPill);
+
+    info.append(pillRow);
+    row.append(info);
+    return row;
+  }
+
+  for (const year of years) {
+    if (!year.films.length) continue;
+    const block = el('div', 'year-block');
+    block.append(el('h2', null, String(year.year)));
+    for (const film of [...year.films].reverse()) {
+      block.append(buildFilmRow({ ...film, year: year.year }));
+    }
+    listEl.append(block);
+  }
+
+  const noMatch = el('div', 'no-match', 'Everything here is already reviewed.');
+  noMatch.hidden = true;
+  listEl.append(noMatch);
+
+  function applyFilter() {
+    const onlyUnreviewed = unreviewedToggle.checked;
+    let anyVisible = false;
+    for (const row of listEl.querySelectorAll('.film-row')) {
+      const reviewed = isReviewed(row.dataset.key);
+      const hide = onlyUnreviewed && reviewed;
+      row.classList.toggle('is-hidden', hide);
+      if (!hide) anyVisible = true;
+    }
+    for (const block of listEl.querySelectorAll('.year-block')) {
+      const rows = [...block.querySelectorAll('.film-row')];
+      block.classList.toggle('is-hidden', rows.length > 0 && rows.every(r => r.classList.contains('is-hidden')));
+    }
+    noMatch.hidden = anyVisible;
+  }
+
+  unreviewedToggle.addEventListener('change', applyFilter);
+
+  jsonToggle.hidden = false;
+  jsonToggle.addEventListener('click', () => {
+    jsonPreview.hidden = !jsonPreview.hidden;
+    jsonToggle.textContent = jsonPreview.hidden ? 'Show raw JSON' : 'Hide raw JSON';
+    refreshJsonPreview();
+  });
+
+  document.getElementById('copy-btn').addEventListener('click', async () => {
+    const btn = document.getElementById('copy-btn');
+    const text = currentExportJson();
+    try {
+      await navigator.clipboard.writeText(text);
+      btn.textContent = 'Copied!';
+    } catch {
+      jsonPreview.hidden = false;
+      jsonText.value = text;
+      jsonText.select();
+      btn.textContent = 'Copy failed - select below';
+    }
+    setTimeout(() => { btn.textContent = 'Copy JSON'; }, 1600);
+  });
+
+  document.getElementById('download-btn').addEventListener('click', () => {
+    const blob = new Blob([currentExportJson()], { type: 'application/json' });
+    const url = URL.createObjectURL(blob);
+    const a = document.createElement('a');
+    a.href = url;
+    a.download = 'pickers.json';
+    document.body.append(a);
+    a.click();
+    a.remove();
+    setTimeout(() => URL.revokeObjectURL(url), 1000);
+  });
+
+  updateProgress();
+}
+
+main();
+</script>
+</body>
+</html>

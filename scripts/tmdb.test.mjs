@@ -110,6 +110,33 @@ test('summarize pulls directors out of the credits crew', () => {
   assert.equal(got.tmdbUrl, 'https://www.themoviedb.org/movie/5');
 });
 
+test('summarize takes the top 4 billed cast, in order, regardless of input order', () => {
+  const got = summarize({
+    id: 6, original_title: 'Ensemble', release_date: '2020-01-01', runtime: 100,
+    credits: { cast: [
+      { order: 2, name: 'Third Billed' },
+      { order: 0, name: 'Lead' },
+      { order: 4, name: 'Fifth Billed' },
+      { order: 1, name: 'Second Billed' },
+      { order: 3, name: 'Fourth Billed' },
+    ] },
+  });
+  assert.deepEqual(got.cast, ['Lead', 'Second Billed', 'Third Billed', 'Fourth Billed']);
+});
+
+test('summarize returns an empty cast when there are no credits', () => {
+  const got = summarize({ id: 7, original_title: 'No Credits', release_date: '2020-01-01' });
+  assert.deepEqual(got.cast, []);
+});
+
+test('summarize builds an IMDb url from imdb_id, or null without one', () => {
+  const withId = summarize({ id: 8, original_title: 'Has IMDb', release_date: '2020-01-01', imdb_id: 'tt1234567' });
+  assert.equal(withId.imdbUrl, 'https://www.imdb.com/title/tt1234567/');
+
+  const withoutId = summarize({ id: 9, original_title: 'No IMDb', release_date: '2020-01-01', imdb_id: null });
+  assert.equal(withoutId.imdbUrl, null);
+});
+
 test('a v3 key goes in the query string, a v4 token in the header', async () => {
   const seen = [];
   const fake = async (url, opts) => {

@@ -142,7 +142,20 @@ export function summarize(details) {
   const directors = (details?.credits?.crew ?? [])
     .filter(c => c.job === 'Director')
     .map(c => c.name);
+  // Already on the same credits append_to_response as directors - no extra
+  // request needed. TMDB's cast array is billing-ordered already, but we
+  // sort explicitly rather than lean on that, and take the top few as the
+  // "lead" cast.
+  const cast = (details?.credits?.cast ?? [])
+    .slice()
+    .sort((a, b) => (a.order ?? 0) - (b.order ?? 0))
+    .slice(0, 4)
+    .map(c => c.name);
   const genres = (details?.genres ?? []).map(g => g.name);
+  // Both already on the base /movie/{id} response, same tier as genres -
+  // no extra append_to_response needed.
+  const countries = (details?.production_countries ?? []).map(c => c.name);
+  const imdbId = details?.imdb_id || null;
   return {
     tmdbId: details.id,
     originalTitle: details.original_title ?? null,
@@ -152,7 +165,10 @@ export function summarize(details) {
     posterPath: details.poster_path ?? null,
     backdropPath: details.backdrop_path ?? null,
     directors,
+    cast,
     genres,
+    countries,
     tmdbUrl: `https://www.themoviedb.org/movie/${details.id}`,
+    imdbUrl: imdbId ? `https://www.imdb.com/title/${imdbId}/` : null,
   };
 }

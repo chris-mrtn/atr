@@ -1,9 +1,9 @@
 {
-  "generatedAt": "2026-09-13T07:17:28.349Z",
+  "generatedAt": "2026-09-14T04:08:37.051Z",
   "note": "This product uses the TMDB API but is not endorsed or certified by TMDB.",
   "imageBase": "https://image.tmdb.org/t/p",
-  "matched": 114,
-  "unmatchedCount": 8,
+  "matched": 122,
+  "unmatchedCount": 0,
   "films": {
     "3-idiots": {
       "tmdbId": 20453,
@@ -16,11 +16,21 @@
       "directors": [
         "Rajkumar Hirani"
       ],
+      "cast": [
+        "Aamir Khan",
+        "R. Madhavan",
+        "Sharman Joshi",
+        "Kareena Kapoor Khan"
+      ],
       "genres": [
         "Drama",
         "Comedy"
       ],
+      "countries": [
+        "India"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/20453",
+      "imdbUrl": "https://www.imdb.com/title/tt1187043/",
       "letterboxdTitle": "3 Idiots",
       "letterboxdYear": 2009,
       "confidence": "exact"
@@ -36,12 +46,22 @@
       "directors": [
         "David Lowery"
       ],
+      "cast": [
+        "Casey Affleck",
+        "Rooney Mara",
+        "McColm Cephas Jr.",
+        "Kenneisha Thompson"
+      ],
       "genres": [
         "Drama",
         "Fantasy",
         "Romance"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/428449",
+      "imdbUrl": "https://www.imdb.com/title/tt6265828/",
       "letterboxdTitle": "A Ghost Story",
       "letterboxdYear": 2017,
       "confidence": "exact"
@@ -57,11 +77,22 @@
       "directors": [
         "Jacques Audiard"
       ],
+      "cast": [
+        "Tahar Rahim",
+        "Niels Arestrup",
+        "Adel Bencherif",
+        "Reda Kateb"
+      ],
       "genres": [
         "Crime",
         "Drama"
       ],
+      "countries": [
+        "France",
+        "Italy"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/21575",
+      "imdbUrl": "https://www.imdb.com/title/tt1235166/",
       "letterboxdTitle": "A Prophet",
       "letterboxdYear": 2009,
       "confidence": "exact"
@@ -77,14 +108,54 @@
       "directors": [
         "Kogonada"
       ],
+      "cast": [
+        "Justin H. Min",
+        "Malea Emma Tjandrawidjaja",
+        "Colin Farrell",
+        "Jodie Turner-Smith"
+      ],
       "genres": [
         "Science Fiction",
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/585378",
+      "imdbUrl": "https://www.imdb.com/title/tt8633464/",
       "letterboxdTitle": "After Yang",
       "letterboxdYear": 2021,
       "confidence": "exact"
+    },
+    "aftersun": {
+      "tmdbId": 965150,
+      "originalTitle": "Aftersun",
+      "releaseDate": "2022-10-21",
+      "runtime": 101,
+      "overview": "Sophie reflects on the shared joy and private melancholy of a holiday she took with her father twenty years earlier. Memories fill the gaps between camcorder footages as she tries to reconcile the father she knew with the troubled man she didn't.",
+      "posterPath": "/evKz85EKouVbIr51zy5fOtpNRPg.jpg",
+      "backdropPath": "/4jdduww9j5RyzO4ITRcuBFhqNN1.jpg",
+      "directors": [
+        "Charlotte Wells"
+      ],
+      "cast": [
+        "Paul Mescal",
+        "Frankie Corio",
+        "Brooklyn Toulson",
+        "Celia Rowlson-Hall"
+      ],
+      "genres": [
+        "Drama"
+      ],
+      "countries": [
+        "United Kingdom",
+        "United States of America"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/965150",
+      "imdbUrl": "https://www.imdb.com/title/tt19770238/",
+      "letterboxdTitle": "Aftersun",
+      "letterboxdYear": 2022,
+      "confidence": "manual-override"
     },
     "alien-3": {
       "tmdbId": 8077,
@@ -97,12 +168,22 @@
       "directors": [
         "David Fincher"
       ],
+      "cast": [
+        "Sigourney Weaver",
+        "Charles S. Dutton",
+        "Charles Dance",
+        "Paul McGann"
+      ],
       "genres": [
         "Science Fiction",
         "Action",
         "Horror"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/8077",
+      "imdbUrl": "https://www.imdb.com/title/tt0103644/",
       "letterboxdTitle": "Alien³",
       "letterboxdYear": 1992,
       "confidence": "exact"
@@ -118,10 +199,20 @@
       "directors": [
         "Joseph L. Mankiewicz"
       ],
+      "cast": [
+        "Bette Davis",
+        "Anne Baxter",
+        "George Sanders",
+        "Celeste Holm"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/705",
+      "imdbUrl": "https://www.imdb.com/title/tt0042192/",
       "letterboxdTitle": "All About Eve",
       "letterboxdYear": 1950,
       "confidence": "exact"
@@ -137,12 +228,23 @@
       "directors": [
         "Andrew Haigh"
       ],
+      "cast": [
+        "Andrew Scott",
+        "Paul Mescal",
+        "Carter John Grout",
+        "Jamie Bell"
+      ],
       "genres": [
         "Romance",
         "Drama",
         "Fantasy"
       ],
+      "countries": [
+        "United Kingdom",
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/994108",
+      "imdbUrl": "https://www.imdb.com/title/tt21192142/",
       "letterboxdTitle": "All of Us Strangers",
       "letterboxdYear": 2023,
       "confidence": "exact"
@@ -158,13 +260,23 @@
       "directors": [
         "Kenichiro Akimoto"
       ],
+      "cast": [
+        "Ai Mikami",
+        "Natsuki Hanae",
+        "Kana Hanazawa",
+        "Hiccorohee"
+      ],
       "genres": [
         "Animation",
         "Action",
         "Mystery",
         "Science Fiction"
       ],
+      "countries": [
+        "Japan"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1432547",
+      "imdbUrl": "https://www.imdb.com/title/tt36148135/",
       "letterboxdTitle": "All You Need Is Kill",
       "letterboxdYear": 2025,
       "confidence": "exact"
@@ -180,15 +292,59 @@
       "directors": [
         "Bart Layton"
       ],
+      "cast": [
+        "Evan Peters",
+        "Barry Keoghan",
+        "Blake Jenner",
+        "Jared Abrahamson"
+      ],
       "genres": [
         "Drama",
         "Crime",
         "Documentary"
       ],
+      "countries": [
+        "United Kingdom",
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/489931",
+      "imdbUrl": "https://www.imdb.com/title/tt6212478/",
       "letterboxdTitle": "American Animals",
       "letterboxdYear": 2018,
       "confidence": "exact"
+    },
+    "an-irish-goodbye": {
+      "tmdbId": 889598,
+      "originalTitle": "An Irish Goodbye",
+      "releaseDate": "2022-03-04",
+      "runtime": 23,
+      "overview": "In rural Northern Ireland, following the untimely death of their mother, a young man with Down syndrome and his estranged brother discover her unfulfilled bucket list.",
+      "posterPath": "/hQPk5oULFxeezq5Viq9SqjLoeDG.jpg",
+      "backdropPath": "/kmH8MnFGi4YJowLPgQzUg9ILdrv.jpg",
+      "directors": [
+        "Ross White",
+        "Tom Berkeley"
+      ],
+      "cast": [
+        "Seamus O'Hara",
+        "James Martin",
+        "Paddy Jenkins",
+        "Michelle Fairley"
+      ],
+      "genres": [
+        "Drama",
+        "Comedy"
+      ],
+      "countries": [
+        "Ireland",
+        "United Kingdom",
+        "Northern Ireland"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/889598",
+      "imdbUrl": "https://www.imdb.com/title/tt14625872/",
+      "letterboxdTitle": "An Irish Goodbye",
+      "letterboxdYear": 2022,
+      "confidence": "manual-override"
     },
     "anatomy-of-a-fall": {
       "tmdbId": 915935,
@@ -201,12 +357,22 @@
       "directors": [
         "Justine Triet"
       ],
+      "cast": [
+        "Sandra Hüller",
+        "Swann Arlaud",
+        "Milo Machado-Graner",
+        "Antoine Reinartz"
+      ],
       "genres": [
         "Thriller",
         "Mystery",
         "Crime"
       ],
+      "countries": [
+        "France"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/915935",
+      "imdbUrl": "https://www.imdb.com/title/tt17009710/",
       "letterboxdTitle": "Anatomy of a Fall",
       "letterboxdYear": 2023,
       "confidence": "exact"
@@ -222,11 +388,23 @@
       "directors": [
         "Thomas Vinterberg"
       ],
+      "cast": [
+        "Mads Mikkelsen",
+        "Thomas Bo Larsen",
+        "Magnus Millang",
+        "Lars Ranthe"
+      ],
       "genres": [
         "Comedy",
         "Drama"
       ],
+      "countries": [
+        "Denmark",
+        "Netherlands",
+        "Sweden"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/580175",
+      "imdbUrl": "https://www.imdb.com/title/tt10288566/",
       "letterboxdTitle": "Another Round",
       "letterboxdYear": 2020,
       "confidence": "exact"
@@ -240,15 +418,26 @@
       "posterPath": "/tBa4zMGzZUco26XT3WfZZCwQ76i.jpg",
       "backdropPath": "/nhsC7Q1Zb5n2p4H3UKy422zP5XC.jpg",
       "directors": [
-        "Kleber Mendonça Filho",
-        "Juliano Dornelles"
+        "Juliano Dornelles",
+        "Kleber Mendonça Filho"
+      ],
+      "cast": [
+        "Bárbara Colen",
+        "Thomás Aquino",
+        "Silvero Pereira",
+        "Sonia Braga"
       ],
       "genres": [
         "Mystery",
         "Western",
         "Thriller"
       ],
+      "countries": [
+        "Brazil",
+        "France"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/446159",
+      "imdbUrl": "https://www.imdb.com/title/tt2762506/",
       "letterboxdTitle": "Bacurau",
       "letterboxdYear": 2019,
       "confidence": "exact"
@@ -264,12 +453,22 @@
       "directors": [
         "Cory Finley"
       ],
+      "cast": [
+        "Hugh Jackman",
+        "Allison Janney",
+        "Geraldine Viswanathan",
+        "Alex Wolff"
+      ],
       "genres": [
         "Drama",
         "Crime",
         "History"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/530723",
+      "imdbUrl": "https://www.imdb.com/title/tt8206668/",
       "letterboxdTitle": "Bad Education",
       "letterboxdYear": 2019,
       "confidence": "exact"
@@ -285,12 +484,23 @@
       "directors": [
         "Sidney Lumet"
       ],
+      "cast": [
+        "Philip Seymour Hoffman",
+        "Ethan Hawke",
+        "Albert Finney",
+        "Marisa Tomei"
+      ],
       "genres": [
         "Crime",
         "Drama",
         "Thriller"
       ],
+      "countries": [
+        "United States of America",
+        "United Kingdom"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/7972",
+      "imdbUrl": "https://www.imdb.com/title/tt0292963/",
       "letterboxdTitle": "Before the Devil Knows You're Dead",
       "letterboxdYear": 2007,
       "confidence": "exact"
@@ -306,13 +516,23 @@
       "directors": [
         "Mamoru Hosoda"
       ],
+      "cast": [
+        "Kaho Nakamura",
+        "Ryo Narita",
+        "Shota Sometani",
+        "Tina Tamashiro"
+      ],
       "genres": [
         "Animation",
         "Science Fiction",
         "Drama",
         "Music"
       ],
+      "countries": [
+        "Japan"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/776305",
+      "imdbUrl": "https://www.imdb.com/title/tt13651628/",
       "letterboxdTitle": "Belle",
       "letterboxdYear": 2021,
       "confidence": "exact"
@@ -328,11 +548,21 @@
       "directors": [
         "Hype Williams"
       ],
+      "cast": [
+        "DMX",
+        "Nas",
+        "Hassan Johnson",
+        "Taral Hicks"
+      ],
       "genres": [
         "Crime",
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/12888",
+      "imdbUrl": "https://www.imdb.com/title/tt0158493/",
       "letterboxdTitle": "Belly",
       "letterboxdYear": 1998,
       "confidence": "exact"
@@ -348,12 +578,22 @@
       "directors": [
         "Steven Soderbergh"
       ],
+      "cast": [
+        "Cate Blanchett",
+        "Michael Fassbender",
+        "Tom Burke",
+        "Marisa Abela"
+      ],
       "genres": [
         "Drama",
         "Mystery",
         "Thriller"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1233575",
+      "imdbUrl": "https://www.imdb.com/title/tt30988739/",
       "letterboxdTitle": "Black Bag",
       "letterboxdYear": 2025,
       "confidence": "exact"
@@ -369,12 +609,22 @@
       "directors": [
         "Carlos López Estrada"
       ],
+      "cast": [
+        "Daveed Diggs",
+        "Rafael Casal",
+        "Janina Gavankar",
+        "Jasmine Cephas Jones"
+      ],
       "genres": [
         "Comedy",
         "Crime",
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/489930",
+      "imdbUrl": "https://www.imdb.com/title/tt7242142/",
       "letterboxdTitle": "Blindspotting",
       "letterboxdYear": 2018,
       "confidence": "exact"
@@ -390,11 +640,21 @@
       "directors": [
         "Arthur Penn"
       ],
+      "cast": [
+        "Warren Beatty",
+        "Faye Dunaway",
+        "Michael J. Pollard",
+        "Gene Hackman"
+      ],
       "genres": [
         "Crime",
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/475",
+      "imdbUrl": "https://www.imdb.com/title/tt0061418/",
       "letterboxdTitle": "Bonnie and Clyde",
       "letterboxdYear": 1967,
       "confidence": "exact"
@@ -410,10 +670,20 @@
       "directors": [
         "Hirokazu Kore-eda"
       ],
+      "cast": [
+        "Song Kang-ho",
+        "Gang Dong-won",
+        "Bae Doona",
+        "IU"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [
+        "South Korea"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/736732",
+      "imdbUrl": "https://www.imdb.com/title/tt13056052/",
       "letterboxdTitle": "Broker",
       "letterboxdYear": 2022,
       "confidence": "exact"
@@ -429,10 +699,21 @@
       "directors": [
         "Walter Salles"
       ],
+      "cast": [
+        "Fernanda Montenegro",
+        "Vinícius de Oliveira",
+        "Marília Pêra",
+        "Othon Bastos"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [
+        "Brazil",
+        "France"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/666",
+      "imdbUrl": "https://www.imdb.com/title/tt0140888/",
       "letterboxdTitle": "Central Station",
       "letterboxdYear": 1998,
       "confidence": "exact"
@@ -448,12 +729,22 @@
       "directors": [
         "Wong Kar-Wai"
       ],
+      "cast": [
+        "Brigitte Lin",
+        "Takeshi Kaneshiro",
+        "Tony Leung Chiu-wai",
+        "Faye Wong"
+      ],
       "genres": [
         "Drama",
         "Comedy",
         "Romance"
       ],
+      "countries": [
+        "Hong Kong"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/11104",
+      "imdbUrl": "https://www.imdb.com/title/tt0109424/",
       "letterboxdTitle": "Chungking Express",
       "letterboxdYear": 1994,
       "confidence": "exact"
@@ -469,13 +760,55 @@
       "directors": [
         "Agnès Varda"
       ],
+      "cast": [
+        "Corinne Marchand",
+        "Antoine Bourseiller",
+        "Dominique Davray",
+        "Dorothée Blanck"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [
+        "France",
+        "Italy"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/499",
+      "imdbUrl": "https://www.imdb.com/title/tt0055852/",
       "letterboxdTitle": "Cléo from 5 to 7",
       "letterboxdYear": 1962,
       "confidence": "exact"
+    },
+    "close-2022": {
+      "tmdbId": 901563,
+      "originalTitle": "Close",
+      "releaseDate": "2022-11-01",
+      "runtime": 104,
+      "overview": "Two 13-year-old boys spend an idyllic summer together, but their connection is put to the test when they become the subject of speculation at school.",
+      "posterPath": "/dlMNnWs7Mz8Nk5AC447Ew1tD5pn.jpg",
+      "backdropPath": "/saESlYSTAGjr8gkyjoGb7omH0hf.jpg",
+      "directors": [
+        "Lukas Dhont"
+      ],
+      "cast": [
+        "Eden Dambrine",
+        "Gustav De Waele",
+        "Émilie Dequenne",
+        "Léa Drucker"
+      ],
+      "genres": [
+        "Drama"
+      ],
+      "countries": [
+        "Belgium",
+        "France",
+        "Netherlands"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/901563",
+      "imdbUrl": "https://www.imdb.com/title/tt9660502/",
+      "letterboxdTitle": "Close",
+      "letterboxdYear": 2022,
+      "confidence": "manual-override"
     },
     "coherence": {
       "tmdbId": 220289,
@@ -488,11 +821,22 @@
       "directors": [
         "James Ward Byrkit"
       ],
+      "cast": [
+        "Emily Baldoni",
+        "Maury Sterling",
+        "Nicholas Brendon",
+        "Lorene Scafaria"
+      ],
       "genres": [
         "Thriller",
         "Science Fiction"
       ],
+      "countries": [
+        "United Kingdom",
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/220289",
+      "imdbUrl": "https://www.imdb.com/title/tt2866360/",
       "letterboxdTitle": "Coherence",
       "letterboxdYear": 2013,
       "confidence": "exact"
@@ -508,13 +852,23 @@
       "directors": [
         "Elem Klimov"
       ],
+      "cast": [
+        "Aleksei Kravchenko",
+        "Olga Mironova",
+        "Liubomiras Laucevičius",
+        "Vladas Bagdonas"
+      ],
       "genres": [
         "Drama",
         "War",
         "Horror",
         "History"
       ],
+      "countries": [
+        "Soviet Union"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/25237",
+      "imdbUrl": "https://www.imdb.com/title/tt0091251/",
       "letterboxdTitle": "Come and See",
       "letterboxdYear": 1985,
       "confidence": "exact"
@@ -530,12 +884,22 @@
       "directors": [
         "Park Chan-wook"
       ],
+      "cast": [
+        "Tang Wei",
+        "Park Hae-il",
+        "Lee Jung-hyun",
+        "Go Kyung-pyo"
+      ],
       "genres": [
         "Thriller",
         "Mystery",
         "Romance"
       ],
+      "countries": [
+        "South Korea"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/705996",
+      "imdbUrl": "https://www.imdb.com/title/tt12477480/",
       "letterboxdTitle": "Decision to Leave",
       "letterboxdYear": 2022,
       "confidence": "exact"
@@ -551,11 +915,21 @@
       "directors": [
         "Frank Oz"
       ],
+      "cast": [
+        "Derek DelGaudio",
+        "Hal Schulman",
+        "Marina Abramović",
+        "Alexandra DelGaudio"
+      ],
       "genres": [
         "Drama",
         "Documentary"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/681459",
+      "imdbUrl": "https://www.imdb.com/title/tt11916302/",
       "letterboxdTitle": "Derek DelGaudio's In & of Itself",
       "letterboxdYear": 2020,
       "confidence": "exact"
@@ -571,11 +945,25 @@
       "directors": [
         "Sergei Loznitsa"
       ],
+      "cast": [
+        "Tamara Yatsenko",
+        "Iryna Zayarmiuk",
+        "Hryhoriy Masliuk",
+        "Olesia Zhurakivska"
+      ],
       "genres": [
         "Drama",
         "War"
       ],
+      "countries": [
+        "France",
+        "Germany",
+        "Netherlands",
+        "Romania",
+        "Ukraine"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/519187",
+      "imdbUrl": "https://www.imdb.com/title/tt8282042/",
       "letterboxdTitle": "Donbass",
       "letterboxdYear": 2018,
       "confidence": "exact"
@@ -591,12 +979,22 @@
       "directors": [
         "Adam McKay"
       ],
+      "cast": [
+        "Leonardo DiCaprio",
+        "Jennifer Lawrence",
+        "Meryl Streep",
+        "Cate Blanchett"
+      ],
       "genres": [
         "Comedy",
         "Science Fiction",
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/646380",
+      "imdbUrl": "https://www.imdb.com/title/tt11286314/",
       "letterboxdTitle": "Don't Look Up",
       "letterboxdYear": 2021,
       "confidence": "exact"
@@ -612,12 +1010,23 @@
       "directors": [
         "Peter Greenaway"
       ],
+      "cast": [
+        "Joan Plowright",
+        "Juliet Stevenson",
+        "Joely Richardson",
+        "Bernard Hill"
+      ],
       "genres": [
         "Comedy",
         "Crime",
         "Drama"
       ],
+      "countries": [
+        "Netherlands",
+        "United Kingdom"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/27362",
+      "imdbUrl": "https://www.imdb.com/title/tt0092929/",
       "letterboxdTitle": "Drowning by Numbers",
       "letterboxdYear": 1988,
       "confidence": "exact"
@@ -633,12 +1042,22 @@
       "directors": [
         "Vince Gilligan"
       ],
+      "cast": [
+        "Aaron Paul",
+        "Jesse Plemons",
+        "Charles Baker",
+        "Matt Jones"
+      ],
       "genres": [
         "Crime",
         "Drama",
         "Thriller"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/559969",
+      "imdbUrl": "https://www.imdb.com/title/tt9243946/",
       "letterboxdTitle": "El Camino: A Breaking Bad Movie",
       "letterboxdYear": 2019,
       "confidence": "exact"
@@ -655,12 +1074,22 @@
         "Daniel Scheinert",
         "Daniel Kwan"
       ],
+      "cast": [
+        "Michelle Yeoh",
+        "Stephanie Hsu",
+        "Ke Huy Quan",
+        "James Hong"
+      ],
       "genres": [
         "Action",
         "Adventure",
         "Science Fiction"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/545611",
+      "imdbUrl": "https://www.imdb.com/title/tt6710474/",
       "letterboxdTitle": "Everything Everywhere All at Once",
       "letterboxdYear": 2022,
       "confidence": "exact"
@@ -676,12 +1105,23 @@
       "directors": [
         "Georges Franju"
       ],
+      "cast": [
+        "Pierre Brasseur",
+        "Alida Valli",
+        "Édith Scob",
+        "Juliette Mayniel"
+      ],
       "genres": [
         "Drama",
         "Horror",
         "Thriller"
       ],
+      "countries": [
+        "France",
+        "Italy"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/31417",
+      "imdbUrl": "https://www.imdb.com/title/tt0053459/",
       "letterboxdTitle": "Eyes Without a Face",
       "letterboxdYear": 1960,
       "confidence": "exact"
@@ -697,10 +1137,21 @@
       "directors": [
         "Sara Dosa"
       ],
+      "cast": [
+        "Alka Balbir",
+        "Guillaume Tremblay",
+        "Miranda July",
+        "Katia Krafft"
+      ],
       "genres": [
         "Documentary"
       ],
+      "countries": [
+        "United States of America",
+        "Canada"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/913823",
+      "imdbUrl": "https://www.imdb.com/title/tt16227014/",
       "letterboxdTitle": "Fire of Love",
       "letterboxdYear": 2022,
       "confidence": "exact"
@@ -716,10 +1167,21 @@
       "directors": [
         "Paul Schrader"
       ],
+      "cast": [
+        "Ethan Hawke",
+        "Amanda Seyfried",
+        "Cedric the Entertainer",
+        "Victoria Hill"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [
+        "United States of America",
+        "United Kingdom"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/458737",
+      "imdbUrl": "https://www.imdb.com/title/tt6053438/",
       "letterboxdTitle": "First Reformed",
       "letterboxdYear": 2017,
       "confidence": "exact"
@@ -735,11 +1197,27 @@
       "directors": [
         "Jonas Poher Rasmussen"
       ],
+      "cast": [
+        "Amin Nawabi",
+        "Daniel Karimyar",
+        "Fardin Mijdzadeh",
+        "Milad Eskandari"
+      ],
       "genres": [
         "Documentary",
         "Animation"
       ],
+      "countries": [
+        "Denmark",
+        "Netherlands",
+        "Norway",
+        "Sweden",
+        "United Kingdom",
+        "United States of America",
+        "France"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/680813",
+      "imdbUrl": "https://www.imdb.com/title/tt8430054/",
       "letterboxdTitle": "Flee",
       "letterboxdYear": 2021,
       "confidence": "exact"
@@ -755,11 +1233,21 @@
       "directors": [
         "Madeleine Gavin"
       ],
+      "cast": [
+        "Barbara Demick",
+        "Kim Sung-eun",
+        "Lee Hyeon-seo",
+        "Lee So-yeon"
+      ],
       "genres": [
         "Documentary",
         "History"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1070032",
+      "imdbUrl": "https://www.imdb.com/title/tt25470468/",
       "letterboxdTitle": "Beyond Utopia",
       "letterboxdYear": 2023,
       "confidence": "exact"
@@ -775,12 +1263,23 @@
       "directors": [
         "Gore Verbinski"
       ],
+      "cast": [
+        "Sam Rockwell",
+        "Juno Temple",
+        "Haley Lu Richardson",
+        "Michael Peña"
+      ],
       "genres": [
         "Science Fiction",
         "Action",
         "Comedy"
       ],
+      "countries": [
+        "United States of America",
+        "Germany"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1119449",
+      "imdbUrl": "https://www.imdb.com/title/tt1341338/",
       "letterboxdTitle": "Good Luck, Have Fun, Don't Die",
       "letterboxdYear": 2025,
       "confidence": "exact"
@@ -797,12 +1296,22 @@
         "Severin Fiala",
         "Veronika Franz"
       ],
+      "cast": [
+        "Elias Schwarz",
+        "Lukas Schwarz",
+        "Susanne Wuest",
+        "Hans Escher"
+      ],
       "genres": [
         "Horror",
         "Mystery",
         "Thriller"
       ],
+      "countries": [
+        "Austria"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/284303",
+      "imdbUrl": "https://www.imdb.com/title/tt3086442/",
       "letterboxdTitle": "Goodnight Mommy",
       "letterboxdYear": 2014,
       "confidence": "exact"
@@ -818,10 +1327,21 @@
       "directors": [
         "Cristian Mungiu"
       ],
+      "cast": [
+        "Adrian Titieni",
+        "Maria Dragus",
+        "Lia Bugnar",
+        "Vlad Ivanov"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [
+        "Romania",
+        "France"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/374458",
+      "imdbUrl": "https://www.imdb.com/title/tt4936450/",
       "letterboxdTitle": "Graduation",
       "letterboxdYear": 2016,
       "confidence": "exact"
@@ -837,12 +1357,22 @@
       "directors": [
         "Masaki Kobayashi"
       ],
+      "cast": [
+        "Tatsuya Nakadai",
+        "Akira Ishihama",
+        "Shima Iwashita",
+        "Tetsuro Tamba"
+      ],
       "genres": [
         "Action",
         "Drama",
         "History"
       ],
+      "countries": [
+        "Japan"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/14537",
+      "imdbUrl": "https://www.imdb.com/title/tt0056058/",
       "letterboxdTitle": "Harakiri",
       "letterboxdYear": 1962,
       "confidence": "exact"
@@ -858,12 +1388,22 @@
       "directors": [
         "Jia Ling"
       ],
+      "cast": [
+        "Jia Ling",
+        "Zhang Xiaofei",
+        "Shen Teng",
+        "Chen He"
+      ],
       "genres": [
         "Drama",
         "Comedy",
         "Fantasy"
       ],
+      "countries": [
+        "China"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/758891",
+      "imdbUrl": "https://www.imdb.com/title/tt13364790/",
       "letterboxdTitle": "Hi, Mom",
       "letterboxdYear": 2021,
       "confidence": "exact"
@@ -879,13 +1419,23 @@
       "directors": [
         "Akira Kurosawa"
       ],
+      "cast": [
+        "Toshirō Mifune",
+        "Tatsuya Nakadai",
+        "Kyōko Kagawa",
+        "Tatsuya Mihashi"
+      ],
       "genres": [
         "Drama",
         "Crime",
         "Thriller",
         "Mystery"
       ],
+      "countries": [
+        "Japan"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/12493",
+      "imdbUrl": "https://www.imdb.com/title/tt0057565/",
       "letterboxdTitle": "High and Low",
       "letterboxdYear": 1963,
       "confidence": "exact"
@@ -901,12 +1451,22 @@
       "directors": [
         "Mike Cheslik"
       ],
+      "cast": [
+        "Ryland Brickson Cole Tews",
+        "Olivia Graves",
+        "Doug Mancheski",
+        "Wes Tank"
+      ],
       "genres": [
         "Comedy",
         "Adventure",
         "Action"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1019939",
+      "imdbUrl": "https://www.imdb.com/title/tt12818328/",
       "letterboxdTitle": "Hundreds of Beavers",
       "letterboxdYear": 2022,
       "confidence": "exact"
@@ -922,13 +1482,23 @@
       "directors": [
         "Sunao Katabuchi"
       ],
+      "cast": [
+        "Non",
+        "Yoshimasa Hosoya",
+        "Natsuki Inaba",
+        "Minori Omi"
+      ],
       "genres": [
         "Animation",
         "Drama",
         "War",
         "History"
       ],
+      "countries": [
+        "Japan"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/378108",
+      "imdbUrl": "https://www.imdb.com/title/tt4769824/",
       "letterboxdTitle": "In This Corner of the World",
       "letterboxdYear": 2016,
       "confidence": "exact"
@@ -944,12 +1514,23 @@
       "directors": [
         "Denis Villeneuve"
       ],
+      "cast": [
+        "Lubna Azabal",
+        "Mélissa Désormeaux-Poulin",
+        "Maxim Gaudette",
+        "Rémy Girard"
+      ],
       "genres": [
         "Drama",
         "War",
         "Mystery"
       ],
+      "countries": [
+        "Canada",
+        "France"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/46738",
+      "imdbUrl": "https://www.imdb.com/title/tt1255953/",
       "letterboxdTitle": "Incendies",
       "letterboxdYear": 2010,
       "confidence": "exact"
@@ -965,13 +1546,25 @@
       "directors": [
         "Jafar Panahi"
       ],
+      "cast": [
+        "Vahid Mobasseri",
+        "Mariam Afshari",
+        "Ebrahim Azizi",
+        "Hadis Pakbaten"
+      ],
       "genres": [
         "Drama",
         "Thriller",
         "Crime",
         "Mystery"
       ],
+      "countries": [
+        "Iran",
+        "France",
+        "Luxembourg"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1456349",
+      "imdbUrl": "https://www.imdb.com/title/tt36491653/",
       "letterboxdTitle": "It Was Just an Accident",
       "letterboxdYear": 2025,
       "confidence": "exact"
@@ -987,12 +1580,22 @@
       "directors": [
         "Sanjay Gupta"
       ],
+      "cast": [
+        "Amitabh Bachchan",
+        "Sanjay Dutt",
+        "Suniel Shetty",
+        "Mahesh Manjrekar"
+      ],
       "genres": [
         "Crime",
         "Thriller",
         "Action"
       ],
+      "countries": [
+        "India"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/35907",
+      "imdbUrl": "https://www.imdb.com/title/tt0294662/",
       "letterboxdTitle": "Kaante",
       "letterboxdYear": 2002,
       "confidence": "exact"
@@ -1008,11 +1611,21 @@
       "directors": [
         "Larry Clark"
       ],
+      "cast": [
+        "Leo Fitzpatrick",
+        "Justin Pierce",
+        "Chloë Sevigny",
+        "Rosario Dawson"
+      ],
       "genres": [
         "Drama",
         "Crime"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/9344",
+      "imdbUrl": "https://www.imdb.com/title/tt0113540/",
       "letterboxdTitle": "Kids",
       "letterboxdYear": 1995,
       "confidence": "exact"
@@ -1028,11 +1641,21 @@
       "directors": [
         "Shinya Tsukamoto"
       ],
+      "cast": [
+        "Sosuke Ikematsu",
+        "Yu Aoi",
+        "Tatsuya Nakamura",
+        "Ryusei Maeda"
+      ],
       "genres": [
         "Drama",
         "Action"
       ],
+      "countries": [
+        "Japan"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/531753",
+      "imdbUrl": "https://www.imdb.com/title/tt7117352/",
       "letterboxdTitle": "Killing",
       "letterboxdYear": 2018,
       "confidence": "exact"
@@ -1048,11 +1671,21 @@
       "directors": [
         "Robert Hamer"
       ],
+      "cast": [
+        "Dennis Price",
+        "Alec Guinness",
+        "Joan Greenwood",
+        "Valerie Hobson"
+      ],
       "genres": [
         "Comedy",
         "Crime"
       ],
+      "countries": [
+        "United Kingdom"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/11898",
+      "imdbUrl": "https://www.imdb.com/title/tt0041546/",
       "letterboxdTitle": "Kind Hearts and Coronets",
       "letterboxdYear": 1949,
       "confidence": "exact"
@@ -1068,11 +1701,22 @@
       "directors": [
         "Alain Resnais"
       ],
+      "cast": [
+        "Delphine Seyrig",
+        "Giorgio Albertazzi",
+        "Sacha Pitoëff",
+        "Françoise Bertin"
+      ],
       "genres": [
         "Drama",
         "Romance"
       ],
+      "countries": [
+        "France",
+        "Italy"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/4024",
+      "imdbUrl": "https://www.imdb.com/title/tt0054632/",
       "letterboxdTitle": "Last Year at Marienbad",
       "letterboxdYear": 1961,
       "confidence": "exact"
@@ -1088,10 +1732,21 @@
       "directors": [
         "Debra Granik"
       ],
+      "cast": [
+        "Thomasin McKenzie",
+        "Ben Foster",
+        "Jeff Kober",
+        "Dale Dickey"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [
+        "Canada",
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/443463",
+      "imdbUrl": "https://www.imdb.com/title/tt3892172/",
       "letterboxdTitle": "Leave No Trace",
       "letterboxdYear": 2018,
       "confidence": "exact"
@@ -1107,11 +1762,21 @@
       "directors": [
         "Kiyotaka Oshiyama"
       ],
+      "cast": [
+        "Yuumi Kawai",
+        "Mizuki Yoshida",
+        "Yoichiro Saito",
+        "Kota Oka"
+      ],
       "genres": [
         "Animation",
         "Drama"
       ],
+      "countries": [
+        "Japan"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1244492",
+      "imdbUrl": "https://www.imdb.com/title/tt31711040/",
       "letterboxdTitle": "Look Back",
       "letterboxdYear": 2024,
       "confidence": "exact"
@@ -1127,10 +1792,18 @@
       "directors": [
         "Brendan Fletcher"
       ],
+      "cast": [
+        "Dean Daley-Jones",
+        "Lucas Yeeda",
+        "Greg Tait",
+        "Ngaire Pigram"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [],
       "tmdbUrl": "https://www.themoviedb.org/movie/73066",
+      "imdbUrl": "https://www.imdb.com/title/tt1787758/",
       "letterboxdTitle": "Mad Bastards",
       "letterboxdYear": 2010,
       "confidence": "exact"
@@ -1146,13 +1819,23 @@
       "directors": [
         "Phil Tippett"
       ],
+      "cast": [
+        "Alex Cox",
+        "Niketa Roman",
+        "Satish Ratakonda",
+        "Arne Hain"
+      ],
       "genres": [
         "Animation",
         "Fantasy",
         "Horror",
         "Science Fiction"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/846867",
+      "imdbUrl": "https://www.imdb.com/title/tt15090124/",
       "letterboxdTitle": "Mad God",
       "letterboxdYear": 2021,
       "confidence": "exact"
@@ -1168,12 +1851,22 @@
       "directors": [
         "Mari Okada"
       ],
+      "cast": [
+        "Manaka Iwami",
+        "Miyu Irino",
+        "Yuuki Sakurai",
+        "Ai Kayano"
+      ],
       "genres": [
         "Animation",
         "Drama",
         "Fantasy"
       ],
+      "countries": [
+        "Japan"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/476292",
+      "imdbUrl": "https://www.imdb.com/title/tt7339826/",
       "letterboxdTitle": "Maquia: When the Promised Flower Blooms",
       "letterboxdYear": 2018,
       "confidence": "exact"
@@ -1189,12 +1882,22 @@
       "directors": [
         "Jérémie Périn"
       ],
+      "cast": [
+        "Léa Drucker",
+        "Mathieu Amalric",
+        "Daniel Njo Lobé",
+        "Marie Bouvet"
+      ],
       "genres": [
         "Animation",
         "Science Fiction",
         "Thriller"
       ],
+      "countries": [
+        "France"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/586810",
+      "imdbUrl": "https://www.imdb.com/title/tt26915336/",
       "letterboxdTitle": "Mars Express",
       "letterboxdYear": 2023,
       "confidence": "exact"
@@ -1210,10 +1913,20 @@
       "directors": [
         "Fran Kranz"
       ],
+      "cast": [
+        "Martha Plimpton",
+        "Jason Isaacs",
+        "Ann Dowd",
+        "Reed Birney"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/423333",
+      "imdbUrl": "https://www.imdb.com/title/tt11389748/",
       "letterboxdTitle": "Mass",
       "letterboxdYear": 2021,
       "confidence": "exact"
@@ -1229,10 +1942,20 @@
       "directors": [
         "Lee Isaac Chung"
       ],
+      "cast": [
+        "Steven Yeun",
+        "Han Ye-ri",
+        "Youn Yuh-jung",
+        "Will Patton"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/615643",
+      "imdbUrl": "https://www.imdb.com/title/tt10633456/",
       "letterboxdTitle": "Minari",
       "letterboxdYear": 2020,
       "confidence": "exact"
@@ -1248,6 +1971,12 @@
       "directors": [
         "Mamoru Hosoda"
       ],
+      "cast": [
+        "Moka Kamishiraishi",
+        "Haru Kuroki",
+        "Gen Hoshino",
+        "Kumiko Aso"
+      ],
       "genres": [
         "Animation",
         "Family",
@@ -1255,7 +1984,11 @@
         "Adventure",
         "Drama"
       ],
+      "countries": [
+        "Japan"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/475215",
+      "imdbUrl": "https://www.imdb.com/title/tt6900448/",
       "letterboxdTitle": "Mirai",
       "letterboxdYear": 2018,
       "confidence": "exact"
@@ -1271,12 +2004,22 @@
       "directors": [
         "Charlie Chaplin"
       ],
+      "cast": [
+        "Charlie Chaplin",
+        "Paulette Goddard",
+        "Henry Bergman",
+        "Tiny Sandford"
+      ],
       "genres": [
         "Comedy",
         "Drama",
         "Romance"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/3082",
+      "imdbUrl": "https://www.imdb.com/title/tt0027977/",
       "letterboxdTitle": "Modern Times",
       "letterboxdYear": 1936,
       "confidence": "exact"
@@ -1292,13 +2035,86 @@
       "directors": [
         "Jacques Tati"
       ],
+      "cast": [
+        "Jacques Tati",
+        "Jean-Pierre Zola",
+        "Adrienne Servantie",
+        "Lucien Frégis"
+      ],
       "genres": [
         "Comedy"
       ],
+      "countries": [
+        "France",
+        "Italy"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/427",
+      "imdbUrl": "https://www.imdb.com/title/tt0050706/",
       "letterboxdTitle": "Mon Oncle",
       "letterboxdYear": 1958,
       "confidence": "exact"
+    },
+    "monster-2023": {
+      "tmdbId": 1050035,
+      "originalTitle": "怪物",
+      "releaseDate": "2023-06-02",
+      "runtime": 125,
+      "overview": "After an outburst at school involving her son, a concerned single mother demands answers, triggering a sequence of deepening suspicion and turmoil.",
+      "posterPath": "/kvUJUyUGOhEoiWWNH04IXoExPE2.jpg",
+      "backdropPath": "/dZJcOyRonN0Kb7kJR3DE3esGn16.jpg",
+      "directors": [
+        "Hirokazu Kore-eda"
+      ],
+      "cast": [
+        "Sakura Ando",
+        "Soya Kurokawa",
+        "Hinata Hiiragi",
+        "Eita Nagayama"
+      ],
+      "genres": [
+        "Mystery",
+        "Thriller",
+        "Drama"
+      ],
+      "countries": [
+        "Japan"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1050035",
+      "imdbUrl": "https://www.imdb.com/title/tt23736044/",
+      "letterboxdTitle": "Monster",
+      "letterboxdYear": 2023,
+      "confidence": "manual-override"
+    },
+    "mother-2009": {
+      "tmdbId": 30018,
+      "originalTitle": "마더",
+      "releaseDate": "2009-05-28",
+      "runtime": 129,
+      "overview": "A mother lives quietly with her son. One day, a girl is brutally killed, and the boy is charged with the murder. Now, it's his mother's mission to prove him innocent.",
+      "posterPath": "/8oBnSkZE6GDVugAbLPO6uJd4GcS.jpg",
+      "backdropPath": "/mnNkHbs2onvP54zND5c1Ah5Usaa.jpg",
+      "directors": [
+        "Bong Joon Ho"
+      ],
+      "cast": [
+        "Kim Hye-ja",
+        "Won Bin",
+        "Jin Goo",
+        "Yoon Je-moon"
+      ],
+      "genres": [
+        "Crime",
+        "Drama",
+        "Mystery"
+      ],
+      "countries": [
+        "South Korea"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/30018",
+      "imdbUrl": "https://www.imdb.com/title/tt1216496/",
+      "letterboxdTitle": "Mother",
+      "letterboxdYear": 2009,
+      "confidence": "manual-override"
     },
     "next-floor": {
       "tmdbId": 99343,
@@ -1311,10 +2127,20 @@
       "directors": [
         "Denis Villeneuve"
       ],
+      "cast": [
+        "Jean Marchand",
+        "Luc-Martial Dagenais",
+        "Neil Kroetsch",
+        "Emmanuel Schwartz"
+      ],
       "genres": [
         "Comedy"
       ],
+      "countries": [
+        "Canada"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/99343",
+      "imdbUrl": "https://www.imdb.com/title/tt1255891/",
       "letterboxdTitle": "Next Floor",
       "letterboxdYear": 2008,
       "confidence": "exact"
@@ -1330,12 +2156,23 @@
       "directors": [
         "Park Chan-wook"
       ],
+      "cast": [
+        "Lee Byung-hun",
+        "Son Ye-jin",
+        "Park Hee-soon",
+        "Lee Sung-min"
+      ],
       "genres": [
         "Comedy",
         "Crime",
         "Thriller"
       ],
+      "countries": [
+        "South Korea",
+        "France"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/639988",
+      "imdbUrl": "https://www.imdb.com/title/tt1527793/",
       "letterboxdTitle": "No Other Choice",
       "letterboxdYear": 2025,
       "confidence": "exact"
@@ -1354,10 +2191,21 @@
         "Yuval Abraham",
         "Rachel Szor"
       ],
+      "cast": [
+        "Basel Adra",
+        "Yuval Abraham",
+        "Farisa Abu Aram",
+        "Nasser Adra"
+      ],
       "genres": [
         "Documentary"
       ],
+      "countries": [
+        "Norway",
+        "Palestinian Territory"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1232493",
+      "imdbUrl": "https://www.imdb.com/title/tt30953759/",
       "letterboxdTitle": "No Other Land",
       "letterboxdYear": 2024,
       "confidence": "exact"
@@ -1373,10 +2221,20 @@
       "directors": [
         "Kelly Reichardt"
       ],
+      "cast": [
+        "Daniel London",
+        "Will Oldham",
+        "Tanya Smith",
+        "Robin Rosenberg"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/26518",
+      "imdbUrl": "https://www.imdb.com/title/tt0468526/",
       "letterboxdTitle": "Old Joy",
       "letterboxdYear": 2006,
       "confidence": "exact"
@@ -1392,12 +2250,22 @@
       "directors": [
         "Peter Bogdanovich"
       ],
+      "cast": [
+        "Tatum O'Neal",
+        "Ryan O'Neal",
+        "Madeline Kahn",
+        "John Hillerman"
+      ],
       "genres": [
         "Comedy",
         "Crime",
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/11293",
+      "imdbUrl": "https://www.imdb.com/title/tt0070510/",
       "letterboxdTitle": "Paper Moon",
       "letterboxdYear": 1973,
       "confidence": "exact"
@@ -1413,10 +2281,20 @@
       "directors": [
         "Sandy Honig"
       ],
+      "cast": [
+        "Sabina Meschke",
+        "Annabel Meschke",
+        "Tyler Bailey",
+        "Tevin Bailey"
+      ],
       "genres": [
         "Comedy"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1098587",
+      "imdbUrl": "https://www.imdb.com/title/tt26054010/",
       "letterboxdTitle": "Pennies from Heaven",
       "letterboxdYear": 2023,
       "confidence": "exact"
@@ -1432,10 +2310,20 @@
       "directors": [
         "Ingmar Bergman"
       ],
+      "cast": [
+        "Bibi Andersson",
+        "Liv Ullmann",
+        "Margaretha Krook",
+        "Gunnar Björnstrand"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [
+        "Sweden"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/797",
+      "imdbUrl": "https://www.imdb.com/title/tt0060827/",
       "letterboxdTitle": "Persona",
       "letterboxdYear": 1966,
       "confidence": "exact"
@@ -1451,12 +2339,23 @@
       "directors": [
         "Michael Sarnoski"
       ],
+      "cast": [
+        "Nicolas Cage",
+        "Alex Wolff",
+        "Adam Arkin",
+        "Nina Belforte"
+      ],
       "genres": [
         "Drama",
         "Thriller",
         "Mystery"
       ],
+      "countries": [
+        "United Kingdom",
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/635731",
+      "imdbUrl": "https://www.imdb.com/title/tt11003218/",
       "letterboxdTitle": "Pig",
       "letterboxdYear": 2021,
       "confidence": "exact"
@@ -1472,10 +2371,21 @@
       "directors": [
         "Andrzej Żuławski"
       ],
+      "cast": [
+        "Isabelle Adjani",
+        "Sam Neill",
+        "Margit Carstensen",
+        "Heinz Bennent"
+      ],
       "genres": [
         "Horror"
       ],
+      "countries": [
+        "France",
+        "Germany"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/21484",
+      "imdbUrl": "https://www.imdb.com/title/tt0082933/",
       "letterboxdTitle": "Possession",
       "letterboxdYear": 1981,
       "confidence": "exact"
@@ -1492,11 +2402,21 @@
         "Phil Lord",
         "Christopher Miller"
       ],
+      "cast": [
+        "Ryan Gosling",
+        "Sandra Hüller",
+        "James Ortiz",
+        "Lionel Boyce"
+      ],
       "genres": [
         "Science Fiction",
         "Adventure"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/687163",
+      "imdbUrl": "https://www.imdb.com/title/tt12042730/",
       "letterboxdTitle": "Project Hail Mary",
       "letterboxdYear": 2026,
       "confidence": "exact"
@@ -1512,12 +2432,22 @@
       "directors": [
         "Emerald Fennell"
       ],
+      "cast": [
+        "Carey Mulligan",
+        "Bo Burnham",
+        "Alison Brie",
+        "Clancy Brown"
+      ],
       "genres": [
         "Thriller",
         "Crime",
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/582014",
+      "imdbUrl": "https://www.imdb.com/title/tt9620292/",
       "letterboxdTitle": "Promising Young Woman",
       "letterboxdYear": 2020,
       "confidence": "exact"
@@ -1533,11 +2463,21 @@
       "directors": [
         "Anvita Dutt"
       ],
+      "cast": [
+        "Triptii Dimri",
+        "Swastika Mukherjee",
+        "Babil Khan",
+        "Amit Sial"
+      ],
       "genres": [
         "Drama",
         "Music"
       ],
+      "countries": [
+        "India"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/934419",
+      "imdbUrl": "https://www.imdb.com/title/tt14428598/",
       "letterboxdTitle": "Qala",
       "letterboxdYear": 2022,
       "confidence": "exact"
@@ -1553,13 +2493,24 @@
       "directors": [
         "Anders Thomas Jensen"
       ],
+      "cast": [
+        "Mads Mikkelsen",
+        "Nikolaj Lie Kaas",
+        "Lars Brygmann",
+        "Nicolas Bro"
+      ],
       "genres": [
         "Action",
         "Comedy",
         "Drama",
         "Thriller"
       ],
+      "countries": [
+        "Denmark",
+        "Sweden"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/663870",
+      "imdbUrl": "https://www.imdb.com/title/tt11655202/",
       "letterboxdTitle": "Riders of Justice",
       "letterboxdYear": 2020,
       "confidence": "exact"
@@ -1576,13 +2527,23 @@
         "Jonathan Dayton",
         "Valerie Faris"
       ],
+      "cast": [
+        "Paul Dano",
+        "Zoe Kazan",
+        "Chris Messina",
+        "Annette Bening"
+      ],
       "genres": [
         "Comedy",
         "Romance",
         "Fantasy",
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/103332",
+      "imdbUrl": "https://www.imdb.com/title/tt1839492/",
       "letterboxdTitle": "Ruby Sparks",
       "letterboxdYear": 2012,
       "confidence": "exact"
@@ -1598,11 +2559,21 @@
       "directors": [
         "Andrei Tarkovsky"
       ],
+      "cast": [
+        "Alisa Freyndlikh",
+        "Aleksandr Kaydanovskiy",
+        "Anatoliy Solonitsyn",
+        "Mykola Hrynko"
+      ],
       "genres": [
         "Science Fiction",
         "Drama"
       ],
+      "countries": [
+        "Soviet Union"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1398",
+      "imdbUrl": "https://www.imdb.com/title/tt0079944/",
       "letterboxdTitle": "Stalker",
       "letterboxdYear": 1979,
       "confidence": "exact"
@@ -1618,13 +2589,23 @@
       "directors": [
         "Makoto Shinkai"
       ],
+      "cast": [
+        "Nanoka Hara",
+        "Hokuto Matsumura",
+        "Eri Fukatsu",
+        "Shota Sometani"
+      ],
       "genres": [
         "Animation",
         "Drama",
         "Adventure",
         "Fantasy"
       ],
+      "countries": [
+        "Japan"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/916224",
+      "imdbUrl": "https://www.imdb.com/title/tt16428256/",
       "letterboxdTitle": "Suzume",
       "letterboxdYear": 2022,
       "confidence": "exact"
@@ -1640,16 +2621,57 @@
       "directors": [
         "Warwick Thornton"
       ],
+      "cast": [
+        "Hamilton Morris",
+        "Bryan Brown",
+        "Sam Neill",
+        "Thomas M. Wright"
+      ],
       "genres": [
         "Western",
         "Crime",
         "Thriller",
         "Drama"
       ],
+      "countries": [
+        "Australia"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/468210",
+      "imdbUrl": "https://www.imdb.com/title/tt6958212/",
       "letterboxdTitle": "Sweet Country",
       "letterboxdYear": 2017,
       "confidence": "exact"
+    },
+    "talk-to-me-2022": {
+      "tmdbId": 1008042,
+      "originalTitle": "Talk to Me",
+      "releaseDate": "2023-07-26",
+      "runtime": 95,
+      "overview": "When a group of friends discover how to conjure spirits using an embalmed hand, they become hooked on the new thrill, until one of them goes too far and unleashes terrifying supernatural forces.",
+      "posterPath": "/kdPMUMJzyYAc4roD52qavX0nLIC.jpg",
+      "backdropPath": "/46Os8U0DEPmI0OnvKDxucl6SLVZ.jpg",
+      "directors": [
+        "Michael Philippou",
+        "Danny Philippou"
+      ],
+      "cast": [
+        "Sophie Wilde",
+        "Alexandra Jensen",
+        "Joe Bird",
+        "Otis Dhanji"
+      ],
+      "genres": [
+        "Horror"
+      ],
+      "countries": [
+        "Australia",
+        "United Kingdom"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1008042",
+      "imdbUrl": "https://www.imdb.com/title/tt10638522/",
+      "letterboxdTitle": "Talk to Me",
+      "letterboxdYear": 2022,
+      "confidence": "manual-override"
     },
     "taste-of-cherry": {
       "tmdbId": 30020,
@@ -1662,10 +2684,21 @@
       "directors": [
         "Abbas Kiarostami"
       ],
+      "cast": [
+        "Homayoun Ershadi",
+        "Abdolrahman Bagheri",
+        "Safar Ali Moradi",
+        "Mir Hossein Noori"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [
+        "Iran",
+        "France"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/30020",
+      "imdbUrl": "https://www.imdb.com/title/tt0120265/",
       "letterboxdTitle": "Taste of Cherry",
       "letterboxdYear": 1997,
       "confidence": "exact"
@@ -1681,11 +2714,21 @@
       "directors": [
         "James L. Brooks"
       ],
+      "cast": [
+        "Shirley MacLaine",
+        "Debra Winger",
+        "Jack Nicholson",
+        "Danny DeVito"
+      ],
       "genres": [
         "Drama",
         "Comedy"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/11050",
+      "imdbUrl": "https://www.imdb.com/title/tt0086425/",
       "letterboxdTitle": "Terms of Endearment",
       "letterboxdYear": 1983,
       "confidence": "exact"
@@ -1701,11 +2744,21 @@
       "directors": [
         "Cristi Puiu"
       ],
+      "cast": [
+        "Ion Fiscuteanu",
+        "Luminița Gheorghiu",
+        "Doru Ana",
+        "Monica Bîrlădeanu"
+      ],
       "genres": [
         "Drama",
         "Comedy"
       ],
+      "countries": [
+        "Romania"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/31032",
+      "imdbUrl": "https://www.imdb.com/title/tt0456149/",
       "letterboxdTitle": "The Death of Mr. Lazarescu",
       "letterboxdYear": 2005,
       "confidence": "exact"
@@ -1721,8 +2774,16 @@
       "directors": [
         "Vedran Rupic"
       ],
+      "cast": [
+        "Erik Sjöström",
+        "Rodrigo Pozo Vizcarra"
+      ],
       "genres": [],
+      "countries": [
+        "Sweden"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/959036",
+      "imdbUrl": "https://www.imdb.com/title/tt21213026/",
       "letterboxdTitle": "The Diamond",
       "letterboxdYear": 2022,
       "confidence": "exact"
@@ -1738,10 +2799,20 @@
       "directors": [
         "Sean Baker"
       ],
+      "cast": [
+        "Brooklynn Prince",
+        "Bria Vinaite",
+        "Willem Dafoe",
+        "Christopher Rivera"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/394117",
+      "imdbUrl": "https://www.imdb.com/title/tt5649144/",
       "letterboxdTitle": "The Florida Project",
       "letterboxdYear": 2017,
       "confidence": "exact"
@@ -1757,12 +2828,22 @@
       "directors": [
         "William Friedkin"
       ],
+      "cast": [
+        "Gene Hackman",
+        "Roy Scheider",
+        "Fernando Rey",
+        "Tony Lo Bianco"
+      ],
       "genres": [
         "Action",
         "Crime",
         "Thriller"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1051",
+      "imdbUrl": "https://www.imdb.com/title/tt0067116/",
       "letterboxdTitle": "The French Connection",
       "letterboxdYear": 1971,
       "confidence": "exact"
@@ -1778,12 +2859,24 @@
       "directors": [
         "David Lowery"
       ],
+      "cast": [
+        "Dev Patel",
+        "Alicia Vikander",
+        "Joel Edgerton",
+        "Sarita Choudhury"
+      ],
       "genres": [
         "Adventure",
         "Drama",
         "Fantasy"
       ],
+      "countries": [
+        "Canada",
+        "Ireland",
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/559907",
+      "imdbUrl": "https://www.imdb.com/title/tt9243804/",
       "letterboxdTitle": "The Green Knight",
       "letterboxdYear": 2021,
       "confidence": "exact"
@@ -1799,11 +2892,21 @@
       "directors": [
         "Kenneth Anger"
       ],
+      "cast": [
+        "Samson De Brier",
+        "Marjorie Cameron",
+        "Joan Whitney",
+        "Katy Kadell"
+      ],
       "genres": [
         "Fantasy",
         "Horror"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/43337",
+      "imdbUrl": "https://www.imdb.com/title/tt0047114/",
       "letterboxdTitle": "The Inauguration of the Pleasure Dome",
       "letterboxdYear": 1954,
       "confidence": "exact"
@@ -1819,10 +2922,20 @@
       "directors": [
         "Joe Talbot"
       ],
+      "cast": [
+        "Jimmie Fails",
+        "Jonathan Majors",
+        "Rob Morgan",
+        "Tichina Arnold"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/522039",
+      "imdbUrl": "https://www.imdb.com/title/tt4353250/",
       "letterboxdTitle": "The Last Black Man in San Francisco",
       "letterboxdYear": 2019,
       "confidence": "exact"
@@ -1838,11 +2951,21 @@
       "directors": [
         "Hal Ashby"
       ],
+      "cast": [
+        "Jack Nicholson",
+        "Otis Young",
+        "Randy Quaid",
+        "Clifton James"
+      ],
       "genres": [
         "Drama",
         "Comedy"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/14886",
+      "imdbUrl": "https://www.imdb.com/title/tt0070290/",
       "letterboxdTitle": "The Last Detail",
       "letterboxdYear": 1973,
       "confidence": "exact"
@@ -1858,12 +2981,22 @@
       "directors": [
         "Ridley Scott"
       ],
+      "cast": [
+        "Matt Damon",
+        "Adam Driver",
+        "Jodie Comer",
+        "Ben Affleck"
+      ],
       "genres": [
         "Drama",
         "History",
         "Thriller"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/617653",
+      "imdbUrl": "https://www.imdb.com/title/tt4244994/",
       "letterboxdTitle": "The Last Duel",
       "letterboxdYear": 2021,
       "confidence": "exact"
@@ -1879,14 +3012,56 @@
       "directors": [
         "Mike Flanagan"
       ],
+      "cast": [
+        "Tom Hiddleston",
+        "Benjamin Pajak",
+        "Nick Offerman",
+        "Chiwetel Ejiofor"
+      ],
       "genres": [
         "Fantasy",
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/842924",
+      "imdbUrl": "https://www.imdb.com/title/tt12908150/",
       "letterboxdTitle": "The Life of Chuck",
       "letterboxdYear": 2024,
       "confidence": "exact"
+    },
+    "the-lighthouse-2019": {
+      "tmdbId": 503919,
+      "originalTitle": "The Lighthouse",
+      "releaseDate": "2019-10-18",
+      "runtime": 109,
+      "overview": "Two lighthouse keepers try to maintain their sanity while living on a remote and mysterious New England island in the 1890s.",
+      "posterPath": "/yAKNmpcUweGH6WMCEWenwU9PsbE.jpg",
+      "backdropPath": "/sYLzRuEcwSz0L1Z92wQNrETHU9O.jpg",
+      "directors": [
+        "Robert Eggers"
+      ],
+      "cast": [
+        "Robert Pattinson",
+        "Willem Dafoe",
+        "Valeriia Karaman",
+        "Logan Hawkes"
+      ],
+      "genres": [
+        "Drama",
+        "Fantasy",
+        "Thriller"
+      ],
+      "countries": [
+        "Brazil",
+        "United States of America"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/503919",
+      "imdbUrl": "https://www.imdb.com/title/tt7984734/",
+      "letterboxdTitle": "The Lighthouse",
+      "letterboxdYear": 2019,
+      "confidence": "manual-override"
     },
     "the-long-goodbye": {
       "tmdbId": 1847,
@@ -1899,12 +3074,22 @@
       "directors": [
         "Robert Altman"
       ],
+      "cast": [
+        "Elliott Gould",
+        "Nina van Pallandt",
+        "Sterling Hayden",
+        "Mark Rydell"
+      ],
       "genres": [
         "Mystery",
         "Drama",
         "Crime"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1847",
+      "imdbUrl": "https://www.imdb.com/title/tt0070334/",
       "letterboxdTitle": "The Long Goodbye",
       "letterboxdYear": 1973,
       "confidence": "exact"
@@ -1920,11 +3105,21 @@
       "directors": [
         "Aneil Karia"
       ],
+      "cast": [
+        "Riz Ahmed",
+        "Hussina Raja",
+        "Javed Hashmi",
+        "Sudha Bhuchar"
+      ],
       "genres": [
         "Drama",
         "Thriller"
       ],
+      "countries": [
+        "United Kingdom"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/681015",
+      "imdbUrl": "https://www.imdb.com/title/tt11924384/",
       "letterboxdTitle": "The Long Goodbye",
       "letterboxdYear": 2020,
       "confidence": "exact"
@@ -1940,11 +3135,24 @@
       "directors": [
         "Ritesh Batra"
       ],
+      "cast": [
+        "Irrfan Khan",
+        "Nimrat Kaur",
+        "Nawazuddin Siddiqui",
+        "Lillete Dubey"
+      ],
       "genres": [
         "Drama",
         "Romance"
       ],
+      "countries": [
+        "France",
+        "Germany",
+        "India",
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/191714",
+      "imdbUrl": "https://www.imdb.com/title/tt2350496/",
       "letterboxdTitle": "The Lunchbox",
       "letterboxdYear": 2013,
       "confidence": "exact"
@@ -1960,11 +3168,21 @@
       "directors": [
         "Mark Mylod"
       ],
+      "cast": [
+        "Anya Taylor-Joy",
+        "Ralph Fiennes",
+        "Nicholas Hoult",
+        "Janet McTeer"
+      ],
       "genres": [
         "Comedy",
         "Horror"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/593643",
+      "imdbUrl": "https://www.imdb.com/title/tt9764362/",
       "letterboxdTitle": "The Menu",
       "letterboxdYear": 2022,
       "confidence": "exact"
@@ -1980,11 +3198,24 @@
       "directors": [
         "Pawo Choyning Dorji"
       ],
+      "cast": [
+        "Tandin Wangchuk",
+        "Tandin Sonam",
+        "Deki Lhamo",
+        "Pema Zangmo Sherpa"
+      ],
       "genres": [
         "Comedy",
         "Drama"
       ],
+      "countries": [
+        "Bhutan",
+        "France",
+        "Taiwan",
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1109237",
+      "imdbUrl": "https://www.imdb.com/title/tt15560314/",
       "letterboxdTitle": "The Monk and the Gun",
       "letterboxdYear": 2023,
       "confidence": "exact"
@@ -2000,13 +3231,25 @@
       "directors": [
         "Michael Dudok de Wit"
       ],
+      "cast": [
+        "Tom Hudson",
+        "Baptiste Goy",
+        "Axel Devillers",
+        "Barbara Beretta"
+      ],
       "genres": [
         "Animation",
         "Drama",
         "Fantasy",
         "Family"
       ],
+      "countries": [
+        "Belgium",
+        "France",
+        "Japan"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/337703",
+      "imdbUrl": "https://www.imdb.com/title/tt3666024/",
       "letterboxdTitle": "The Red Turtle",
       "letterboxdYear": 2016,
       "confidence": "exact"
@@ -2022,11 +3265,21 @@
       "directors": [
         "Benjamin Ree"
       ],
+      "cast": [
+        "Mats Steen",
+        "Robert Steen",
+        "Trude Steen",
+        "Mia Steen"
+      ],
       "genres": [
         "Documentary",
         "Animation"
       ],
+      "countries": [
+        "Norway"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1167027",
+      "imdbUrl": "https://www.imdb.com/title/tt19811010/",
       "letterboxdTitle": "The Remarkable Life of Ibelin",
       "letterboxdYear": 2024,
       "confidence": "exact"
@@ -2042,11 +3295,22 @@
       "directors": [
         "Edgar Wright"
       ],
+      "cast": [
+        "Ron Mael",
+        "Russell Mael",
+        "Beck",
+        "Gary Stewart"
+      ],
       "genres": [
         "Documentary",
         "Music"
       ],
+      "countries": [
+        "United Kingdom",
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/776485",
+      "imdbUrl": "https://www.imdb.com/title/tt8610436/",
       "letterboxdTitle": "The Sparks Brothers",
       "letterboxdYear": 2021,
       "confidence": "exact"
@@ -2062,10 +3326,24 @@
       "directors": [
         "Ruben Östlund"
       ],
+      "cast": [
+        "Claes Bang",
+        "Elisabeth Moss",
+        "Dominic West",
+        "Terry Notary"
+      ],
       "genres": [
         "Drama"
       ],
+      "countries": [
+        "Denmark",
+        "France",
+        "Germany",
+        "Sweden",
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/401246",
+      "imdbUrl": "https://www.imdb.com/title/tt4995790/",
       "letterboxdTitle": "The Square",
       "letterboxdYear": 2017,
       "confidence": "exact"
@@ -2081,11 +3359,23 @@
       "directors": [
         "Coralie Fargeat"
       ],
+      "cast": [
+        "Demi Moore",
+        "Margaret Qualley",
+        "Dennis Quaid",
+        "Edward Hamilton-Clark"
+      ],
       "genres": [
         "Horror",
         "Science Fiction"
       ],
+      "countries": [
+        "France",
+        "United Kingdom",
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/933260",
+      "imdbUrl": "https://www.imdb.com/title/tt17526714/",
       "letterboxdTitle": "The Substance",
       "letterboxdYear": 2024,
       "confidence": "exact"
@@ -2101,11 +3391,21 @@
       "directors": [
         "Fernando Meirelles"
       ],
+      "cast": [
+        "Jonathan Pryce",
+        "Anthony Hopkins",
+        "Juan Minujín",
+        "Luis Gnecco"
+      ],
       "genres": [
         "Drama",
         "History"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/551332",
+      "imdbUrl": "https://www.imdb.com/title/tt8404614/",
       "letterboxdTitle": "The Two Popes",
       "letterboxdYear": 2019,
       "confidence": "exact"
@@ -2121,11 +3421,22 @@
       "directors": [
         "Na Hong-jin"
       ],
+      "cast": [
+        "Kwak Do-won",
+        "Hwang Jung-min",
+        "Chun Woo-hee",
+        "Jun Kunimura"
+      ],
       "genres": [
         "Horror",
         "Mystery"
       ],
+      "countries": [
+        "South Korea",
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/293670",
+      "imdbUrl": "https://www.imdb.com/title/tt5215952/",
       "letterboxdTitle": "The Wailing",
       "letterboxdYear": 2016,
       "confidence": "exact"
@@ -2141,12 +3452,25 @@
       "directors": [
         "Joachim Trier"
       ],
+      "cast": [
+        "Renate Reinsve",
+        "Anders Danielsen Lie",
+        "Herbert Nordrum",
+        "Hans Olav Brenner"
+      ],
       "genres": [
         "Drama",
         "Romance",
         "Comedy"
       ],
+      "countries": [
+        "Norway",
+        "Sweden",
+        "Denmark",
+        "France"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/660120",
+      "imdbUrl": "https://www.imdb.com/title/tt10370710/",
       "letterboxdTitle": "The Worst Person in the World",
       "letterboxdYear": 2021,
       "confidence": "exact"
@@ -2162,11 +3486,21 @@
       "directors": [
         "Jim Cummings"
       ],
+      "cast": [
+        "Jim Cummings",
+        "Kendal Farr",
+        "Nican Robinson",
+        "Jocelyn DeBoer"
+      ],
       "genres": [
         "Comedy",
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/502422",
+      "imdbUrl": "https://www.imdb.com/title/tt7738450/",
       "letterboxdTitle": "Thunder Road",
       "letterboxdYear": 2018,
       "confidence": "exact"
@@ -2182,12 +3516,22 @@
       "directors": [
         "Satoshi Kon"
       ],
+      "cast": [
+        "Aya Okamoto",
+        "Yoshiaki Umegaki",
+        "Tohru Emori",
+        "Satomi Korogi"
+      ],
       "genres": [
         "Animation",
         "Drama",
         "Comedy"
       ],
+      "countries": [
+        "Japan"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/13398",
+      "imdbUrl": "https://www.imdb.com/title/tt0388473/",
       "letterboxdTitle": "Tokyo Godfathers",
       "letterboxdYear": 2003,
       "confidence": "exact"
@@ -2203,11 +3547,21 @@
       "directors": [
         "Djibril Diop Mambéty"
       ],
+      "cast": [
+        "Magaye Niang",
+        "Myriam Niang",
+        "Christoph Colomb",
+        "Mustapha Ture"
+      ],
       "genres": [
         "Drama",
         "Romance"
       ],
+      "countries": [
+        "Senegal"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/77771",
+      "imdbUrl": "https://www.imdb.com/title/tt0070820/",
       "letterboxdTitle": "Touki Bouki",
       "letterboxdYear": 1973,
       "confidence": "exact"
@@ -2223,13 +3577,23 @@
       "directors": [
         "Josh Cooley"
       ],
+      "cast": [
+        "Tom Hanks",
+        "Tim Allen",
+        "Annie Potts",
+        "Tony Hale"
+      ],
       "genres": [
         "Family",
         "Comedy",
         "Animation",
         "Adventure"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/301528",
+      "imdbUrl": "https://www.imdb.com/title/tt1979376/",
       "letterboxdTitle": "Toy Story 4",
       "letterboxdYear": 2019,
       "confidence": "exact"
@@ -2245,15 +3609,54 @@
       "directors": [
         "Ernst Lubitsch"
       ],
+      "cast": [
+        "Miriam Hopkins",
+        "Kay Francis",
+        "Herbert Marshall",
+        "Charles Ruggles"
+      ],
       "genres": [
         "Comedy",
         "Crime",
         "Romance"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/195",
+      "imdbUrl": "https://www.imdb.com/title/tt0023622/",
       "letterboxdTitle": "Trouble in Paradise",
       "letterboxdYear": 1932,
       "confidence": "exact"
+    },
+    "tuesday-2015-1": {
+      "tmdbId": 972611,
+      "originalTitle": "Tuesday",
+      "releaseDate": "2015-11-19",
+      "runtime": 11,
+      "overview": "Every Tuesday, sixteen-year-old Allie stays with her dad and insists that this week will be no exception. Throughout the course of the day, she endures awkward encounters with family and friends before finally arriving at her dad’s flat where her routine is broken by the silence of an empty home.",
+      "posterPath": "/i9bgReVpsjpRk2tN0yZCnWTVpuM.jpg",
+      "backdropPath": "/n5MduTJqBY1ZhiQQko4hOj2ILEV.jpg",
+      "directors": [
+        "Charlotte Wells"
+      ],
+      "cast": [
+        "Megan McGill",
+        "Anita Vettesse",
+        "David Leith",
+        "Fraser Munro"
+      ],
+      "genres": [
+        "Drama"
+      ],
+      "countries": [
+        "United Kingdom"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/972611",
+      "imdbUrl": "https://www.imdb.com/title/tt4470296/",
+      "letterboxdTitle": "Tuesday",
+      "letterboxdYear": 2015,
+      "confidence": "manual-override"
     },
     "tumbbad": {
       "tmdbId": 538858,
@@ -2266,11 +3669,22 @@
       "directors": [
         "Rahi Anil Barve"
       ],
+      "cast": [
+        "Sohum Shah",
+        "Mohammad Samad",
+        "Harsh K.",
+        "Jyoti Malshe"
+      ],
       "genres": [
         "Fantasy",
         "Horror"
       ],
+      "countries": [
+        "India",
+        "Sweden"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/538858",
+      "imdbUrl": "https://www.imdb.com/title/tt8239946/",
       "letterboxdTitle": "Tumbbad",
       "letterboxdYear": 2018,
       "confidence": "exact"
@@ -2286,11 +3700,21 @@
       "directors": [
         "James Sweeney"
       ],
+      "cast": [
+        "Dylan O'Brien",
+        "James Sweeney",
+        "Aisling Franciosi",
+        "Lauren Graham"
+      ],
       "genres": [
         "Comedy",
         "Drama"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/1245347",
+      "imdbUrl": "https://www.imdb.com/title/tt31322753/",
       "letterboxdTitle": "Twinless",
       "letterboxdYear": 2025,
       "confidence": "exact"
@@ -2307,12 +3731,22 @@
         "Josh Safdie",
         "Benny Safdie"
       ],
+      "cast": [
+        "Adam Sandler",
+        "LaKeith Stanfield",
+        "Julia Fox",
+        "Kevin Garnett"
+      ],
       "genres": [
         "Drama",
         "Thriller",
         "Crime"
       ],
+      "countries": [
+        "United States of America"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/473033",
+      "imdbUrl": "https://www.imdb.com/title/tt5727208/",
       "letterboxdTitle": "Uncut Gems",
       "letterboxdYear": 2019,
       "confidence": "exact"
@@ -2328,239 +3762,27 @@
       "directors": [
         "Makoto Shinkai"
       ],
+      "cast": [
+        "Kotaro Daigo",
+        "Nana Mori",
+        "Tsubasa Honda",
+        "Sakura Kiryu"
+      ],
       "genres": [
         "Animation",
         "Drama",
         "Fantasy",
         "Romance"
       ],
+      "countries": [
+        "Japan"
+      ],
       "tmdbUrl": "https://www.themoviedb.org/movie/568160",
+      "imdbUrl": "https://www.imdb.com/title/tt9426210/",
       "letterboxdTitle": "Weathering with You",
       "letterboxdYear": 2019,
       "confidence": "exact"
     }
   },
-  "unmatched": {
-    "aftersun": {
-      "title": "Aftersun",
-      "year": 2022,
-      "reason": "2 results share that title and year",
-      "candidates": [
-        {
-          "tmdbId": 965150,
-          "title": "Aftersun",
-          "releaseDate": "2022-10-21"
-        },
-        {
-          "tmdbId": 969829,
-          "title": "Aftersun",
-          "releaseDate": "2022-05-01"
-        }
-      ]
-    },
-    "an-irish-goodbye": {
-      "title": "An Irish Goodbye",
-      "year": 2022,
-      "reason": "2 results share that title and year",
-      "candidates": [
-        {
-          "tmdbId": 1209878,
-          "title": "An Irish Goodbye",
-          "releaseDate": "2022-10-17"
-        },
-        {
-          "tmdbId": 889598,
-          "title": "An Irish Goodbye",
-          "releaseDate": "2022-03-04"
-        }
-      ]
-    },
-    "close-2022": {
-      "title": "Close",
-      "year": 2022,
-      "reason": "4 results share that title and year",
-      "candidates": [
-        {
-          "tmdbId": 901563,
-          "title": "Close",
-          "releaseDate": "2022-11-01"
-        },
-        {
-          "tmdbId": 1049300,
-          "title": "Too Close",
-          "releaseDate": "2022-11-16"
-        },
-        {
-          "tmdbId": 508664,
-          "title": "Danger Close: The Battle of Long Tan",
-          "releaseDate": "2019-08-08"
-        },
-        {
-          "tmdbId": 1204596,
-          "title": "Close",
-          "releaseDate": "2022-01-22"
-        },
-        {
-          "tmdbId": 965235,
-          "title": "Hotter Up Close",
-          "releaseDate": "2022-05-05"
-        }
-      ]
-    },
-    "monster-2023": {
-      "title": "Monster",
-      "year": 2023,
-      "reason": "2 results share that title and year",
-      "candidates": [
-        {
-          "tmdbId": 1050035,
-          "title": "Monster",
-          "releaseDate": "2023-06-02"
-        },
-        {
-          "tmdbId": 823609,
-          "title": "Monster Family 2",
-          "releaseDate": "2021-10-15"
-        },
-        {
-          "tmdbId": 1203484,
-          "title": "Monster",
-          "releaseDate": "2023-11-29"
-        },
-        {
-          "tmdbId": 943344,
-          "title": "Underground Monster",
-          "releaseDate": "2023-04-27"
-        },
-        {
-          "tmdbId": 1028318,
-          "title": "Goodbye Monster",
-          "releaseDate": "2022-08-13"
-        }
-      ]
-    },
-    "mother-2009": {
-      "title": "Mother",
-      "year": 2009,
-      "reason": "3 results share that title and year",
-      "candidates": [
-        {
-          "tmdbId": 30018,
-          "title": "Mother",
-          "releaseDate": "2009-05-28"
-        },
-        {
-          "tmdbId": 37080,
-          "title": "Mother and Child",
-          "releaseDate": "2009-11-07"
-        },
-        {
-          "tmdbId": 698885,
-          "title": "Mother",
-          "releaseDate": "2009-04-01"
-        },
-        {
-          "tmdbId": 140489,
-          "title": "The Mother of Invention",
-          "releaseDate": "2009-05-02"
-        },
-        {
-          "tmdbId": 176005,
-          "title": "Mother Fish",
-          "releaseDate": "2010-08-05"
-        }
-      ]
-    },
-    "talk-to-me-2022": {
-      "title": "Talk to Me",
-      "year": 2022,
-      "reason": "2 results share that title and year",
-      "candidates": [
-        {
-          "tmdbId": 1008042,
-          "title": "Talk to Me",
-          "releaseDate": "2023-07-26"
-        },
-        {
-          "tmdbId": 1463098,
-          "title": "Talk to Me in Silence",
-          "releaseDate": "2023-03-28"
-        },
-        {
-          "tmdbId": 1118584,
-          "title": "Talk to Me",
-          "releaseDate": "2022-10-24"
-        },
-        {
-          "tmdbId": 1035088,
-          "title": "Talk to Me",
-          "releaseDate": "2022-10-21"
-        },
-        {
-          "tmdbId": 1001330,
-          "title": "Don't Talk to Me Like That",
-          "releaseDate": "2022-09-17"
-        }
-      ]
-    },
-    "the-lighthouse-2019": {
-      "title": "The Lighthouse",
-      "year": 2019,
-      "reason": "2 results share that title and year",
-      "candidates": [
-        {
-          "tmdbId": 503919,
-          "title": "The Lighthouse",
-          "releaseDate": "2019-10-18"
-        },
-        {
-          "tmdbId": 426487,
-          "title": "The Lighthouse",
-          "releaseDate": "2016-07-08"
-        },
-        {
-          "tmdbId": 930717,
-          "title": "The Lighthouse",
-          "releaseDate": "2017-09-07"
-        },
-        {
-          "tmdbId": 1021772,
-          "title": "The Lighthouse",
-          "releaseDate": "2019-02-09"
-        }
-      ]
-    },
-    "tuesday-2015-1": {
-      "title": "Tuesday",
-      "year": 2015,
-      "reason": "2 results share that title and year",
-      "candidates": [
-        {
-          "tmdbId": 972611,
-          "title": "Tuesday",
-          "releaseDate": "2015-11-19"
-        },
-        {
-          "tmdbId": 360783,
-          "title": "Tuesday",
-          "releaseDate": "2015-09-20"
-        },
-        {
-          "tmdbId": 448249,
-          "title": "Tuesday Slumber",
-          "releaseDate": "2015-06-16"
-        },
-        {
-          "tmdbId": 338611,
-          "title": "Tuesday Morning",
-          "releaseDate": "2015-01-01"
-        },
-        {
-          "tmdbId": 791491,
-          "title": "Tuesday Overnight",
-          "releaseDate": "2015-11-12"
-        }
-      ]
-    }
-  }
+  "unmatched": {}
 }

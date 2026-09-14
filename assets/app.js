@@ -5,9 +5,14 @@
  *   data/tmdb.json     posters, credits and genres, keyed by Letterboxd slug
  *   data/pickers.json  who picked each film, keyed by "<year>:<slug>" -
  *                       hand-maintained, since Letterboxd has no notion of it
+ *   data/schedule.json the current pick cycle - who picked (or picked last),
+ *                       which film (once decided) and when it screens
+ *   data/members.json  the club's pick rotation, oldest to newest turn
  *
  * TMDB data and picker data are both optional: a film with no match, or no
- * recorded picker, still gets a tile.
+ * recorded picker, still gets a tile. schedule.json and members.json are
+ * also optional - their absence just means the hero falls back to a bare
+ * "waiting for selection" with no name attached.
  */
 
 // Row thumbnails - ask for a size that still looks sharp at 2x.
@@ -23,6 +28,17 @@ function el(tag, className, text) {
   if (className) node.className = className;
   if (text != null) node.textContent = text;
   return node;
+}
+
+/** Wraps a node in a link out to IMDb, opened in a new tab. */
+function imdbLink(href, child, title, className = 'poster-link') {
+  const a = el('a', className);
+  a.href = href;
+  a.target = '_blank';
+  a.rel = 'noopener noreferrer';
+  a.setAttribute('aria-label', `${title} on IMDb`);
+  a.append(child);
+  return a;
 }
 
 function posterFor(imageBase, path, title) {
@@ -52,23 +68,34 @@ function filmCard(film, meta, imageBase, picker) {
   const li = el('li', 'film');
   const row = el('div', 'film-row');
 
-  row.append(posterFor(imageBase, meta?.posterPath, film.title));
+  const poster = posterFor(imageBase, meta?.posterPath, film.title);
+  row.append(meta?.imdbUrl ? imdbLink(meta.imdbUrl, poster, film.title) : poster);
 
   const text = el('div', 'film-text');
-  text.append(el('span', 'film-title', film.title));
+
+  if (picker) text.append(el('span', 'film-picker', picker));
+
+  const titleLine = el('span', 'film-title');
+  if (meta?.imdbUrl) {
+    titleLine.append(imdbLink(meta.imdbUrl, document.createTextNode(film.title), film.title, 'film-title-link'));
+  } else {
+    titleLine.append(document.createTextNode(film.title));
+  }
+  if (film.year) titleLine.append(el('span', 'film-year', String(film.year)));
+  text.append(titleLine);
 
   const bits = [];
-  if (film.year) bits.push(String(film.year));
   if (meta?.directors?.length) bits.push(meta.directors.slice(0, 2).join(', '));
+  if (meta?.cast?.length) bits.push(meta.cast.slice(0, 2).join(', '));
+  if (meta?.runtime) bits.push(`${meta.runtime} min`);
+  // Most films have 3 or fewer genres; a handful run to 4-5, so cap the
+  // display rather than let a rare outlier stretch the row.
   if (meta?.genres?.length) bits.push(meta.genres.slice(0, 2).join(', '));
-  if (picker) bits.push(`picked by ${picker}`);
   if (bits.length) text.append(el('span', 'film-meta', bits.join(' · ')));
 
   if (meta?.overview) text.append(el('span', 'film-description', meta.overview));
 
   row.append(text);
-
-  if (meta?.runtime) row.append(el('span', 'film-runtime', `${meta.runtime} min`));
 
   li.append(row);
   return li;
@@ -222,11 +249,73 @@ function applyBackdrop(colors) {
 }
 
 /**
- * The newest film in the newest year is what the club watches next, so it gets
- * the top of the page rather than a row in the archive. It moves down into its
- * year section once a newer film takes its place.
+ * Screening time, once per member time zone - a visitor only sees their own
+ * zone's version, picked from their browser's IANA zone, not all three.
+ * The instant itself is real (data/schedule.json's scheduledFor); only the
+ * zone-name label is hand-supplied rather than trusted from the browser,
+ * since Intl's own abbreviations for these zones are inconsistent.
  */
-function renderHero(film, meta, imageBase, picker) {
+const HERO_SCHEDULE_ZONES = [
+  {
+    tzNames: ['Australia/Melbourne', 'Australia/Sydney', 'Australia/Brisbane', 'Australia/Canberra', 'Australia/ACT'],
+    ianaTz: 'Australia/Melbourne',
+    label: 'AEST',
+  },
+  {
+    tzNames: ['Australia/Adelaide', 'Australia/Broken_Hill'],
+    ianaTz: 'Australia/Adelaide',
+    label: 'ACST',
+  },
+  {
+    tzNames: ['America/Los_Angeles', 'America/Vancouver', 'America/Tijuana'],
+    ianaTz: 'America/Los_Angeles',
+    label: 'PT',
+  },
+];
+
+/** Falls back to the AEST anchor for a visitor outside the three tracked zones. */
+function heroScheduleZone() {
+  let viewerTz;
+  try {
+    viewerTz = Intl.DateTimeFormat().resolvedOptions().timeZone;
+  } catch {
+    viewerTz = null;
+  }
+  return HERO_SCHEDULE_ZONES.find(z => z.tzNames.includes(viewerTz)) ?? HERO_SCHEDULE_ZONES[0];
+}
+
+/** Renders a real ISO instant as a {date, time} pair in the viewer's own zone. */
+function formatSchedule(scheduledFor) {
+  const zone = heroScheduleZone();
+  const when = new Date(scheduledFor);
+  const date = new Intl.DateTimeFormat('en-US', {
+    weekday: 'long', month: 'long', day: 'numeric', timeZone: zone.ianaTz,
+  }).format(when);
+  const time = new Intl.DateTimeFormat('en-US', {
+    hour: 'numeric', minute: '2-digit', timeZone: zone.ianaTz,
+  }).format(when);
+  return { date, time: `${time} (${zone.label})` };
+}
+
+/**
+ * Whoever picked last (data/schedule.json's picker) tells us whose turn is
+ * next in data/members.json's rotation - falling back to the start of the
+ * rotation if we can't place them (no prior pick recorded, or the roster
+ * changed since).
+ */
+function nextPickerName(schedule, members) {
+  const order = members?.order ?? [];
+  if (!order.length) return null;
+  const idx = order.indexOf(schedule?.picker);
+  return idx === -1 ? order[0] : order[(idx + 1) % order.length];
+}
+
+/**
+ * The upcoming pick, per data/schedule.json - shown until its scheduledFor
+ * instant passes, at which point main() stops calling this and the film
+ * just renders in its year section like any other archive entry.
+ */
+function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor) {
   const hero = document.getElementById('hero');
   hero.hidden = false;
   hero.replaceChildren();
@@ -265,22 +354,93 @@ function renderHero(film, meta, imageBase, picker) {
   const bits = [];
   if (film.year) bits.push(String(film.year));
   if (meta?.directors?.length) bits.push(meta.directors.slice(0, 2).join(', '));
+  if (meta?.genres?.length) bits.push(meta.genres.slice(0, 2).join(', '));
   if (meta?.runtime) bits.push(`${meta.runtime} min`);
-  if (picker) bits.push(`Chosen by ${picker}`);
   if (bits.length) info.append(el('p', 'hero-meta', bits.join(' · ')));
+  if (picker) info.append(el('p', 'hero-picker', `Chosen by ${picker}`));
   body.append(info);
 
   const scheduleRow = el('div', 'hero-schedule-row');
-  // Placeholders - the club always meets Sunday 10am AEST, so this is
-  // static for now. Once we have real scheduling this becomes computed
-  // (and the button below gets wired up to build an actual calendar file).
-  scheduleRow.append(el('p', 'hero-schedule', 'Sunday · 10:00 AM AEST'));
+  const schedule = formatSchedule(scheduledFor);
+  const scheduleText = el('div', 'hero-schedule-text');
+  scheduleText.append(el('p', 'hero-date', schedule.date));
+  scheduleText.append(el('p', 'hero-time', schedule.time));
+  scheduleRow.append(scheduleText);
 
+  // Placeholder - not wired up to anything yet.
   const calendarBtn = el('button', 'hero-calendar-btn', '+ Add to Calendar');
   calendarBtn.type = 'button';
   scheduleRow.append(calendarBtn);
   body.append(scheduleRow);
 
+  wrap.append(body);
+  hero.append(wrap);
+
+  updateBackdropExtent();
+}
+
+/**
+ * Nobody has picked the next film yet - shown in place of the upcoming pick
+ * once data/schedule.json has no film locked in, or its scheduledFor instant
+ * has already passed. No poster to sample, so the backdrop just stays off.
+ */
+/**
+ * A handful of ways to say "your turn" - picked deterministically per name
+ * (a stable hash, not Math.random) so the same person gets the same one
+ * every time they're up, rather than it changing on every reload.
+ */
+const HERO_WAITING_PHRASES = [
+  name => `${name}, you're up!`,
+  name => `Over to you, ${name}.`,
+  name => `No pressure, ${name}.`,
+];
+
+// No poster to sample a colour from yet, so these are fixed seed palettes
+// fed through the same vivify() pipeline a real poster's colours go
+// through - one is picked per person (deterministically, like the phrase
+// above) so it's not the same wash every time someone's up.
+const HERO_WAITING_PALETTES = [
+  [[200, 130, 80], [70, 100, 150], [120, 80, 140]],
+  [[180, 60, 70], [60, 140, 120], [200, 170, 60]],
+  [[90, 150, 110], [150, 90, 130], [70, 90, 160]],
+  [[210, 90, 60], [80, 130, 170], [160, 140, 70]],
+];
+
+/** A stable hash of a name - same input, same index, every time. */
+function hashName(name) {
+  let hash = 0;
+  for (const ch of name) hash = (hash * 31 + ch.charCodeAt(0)) >>> 0;
+  return hash;
+}
+
+function heroWaitingTitle(name) {
+  if (!name) return 'Waiting on a pick';
+  return HERO_WAITING_PHRASES[hashName(name) % HERO_WAITING_PHRASES.length](name);
+}
+
+function heroWaitingPalette(name) {
+  return HERO_WAITING_PALETTES[name ? hashName(name) % HERO_WAITING_PALETTES.length : 0];
+}
+
+function renderHeroWaiting(pickerName) {
+  const hero = document.getElementById('hero');
+  hero.hidden = false;
+  hero.replaceChildren();
+
+  const wrap = el('div', 'hero-inner');
+
+  wrap.append(el('div', 'hero-poster empty'));
+
+  // Same source as the backdrop mesh below (--hero-rgb-1/2), so the blurred
+  // poster placeholder and the wash behind it are always the same colours,
+  // not two independent guesses.
+  applyBackdrop(heroWaitingPalette(pickerName));
+
+  const body = el('div', 'hero-body');
+  const info = el('div', 'hero-info');
+  info.append(el('p', 'hero-label', 'Waiting for Selection'));
+  info.append(el('h2', 'hero-title', heroWaitingTitle(pickerName)));
+  body.append(info);
   wrap.append(body);
   hero.append(wrap);
 
@@ -311,31 +471,478 @@ window.addEventListener('resize', () => {
   backdropResizeTimer = setTimeout(updateBackdropExtent, 100);
 });
 
-function yearSection(year, tmdb, pickers) {
+function filmGridItem(film, meta, imageBase) {
+  const li = el('li', 'film-grid-item');
+  const poster = posterFor(imageBase, meta?.posterPath, film.title);
+  li.append(meta?.imdbUrl ? imdbLink(meta.imdbUrl, poster, film.title) : poster);
+  return li;
+}
+
+function yearSection(year, tmdb, pickers, { showHead = true } = {}) {
   const section = el('section', 'year');
 
-  const head = el('div', 'year-head');
-  const label = year.year === new Date().getFullYear() ? 'This Year' : String(year.year);
-  head.append(el('h2', null, label));
-  head.append(el('span', 'year-count', `${year.films.length} films`));
-  if (year.listUrl) {
-    const a = el('a', 'year-link', 'Letterboxd');
-    a.href = year.listUrl;
-    a.rel = 'noopener';
-    head.append(a);
+  // Skipped when a single year is already picked via the filter above - its
+  // chip already says which year this is, so the heading would just repeat it.
+  if (showHead) {
+    const head = el('div', 'year-head');
+    const label = year.year === new Date().getFullYear() ? 'This Year' : String(year.year);
+    head.append(el('h2', null, label));
+    head.append(el('span', 'year-count', `${year.films.length} films`));
+    section.append(head);
   }
-  section.append(head);
 
   // Years run newest-first, and so do the films inside them, so scrolling
   // down is always travelling backwards in time. Letterboxd gives us the list
   // in the order films were added, i.e. oldest first, so reverse it.
+  const imageBase = tmdb?.imageBase ?? 'https://image.tmdb.org/t/p';
   const list = el('ul', 'films');
   for (const film of [...year.films].reverse()) {
     const picker = pickers?.picks?.[`${year.year}:${film.slug}`];
-    list.append(filmCard(film, tmdb?.films?.[film.slug], tmdb?.imageBase ?? 'https://image.tmdb.org/t/p', picker));
+    list.append(filmCard(film, tmdb?.films?.[film.slug], imageBase, picker));
   }
   section.append(list);
   return section;
+}
+
+/**
+ * Year filter for the archive - a custom dropdown pill (not a native
+ * <select>, so the open menu can be styled to match the rest of the page).
+ * Reads "Year" until one's picked, then shows that year in white with a
+ * round clear (x) button appearing to its left; clearing goes back to the
+ * full archive rather than being another item in the menu.
+ */
+/**
+ * One custom dropdown pill - the shared building block behind every archive
+ * filter (year, genre, and whatever's added after). Reads `placeholder`
+ * until a value is picked, then shows that value in white with a round
+ * clear (x) button to its left. `onSelect(value)` fires with '' for
+ * "nothing picked". Not a native <select> so the open menu can be styled to
+ * match the rest of the page instead of the OS's own list chrome.
+ */
+/**
+ * A dropdown pill that allows more than one value picked at once (e.g. two
+ * genres) - clicking an option toggles it on or off and the menu stays open
+ * so several picks can be made in one go. `onChange` fires with the full
+ * current Set of selected values after every toggle.
+ */
+function createFilterPill(placeholder, onChange) {
+  const group = el('div', 'filter-group');
+
+  const toggle = el('button', 'pill-select-btn', placeholder);
+  toggle.type = 'button';
+  toggle.setAttribute('aria-haspopup', 'listbox');
+  toggle.setAttribute('aria-expanded', 'false');
+
+  const menu = el('div', 'pill-menu');
+  menu.setAttribute('role', 'listbox');
+  menu.hidden = true;
+
+  // The scrolling happens on this inner wrapper, not on `menu` itself, so
+  // the bottom-fade cue (an ::after on `menu`) stays pinned to the visible
+  // edge instead of scrolling away with the options - an absolutely
+  // positioned pseudo-element scrolls right along with its content when
+  // it's a descendant of the element that actually has the overflow, so
+  // it has to live on a non-scrolling ancestor instead.
+  const menuList = el('div', 'pill-menu-list');
+  menu.append(menuList);
+
+  const selected = new Set();
+
+  function closeMenu() {
+    menu.hidden = true;
+    toggle.setAttribute('aria-expanded', 'false');
+  }
+
+  function refreshOptions() {
+    for (const opt of menuList.children) opt.classList.toggle('is-selected', selected.has(opt.dataset.value));
+  }
+
+  // The bottom fade should only show while there's more list below the fold
+  // - not once you've scrolled to the true end, and not at all if everything
+  // already fits without scrolling.
+  function updateFade() {
+    const canScrollDown = menuList.scrollHeight - menuList.scrollTop - menuList.clientHeight > 1;
+    menu.classList.toggle('pill-menu--fade-bottom', canScrollDown);
+  }
+  menuList.addEventListener('scroll', updateFade);
+
+  function toggleValue(value) {
+    if (selected.has(value)) selected.delete(value);
+    else selected.add(value);
+    refreshOptions();
+    onChange(new Set(selected));
+  }
+
+  function option(value, label) {
+    const opt = el('button', 'pill-menu-option', label);
+    opt.type = 'button';
+    opt.dataset.value = value;
+    opt.addEventListener('click', () => toggleValue(value));
+    return opt;
+  }
+
+  toggle.addEventListener('click', () => {
+    const isHidden = menu.hidden;
+    menu.hidden = !isHidden;
+    toggle.setAttribute('aria-expanded', String(isHidden));
+    if (isHidden) updateFade(); // just opened - menuList had no layout while hidden
+  });
+
+  document.addEventListener('click', e => {
+    if (!group.contains(e.target)) closeMenu();
+  });
+
+  group.append(toggle, menu);
+
+  return {
+    element: group,
+    setOptions(values) {
+      menuList.replaceChildren(...values.map(v => option(v, v)));
+      refreshOptions();
+      updateFade();
+    },
+    remove(value) {
+      selected.delete(value);
+      refreshOptions();
+      onChange(new Set(selected));
+    },
+  };
+}
+
+/**
+ * Wires up the archive's filter bar - a year pill and a genre pill so far,
+ * each allowing multiple picks. Every picked value shows up as its own chip
+ * underneath, with its own remove (x), so a query can be built up freely
+ * (e.g. "2022" + "2023" + "Action"). Values within one filter combine with
+ * OR (either year matches), different filters combine with AND (must match
+ * the year picks AND the genre picks), and a year left with nothing after
+ * the genre filter just drops out, same as any other empty year.
+ */
+function setupArchiveFilters(archive, container, tmdb, pickers) {
+  const bar = document.getElementById('year-filters');
+  const chipsRow = document.getElementById('filter-chips');
+  if (!bar) return;
+  bar.replaceChildren();
+  if (chipsRow) { chipsRow.replaceChildren(); chipsRow.hidden = true; }
+  if (!archive.length) return;
+
+  const state = { member: new Set(), genre: new Set(), country: new Set() };
+  const pills = {};
+  const chipLabels = { member: 'Member', genre: 'Genre', country: 'Country' };
+  let view = 'list';
+
+  function render() {
+    // Genre is a tag on the film itself, so multiple genres combine with
+    // AND - a film only shows once it matches every genre picked, not just
+    // one of them. Member is a single-valued-per-film attribute (a film
+    // only ever has one picker), so multiple members combine with OR -
+    // either one's pick shows. Country is a tag like genre, but a
+    // co-production listing two countries is still "made in either", so
+    // multiple picks combine with OR rather than AND.
+    const shown = archive
+      .map(year => ({
+        ...year,
+        films: year.films.filter(f => {
+          const filmGenres = tmdb?.films?.[f.slug]?.genres ?? [];
+          const genreMatch = state.genre.size === 0 || [...state.genre].every(g => filmGenres.includes(g));
+          const picker = pickers?.picks?.[`${year.year}:${f.slug}`];
+          const memberMatch = state.member.size === 0 || (picker != null && state.member.has(picker));
+          const filmCountries = tmdb?.films?.[f.slug]?.countries ?? [];
+          const countryMatch = state.country.size === 0 || filmCountries.some(c => state.country.has(c));
+          return genreMatch && memberMatch && countryMatch;
+        }),
+      }))
+      .filter(year => year.films.length > 0);
+
+    if (!shown.length) {
+      container.replaceChildren(el('p', 'no-results', 'No results match those filters.'));
+      return;
+    }
+
+    if (view === 'grid') {
+      // No year sections here - every matching poster flows into one
+      // continuous grid, newest year first and oldest-to-newest within
+      // each year (same overall order the list view uses, just without
+      // the headers breaking it up).
+      const imageBase = tmdb?.imageBase ?? 'https://image.tmdb.org/t/p';
+      const grid = el('ul', 'films-grid');
+      for (const year of shown) {
+        for (const film of [...year.films].reverse()) {
+          grid.append(filmGridItem(film, tmdb?.films?.[film.slug], imageBase));
+        }
+      }
+      container.replaceChildren(grid);
+      return;
+    }
+
+    container.replaceChildren(...shown.map(year => yearSection(year, tmdb, pickers)));
+  }
+
+  function renderChips() {
+    if (!chipsRow) return;
+    const chips = Object.entries(state).flatMap(([key, values]) => [...values].map(value => [key, value]));
+    chipsRow.replaceChildren(...chips.map(([key, value]) => {
+      const chip = el('span', 'filter-chip');
+      chip.append(document.createTextNode(value));
+      const remove = el('button', 'filter-chip-remove', '×');
+      remove.type = 'button';
+      remove.setAttribute('aria-label', `Remove ${chipLabels[key]} filter (${value})`);
+      remove.addEventListener('click', () => pills[key].remove(value));
+      chip.append(remove);
+      return chip;
+    }));
+    chipsRow.hidden = chips.length === 0;
+  }
+
+  function onFilterChange(key) {
+    return values => {
+      state[key] = values;
+      render();
+      renderChips();
+    };
+  }
+
+  const members = [...new Set(
+    archive.flatMap(year => year.films.map(f => pickers?.picks?.[`${year.year}:${f.slug}`]).filter(Boolean)),
+  )].sort();
+  if (members.length) {
+    const memberPill = createFilterPill('Member', onFilterChange('member'));
+    memberPill.setOptions(members);
+    pills.member = memberPill;
+    bar.append(memberPill.element);
+  }
+
+  const genres = [...new Set(
+    archive.flatMap(year => year.films.flatMap(f => tmdb?.films?.[f.slug]?.genres ?? [])),
+  )].sort();
+  if (genres.length) {
+    const genrePill = createFilterPill('Genre', onFilterChange('genre'));
+    genrePill.setOptions(genres);
+    pills.genre = genrePill;
+    bar.append(genrePill.element);
+  }
+
+  const countries = [...new Set(
+    archive.flatMap(year => year.films.flatMap(f => tmdb?.films?.[f.slug]?.countries ?? [])),
+  )].sort();
+  if (countries.length) {
+    const countryPill = createFilterPill('Country', onFilterChange('country'));
+    countryPill.setOptions(countries);
+    pills.country = countryPill;
+    bar.append(countryPill.element);
+  }
+
+  const viewToggle = document.getElementById('view-toggle');
+  if (viewToggle) {
+    const buttons = [...viewToggle.querySelectorAll('.view-toggle-btn')];
+    for (const button of buttons) {
+      button.addEventListener('click', () => {
+        if (button.dataset.view === view) return;
+        view = button.dataset.view;
+        for (const b of buttons) b.classList.toggle('is-active', b === button);
+        render();
+      });
+    }
+  }
+
+  render();
+  renderChips();
+}
+
+/* ------------------------------------------------------------------------
+ * Stats page content - a grab-bag of facts pulled from the same archive,
+ * tmdb and pickers data the rest of the page already uses, so nothing here
+ * needs re-fetching or hand-updating as the list grows.
+ * ---------------------------------------------------------------------- */
+function computeStats(archive, tmdb, pickers, members) {
+  const tf = tmdb?.films ?? {};
+  const allFilms = archive.flatMap(y => y.films.map(f => ({ ...f, watchYear: y.year, meta: tf[f.slug] })));
+  const total = allFilms.length;
+
+  const watchYears = archive.map(y => y.year);
+  const firstYear = Math.min(...watchYears);
+  const lastYear = Math.max(...watchYears);
+
+  const withRuntime = allFilms.filter(f => f.meta?.runtime);
+  const totalMinutes = withRuntime.reduce((n, f) => n + f.meta.runtime, 0);
+  const avgRuntime = withRuntime.length ? Math.round(totalMinutes / withRuntime.length) : null;
+  const longest = withRuntime.length ? withRuntime.reduce((a, b) => (b.meta.runtime > a.meta.runtime ? b : a)) : null;
+  const shortest = withRuntime.length ? withRuntime.reduce((a, b) => (b.meta.runtime < a.meta.runtime ? b : a)) : null;
+
+  function tally(getValues) {
+    const counts = new Map();
+    for (const f of allFilms) for (const v of getValues(f) ?? []) counts.set(v, (counts.get(v) ?? 0) + 1);
+    return counts;
+  }
+  function top(counts, { exclude } = {}) {
+    const entries = [...counts.entries()].filter(([k]) => k !== exclude);
+    if (!entries.length) return null;
+    const max = Math.max(...entries.map(([, n]) => n));
+    return { names: entries.filter(([, n]) => n === max).map(([k]) => k).sort(), count: max };
+  }
+
+  const genreCounts = tally(f => f.meta?.genres);
+  const topGenre = top(genreCounts);
+
+  const directorCounts = tally(f => f.meta?.directors);
+  const topDirector = top(directorCounts);
+
+  const countryCounts = tally(f => f.meta?.countries);
+  const withCountries = allFilms.filter(f => f.meta?.countries?.length);
+  const usFilms = withCountries.filter(f => f.meta.countries.includes('United States of America')).length;
+  const pctNonUs = withCountries.length ? Math.round(((withCountries.length - usFilms) / withCountries.length) * 100) : null;
+  const topForeignCountry = top(countryCounts, { exclude: 'United States of America' });
+
+  const yearCounts = new Map(archive.map(y => [y.year, y.films.length]));
+  const busiestYearCount = Math.max(...yearCounts.values());
+  const busiestYears = [...yearCounts.entries()].filter(([, n]) => n === busiestYearCount).map(([y]) => y).sort();
+
+  const withRelease = allFilms.filter(f => f.meta?.releaseDate);
+  function extremeByRelease(better) {
+    if (!withRelease.length) return null;
+    const pick = withRelease.reduce((a, b) => (better(b.meta.releaseDate, a.meta.releaseDate) ? b : a));
+    const year = pick.meta.releaseDate.slice(0, 4);
+    const ties = withRelease.filter(f => f.meta.releaseDate.slice(0, 4) === year);
+    return { year, films: ties };
+  }
+  const oldest = extremeByRelease((b, a) => b < a);
+  const newest = extremeByRelease((b, a) => b > a);
+
+  const pickCounts = new Map((members?.order ?? []).map(name => [name, 0]));
+  let attributed = 0;
+  for (const f of allFilms) {
+    const picker = pickers?.picks?.[`${f.watchYear}:${f.slug}`];
+    if (picker) {
+      attributed++;
+      pickCounts.set(picker, (pickCounts.get(picker) ?? 0) + 1);
+    }
+  }
+  const pickerBoard = [...pickCounts.entries()].sort((a, b) => b[1] - a[1]);
+
+  return {
+    total, firstYear, lastYear, totalMinutes, avgRuntime, longest, shortest,
+    topGenre, topDirector, numCountries: countryCounts.size, pctNonUs, topForeignCountry,
+    busiestYears, busiestYearCount, oldest, newest, attributed, pickerBoard,
+  };
+}
+
+function renderStatsPage(archive, tmdb, pickers, members) {
+  const page = document.getElementById('stats-page');
+  if (!page) return;
+  if (!archive.length) { page.replaceChildren(); return; }
+
+  const s = computeStats(archive, tmdb, pickers, members);
+
+  // Reserved for later: the full fact set below is still computed by
+  // computeStats() above, just not rendered yet. Re-introduce these one at a
+  // time as their own elements alongside the hero number, rather than going
+  // back to a single dumped list.
+  //
+  //   `${s.total} films watched over ${s.lastYear - s.firstYear + 1} seasons, ${s.firstYear}-${s.lastYear}.`
+  //   `${days} straight days of movies` (s.totalMinutes / 60 / 24)
+  //   `${s.avgRuntime} minutes is the average runtime.`
+  //   longest / shortest film (s.longest, s.shortest)
+  //   top genre (s.topGenre)
+  //   top director(s) (s.topDirector)
+  //   country count / % non-US / top foreign country (s.numCountries, s.pctNonUs, s.topForeignCountry)
+  //   busiest season (s.busiestYears, s.busiestYearCount)
+  //   oldest / newest film (s.oldest, s.newest)
+  //   picker leaderboard / unattributed count (s.pickerBoard, s.attributed)
+
+  const minutes = s.totalMinutes || null;
+
+  // Values arrive pre-formatted (not raw numbers) so a year like 1985 never
+  // picks up a thousands comma the way toLocaleString() would give it.
+  // `text: true` is for a headline that's a title/name rather than a short
+  // number - smaller, looser letter-spacing, allowed to wrap.
+  // `heading` is an optional label ABOVE the number (same treatment as
+  // "Waiting for Selection" above the hero) - for a stat like longest/
+  // shortest where the number alone doesn't say what it's the number of.
+  // `sub` is a third, quieter tier below the label - for a detail (a film
+  // title) that belongs to the stat but shouldn't shout like the label does.
+  function statItem(display, label, { text = false, sub = null, heading = null } = {}) {
+    const item = el('div', 'stats-hero-item');
+    if (heading) item.append(el('span', 'hero-label', heading));
+    item.append(
+      el('span', text ? 'stats-hero-number stats-hero-number--text' : 'stats-hero-number', display != null ? display : '\u2014'),
+      el('span', 'hero-label', label),
+    );
+    if (sub) item.append(el('span', 'stats-hero-sub', sub));
+    return item;
+  }
+
+  const hero = el('div', 'stats-hero');
+  hero.append(
+    statItem(s.total.toLocaleString(), 'movies'),
+    statItem(minutes != null ? minutes.toLocaleString() : null, 'minutes'),
+    statItem(s.oldest ? String(s.oldest.year) : null, 'oldest movie'),
+    statItem(s.longest ? String(s.longest.meta.runtime) : null, 'minutes', { heading: 'longest movie', sub: s.longest?.title }),
+    statItem(s.shortest ? String(s.shortest.meta.runtime) : null, 'minutes', { heading: 'shortest movie', sub: s.shortest?.title }),
+    statItem(s.topGenre ? s.topGenre.names.join(' / ') : null, s.topGenre ? `${s.topGenre.count} films` : 'top genre', { text: true }),
+  );
+  page.replaceChildren(hero);
+}
+
+/* ------------------------------------------------------------------------
+ * Stats page toggle - a full-bleed overlay that swaps in for the normal
+ * page content. main fades out (not away - it stays in the DOM, just faded
+ * and unclickable) rather than being removed, so the backdrop effect
+ * behind it keeps running untouched; the stats page fades in over the top
+ * of it.
+ * ---------------------------------------------------------------------- */
+function setupStatsPage() {
+  const toggle = document.getElementById('stats-toggle');
+  const page = document.getElementById('stats-page');
+  if (!toggle || !page) return;
+
+  // The bar-chart icon is the closed ("Stats") state - saved here so close()
+  // can restore it, since open() overwrites it with the × glyph.
+  const iconMarkup = toggle.innerHTML;
+
+  let hideTimer;
+
+  // The button jumps from top-right to top-left (and back) on click without
+  // the mouse moving, so the browser has nothing to prompt it to re-check
+  // whether the cursor is still over the button - it just leaves :hover
+  // switched on at the old position's coordinates. Toggling pointer-events
+  // off and back forces a re-check on the next frame, against wherever the
+  // mouse actually is now.
+  function dropStaleHover() {
+    toggle.style.pointerEvents = 'none';
+    requestAnimationFrame(() => { toggle.style.pointerEvents = ''; });
+  }
+
+  function open() {
+    clearTimeout(hideTimer);
+    page.hidden = false;
+    // Force layout so the browser commits "no longer hidden" before the
+    // class flip below - otherwise it can coalesce both into one frame and
+    // the opacity change has nothing to transition from.
+    void page.offsetHeight;
+    document.body.classList.add('stats-open');
+    page.setAttribute('aria-hidden', 'false');
+    toggle.setAttribute('aria-pressed', 'true');
+    toggle.setAttribute('aria-label', 'Close stats');
+    toggle.textContent = '×';
+    dropStaleHover();
+  }
+
+  function close() {
+    document.body.classList.remove('stats-open');
+    page.setAttribute('aria-hidden', 'true');
+    toggle.setAttribute('aria-pressed', 'false');
+    toggle.setAttribute('aria-label', 'View stats');
+    toggle.innerHTML = iconMarkup;
+    dropStaleHover();
+    // Matches the .4s opacity transition in CSS - only actually hide (so it
+    // drops out of layout/tab order) once the fade-out has finished.
+    hideTimer = setTimeout(() => { page.hidden = true; }, 400);
+  }
+
+  toggle.addEventListener('click', () => {
+    if (document.body.classList.contains('stats-open')) close();
+    else open();
+  });
 }
 
 async function loadJson(path, { required }) {
@@ -351,54 +958,29 @@ async function loadJson(path, { required }) {
 }
 
 /* ------------------------------------------------------------------------
- * TEMP DEBUG: a floating button to load a random film's poster into the
- * hero, just to eyeball the mesh backdrop against different artwork.
- * Delete this whole block (and its call in main()) once that's settled.
+ * TEMP: one floating settings panel (bottom-right) bundling the hero-state
+ * override, the random-poster preview, and the backdrop effect sliders,
+ * so there's a single toggle instead of three separate widgets scattered
+ * around the page. Delete this whole block (and its call in main()) once
+ * everything above is settled.
  * ---------------------------------------------------------------------- */
-function setupDebugRandomPoster(allFilms, tmdb, imageBase) {
-  const candidates = allFilms.filter(f => tmdb?.films?.[f.slug]?.posterPath);
-  if (!candidates.length) return;
-
-  const btn = document.createElement('button');
-  btn.textContent = '\ud83c\udfb2 random poster (debug)';
-  btn.style.cssText = [
-    'position: fixed', 'bottom: 12px', 'right: 12px', 'z-index: 999',
-    'max-width: calc(100vw - 24px)',
-    'padding: .5rem .9rem', 'font-size: .75rem', 'border-radius: 999px',
-    'border: 1px solid rgba(127,127,127,.4)', 'background: rgba(127,127,127,.2)',
-    'color: inherit', 'backdrop-filter: blur(6px)', 'cursor: pointer',
-    'font-family: inherit',
-  ].join(';');
-  btn.addEventListener('click', () => {
-    const film = candidates[Math.floor(Math.random() * candidates.length)];
-    renderHero(film, tmdb.films[film.slug], imageBase);
-  });
-  document.body.append(btn);
-}
-
-/* ------------------------------------------------------------------------
- * TEMP DEBUG: a floating panel of sliders for the backdrop's tunable knobs
- * - poster extent, where the fade starts, per-blob opacity, grain amount and
- * size - so they can be dialled in live instead of round-tripping edits.
- * Delete this whole block (and its call in main()) once values are settled.
- * ---------------------------------------------------------------------- */
-function setupDebugControls() {
+function setupDebugPanel({ allFilms, tmdb, imageBase, upcoming, waitingName }) {
   const rootStyle = document.documentElement.style;
 
   const panel = document.createElement('div');
   panel.style.cssText = [
-    'position: fixed', 'bottom: 60px', 'left: 12px', 'z-index: 999',
+    'position: fixed', 'bottom: 60px', 'right: 12px', 'z-index: 999',
     'width: min(20rem, calc(100vw - 24px))', 'max-height: 70vh', 'overflow: auto',
     'padding: .9rem 1rem', 'border-radius: 12px',
     'border: 1px solid rgba(127,127,127,.4)', 'background: rgba(20,20,20,.85)',
     'color: #eee', 'backdrop-filter: blur(10px)', 'font-family: inherit',
-    'font-size: .75rem', 'display: none', 'flex-direction: column', 'gap: .7rem',
+    'font-size: .75rem', 'display: none', 'flex-direction: column', 'gap: .9rem',
   ].join(';');
 
   const toggle = document.createElement('button');
-  toggle.textContent = '🎛️ effect controls (debug)';
+  toggle.textContent = '⚙️ settings';
   toggle.style.cssText = [
-    'position: fixed', 'bottom: 12px', 'left: 12px', 'z-index: 999',
+    'position: fixed', 'bottom: 12px', 'right: 12px', 'z-index: 999',
     'padding: .5rem .9rem', 'font-size: .75rem', 'border-radius: 999px',
     'border: 1px solid rgba(127,127,127,.4)', 'background: rgba(127,127,127,.2)',
     'color: inherit', 'backdrop-filter: blur(6px)', 'cursor: pointer',
@@ -407,6 +989,28 @@ function setupDebugControls() {
   toggle.addEventListener('click', () => {
     panel.style.display = panel.style.display === 'none' ? 'flex' : 'none';
   });
+
+  function sectionLabel(text) {
+    const h = document.createElement('div');
+    h.textContent = text;
+    h.style.cssText = [
+      'font-weight: 600', 'letter-spacing: .08em', 'text-transform: uppercase',
+      'font-size: .65rem', 'opacity: .6',
+    ].join(';');
+    return h;
+  }
+
+  function actionButton(label, onClick) {
+    const b = document.createElement('button');
+    b.textContent = label;
+    b.style.cssText = [
+      'padding: .4rem .8rem', 'font-size: .7rem', 'border-radius: 999px',
+      'border: 1px solid rgba(127,127,127,.4)', 'background: rgba(127,127,127,.2)',
+      'color: inherit', 'cursor: pointer', 'font-family: inherit',
+    ].join(';');
+    b.addEventListener('click', onClick);
+    return b;
+  }
 
   function slider({ label, min, max, step, value, format, onInput }) {
     const row = document.createElement('label');
@@ -439,7 +1043,35 @@ function setupDebugControls() {
     return row;
   }
 
+  // --- hero state override ---
+  const stateRow = document.createElement('div');
+  stateRow.style.cssText = 'display:flex; gap:.4rem; flex-wrap:wrap;';
+  if (upcoming) {
+    stateRow.append(actionButton('▶ Upcoming', () => {
+      renderHeroUpcoming(upcoming.film, upcoming.meta, upcoming.imageBase, upcoming.picker, upcoming.scheduledFor);
+    }));
+  }
+  stateRow.append(actionButton('⏳ Waiting', () => {
+    renderHeroWaiting(waitingName);
+  }));
+  panel.append(sectionLabel('Hero state'), stateRow);
+
+  // --- random poster preview ---
+  const candidates = allFilms.filter(f => tmdb?.films?.[f.slug]?.posterPath);
+  if (candidates.length) {
+    const posterRow = document.createElement('div');
+    posterRow.append(actionButton('🎲 Random poster', () => {
+      const film = candidates[Math.floor(Math.random() * candidates.length)];
+      // Preview only - a made-up near-future instant, not real schedule data.
+      const fakeScheduledFor = new Date(Date.now() + 86400000).toISOString();
+      renderHeroUpcoming(film, tmdb.films[film.slug], imageBase, null, fakeScheduledFor);
+    }));
+    panel.append(sectionLabel('Preview'), posterRow);
+  }
+
+  // --- backdrop effect sliders ---
   panel.append(
+    sectionLabel('Effect controls'),
     slider({
       label: 'effect opacity', min: 0, max: 1, step: .05, value: .85,
       onInput: v => rootStyle.setProperty('--backdrop-opacity', v),
@@ -514,6 +1146,8 @@ async function main() {
   const stats = document.getElementById('stats');
   const container = document.getElementById('years');
 
+  setupStatsPage();
+
   let films;
   try {
     films = await loadJson('data/films.json', { required: true });
@@ -529,40 +1163,63 @@ async function main() {
   const tmdb = await loadJson('data/tmdb.json', { required: false });
   // Picker attribution is hand-sourced and often absent - also optional.
   const pickers = await loadJson('data/pickers.json', { required: false });
+  // The current pick cycle - who picked (or picked last), which film (once
+  // decided) and when it screens. Missing just means "waiting, no name yet".
+  const schedule = await loadJson('data/schedule.json', { required: false });
+  // The pick rotation, oldest to newest turn - for working out whose turn is
+  // next once a screening passes with nothing queued up after it.
+  const members = await loadJson('data/members.json', { required: false });
 
   const imageBase = tmdb?.imageBase ?? 'https://image.tmdb.org/t/p';
   const years = [...(films.years ?? [])].sort((a, b) => b.year - a.year)
     .map(y => ({ ...y, films: [...y.films] }));
 
-  // Lift the newest film out of the newest year: it is what's coming up, not
-  // part of the archive. It drops back in on its own once something newer is
-  // added to the list.
-  let next = null;
-  const newest = years[0];
-  if (newest?.films.length) {
-    next = newest.films.pop();
-    // Keyed the same way as the archive - "<year>:<slug>" - so the same
-    // data/pickers.json entry covers a film whether it's the featured
-    // pick or has already dropped back into the archive.
-    const picker = pickers?.picks?.[`${newest.year}:${next.slug}`];
-    renderHero(next, tmdb?.films?.[next.slug], imageBase, picker);
+  // Find the film data/schedule.json points at, if any - independent of
+  // whether its scheduledFor instant has actually passed, so the debug
+  // override below can still preview it even once it has.
+  let scheduledYear = null;
+  let scheduledFilm = null;
+  if (schedule?.pick) {
+    scheduledYear = years.find(y => y.year === schedule.pick.year) ?? null;
+    scheduledFilm = scheduledYear?.films.find(f => f.slug === schedule.pick.slug) ?? null;
   }
 
-  // A year emptied by that lift has nothing left to show.
+  // "Upcoming" only while that instant is still ahead of us. Once it
+  // passes, we simply stop lifting the film out of its year here - it
+  // renders in the archive like anything else, no separate step needed.
+  const scheduledDate = schedule?.scheduledFor ? new Date(schedule.scheduledFor) : null;
+  const isUpcoming = Boolean(scheduledFilm && scheduledDate && scheduledDate.getTime() > Date.now());
+
+  if (isUpcoming) {
+    scheduledYear.films.splice(scheduledYear.films.indexOf(scheduledFilm), 1);
+    renderHeroUpcoming(scheduledFilm, tmdb?.films?.[scheduledFilm.slug], imageBase, schedule.picker, schedule.scheduledFor);
+  } else {
+    renderHeroWaiting(nextPickerName(schedule, members));
+  }
+
+  // A year emptied by lifting the upcoming pick out has nothing left to show.
   const archive = years.filter(y => y.films.length > 0);
 
   const total = archive.reduce((n, y) => n + y.films.length, 0);
   const since = archive.length ? archive.at(-1).year : '';
   stats.textContent = `${total} movies since ${since}`;
 
-  container.replaceChildren(...archive.map(y => yearSection(y, tmdb, pickers)));
+  setupArchiveFilters(archive, container, tmdb, pickers);
+  renderStatsPage(archive, tmdb, pickers, members);
 
   document.getElementById('tmdb-note').textContent =
     tmdb?.note ?? 'Posters and credits from TMDB.';
 
-  // TEMP DEBUG — see the blocks above.
-  setupDebugRandomPoster((films.years ?? []).flatMap(y => y.films), tmdb, imageBase);
-  setupDebugControls();
+  // TEMP — see the block above.
+  setupDebugPanel({
+    allFilms: (films.years ?? []).flatMap(y => y.films),
+    tmdb,
+    imageBase,
+    upcoming: scheduledFilm
+      ? { film: scheduledFilm, meta: tmdb?.films?.[scheduledFilm.slug], imageBase, picker: schedule.picker, scheduledFor: schedule.scheduledFor }
+      : null,
+    waitingName: nextPickerName(schedule, members),
+  });
 }
 
 main();
