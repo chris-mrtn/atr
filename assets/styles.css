@@ -202,7 +202,7 @@ a { color: inherit; }
    that only the content swaps, not the mood. pointer-events is dropped
    immediately so faded-out content can't be tabbed to or clicked through
    to while it's on its way out. */
-body.stats-open main {
+body.stats-open main, body.filters-open main {
   opacity: 0;
   pointer-events: none;
   transition: opacity .4s ease;
@@ -212,7 +212,7 @@ main { transition: opacity .4s ease; }
    stats overlay is still just as tall as ever and scrolls right along
    with it - two different scroll positions moving at once, even though
    only one is visible. */
-body.stats-open { overflow: hidden; }
+body.stats-open, body.filters-open { overflow: hidden; }
 
 .stats-toggle {
   position: absolute;
@@ -239,7 +239,11 @@ body.stats-open { overflow: hidden; }
      just sitting flat on top of it. */
   mix-blend-mode: plus-lighter;
 }
-.stats-toggle svg { width: 1.1rem; height: 1.1rem; }
+/* The button's own plus-lighter blend only covers its border/background
+   as painted - the icon inside needs the same blend mode applied
+   directly, otherwise it just sits on top looking flat grey instead of
+   lighting up against the backdrop like the ring around it does. */
+.stats-toggle svg { width: 1.1rem; height: 1.1rem; mix-blend-mode: plus-lighter; }
 .stats-toggle:hover {
   border-color: rgb(255 255 255 / .5);
 }
@@ -265,6 +269,174 @@ body.stats-open .stats-page {
   pointer-events: auto;
 }
 .stats-page[hidden] { display: none; }
+
+/* ------------------------------------------------------------------------
+ * Mobile filter overlay - a second full-screen surface, same fade-over-
+ * main mechanism as the stats page above (see body.stats-open /
+ * body.filters-open), just triggered by .filters-toggle instead and
+ * filled with plain toggle lists rather than a dropdown menu.
+ * ------------------------------------------------------------------------ */
+.filter-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 10;
+  overflow-y: auto;
+  padding: 20pt 20px clamp(4rem, 14vh, 7rem);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity .4s ease;
+}
+body.filters-open .filter-overlay {
+  opacity: 1;
+  pointer-events: auto;
+}
+.filter-overlay[hidden] { display: none; }
+
+.filter-overlay-title {
+  max-width: 26rem;
+  margin: 0 auto 2rem;
+  text-align: center;
+  font-family: 'Mona Sans', ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
+  font-weight: 850;
+  font-stretch: 120%;
+  font-size: clamp(1.3rem, 3vw, 1.5rem);
+  letter-spacing: -0.02em;
+}
+
+/* Flex column, not grid - every section is a full-width row (the
+   accordion header plus its collapsed/expanded body) stacked one after
+   another, all sharing this container's width, so "same width" for every
+   section falls out of that for free rather than needing sizing rules of
+   its own. The divider between rows is each row's own border-top (see
+   :not(:first-child) below) rather than a gap between separate boxes -
+   there's deliberately no border-bottom here to close off the last row,
+   since a divider is only needed BETWEEN sections, not before the first
+   or after the last. */
+.filter-overlay-sections {
+  display: flex;
+  flex-direction: column;
+  max-width: 26rem;
+  margin: 0 auto;
+}
+
+/* Vibrancy, same recipe as .stats-hero-item's own inner dividers - the
+   translucent border blends additively against the backdrop rather than
+   sitting as a flat line. The label resets back to normal blending right
+   below so the text itself stays crisp, same split as
+   .stats-hero-item/.stats-hero-number. The icon needs its own explicit
+   blend mode regardless (see .filter-overlay-toggle-icon svg) - an SVG
+   doesn't pick up a blend mode from an ancestor the way plain borders and
+   text do. */
+.filter-overlay-section-toggle {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 1rem;
+  width: 100%;
+  padding: 1rem 0;
+  border: none;
+  background: transparent;
+  color: var(--fg);
+  font: inherit;
+  cursor: pointer;
+  mix-blend-mode: plus-lighter;
+}
+/* Every row but the first gets the divider above it - the first has
+   nothing above it to divide from, just the "Filters" title. */
+.filter-overlay-section:not(:first-child) .filter-overlay-section-toggle {
+  border-top: 1px solid rgb(255 255 255 / .2);
+}
+.filter-overlay-section-label {
+  font-size: 1.1rem;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  font-variant-numeric: tabular-nums;
+  mix-blend-mode: normal;
+}
+/* Plus/minus, swapped outright by JS rather than one glyph rotated - see
+   FILTER_EXPAND_SVG / FILTER_COLLAPSE_SVG in app.js. */
+.filter-overlay-toggle-icon {
+  display: inline-flex;
+  flex: none;
+  width: 1.1rem;
+  height: 1.1rem;
+  color: var(--faint);
+}
+.filter-overlay-toggle-icon svg { mix-blend-mode: plus-lighter; }
+
+.filter-overlay-section-body { padding: 0 0 1.25rem; }
+.filter-overlay-section-body[hidden] { display: none; }
+
+/* A real two-column list, not wrapped chips - values read top-to-bottom
+   within a column rather than left-to-right across the row, closer to how
+   a picklist is scanned. */
+.filter-overlay-options {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  /* One value for both directions - row and column gutters need to read
+     as the same size, not different ones that happen to sit next to
+     each other. */
+  gap: .75rem;
+}
+
+/* Selected = the same "full white, reversed text" active language as the
+   view-toggle and filter chips elsewhere on the page. */
+.filter-overlay-option {
+  width: 100%;
+  padding: .5rem .85rem;
+  border: 1px solid rgb(255 255 255 / .3);
+  border-radius: 8px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: .85rem;
+  text-align: left;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+  mix-blend-mode: plus-lighter;
+}
+.filter-overlay-option.is-selected {
+  background: #fff;
+  border-color: #fff;
+  color: var(--bg);
+  font-weight: 600;
+}
+
+/* Same circular "x" treatment as .stats-toggle, and the same top-left
+   corner too - fixed rather than scrolling away with a long list of
+   options. It inherits its fade and pointer-events from .filter-overlay
+   above rather than animating its own - a child renders invisible/inert
+   right along with a faded-out, pointer-events:none ancestor with no
+   extra rule needed here. */
+.filter-overlay-close {
+  position: fixed;
+  top: 16px;
+  left: 16px;
+  z-index: 11;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.2rem;
+  height: 2.2rem;
+  padding: 0;
+  border: 1px solid rgb(255 255 255 / .3);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: 1.2rem;
+  line-height: 1;
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+  mix-blend-mode: plus-lighter;
+}
+.filter-overlay-close:hover { border-color: rgb(255 255 255 / .5); }
+/* Now a plain sibling button (see index.html), so it needs the same
+   explicit [hidden] rule every other JS-toggled element here gets -
+   otherwise this class's own display:inline-flex, same specificity as
+   the attribute selector, would win on source order and the button
+   would stay visible while "hidden". */
+.filter-overlay-close[hidden] { display: none; }
 
 /* Reserved for when the fact list comes back one item at a time - not
    currently used, kept here so the styling doesn't need reinventing.
@@ -304,9 +476,13 @@ body.stats-open .stats-page {
    colour-shift included. */
 /* Inner grid lines only, no outer frame - a thin/plus-lighter divider
    between cells, same treatment as the stats toggle button. Fixed at 3
-   columns (currently 6 stats = 2 rows); the nth-child math below rides on
-   that "3", so it keeps working as long as the stat count stays a multiple
-   of 3 - only revisit it if the column count itself needs to change. */
+   columns; the bottom-border rule below (nth-last-child(-n+3)) already
+   works for any stat count, ragged final row included - it's the classic
+   "no divider below the last row" trick and doesn't care how many items
+   land in that row. The right-border rule needs the :last-child override
+   just after it for the same reason: without it, a ragged last row's
+   final item (the odd one out, with nothing beside it) would still pick
+   up a stray divider on its right. */
 .stats-hero {
   display: grid;
   grid-template-columns: repeat(3, minmax(8rem, 1fr));
@@ -326,6 +502,12 @@ body.stats-open .stats-page {
 }
 .stats-hero-item:not(:nth-child(3n)) {
   border-right: 1px solid rgb(255 255 255 / .2);
+}
+/* The very last item is always the rightmost one present in whatever row
+   it ends up in - full or ragged - so it never needs a right-hand
+   divider, regardless of the total stat count. */
+.stats-hero-item:last-child {
+  border-right: none;
 }
 .stats-hero-item:not(:nth-last-child(-n+3)) {
   border-bottom: 1px solid rgb(255 255 255 / .2);
@@ -451,11 +633,28 @@ h1 {
   justify-content: space-between;
   gap: .75rem 1.5rem;
   width: 100%;
+  /* A bit of extra breathing room above, on top of .hero-body's own gap -
+     the picker pill above added some visual weight to the info block, so
+     this needs to sit a little further down rather than crowding it. */
+  margin-top: .5rem;
   padding: 1rem 1.25rem;
   border-radius: 12px;
   background: rgb(255 255 255 / .06);
   border: 1px solid rgb(255 255 255 / .1);
   text-align: left;
+}
+
+/* Once it's too narrow for the date/time and the button side by side,
+   stack them - text on top (it's already first in the markup), button
+   under it - and switch everything to centered rather than left-aligned,
+   which only made sense in the side-by-side layout. */
+@media (max-width: 440px) {
+  .hero-schedule-row {
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
+  }
+  .hero-schedule-text { align-items: center; text-align: center; }
 }
 
 .hero-schedule-text { display: flex; flex-direction: column; gap: .15rem; }
@@ -513,10 +712,21 @@ h1 {
   font-variant-numeric: tabular-nums;
 }
 
+/* A pill, not a plain line - same treatment as .film-picker in the
+   archive grid, so "who picked this" reads the same way everywhere it
+   shows up. Sits right under the meta ("slug") line rather than inline
+   with it, since it's a different kind of fact from the year/director/
+   genre/runtime rundown above it. */
 .hero-picker {
-  margin: .3rem 0 0;
-  font-size: .85rem;
-  color: var(--faint);
+  display: inline-flex;
+  margin: .6rem 0 0;
+  padding: .2rem .65rem;
+  border-radius: 999px;
+  background: rgb(255 255 255 / .06);
+  color: var(--muted);
+  font-size: .75rem;
+  font-weight: 600;
+  letter-spacing: .01em;
 }
 
 .hero-calendar-btn {
@@ -535,6 +745,38 @@ h1 {
   transition: opacity .15s ease;
 }
 .hero-calendar-btn:hover { opacity: .85; }
+
+/* Popcorn easter egg --------------------------------------------------- */
+
+.popcorn-overlay {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  /* A plain `inset: 0` pins a fixed element's bottom edge to the small
+     viewport on mobile Safari - the visible area above the translucent
+     address bar - rather than the large viewport normal page content
+     uses, which is why the pile used to stop short of the bottom of the
+     screen instead of running behind that bar. `lvh` opts into the large
+     viewport explicitly regardless of fixed-position quirks; the plain
+     vh line above it is just the fallback for browsers that don't
+     understand the unit yet. */
+  height: 100vh;
+  height: 100lvh;
+  z-index: 9999;
+  overflow: hidden;
+  pointer-events: none;
+}
+.popcorn-piece {
+  position: absolute;
+  top: 0;
+  left: 0;
+  display: block;
+  /* Positioned entirely via `transform: translate(...)` from JS (a
+     physics loop), not left/top - keeping those at a fixed 0/0 means the
+     translate coordinates are just plain pixels from the corner. */
+  filter: drop-shadow(0 2px 3px rgba(0, 0, 0, .35));
+}
 
 
 /* Year sections ------------------------------------------------------ */
@@ -599,6 +841,40 @@ h1 {
 .view-toggle-btn svg { width: 1.05rem; height: 1.05rem; }
 .view-toggle-btn:hover { color: var(--fg); }
 .view-toggle-btn.is-active { background: rgb(255 255 255 / .12); color: var(--fg); }
+
+/* Hidden by default - the Member/Genre/Country dropdown pills work fine
+   at normal widths. Below the same breakpoint the archive grid itself
+   collapses at, they stop fitting the toolbar comfortably, so this
+   swaps in for the whole row instead (see the @media block below). */
+.filters-toggle {
+  display: none;
+  align-items: center;
+  justify-content: center;
+  /* Matches .view-toggle's own full height (its 2rem buttons plus its
+     .2rem padding and 1px border on each side), not just the 2rem of the
+     buttons inside it - equal width and height keeps this a true circle
+     rather than stretching it to match a wrapper's rectangle. */
+  width: calc(2.4rem + 2px);
+  height: calc(2.4rem + 2px);
+  padding: 0;
+  /* Same stroke as .view-toggle right next to it - unlike its buttons,
+     this one has no group wrapper of its own to draw a boundary, so it
+     needs its own border to read as a distinct button. */
+  border: 1px solid var(--rule);
+  border-radius: 999px;
+  background: transparent;
+  color: var(--muted);
+  cursor: pointer;
+  transition: background .15s ease, border-color .15s ease, color .15s ease;
+}
+.filters-toggle svg { width: 1.1rem; height: 1.1rem; }
+.filters-toggle:hover { border-color: var(--faint); color: var(--fg); }
+.filters-toggle[hidden] { display: none; }
+
+@media (max-width: 640px) {
+  .filters-toggle { display: inline-flex; }
+  .year-filters { display: none; }
+}
 
 /* Grid view - posters only, no text. */
 .films-grid {
@@ -728,13 +1004,42 @@ h1 {
    "Action", etc - sitting under the filter bar so a query can be built up
    from more than one at a time. Each chip carries its own remove (x) rather
    than the pill above it doing double duty as a value + a clear button. */
+/* The chip list wraps on its own (see .filter-chips-list) inside a
+   fixed-width share of this row, while "Clear Filters" stays a separate,
+   non-wrapping item pinned to the right - so it stays right-aligned on
+   the pills' own row even once the chips themselves spill onto a second
+   line, rather than getting pulled onto whatever line happens to be
+   last. */
 .filter-chips {
   display: flex;
-  flex-wrap: wrap;
-  gap: .5rem;
+  align-items: flex-start;
+  justify-content: space-between;
+  gap: .75rem 1rem;
   margin: 0 0 1.75rem;
 }
 .filter-chips[hidden] { display: none; }
+
+.filter-chips-list {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+}
+
+.filter-clear-btn {
+  flex: none;
+  padding: .3rem 0;
+  border: none;
+  background: transparent;
+  color: var(--muted);
+  font: inherit;
+  font-size: .8rem;
+  font-weight: 600;
+  text-decoration: underline;
+  text-underline-offset: 2px;
+  cursor: pointer;
+  transition: color .15s ease;
+}
+.filter-clear-btn:hover { color: var(--fg); }
 
 .filter-chip {
   display: inline-flex;

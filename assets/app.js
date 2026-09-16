@@ -23,6 +23,359 @@ const POSTER_SIZES = [
   ['w342', 342],
 ];
 
+// The club's Discord channel, for the calendar invite's location field.
+const DISCORD_CHAT_URL = 'https://discord.com/channels/216826370662072320/216826370662072321';
+
+// Plus/minus icons for each accordion row in the mobile filter overlay
+// (see overlaySection() below) - plus while collapsed, minus once
+// expanded, swapped outright rather than one glyph rotated 180deg.
+const FILTER_EXPAND_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/><path d="M12 5v14"/></svg>';
+const FILTER_COLLAPSE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>';
+
+/* ------------------------------------------------------------------------
+ * Easter egg: click the movie count in the header ("122 movies") to drop a
+ * screen full of popcorn. Kernels fall from the top and pile up at the
+ * bottom, then after a short pause pop into popcorn and fill the whole
+ * screen. No cursor change or link styling on that text - it's not meant
+ * to look clickable.
+ * ---------------------------------------------------------------------- */
+// 9 variants each (from the two 3x3 sprite sheets Chris generated) rather
+// than one fixed shape, so a screen full of pieces doesn't look like a
+// stamped repeating pattern.
+const POPCORN_KERNEL_SRCS = Array.from({ length: 9 }, (_, i) => `assets/effects/kernel-${i + 1}.png`);
+const POPCORN_POPPED_SRCS = Array.from({ length: 9 }, (_, i) => `assets/effects/popcorn-${i + 1}.png`);
+const randomOf = arr => arr[Math.floor(Math.random() * arr.length)];
+// One kernel per movie in the archive - set once main() knows the real
+// count; this fallback only matters if somehow triggered before that.
+let POPCORN_KERNEL_COUNT = 10;
+
+/**
+ * Runs several popped-popcorn bodies through gravity + floor/wall bounces
+ * AND pairwise collisions with each other, all in one shared loop, so a
+ * growing piece actually pushes its neighbours out of the way instead of
+ * just overlapping them - which is what makes the result read as a pile
+ * that stacks up rather than a flat mosaic of circles.
+ */
+// Speed below which a body is considered "at rest" for sleep purposes,
+// and how many consecutive slow frames it takes to actually fall asleep -
+// a couple of frames of coincidental slowness shouldn't freeze something
+// that's still actively settling.
+const POPCORN_SLEEP_SPEED = 20;
+const POPCORN_SLEEP_FRAMES = 12;
+// How hard an awake neighbour has to be moving to jolt a sleeping piece
+// back awake - gentle nudges from something still settling shouldn't
+// wake it, but a freshly-popped kernel slamming into it should.
+const POPCORN_WAKE_SPEED = 180;
+// How many frames a just-popped piece gets to punch its way clear of the
+// pile before normal collision damping applies to it. Without this, a
+// kernel that pops while surrounded on several sides (deep in a crowded
+// pile) gets hit with that damping once per overlapping neighbour in the
+// very same frame it pops - several multiplications compounding at once -
+// and never actually leaves the spot it popped in. A short grace window
+// lets it shove through first and only then start behaving like every
+// other settling piece.
+const POPCORN_LAUNCH_FRAMES = 9;
+
+function runPopcornPile(bodies, overlay, { duration = 4200, onAllSettled = null } = {}) {
+  const start = performance.now();
+  let lastT = null;
+  let settled = false;
+
+  function step(t) {
+    const dt = Math.min((t - (lastT ?? t)) / 1000, 0.032); // clamp big gaps
+    lastT = t;
+    // The overlay's own box, not window.innerWidth/innerHeight - on mobile
+    // Safari the window size reflects the small/visible viewport (above the
+    // address bar), while the overlay is sized in CSS to the large viewport
+    // (see .popcorn-overlay), so reading the overlay directly is what makes
+    // the pile actually fall all the way to the true bottom of the page.
+    const vw = overlay.clientWidth;
+    const vh = overlay.clientHeight;
+
+    for (const b of bodies) {
+      // Asleep bodies are frozen outright - no gravity, no drift, nothing
+      // to slowly decay - which is what actually stops the endless
+      // micro-jitter a purely position-corrected pile never settles out
+      // of on its own (gravity keeps adding a little energy back in every
+      // single frame otherwise, forever).
+      if (b.asleep) continue;
+
+      if (b.launchFrames > 0) b.launchFrames--;
+
+      b.vy += b.gravity * dt;
+      b.x += b.vx * dt;
+      b.y += b.vy * dt;
+      b.angle += b.angularVel * dt;
+      // Spin bleeds off continuously (like air resistance / friction
+      // against whatever it's resting on), not just on a floor bounce -
+      // otherwise a piece resting on TOP of the pile, never touching the
+      // actual floor again, would spin forever with nothing to slow it.
+      b.angularVel *= Math.exp(-3 * dt);
+
+      const floorY = vh - b.size;
+      if (b.y > floorY) {
+        b.y = floorY;
+        b.vy = -b.vy * b.restitution;
+        b.vx *= 0.7;
+        b.angularVel *= 0.6;
+      }
+      if (b.x < 0) {
+        b.x = 0;
+        b.vx = -b.vx * b.restitution;
+      } else if (b.x > vw - b.size) {
+        b.x = vw - b.size;
+        b.vx = -b.vx * b.restitution;
+      }
+    }
+
+    // Pairwise collisions - push overlapping pieces apart along the line
+    // between their centres. O(n^2), but n tops out at one per movie in
+    // the archive, and this only runs for a few seconds.
+    for (let i = 0; i < bodies.length; i++) {
+      const a = bodies[i];
+      const acx = a.x + a.size / 2;
+      const acy = a.y + a.size / 2;
+      for (let j = i + 1; j < bodies.length; j++) {
+        const c = bodies[j];
+        if (a.asleep && c.asleep) continue; // neither can move - nothing to resolve
+        const ccx = c.x + c.size / 2;
+        const ccy = c.y + c.size / 2;
+        let dx = ccx - acx;
+        let dy = ccy - acy;
+        const dist = Math.hypot(dx, dy) || 0.01;
+        // A little overlap is allowed - real popcorn nests into itself
+        // rather than sitting as perfectly separated circles - but not
+        // much: 0.5 is where two circles that size would just touch, so
+        // this stays close to that rather than letting them sink deep
+        // into each other, which was making the pile look overly dense
+        // and, with that much overlap to correct every frame, jigglier.
+        const minDist = (a.size + c.size) * 0.48;
+        if (dist >= minDist) continue;
+
+        dx /= dist;
+        dy /= dist;
+        const overlap = minDist - dist;
+
+        if (a.asleep || c.asleep) {
+          // Treat the sleeping one as immovable - the awake one absorbs
+          // the whole correction - unless the awake one is hitting it
+          // hard enough (a fresh pop, not just a slow settle) to justify
+          // waking it back up and handing it a share of that momentum.
+          const sleeper = a.asleep ? a : c;
+          const mover = a.asleep ? c : a;
+          const sign = a.asleep ? 1 : -1;
+          mover.x += sign * dx * overlap;
+          mover.y += sign * dy * overlap;
+          const moverSpeed = Math.hypot(mover.vx, mover.vy);
+          if (moverSpeed > POPCORN_WAKE_SPEED) {
+            sleeper.asleep = false;
+            sleeper.restFrames = 0;
+            sleeper.vx = sign * dx * moverSpeed * 0.4;
+            sleeper.vy = sign * dy * moverSpeed * 0.4;
+            if (!(mover.launchFrames > 0)) {
+              mover.vx *= 0.6;
+              mover.vy *= 0.6;
+            }
+          } else if (!(mover.launchFrames > 0)) {
+            mover.vx *= 0.9;
+            mover.vy *= 0.9;
+          }
+        } else {
+          const push = overlap / 2;
+          a.x -= dx * push;
+          a.y -= dy * push;
+          c.x += dx * push;
+          c.y += dy * push;
+          if (!(a.launchFrames > 0)) { a.vx *= 0.9; a.vy *= 0.9; }
+          if (!(c.launchFrames > 0)) { c.vx *= 0.9; c.vy *= 0.9; }
+        }
+      }
+    }
+
+    // A body that's stayed slow for long enough goes to sleep (see above).
+    for (const b of bodies) {
+      if (b.asleep) continue;
+      const speed = Math.hypot(b.vx, b.vy);
+      if (speed < POPCORN_SLEEP_SPEED) {
+        b.restFrames = (b.restFrames ?? 0) + 1;
+        if (b.restFrames > POPCORN_SLEEP_FRAMES) {
+          b.asleep = true;
+          b.vx = 0;
+          b.vy = 0;
+          b.angularVel = 0;
+        }
+      } else {
+        b.restFrames = 0;
+      }
+    }
+
+    for (const b of bodies) {
+      b.piece.style.transform = `translate(${b.x}px, ${b.y}px) rotate(${b.angle}deg)`;
+    }
+
+    // Once nothing's moving, let whoever asked know - once. This is one
+    // continuous loop for the kernels' whole life (fall, pile up, pop,
+    // resettle), so unlike a one-shot animation this doesn't stop here;
+    // popping later just mutates these same bodies in place, and they
+    // keep colliding with everything else in the array throughout.
+    if (onAllSettled && !settled && bodies.length > 0 && t - start > 200) {
+      const allSlow = bodies.every(b => Math.abs(b.vx) < 15 && Math.abs(b.vy) < 15);
+      if (allSlow) {
+        settled = true;
+        onAllSettled();
+      }
+    }
+
+    if (t - start < duration) requestAnimationFrame(step);
+  }
+  requestAnimationFrame(step);
+}
+
+/** The effect itself - kernels fall and pile, then pop and fill the screen. */
+function triggerPopcornEffect() {
+  if (document.querySelector('.popcorn-overlay')) return; // already running
+
+  const overlay = el('div', 'popcorn-overlay');
+  document.body.append(overlay);
+
+  function makePiece(src, size) {
+    const piece = document.createElement('img');
+    piece.src = src;
+    piece.alt = '';
+    piece.className = 'popcorn-piece';
+    piece.style.width = `${size}px`;
+    piece.style.height = `${size}px`;
+    return piece;
+  }
+
+  // Every kernel is one physics body for its entire life - falling,
+  // piling up, popping, and resettling all happen to the same object in
+  // the same array, run through one continuous simulation below. That's
+  // what makes a popping kernel actually shove its still-unpopped
+  // neighbours out of the way: they're all in the same collision system
+  // the whole time, nothing "joins late" or falls through anything else.
+  const KERNEL_COUNT = POPCORN_KERNEL_COUNT;
+  const kernels = [];
+
+  for (let i = 0; i < KERNEL_COUNT; i++) {
+    const size = 18 + Math.random() * 14;
+    const piece = makePiece(randomOf(POPCORN_KERNEL_SRCS), size);
+    overlay.append(piece);
+
+    kernels.push({
+      piece,
+      x: Math.random() * (overlay.clientWidth - size),
+      y: -size - Math.random() * 200, // staggers the entrance a little
+      size,
+      vx: 0,
+      vy: 0,
+      gravity: 2000 + Math.random() * 700,
+      restitution: 0.3 + Math.random() * 0.3,
+      angle: 0,
+      angularVel: (Math.random() - 0.5) * 420,
+      asleep: false,
+      restFrames: 0,
+      launchFrames: 0,
+    });
+  }
+
+  // Pop timing (below) needs the whole 10s + 5s window plus room to
+  // settle at the end - the one physics loop runs for all of it.
+  const SLOW_WINDOW_MS = 10000;
+  const FAST_WINDOW_MS = 5000;
+  const TOTAL_POP_WINDOW_MS = SLOW_WINDOW_MS + FAST_WINDOW_MS;
+
+  runPopcornPile(kernels, overlay, {
+    duration: 6000 + TOTAL_POP_WINDOW_MS + 4500,
+    onAllSettled: () => setTimeout(startPopping, 500),
+  });
+
+  // Safety net in case the fall never fully settles (a background tab,
+  // say) - the show goes on regardless.
+  setTimeout(() => { if (!started) startPopping(); }, 5200);
+
+  let started = false;
+  function startPopping() {
+    if (started) return;
+    started = true;
+
+    // Every popped piece is the same size (popping is what makes that
+    // true in real life too - it's the kernel size that varies, not the
+    // popped result), scaled to the viewport rather than a fixed pixel
+    // count so it looks about the same on a phone and a monitor.
+    const POPPED_SIZE = Math.min(90, Math.max(50, overlay.clientWidth * 0.06));
+
+    function popOne(k) {
+      k.piece.src = randomOf(POPCORN_POPPED_SRCS);
+      // Growth centred on wherever the kernel actually settled (rather
+      // than growing down-and-right from its top-left corner) so it
+      // erupts outward from that spot instead of sliding off toward a
+      // corner. k is still the exact same body the shared simulation has
+      // been tracking the whole time - mutating it in place here is what
+      // lets the very next physics frame immediately start pushing
+      // whichever neighbours it now overlaps.
+      const growBy = POPPED_SIZE - k.size;
+      k.x -= growBy / 2;
+      k.y -= growBy / 2;
+      k.size = POPPED_SIZE;
+      k.piece.style.width = `${POPPED_SIZE}px`;
+      k.piece.style.height = `${POPPED_SIZE}px`;
+      k.piece.style.zIndex = String(Math.round(POPPED_SIZE));
+      // A vigorous hop in a random horizontal direction too, not just
+      // straight up and down - a popping kernel kicks sideways as often
+      // as not, and hard enough to actually be noticeable, shoving
+      // whatever's nearby (popped or not) out of the way. A random
+      // "power" scalar on top of that means pops vary in intensity too -
+      // some just hop, some really fly - rather than every single one
+      // landing in the same narrow range.
+      const power = 0.65 + Math.random() * 0.95;
+      k.vx = (Math.random() - 0.5) * 2 * (600 + Math.random() * 500) * power;
+      k.vy = -(800 + Math.random() * 700) * power;
+      k.gravity = 2600;
+      k.restitution = 0.35 + Math.random() * 0.2;
+      k.angularVel = (Math.random() - 0.5) * 260;
+      // A kernel that had already gone to sleep mid-pile needs waking up
+      // explicitly - otherwise the physics loop would just skip it and it
+      // would sit there popped but frozen in its old kernel spot.
+      k.asleep = false;
+      k.restFrames = 0;
+      // A brief grace window to actually punch clear of the pile before
+      // normal collision damping kicks back in (see POPCORN_LAUNCH_FRAMES).
+      k.launchFrames = POPCORN_LAUNCH_FRAMES;
+    }
+
+    // Real popcorn ramps up rather than going off all at once - a slow
+    // trickle of the first few kernels, then everything else kicks off in
+    // a rush. Which kernels land in which group is random too, not just
+    // their timing within each window.
+    const shuffled = [...kernels];
+    for (let i = shuffled.length - 1; i > 0; i--) {
+      const j = Math.floor(Math.random() * (i + 1));
+      [shuffled[i], shuffled[j]] = [shuffled[j], shuffled[i]];
+    }
+    const slowCount = Math.round(shuffled.length * 0.2);
+
+    shuffled.slice(0, slowCount).forEach(k => {
+      setTimeout(() => popOne(k), Math.random() * SLOW_WINDOW_MS);
+    });
+    shuffled.slice(slowCount).forEach(k => {
+      setTimeout(() => popOne(k), SLOW_WINDOW_MS + Math.random() * FAST_WINDOW_MS);
+    });
+
+    // Let it sit fully "filled" for a moment after the last pop, then
+    // fade the whole thing away on its own - or a click anywhere ends it
+    // early.
+    const dismiss = () => {
+      overlay.style.transition = 'opacity .6s ease';
+      overlay.style.opacity = '0';
+      setTimeout(() => overlay.remove(), 650);
+    };
+    overlay.style.pointerEvents = 'auto';
+    overlay.addEventListener('click', dismiss, { once: true });
+    setTimeout(dismiss, TOTAL_POP_WINDOW_MS + 4500);
+  }
+}
+
 function el(tag, className, text) {
   const node = document.createElement(tag);
   if (className) node.className = className;
@@ -298,6 +651,83 @@ function formatSchedule(scheduledFor) {
 }
 
 /**
+ * Add to Calendar - a downloaded .ics file rather than a single calendar
+ * provider's link, so it works the same in Apple Calendar, Outlook, Google
+ * Calendar, anything that can import one. Times go out in UTC (a plain "Z"
+ * instant, no TZID), so each member's calendar app converts it to whatever
+ * zone that app is already in - the same reason the hero itself resolves a
+ * viewer-local zone in heroScheduleZone() above, rather than assuming ours.
+ */
+function icsEscapeText(value) {
+  return String(value)
+    .replace(/\\/g, '\\\\')
+    .replace(/;/g, '\\;')
+    .replace(/,/g, '\\,')
+    .replace(/\r?\n/g, '\\n');
+}
+
+function toIcsUtcStamp(date) {
+  return date.toISOString().replace(/[-:]/g, '').replace(/\.\d{3}Z$/, 'Z');
+}
+
+/**
+ * Builds the .ics text for one "Movie Chat" event. This is just the
+ * post-watch discussion, not a watch-together session, so the block is a
+ * flat 30 minutes regardless of the film's own runtime.
+ */
+const MOVIE_CHAT_DURATION_MINUTES = 30;
+
+function buildMovieChatIcs({ film, meta, scheduledFor, discordUrl }) {
+  const start = new Date(scheduledFor);
+  const end = new Date(start.getTime() + MOVIE_CHAT_DURATION_MINUTES * 60000);
+
+  const titleLine = film.year ? `${film.title} (${film.year})` : film.title;
+  const descriptionParts = [titleLine];
+  if (meta?.imdbUrl) descriptionParts.push(`IMDb: ${meta.imdbUrl}`);
+  if (discordUrl) descriptionParts.push(`Discord: ${discordUrl}`);
+
+  const lines = [
+    'BEGIN:VCALENDAR',
+    'VERSION:2.0',
+    'PRODID:-//Avoid The Rut//Movie Chat//EN',
+    'CALSCALE:GREGORIAN',
+    'BEGIN:VEVENT',
+    `UID:${film.slug}-${film.year}@avoidtherut.com`,
+    `DTSTAMP:${toIcsUtcStamp(new Date())}`,
+    `DTSTART:${toIcsUtcStamp(start)}`,
+    `DTEND:${toIcsUtcStamp(end)}`,
+    'SUMMARY:Movie Chat',
+    `DESCRIPTION:${icsEscapeText(descriptionParts.join('\n'))}`,
+  ];
+  if (meta?.imdbUrl) lines.push(`URL:${meta.imdbUrl}`);
+  if (discordUrl) lines.push(`LOCATION:${icsEscapeText(discordUrl)}`);
+  lines.push(
+    'BEGIN:VALARM',
+    'ACTION:DISPLAY',
+    'DESCRIPTION:Movie Chat starting soon',
+    'TRIGGER:-PT15M',
+    'END:VALARM',
+    'END:VEVENT',
+    'END:VCALENDAR',
+  );
+  return lines.join('\r\n');
+}
+
+/** Triggers the .ics download for one hero's "+ Add to Calendar" button. */
+function downloadMovieChatIcs(film, meta, scheduledFor) {
+  const ics = buildMovieChatIcs({ film, meta, scheduledFor, discordUrl: DISCORD_CHAT_URL });
+  const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = `movie-chat-${film.slug}.ics`;
+  document.body.append(a);
+  a.click();
+  a.remove();
+  setTimeout(() => URL.revokeObjectURL(url), 1000);
+}
+
+/**
  * Whoever picked last (data/schedule.json's picker) tells us whose turn is
  * next in data/members.json's rotation - falling back to the start of the
  * rotation if we can't place them (no prior pick recorded, or the roster
@@ -367,9 +797,9 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor) {
   scheduleText.append(el('p', 'hero-time', schedule.time));
   scheduleRow.append(scheduleText);
 
-  // Placeholder - not wired up to anything yet.
   const calendarBtn = el('button', 'hero-calendar-btn', '+ Add to Calendar');
   calendarBtn.type = 'button';
+  calendarBtn.addEventListener('click', () => downloadMovieChatIcs(film, meta, scheduledFor));
   scheduleRow.append(calendarBtn);
   body.append(scheduleRow);
 
@@ -385,14 +815,15 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor) {
  * has already passed. No poster to sample, so the backdrop just stays off.
  */
 /**
- * A handful of ways to say "your turn" - picked deterministically per name
- * (a stable hash, not Math.random) so the same person gets the same one
- * every time they're up, rather than it changing on every reload.
+ * A handful of ways to say "your turn" - picked at random each time this
+ * renders, so reloading the page while someone's still up shows a
+ * different one rather than the same phrase sitting there indefinitely.
  */
 const HERO_WAITING_PHRASES = [
   name => `${name}, you're up!`,
   name => `Over to you, ${name}.`,
   name => `No pressure, ${name}.`,
+  name => `What'll it be, ${name}?`,
 ];
 
 // No poster to sample a colour from yet, so these are fixed seed palettes
@@ -415,7 +846,8 @@ function hashName(name) {
 
 function heroWaitingTitle(name) {
   if (!name) return 'Waiting on a pick';
-  return HERO_WAITING_PHRASES[hashName(name) % HERO_WAITING_PHRASES.length](name);
+  const phrase = HERO_WAITING_PHRASES[Math.floor(Math.random() * HERO_WAITING_PHRASES.length)];
+  return phrase(name);
 }
 
 function heroWaitingPalette(name) {
@@ -429,7 +861,8 @@ function renderHeroWaiting(pickerName) {
 
   const wrap = el('div', 'hero-inner');
 
-  wrap.append(el('div', 'hero-poster empty'));
+  const art = el('div', 'hero-poster empty');
+  wrap.append(art);
 
   // Same source as the backdrop mesh below (--hero-rgb-1/2), so the blurred
   // poster placeholder and the wash behind it are always the same colours,
@@ -606,6 +1039,18 @@ function createFilterPill(placeholder, onChange) {
       refreshOptions();
       onChange(new Set(selected));
     },
+    // Lets another surface for the same filter (the mobile filter overlay,
+    // below) toggle a value through the exact same code path a dropdown
+    // click uses, so there is only ever one place a filter's selection
+    // actually lives - this Set - no matter which UI changed it.
+    toggle: toggleValue,
+    getSelected: () => new Set(selected),
+    clear() {
+      if (!selected.size) return;
+      selected.clear();
+      refreshOptions();
+      onChange(new Set(selected));
+    },
   };
 }
 
@@ -630,6 +1075,19 @@ function setupArchiveFilters(archive, container, tmdb, pickers) {
   const pills = {};
   const chipLabels = { member: 'Member', genre: 'Genre', country: 'Country' };
   let view = 'list';
+
+  // The mobile filter overlay (built further down) shows the exact same
+  // Member/Genre/Country choices as the desktop dropdown pills, just laid
+  // out as plain toggle lists instead of menus. Rather than a second copy
+  // of the selection state, each overlay option calls straight into the
+  // matching pill's own toggle() - so there's still only one Set per
+  // filter - and every overlay section registers a refresh() here so it
+  // stays in sync no matter which surface (dropdown, chip removal, or the
+  // overlay itself) actually changed something.
+  const overlayRefreshers = [];
+  function refreshOverlay() {
+    for (const refresh of overlayRefreshers) refresh();
+  }
 
   function render() {
     // Genre is a tag on the film itself, so multiple genres combine with
@@ -681,7 +1139,8 @@ function setupArchiveFilters(archive, container, tmdb, pickers) {
   function renderChips() {
     if (!chipsRow) return;
     const chips = Object.entries(state).flatMap(([key, values]) => [...values].map(value => [key, value]));
-    chipsRow.replaceChildren(...chips.map(([key, value]) => {
+    const list = el('div', 'filter-chips-list');
+    list.append(...chips.map(([key, value]) => {
       const chip = el('span', 'filter-chip');
       chip.append(document.createTextNode(value));
       const remove = el('button', 'filter-chip-remove', '×');
@@ -691,6 +1150,12 @@ function setupArchiveFilters(archive, container, tmdb, pickers) {
       chip.append(remove);
       return chip;
     }));
+    const clearBtn = el('button', 'filter-clear-btn', 'Clear Filters');
+    clearBtn.type = 'button';
+    clearBtn.addEventListener('click', () => {
+      for (const pill of Object.values(pills)) pill.clear();
+    });
+    chipsRow.replaceChildren(list, clearBtn);
     chipsRow.hidden = chips.length === 0;
   }
 
@@ -699,8 +1164,54 @@ function setupArchiveFilters(archive, container, tmdb, pickers) {
       state[key] = values;
       render();
       renderChips();
+      refreshOverlay();
     };
   }
+
+  /** One "Member" / "Genre" / "Country" section for the mobile overlay -
+   *  an accordion row (closed by default) that expands into a two-column
+   *  list of every value that pill offers. */
+  function overlaySection(label, key, values) {
+    const section = el('div', 'filter-overlay-section');
+
+    const sectionToggle = el('button', 'filter-overlay-section-toggle');
+    sectionToggle.type = 'button';
+    sectionToggle.setAttribute('aria-expanded', 'false');
+    sectionToggle.append(el('span', 'filter-overlay-section-label', label));
+    const toggleIcon = el('span', 'filter-overlay-toggle-icon');
+    toggleIcon.innerHTML = FILTER_EXPAND_SVG;
+    sectionToggle.append(toggleIcon);
+
+    const body = el('div', 'filter-overlay-section-body');
+    body.hidden = true; // closed by default
+
+    const options = el('div', 'filter-overlay-options');
+    const optionEls = values.map(value => {
+      const opt = el('button', 'filter-overlay-option', value);
+      opt.type = 'button';
+      opt.addEventListener('click', () => pills[key].toggle(value));
+      options.append(opt);
+      return { value, opt };
+    });
+    body.append(options);
+
+    sectionToggle.addEventListener('click', () => {
+      const isOpen = sectionToggle.getAttribute('aria-expanded') === 'true';
+      sectionToggle.setAttribute('aria-expanded', String(!isOpen));
+      body.hidden = isOpen;
+      toggleIcon.innerHTML = isOpen ? FILTER_EXPAND_SVG : FILTER_COLLAPSE_SVG;
+    });
+
+    section.append(sectionToggle, body);
+
+    overlayRefreshers.push(() => {
+      const selected = pills[key].getSelected();
+      for (const { value, opt } of optionEls) opt.classList.toggle('is-selected', selected.has(value));
+    });
+    return section;
+  }
+
+  const overlaySections = [];
 
   const members = [...new Set(
     archive.flatMap(year => year.films.map(f => pickers?.picks?.[`${year.year}:${f.slug}`]).filter(Boolean)),
@@ -710,6 +1221,7 @@ function setupArchiveFilters(archive, container, tmdb, pickers) {
     memberPill.setOptions(members);
     pills.member = memberPill;
     bar.append(memberPill.element);
+    overlaySections.push(overlaySection('Member', 'member', members));
   }
 
   const genres = [...new Set(
@@ -720,6 +1232,7 @@ function setupArchiveFilters(archive, container, tmdb, pickers) {
     genrePill.setOptions(genres);
     pills.genre = genrePill;
     bar.append(genrePill.element);
+    overlaySections.push(overlaySection('Genre', 'genre', genres));
   }
 
   const countries = [...new Set(
@@ -730,7 +1243,10 @@ function setupArchiveFilters(archive, container, tmdb, pickers) {
     countryPill.setOptions(countries);
     pills.country = countryPill;
     bar.append(countryPill.element);
+    overlaySections.push(overlaySection('Country', 'country', countries));
   }
+
+  setupFilterOverlay(overlaySections);
 
   const viewToggle = document.getElementById('view-toggle');
   if (viewToggle) {
@@ -747,6 +1263,74 @@ function setupArchiveFilters(archive, container, tmdb, pickers) {
 
   render();
   renderChips();
+}
+
+/**
+ * Builds the mobile "Filters" overlay (see #filter-overlay in index.html)
+ * from the section elements setupArchiveFilters() built above, and wires
+ * up #filters-toggle to open it - a full-screen, dimmed stand-in for the
+ * dropdown pills, which stop being usable once the toolbar collapses them
+ * down to a single button at narrow widths (see the @media rule for
+ * .filters-toggle / .year-filters in styles.css). Same open/close/fade
+ * mechanics as the stats page's own overlay - see setupStatsPage() - just
+ * triggered by a different button and with no bar-chart/× icon swap, since
+ * the close affordance here is its own dedicated button instead.
+ */
+function setupFilterOverlay(sections) {
+  const toggle = document.getElementById('filters-toggle');
+  const overlay = document.getElementById('filter-overlay');
+  // A sibling of #filter-overlay, not appended inside it - see the comment
+  // on this button in index.html for why: .filter-overlay fades via
+  // opacity, which isolates any mix-blend-mode inside it from the real
+  // page backdrop, so a vibrancy-blended close button living inside that
+  // fade never actually lights up the way #stats-toggle does.
+  const closeBtn = document.getElementById('filter-overlay-close');
+  if (!toggle || !overlay || !closeBtn) return;
+
+  overlay.replaceChildren();
+  // No sections (no member/genre/country data at all) means there is
+  // nothing to filter by - leave the button out of the toolbar entirely
+  // rather than open an overlay with nothing in it but a close button.
+  if (!sections.length) {
+    toggle.hidden = true;
+    return;
+  }
+
+  const sectionsWrap = el('div', 'filter-overlay-sections');
+  sectionsWrap.append(...sections);
+  overlay.append(el('p', 'filter-overlay-title', 'Filters'), sectionsWrap);
+
+  let hideTimer;
+
+  function open() {
+    clearTimeout(hideTimer);
+    overlay.hidden = false;
+    closeBtn.hidden = false;
+    // Same reasoning as setupStatsPage()'s open(): force layout so
+    // "no longer hidden" commits before the class flip, or the opacity
+    // transition has nothing to animate from.
+    void overlay.offsetHeight;
+    document.body.classList.add('filters-open');
+    overlay.setAttribute('aria-hidden', 'false');
+    toggle.setAttribute('aria-expanded', 'true');
+  }
+
+  function close() {
+    document.body.classList.remove('filters-open');
+    overlay.setAttribute('aria-hidden', 'true');
+    toggle.setAttribute('aria-expanded', 'false');
+    // closeBtn has no fade of its own (see index.html) - it just stays
+    // up for as long as the overlay it belongs to is still visibly
+    // fading out, then disappears at the same moment as the overlay
+    // itself rather than vanishing out ahead of it.
+    hideTimer = setTimeout(() => { overlay.hidden = true; closeBtn.hidden = true; }, 400);
+  }
+
+  toggle.addEventListener('click', () => {
+    if (document.body.classList.contains('filters-open')) close();
+    else open();
+  });
+  closeBtn.addEventListener('click', close);
 }
 
 /* ------------------------------------------------------------------------
@@ -819,10 +1403,36 @@ function computeStats(archive, tmdb, pickers, members) {
   }
   const pickerBoard = [...pickCounts.entries()].sort((a, b) => b[1] - a[1]);
 
+  // Dave's well-known soft spot for anime - "anime" here means the
+  // Animation genre AND Japan as a producing country, which is the same
+  // shorthand test a person would use and comes for free from fields TMDB
+  // already gives every film, no extra tagging required.
+  const davePicks = allFilms.filter(f => pickers?.picks?.[`${f.watchYear}:${f.slug}`] === 'Dave');
+  const daveAnimeCount = davePicks.filter(
+    f => f.meta?.genres?.includes('Animation') && f.meta?.countries?.includes('Japan'),
+  ).length;
+  const davePctAnime = davePicks.length ? Math.round((daveAnimeCount / davePicks.length) * 100) : null;
+
+  // OMDb's IMDb-rating backfill (scripts/imdb-ratings.mjs) is optional and
+  // may not have run yet, so most films can genuinely have no imdbRating -
+  // that's just excluded from the average rather than counted as a 0.
+  const withImdbRating = allFilms.filter(f => typeof f.meta?.imdbRating === 'number');
+  const avgImdbRating = withImdbRating.length
+    ? Math.round((withImdbRating.reduce((n, f) => n + f.meta.imdbRating, 0) / withImdbRating.length) * 10) / 10
+    : null;
+  const highestRated = withImdbRating.length
+    ? withImdbRating.reduce((a, b) => (b.meta.imdbRating > a.meta.imdbRating ? b : a))
+    : null;
+  const lowestRated = withImdbRating.length
+    ? withImdbRating.reduce((a, b) => (b.meta.imdbRating < a.meta.imdbRating ? b : a))
+    : null;
+
   return {
     total, firstYear, lastYear, totalMinutes, avgRuntime, longest, shortest,
     topGenre, topDirector, numCountries: countryCounts.size, pctNonUs, topForeignCountry,
     busiestYears, busiestYearCount, oldest, newest, attributed, pickerBoard,
+    davePctAnime, daveAnimeCount, davePickCount: davePicks.length,
+    avgImdbRating, ratedFilmCount: withImdbRating.length, highestRated, lowestRated,
   };
 }
 
@@ -879,6 +1489,10 @@ function renderStatsPage(archive, tmdb, pickers, members) {
     statItem(s.longest ? String(s.longest.meta.runtime) : null, 'minutes', { heading: 'longest movie', sub: s.longest?.title }),
     statItem(s.shortest ? String(s.shortest.meta.runtime) : null, 'minutes', { heading: 'shortest movie', sub: s.shortest?.title }),
     statItem(s.topGenre ? s.topGenre.names.join(' / ') : null, s.topGenre ? `${s.topGenre.count} films` : 'top genre', { text: true }),
+    statItem(s.davePctAnime != null ? `${s.davePctAnime}%` : null, 'of Dave’s picks are anime'),
+    statItem(s.avgImdbRating != null ? s.avgImdbRating.toFixed(1) : null, 'avg IMDb rating'),
+    statItem(s.highestRated ? s.highestRated.meta.imdbRating.toFixed(1) : null, 'IMDb rating', { heading: 'highest rated', sub: s.highestRated?.title }),
+    statItem(s.lowestRated ? s.lowestRated.meta.imdbRating.toFixed(1) : null, 'IMDb rating', { heading: 'lowest rated', sub: s.lowestRated?.title }),
   );
   page.replaceChildren(hero);
 }
@@ -1206,7 +1820,13 @@ async function main() {
 
   const total = archive.reduce((n, y) => n + y.films.length, 0);
   const since = archive.length ? archive.at(-1).year : '';
-  stats.textContent = `${total} movies since ${since}`;
+  // The "<total> movies" span is the easter egg's hidden trigger - plain
+  // text otherwise (no cursor, no underline), so clicking it looks like an
+  // accident, not an invitation.
+  const moviesCount = el('span', null, `${total} movies`);
+  moviesCount.addEventListener('click', () => triggerPopcornEffect());
+  stats.replaceChildren(moviesCount, document.createTextNode(` since ${since}`));
+  POPCORN_KERNEL_COUNT = total;
 
   setupArchiveFilters(archive, container, tmdb, pickers);
   renderStatsPage(archive, tmdb, pickers, members);

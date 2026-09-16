@@ -33,7 +33,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt1187043/",
       "letterboxdTitle": "3 Idiots",
       "letterboxdYear": 2009,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8.4
     },
     "a-ghost-story-2017": {
       "tmdbId": 428449,
@@ -64,7 +65,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt6265828/",
       "letterboxdTitle": "A Ghost Story",
       "letterboxdYear": 2017,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.8
     },
     "a-prophet": {
       "tmdbId": 21575,
@@ -95,7 +97,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt1235166/",
       "letterboxdTitle": "A Prophet",
       "letterboxdYear": 2009,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.8
     },
     "after-yang": {
       "tmdbId": 585378,
@@ -125,7 +128,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt8633464/",
       "letterboxdTitle": "After Yang",
       "letterboxdYear": 2021,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.6
     },
     "aftersun": {
       "tmdbId": 965150,
@@ -155,7 +159,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt19770238/",
       "letterboxdTitle": "Aftersun",
       "letterboxdYear": 2022,
-      "confidence": "manual-override"
+      "confidence": "manual-override",
+      "imdbRating": 7.6
     },
     "alien-3": {
       "tmdbId": 8077,
@@ -186,7 +191,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0103644/",
       "letterboxdTitle": "Alien³",
       "letterboxdYear": 1992,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.4
     },
     "all-about-eve": {
       "tmdbId": 705,
@@ -215,7 +221,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0042192/",
       "letterboxdTitle": "All About Eve",
       "letterboxdYear": 1950,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8.2
     },
     "all-of-us-strangers": {
       "tmdbId": 994108,
@@ -247,7 +254,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt21192142/",
       "letterboxdTitle": "All of Us Strangers",
       "letterboxdYear": 2023,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.6
     },
     "all-you-need-is-kill-2025": {
       "tmdbId": 1432547,
@@ -279,7 +287,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt36148135/",
       "letterboxdTitle": "All You Need Is Kill",
       "letterboxdYear": 2025,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.5
     },
     "american-animals": {
       "tmdbId": 489931,
@@ -311,7 +320,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt6212478/",
       "letterboxdTitle": "American Animals",
       "letterboxdYear": 2018,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7
     },
     "an-irish-goodbye": {
       "tmdbId": 889598,
@@ -344,7 +354,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt14625872/",
       "letterboxdTitle": "An Irish Goodbye",
       "letterboxdYear": 2022,
-      "confidence": "manual-override"
+      "confidence": "manual-override",
+      "imdbRating": 7.2
     },
     "anatomy-of-a-fall": {
       "tmdbId": 915935,
@@ -375,7 +386,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt17009710/",
       "letterboxdTitle": "Anatomy of a Fall",
       "letterboxdYear": 2023,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.6
     },
     "another-round": {
       "tmdbId": 580175,
@@ -407,7 +419,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt10288566/",
       "letterboxdTitle": "Another Round",
       "letterboxdYear": 2020,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.7
     },
     "bacurau": {
       "tmdbId": 446159,
@@ -440,7 +453,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt2762506/",
       "letterboxdTitle": "Bacurau",
       "letterboxdYear": 2019,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.3
     },
     "bad-education-2019": {
       "tmdbId": 530723,
@@ -471,7 +485,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt8206668/",
       "letterboxdTitle": "Bad Education",
       "letterboxdYear": 2019,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.1
     },
     "before-the-devil-knows-youre-dead": {
       "tmdbId": 7972,
@@ -503,7 +518,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0292963/",
       "letterboxdTitle": "Before the Devil Knows You're Dead",
       "letterboxdYear": 2007,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.3
     },
     "belle-2021": {
       "tmdbId": 776305,
@@ -535,7 +551,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt13651628/",
       "letterboxdTitle": "Belle",
       "letterboxdYear": 2021,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7
     },
     "belly": {
       "tmdbId": 12888,
@@ -565,7 +582,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0158493/",
       "letterboxdTitle": "Belly",
       "letterboxdYear": 1998,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.2
     },
     "black-bag-2025": {
       "tmdbId": 1233575,
@@ -596,7 +614,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt30988739/",
       "letterboxdTitle": "Black Bag",
       "letterboxdYear": 2025,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.7
     },
     "blindspotting": {
       "tmdbId": 489930,
@@ -627,7 +646,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt7242142/",
       "letterboxdTitle": "Blindspotting",
       "letterboxdYear": 2018,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.4
     },
     "bonnie-and-clyde": {
       "tmdbId": 475,
@@ -657,7 +677,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0061418/",
       "letterboxdTitle": "Bonnie and Clyde",
       "letterboxdYear": 1967,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.7
     },
     "broker-2022": {
       "tmdbId": 736732,
@@ -686,7 +707,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt13056052/",
       "letterboxdTitle": "Broker",
       "letterboxdYear": 2022,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.1
     },
     "central-station": {
       "tmdbId": 666,
@@ -716,7 +738,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0140888/",
       "letterboxdTitle": "Central Station",
       "letterboxdYear": 1998,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8
     },
     "chungking-express": {
       "tmdbId": 11104,
@@ -747,7 +770,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0109424/",
       "letterboxdTitle": "Chungking Express",
       "letterboxdYear": 1994,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.9
     },
     "cleo-from-5-to-7": {
       "tmdbId": 499,
@@ -777,7 +801,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0055852/",
       "letterboxdTitle": "Cléo from 5 to 7",
       "letterboxdYear": 1962,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.8
     },
     "close-2022": {
       "tmdbId": 901563,
@@ -808,7 +833,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt9660502/",
       "letterboxdTitle": "Close",
       "letterboxdYear": 2022,
-      "confidence": "manual-override"
+      "confidence": "manual-override",
+      "imdbRating": 7.8
     },
     "coherence": {
       "tmdbId": 220289,
@@ -839,7 +865,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt2866360/",
       "letterboxdTitle": "Coherence",
       "letterboxdYear": 2013,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.2
     },
     "come-and-see": {
       "tmdbId": 25237,
@@ -871,7 +898,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0091251/",
       "letterboxdTitle": "Come and See",
       "letterboxdYear": 1985,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8.3
     },
     "decision-to-leave": {
       "tmdbId": 705996,
@@ -902,7 +930,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt12477480/",
       "letterboxdTitle": "Decision to Leave",
       "letterboxdYear": 2022,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.3
     },
     "derek-delgaudios-in-of-itself": {
       "tmdbId": 681459,
@@ -932,7 +961,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt11916302/",
       "letterboxdTitle": "Derek DelGaudio's In & of Itself",
       "letterboxdYear": 2020,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8.2
     },
     "donbass": {
       "tmdbId": 519187,
@@ -966,7 +996,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt8282042/",
       "letterboxdTitle": "Donbass",
       "letterboxdYear": 2018,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.6
     },
     "dont-look-up-2021": {
       "tmdbId": 646380,
@@ -997,7 +1028,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt11286314/",
       "letterboxdTitle": "Don't Look Up",
       "letterboxdYear": 2021,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.1
     },
     "drowning-by-numbers": {
       "tmdbId": 27362,
@@ -1029,7 +1061,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0092929/",
       "letterboxdTitle": "Drowning by Numbers",
       "letterboxdYear": 1988,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.1
     },
     "el-camino-a-breaking-bad-movie": {
       "tmdbId": 559969,
@@ -1060,7 +1093,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt9243946/",
       "letterboxdTitle": "El Camino: A Breaking Bad Movie",
       "letterboxdYear": 2019,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.3
     },
     "everything-everywhere-all-at-once": {
       "tmdbId": 545611,
@@ -1092,7 +1126,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt6710474/",
       "letterboxdTitle": "Everything Everywhere All at Once",
       "letterboxdYear": 2022,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.7
     },
     "eyes-without-a-face": {
       "tmdbId": 31417,
@@ -1124,7 +1159,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0053459/",
       "letterboxdTitle": "Eyes Without a Face",
       "letterboxdYear": 1960,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.6
     },
     "fire-of-love-2022": {
       "tmdbId": 913823,
@@ -1154,7 +1190,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt16227014/",
       "letterboxdTitle": "Fire of Love",
       "letterboxdYear": 2022,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.6
     },
     "first-reformed": {
       "tmdbId": 458737,
@@ -1184,7 +1221,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt6053438/",
       "letterboxdTitle": "First Reformed",
       "letterboxdYear": 2017,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.1
     },
     "flee-2021": {
       "tmdbId": 680813,
@@ -1220,7 +1258,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt8430054/",
       "letterboxdTitle": "Flee",
       "letterboxdYear": 2021,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.9
     },
     "flucht-aus-nordkorea": {
       "tmdbId": 1070032,
@@ -1250,7 +1289,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt25470468/",
       "letterboxdTitle": "Beyond Utopia",
       "letterboxdYear": 2023,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.9
     },
     "good-luck-have-fun-dont-die": {
       "tmdbId": 1119449,
@@ -1282,7 +1322,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt1341338/",
       "letterboxdTitle": "Good Luck, Have Fun, Don't Die",
       "letterboxdYear": 2025,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7
     },
     "goodnight-mommy": {
       "tmdbId": 284303,
@@ -1314,7 +1355,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt3086442/",
       "letterboxdTitle": "Goodnight Mommy",
       "letterboxdYear": 2014,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.7
     },
     "graduation-2016": {
       "tmdbId": 374458,
@@ -1344,7 +1386,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt4936450/",
       "letterboxdTitle": "Graduation",
       "letterboxdYear": 2016,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.3
     },
     "harakiri": {
       "tmdbId": 14537,
@@ -1375,7 +1418,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0056058/",
       "letterboxdTitle": "Harakiri",
       "letterboxdYear": 1962,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8.6
     },
     "hi-mom-2021": {
       "tmdbId": 758891,
@@ -1406,7 +1450,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt13364790/",
       "letterboxdTitle": "Hi, Mom",
       "letterboxdYear": 2021,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.9
     },
     "high-and-low": {
       "tmdbId": 12493,
@@ -1438,7 +1483,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0057565/",
       "letterboxdTitle": "High and Low",
       "letterboxdYear": 1963,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8.4
     },
     "hundreds-of-beavers": {
       "tmdbId": 1019939,
@@ -1469,7 +1515,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt12818328/",
       "letterboxdTitle": "Hundreds of Beavers",
       "letterboxdYear": 2022,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.6
     },
     "in-this-corner-of-the-world": {
       "tmdbId": 378108,
@@ -1501,7 +1548,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt4769824/",
       "letterboxdTitle": "In This Corner of the World",
       "letterboxdYear": 2016,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.8
     },
     "incendies": {
       "tmdbId": 46738,
@@ -1533,7 +1581,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt1255953/",
       "letterboxdTitle": "Incendies",
       "letterboxdYear": 2010,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8.3
     },
     "it-was-just-an-accident": {
       "tmdbId": 1456349,
@@ -1567,7 +1616,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt36491653/",
       "letterboxdTitle": "It Was Just an Accident",
       "letterboxdYear": 2025,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.4
     },
     "kaante": {
       "tmdbId": 35907,
@@ -1598,7 +1648,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0294662/",
       "letterboxdTitle": "Kaante",
       "letterboxdYear": 2002,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.6
     },
     "kids": {
       "tmdbId": 9344,
@@ -1628,7 +1679,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0113540/",
       "letterboxdTitle": "Kids",
       "letterboxdYear": 1995,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7
     },
     "killing": {
       "tmdbId": 531753,
@@ -1658,7 +1710,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt7117352/",
       "letterboxdTitle": "Killing",
       "letterboxdYear": 2018,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.5
     },
     "kind-hearts-and-coronets": {
       "tmdbId": 11898,
@@ -1688,7 +1741,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0041546/",
       "letterboxdTitle": "Kind Hearts and Coronets",
       "letterboxdYear": 1949,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8
     },
     "last-year-at-marienbad": {
       "tmdbId": 4024,
@@ -1719,7 +1773,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0054632/",
       "letterboxdTitle": "Last Year at Marienbad",
       "letterboxdYear": 1961,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.6
     },
     "leave-no-trace": {
       "tmdbId": 443463,
@@ -1749,7 +1804,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt3892172/",
       "letterboxdTitle": "Leave No Trace",
       "letterboxdYear": 2018,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.1
     },
     "look-back-2024": {
       "tmdbId": 1244492,
@@ -1779,7 +1835,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt31711040/",
       "letterboxdTitle": "Look Back",
       "letterboxdYear": 2024,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.8
     },
     "mad-bastards": {
       "tmdbId": 73066,
@@ -1806,7 +1863,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt1787758/",
       "letterboxdTitle": "Mad Bastards",
       "letterboxdYear": 2010,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.7
     },
     "mad-god": {
       "tmdbId": 846867,
@@ -1838,7 +1896,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt15090124/",
       "letterboxdTitle": "Mad God",
       "letterboxdYear": 2021,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.8
     },
     "maquia-when-the-promised-flower-blooms": {
       "tmdbId": 476292,
@@ -1869,7 +1928,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt7339826/",
       "letterboxdTitle": "Maquia: When the Promised Flower Blooms",
       "letterboxdYear": 2018,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.4
     },
     "mars-express": {
       "tmdbId": 586810,
@@ -1900,7 +1960,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt26915336/",
       "letterboxdTitle": "Mars Express",
       "letterboxdYear": 2023,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.5
     },
     "mass-2021": {
       "tmdbId": 423333,
@@ -1929,7 +1990,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt11389748/",
       "letterboxdTitle": "Mass",
       "letterboxdYear": 2021,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.5
     },
     "minari": {
       "tmdbId": 615643,
@@ -1958,7 +2020,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt10633456/",
       "letterboxdTitle": "Minari",
       "letterboxdYear": 2020,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.4
     },
     "mirai": {
       "tmdbId": 475215,
@@ -1991,7 +2054,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt6900448/",
       "letterboxdTitle": "Mirai",
       "letterboxdYear": 2018,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7
     },
     "modern-times": {
       "tmdbId": 3082,
@@ -2022,7 +2086,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0027977/",
       "letterboxdTitle": "Modern Times",
       "letterboxdYear": 1936,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8.5
     },
     "mon-oncle": {
       "tmdbId": 427,
@@ -2052,7 +2117,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0050706/",
       "letterboxdTitle": "Mon Oncle",
       "letterboxdYear": 1958,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.6
     },
     "monster-2023": {
       "tmdbId": 1050035,
@@ -2083,7 +2149,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt23736044/",
       "letterboxdTitle": "Monster",
       "letterboxdYear": 2023,
-      "confidence": "manual-override"
+      "confidence": "manual-override",
+      "imdbRating": 7.8
     },
     "mother-2009": {
       "tmdbId": 30018,
@@ -2114,7 +2181,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt1216496/",
       "letterboxdTitle": "Mother",
       "letterboxdYear": 2009,
-      "confidence": "manual-override"
+      "confidence": "manual-override",
+      "imdbRating": 7.7
     },
     "next-floor": {
       "tmdbId": 99343,
@@ -2143,7 +2211,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt1255891/",
       "letterboxdTitle": "Next Floor",
       "letterboxdYear": 2008,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.4
     },
     "no-other-choice-2025": {
       "tmdbId": 639988,
@@ -2175,7 +2244,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt1527793/",
       "letterboxdTitle": "No Other Choice",
       "letterboxdYear": 2025,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.5
     },
     "no-other-land": {
       "tmdbId": 1232493,
@@ -2208,7 +2278,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt30953759/",
       "letterboxdTitle": "No Other Land",
       "letterboxdYear": 2024,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8.3
     },
     "old-joy": {
       "tmdbId": 26518,
@@ -2237,7 +2308,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0468526/",
       "letterboxdTitle": "Old Joy",
       "letterboxdYear": 2006,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.8
     },
     "paper-moon": {
       "tmdbId": 11293,
@@ -2268,7 +2340,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0070510/",
       "letterboxdTitle": "Paper Moon",
       "letterboxdYear": 1973,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8.1
     },
     "pennies-from-heaven-2023": {
       "tmdbId": 1098587,
@@ -2297,7 +2370,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt26054010/",
       "letterboxdTitle": "Pennies from Heaven",
       "letterboxdYear": 2023,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": null
     },
     "persona": {
       "tmdbId": 797,
@@ -2326,7 +2400,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0060827/",
       "letterboxdTitle": "Persona",
       "letterboxdYear": 1966,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8
     },
     "pig-2021": {
       "tmdbId": 635731,
@@ -2358,7 +2433,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt11003218/",
       "letterboxdTitle": "Pig",
       "letterboxdYear": 2021,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.9
     },
     "possession": {
       "tmdbId": 21484,
@@ -2388,7 +2464,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0082933/",
       "letterboxdTitle": "Possession",
       "letterboxdYear": 1981,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.2
     },
     "project-hail-mary": {
       "tmdbId": 687163,
@@ -2419,7 +2496,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt12042730/",
       "letterboxdTitle": "Project Hail Mary",
       "letterboxdYear": 2026,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8.2
     },
     "promising-young-woman": {
       "tmdbId": 582014,
@@ -2450,7 +2528,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt9620292/",
       "letterboxdTitle": "Promising Young Woman",
       "letterboxdYear": 2020,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.5
     },
     "qala": {
       "tmdbId": 934419,
@@ -2480,7 +2559,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt14428598/",
       "letterboxdTitle": "Qala",
       "letterboxdYear": 2022,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.2
     },
     "riders-of-justice": {
       "tmdbId": 663870,
@@ -2513,7 +2593,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt11655202/",
       "letterboxdTitle": "Riders of Justice",
       "letterboxdYear": 2020,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.5
     },
     "ruby-sparks": {
       "tmdbId": 103332,
@@ -2546,7 +2627,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt1839492/",
       "letterboxdTitle": "Ruby Sparks",
       "letterboxdYear": 2012,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.2
     },
     "stalker": {
       "tmdbId": 1398,
@@ -2576,7 +2658,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0079944/",
       "letterboxdTitle": "Stalker",
       "letterboxdYear": 1979,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8
     },
     "suzume": {
       "tmdbId": 916224,
@@ -2608,7 +2691,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt16428256/",
       "letterboxdTitle": "Suzume",
       "letterboxdYear": 2022,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.6
     },
     "sweet-country-2017": {
       "tmdbId": 468210,
@@ -2640,7 +2724,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt6958212/",
       "letterboxdTitle": "Sweet Country",
       "letterboxdYear": 2017,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.9
     },
     "talk-to-me-2022": {
       "tmdbId": 1008042,
@@ -2671,7 +2756,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt10638522/",
       "letterboxdTitle": "Talk to Me",
       "letterboxdYear": 2022,
-      "confidence": "manual-override"
+      "confidence": "manual-override",
+      "imdbRating": 7.1
     },
     "taste-of-cherry": {
       "tmdbId": 30020,
@@ -2701,7 +2787,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0120265/",
       "letterboxdTitle": "Taste of Cherry",
       "letterboxdYear": 1997,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.7
     },
     "terms-of-endearment": {
       "tmdbId": 11050,
@@ -2731,7 +2818,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0086425/",
       "letterboxdTitle": "Terms of Endearment",
       "letterboxdYear": 1983,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.4
     },
     "the-death-of-mr-lazarescu": {
       "tmdbId": 31032,
@@ -2761,7 +2849,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0456149/",
       "letterboxdTitle": "The Death of Mr. Lazarescu",
       "letterboxdYear": 2005,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.8
     },
     "the-diamond-2022": {
       "tmdbId": 959036,
@@ -2786,7 +2875,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt21213026/",
       "letterboxdTitle": "The Diamond",
       "letterboxdYear": 2022,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": null
     },
     "the-florida-project": {
       "tmdbId": 394117,
@@ -2815,7 +2905,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt5649144/",
       "letterboxdTitle": "The Florida Project",
       "letterboxdYear": 2017,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.6
     },
     "the-french-connection": {
       "tmdbId": 1051,
@@ -2846,7 +2937,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0067116/",
       "letterboxdTitle": "The French Connection",
       "letterboxdYear": 1971,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.7
     },
     "the-green-knight": {
       "tmdbId": 559907,
@@ -2879,7 +2971,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt9243804/",
       "letterboxdTitle": "The Green Knight",
       "letterboxdYear": 2021,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.6
     },
     "the-inauguration-of-the-pleasure-dome": {
       "tmdbId": 43337,
@@ -2909,7 +3002,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0047114/",
       "letterboxdTitle": "The Inauguration of the Pleasure Dome",
       "letterboxdYear": 1954,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7
     },
     "the-last-black-man-in-san-francisco": {
       "tmdbId": 522039,
@@ -2938,7 +3032,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt4353250/",
       "letterboxdTitle": "The Last Black Man in San Francisco",
       "letterboxdYear": 2019,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.2
     },
     "the-last-detail": {
       "tmdbId": 14886,
@@ -2968,7 +3063,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0070290/",
       "letterboxdTitle": "The Last Detail",
       "letterboxdYear": 1973,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.5
     },
     "the-last-duel-2021": {
       "tmdbId": 617653,
@@ -2999,7 +3095,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt4244994/",
       "letterboxdTitle": "The Last Duel",
       "letterboxdYear": 2021,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.3
     },
     "the-life-of-chuck": {
       "tmdbId": 842924,
@@ -3029,7 +3126,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt12908150/",
       "letterboxdTitle": "The Life of Chuck",
       "letterboxdYear": 2024,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.3
     },
     "the-lighthouse-2019": {
       "tmdbId": 503919,
@@ -3061,7 +3159,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt7984734/",
       "letterboxdTitle": "The Lighthouse",
       "letterboxdYear": 2019,
-      "confidence": "manual-override"
+      "confidence": "manual-override",
+      "imdbRating": 7.4
     },
     "the-long-goodbye": {
       "tmdbId": 1847,
@@ -3092,7 +3191,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0070334/",
       "letterboxdTitle": "The Long Goodbye",
       "letterboxdYear": 1973,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.5
     },
     "the-long-goodbye-2020": {
       "tmdbId": 681015,
@@ -3122,7 +3222,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt11924384/",
       "letterboxdTitle": "The Long Goodbye",
       "letterboxdYear": 2020,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.2
     },
     "the-lunchbox": {
       "tmdbId": 191714,
@@ -3155,7 +3256,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt2350496/",
       "letterboxdTitle": "The Lunchbox",
       "letterboxdYear": 2013,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.8
     },
     "the-menu-2022": {
       "tmdbId": 593643,
@@ -3185,7 +3287,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt9764362/",
       "letterboxdTitle": "The Menu",
       "letterboxdYear": 2022,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.2
     },
     "the-monk-and-the-gun": {
       "tmdbId": 1109237,
@@ -3218,7 +3321,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt15560314/",
       "letterboxdTitle": "The Monk and the Gun",
       "letterboxdYear": 2023,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.1
     },
     "the-red-turtle": {
       "tmdbId": 337703,
@@ -3252,7 +3356,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt3666024/",
       "letterboxdTitle": "The Red Turtle",
       "letterboxdYear": 2016,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.5
     },
     "the-remarkable-life-of-ibelin": {
       "tmdbId": 1167027,
@@ -3282,7 +3387,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt19811010/",
       "letterboxdTitle": "The Remarkable Life of Ibelin",
       "letterboxdYear": 2024,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8.2
     },
     "the-sparks-brothers": {
       "tmdbId": 776485,
@@ -3313,7 +3419,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt8610436/",
       "letterboxdTitle": "The Sparks Brothers",
       "letterboxdYear": 2021,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.8
     },
     "the-square-2017": {
       "tmdbId": 401246,
@@ -3346,7 +3453,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt4995790/",
       "letterboxdTitle": "The Square",
       "letterboxdYear": 2017,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.1
     },
     "the-substance": {
       "tmdbId": 933260,
@@ -3378,7 +3486,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt17526714/",
       "letterboxdTitle": "The Substance",
       "letterboxdYear": 2024,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.2
     },
     "the-two-popes": {
       "tmdbId": 551332,
@@ -3408,7 +3517,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt8404614/",
       "letterboxdTitle": "The Two Popes",
       "letterboxdYear": 2019,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.6
     },
     "the-wailing": {
       "tmdbId": 293670,
@@ -3439,7 +3549,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt5215952/",
       "letterboxdTitle": "The Wailing",
       "letterboxdYear": 2016,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.4
     },
     "the-worst-person-in-the-world": {
       "tmdbId": 660120,
@@ -3473,7 +3584,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt10370710/",
       "letterboxdTitle": "The Worst Person in the World",
       "letterboxdYear": 2021,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.7
     },
     "thunder-road-2018": {
       "tmdbId": 502422,
@@ -3503,7 +3615,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt7738450/",
       "letterboxdTitle": "Thunder Road",
       "letterboxdYear": 2018,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7
     },
     "tokyo-godfathers": {
       "tmdbId": 13398,
@@ -3534,7 +3647,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0388473/",
       "letterboxdTitle": "Tokyo Godfathers",
       "letterboxdYear": 2003,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.8
     },
     "touki-bouki": {
       "tmdbId": 77771,
@@ -3564,7 +3678,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0070820/",
       "letterboxdTitle": "Touki Bouki",
       "letterboxdYear": 1973,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 6.9
     },
     "toy-story-4": {
       "tmdbId": 301528,
@@ -3596,7 +3711,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt1979376/",
       "letterboxdTitle": "Toy Story 4",
       "letterboxdYear": 2019,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.6
     },
     "trouble-in-paradise": {
       "tmdbId": 195,
@@ -3627,7 +3743,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt0023622/",
       "letterboxdTitle": "Trouble in Paradise",
       "letterboxdYear": 1932,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.9
     },
     "tuesday-2015-1": {
       "tmdbId": 972611,
@@ -3656,7 +3773,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt4470296/",
       "letterboxdTitle": "Tuesday",
       "letterboxdYear": 2015,
-      "confidence": "manual-override"
+      "confidence": "manual-override",
+      "imdbRating": null
     },
     "tumbbad": {
       "tmdbId": 538858,
@@ -3687,7 +3805,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt8239946/",
       "letterboxdTitle": "Tumbbad",
       "letterboxdYear": 2018,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 8.2
     },
     "twinless": {
       "tmdbId": 1245347,
@@ -3717,7 +3836,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt31322753/",
       "letterboxdTitle": "Twinless",
       "letterboxdYear": 2025,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.4
     },
     "uncut-gems": {
       "tmdbId": 473033,
@@ -3749,7 +3869,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt5727208/",
       "letterboxdTitle": "Uncut Gems",
       "letterboxdYear": 2019,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.4
     },
     "weathering-with-you": {
       "tmdbId": 568160,
@@ -3781,7 +3902,8 @@
       "imdbUrl": "https://www.imdb.com/title/tt9426210/",
       "letterboxdTitle": "Weathering with You",
       "letterboxdYear": 2019,
-      "confidence": "exact"
+      "confidence": "exact",
+      "imdbRating": 7.5
     }
   },
   "unmatched": {}

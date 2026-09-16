@@ -169,6 +169,7 @@ export function summarize(details) {
     genres,
     countries,
     tmdbUrl: `https://www.themoviedb.org/movie/${details.id}`,
+    imdbId,
     imdbUrl: imdbId ? `https://www.imdb.com/title/${imdbId}/` : null,
   };
 }

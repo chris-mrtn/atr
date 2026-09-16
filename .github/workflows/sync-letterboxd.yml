@@ -1,9 +1,12 @@
 name: Sync Letterboxd
 
+# Manual only - the archive only changes when a new film gets added, so
+# there is nothing worth syncing on a fixed schedule. Run this from the
+# Actions tab (or `gh workflow run sync-letterboxd.yml`) whenever there is
+# actually something new to pull in. `node scripts/update-data.mjs` does the
+# same three steps locally in one go, for whenever that is more convenient
+# than going through Actions.
 on:
-  schedule:
-    # 06:15 UTC daily. Off the hour so we are not in the crowd of :00 jobs.
-    - cron: '15 6 * * *'
   workflow_dispatch:
     inputs:
       retry_unmatched:
@@ -51,6 +54,16 @@ jobs:
           else
             node scripts/enrich.mjs
           fi
+
+      # Add OMDB_API_KEY at Settings > Secrets and variables > Actions to
+      # turn this on - a free key from https://www.omdbapi.com/apikey.aspx.
+      # Until then this step is a harmless no-op: unlike TMDB_API_KEY, a
+      # missing OMDb key just logs a warning and moves on rather than
+      # failing the run.
+      - name: Backfill IMDb ratings
+        env:
+          OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
+        run: node scripts/imdb-ratings.mjs
 
       - name: Commit if the data changed
         run: |
