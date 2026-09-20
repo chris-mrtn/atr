@@ -1,10 +1,10 @@
-name: Sync Letterboxd
+name: Update film data
 
 # Manual only - the archive only changes when a new film gets added, so
-# there is nothing worth syncing on a fixed schedule. Run this from the
-# Actions tab (or `gh workflow run sync-letterboxd.yml`) whenever there is
+# there is nothing worth running on a fixed schedule. Run this from the
+# Actions tab (or `gh workflow run update-film-data.yml`) whenever there is
 # actually something new to pull in. `node scripts/update-data.mjs` does the
-# same three steps locally in one go, for whenever that is more convenient
+# same two steps locally in one go, for whenever that is more convenient
 # than going through Actions.
 on:
   workflow_dispatch:
@@ -17,18 +17,18 @@ on:
     branches: [main]
     paths:
       - 'scripts/**'
-      - '.github/workflows/sync-letterboxd.yml'
+      - '.github/workflows/update-film-data.yml'
 
 # Only what the job needs: it commits the data files and nothing else.
 permissions:
   contents: write
 
 concurrency:
-  group: sync-letterboxd
+  group: update-film-data
   cancel-in-progress: false
 
 jobs:
-  sync:
+  update:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
@@ -37,13 +37,10 @@ jobs:
         with:
           node-version: '22'
 
-      # Parser and matching tests run first: if the shape of the data changed,
-      # fail here rather than committing something wrong.
+      # Match-rule tests run first: if the shape of the data changed, fail
+      # here rather than committing something wrong.
       - name: Test
         run: node --test scripts/*.test.mjs
-
-      - name: Sync film list from Letterboxd
-        run: node scripts/sync.mjs
 
       - name: Enrich with TMDB
         env:
@@ -77,9 +74,9 @@ jobs:
           fi
           git config user.name  "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git commit -m "Sync films from Letterboxd and TMDB
+          git commit -m "Update TMDB/IMDb film data
 
-          Automated by .github/workflows/sync-letterboxd.yml"
+          Automated by .github/workflows/update-film-data.yml"
           git push
 
       - name: Summary

@@ -486,43 +486,54 @@ body.filters-open .filter-overlay {
    digits apart at hero size, so that's tightened instead. "hours" reuses
    .hero-label directly so it's a guaranteed match to "waiting for selection",
    colour-shift included. */
-/* Inner grid lines only, no outer frame - a thin/plus-lighter divider
-   between cells, same treatment as the stats toggle button. Fixed at 3
-   columns; the bottom-border rule below (nth-last-child(-n+3)) already
-   works for any stat count, ragged final row included - it's the classic
-   "no divider below the last row" trick and doesn't care how many items
-   land in that row. The right-border rule needs the :last-child override
-   just after it for the same reason: without it, a ragged last row's
-   final item (the odd one out, with nothing beside it) would still pick
-   up a stray divider on its right. */
+/* One stat per row rather than a 3-up grid - a plain vertical stack, each
+   row full width. The divider is just a top border on every row but the
+   first (same "only between rows" trick as .filter-overlay-section-toggle
+   uses), which - unlike the old grid's row/column math (nth-child(3n) for
+   columns, nth-last-child(-n+3) for the last row) - doesn't care how many
+   stats there are or how they're ordered. */
 .stats-hero {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(8rem, 1fr));
-  max-width: 44rem;
+  display: flex;
+  flex-direction: column;
+  max-width: 34rem;
   margin: 0 auto;
-  align-content: center;
+  justify-content: center;
   min-height: 70vh;
 }
 .stats-hero-item {
-  aspect-ratio: 1;
   display: flex;
-  flex-direction: column;
   align-items: center;
-  justify-content: center;
-  gap: .35rem;
+  gap: 1rem;
+  padding: 1.15rem 0;
   mix-blend-mode: plus-lighter;
 }
-.stats-hero-item:not(:nth-child(3n)) {
-  border-right: 1px solid rgb(255 255 255 / .2);
+.stats-hero-item:not(:first-child) {
+  border-top: 1px solid rgb(255 255 255 / .2);
 }
-/* The very last item is always the rightmost one present in whatever row
-   it ends up in - full or ragged - so it never needs a right-hand
-   divider, regardless of the total stat count. */
-.stats-hero-item:last-child {
-  border-right: none;
+/* A fixed-width slot at the start of every row, poster or not - see the
+   comment on statItem()'s `film` option in app.js for why a row with no
+   poster still reserves the space rather than collapsing to nothing: it's
+   what keeps every stat's number starting at the same x position down the
+   whole list. Reuses the site's normal .poster/.poster-link styling
+   (rounded corner, border, IMDb link, hover lift) at a smaller size than
+   the archive list's, rather than inventing a second poster treatment.
+   Photographic content shouldn't pick up the additive glow the rest of
+   this hero does, hence the blend reset - same reasoning as
+   .stats-hero-number below. */
+.stats-hero-poster {
+  flex: none;
+  width: 3.75rem;
+  mix-blend-mode: normal;
 }
-.stats-hero-item:not(:nth-last-child(-n+3)) {
-  border-bottom: 1px solid rgb(255 255 255 / .2);
+.stats-hero-poster .poster {
+  width: 100%;
+}
+.stats-hero-text {
+  display: flex;
+  flex-direction: column;
+  gap: .35rem;
+  min-width: 0;
+  text-align: left;
 }
 .stats-hero-number {
   font-family: 'Mona Sans', ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
@@ -530,28 +541,28 @@ body.filters-open .filter-overlay {
   font-stretch: 125%;
   letter-spacing: .01em;
   line-height: 1;
-  font-size: clamp(2rem, 6vw, 3.25rem);
+  font-size: clamp(1.8rem, 6vw, 2.75rem);
   mix-blend-mode: normal;
 }
 /* A headline that's a title/name (a film, a genre) rather than a short
-   number - the numeric size/tight tracking above would blow a whole title
-   past the edges of a square cell, so this is smaller, less aggressively
-   stretched, and allowed to wrap onto a couple of lines. */
+   number - the numeric size/tight tracking above would run a whole title
+   too wide, so this is smaller, less aggressively stretched, and allowed
+   to wrap onto a couple of lines. */
 .stats-hero-number--text {
   font-stretch: 110%;
   letter-spacing: 0;
   line-height: 1.15;
   font-size: clamp(1rem, 3.2vw, 1.4rem);
-  padding: 0 .5rem;
   text-wrap: balance;
 }
 
 /* A third, quieter tier under the label - same treatment as .film-meta:
    small, faint, regular weight, sentence case, so it reads as a footnote
-   rather than competing with the label above it. */
+   rather than competing with the label above it. No margin-top or
+   horizontal padding any more - both were for the old centred square
+   layout; .stats-hero-text's own flex `gap` handles the vertical spacing
+   now, and a left-aligned row has no edges to clear. */
 .stats-hero-sub {
-  margin-top: .3rem;
-  padding: 0 .5rem;
   font-size: .75rem;
   font-weight: 400;
   color: var(--faint);

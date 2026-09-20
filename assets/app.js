@@ -140,65 +140,89 @@ function runPopcornPile(bodies, overlay, { duration = 4200, onAllSettled = null 
     }
 
     // Pairwise collisions - push overlapping pieces apart along the line
-    // between their centres. O(n^2), but n tops out at one per movie in
-    // the archive, and this only runs for a few seconds.
-    for (let i = 0; i < bodies.length; i++) {
-      const a = bodies[i];
-      const acx = a.x + a.size / 2;
-      const acy = a.y + a.size / 2;
-      for (let j = i + 1; j < bodies.length; j++) {
-        const c = bodies[j];
-        if (a.asleep && c.asleep) continue; // neither can move - nothing to resolve
-        const ccx = c.x + c.size / 2;
-        const ccy = c.y + c.size / 2;
-        let dx = ccx - acx;
-        let dy = ccy - acy;
-        const dist = Math.hypot(dx, dy) || 0.01;
-        // A little overlap is allowed - real popcorn nests into itself
-        // rather than sitting as perfectly separated circles - but not
-        // much: 0.5 is where two circles that size would just touch, so
-        // this stays close to that rather than letting them sink deep
-        // into each other, which was making the pile look overly dense
-        // and, with that much overlap to correct every frame, jigglier.
-        const minDist = (a.size + c.size) * 0.48;
-        if (dist >= minDist) continue;
+    // between their centres. O(n^2), but n tops out at POPCORN_MAX_KERNELS
+    // and this only runs for a few seconds.
+    //
+    // A single correction pass per frame isn't enough once three or more
+    // pieces are wedged against each other (or against a wall/floor) at
+    // once: resolving A-vs-B can shove A right back into overlapping C,
+    // and resolving A-vs-C can shove it back into B, so a piece squeezed
+    // into a tight spot never actually reaches zero overlap - it just gets
+    // pushed a little one way, then the other, forever. That's the
+    // aggressive vibration on pieces stuck between others. Running the
+    // position correction several times per frame (a standard fix for
+    // exactly this - more "relaxation" passes before moving on) lets a
+    // wedged piece actually converge on a stable, non-overlapping spot
+    // within the same frame instead of oscillating between two competing
+    // half-fixes frame after frame. Velocity damping and the sleep/wake
+    // handoff only need to happen once per frame though - repeating those
+    // every pass would just damp speeds to nothing - so only the first
+    // pass touches vx/vy; the rest are position-only.
+    const COLLISION_ITERATIONS = 4;
+    for (let iter = 0; iter < COLLISION_ITERATIONS; iter++) {
+      const applyImpulse = iter === 0;
+      for (let i = 0; i < bodies.length; i++) {
+        const a = bodies[i];
+        const acx = a.x + a.size / 2;
+        const acy = a.y + a.size / 2;
+        for (let j = i + 1; j < bodies.length; j++) {
+          const c = bodies[j];
+          if (a.asleep && c.asleep) continue; // neither can move - nothing to resolve
+          const ccx = c.x + c.size / 2;
+          const ccy = c.y + c.size / 2;
+          let dx = ccx - acx;
+          let dy = ccy - acy;
+          const dist = Math.hypot(dx, dy) || 0.01;
+          // A little overlap is allowed - real popcorn nests into itself
+          // rather than sitting as perfectly separated circles - but not
+          // much: 0.5 is where two circles that size would just touch, so
+          // this stays close to that rather than letting them sink deep
+          // into each other, which was making the pile look overly dense
+          // and, with that much overlap to correct every frame, jigglier.
+          const minDist = (a.size + c.size) * 0.48;
+          if (dist >= minDist) continue;
 
-        dx /= dist;
-        dy /= dist;
-        const overlap = minDist - dist;
+          dx /= dist;
+          dy /= dist;
+          const overlap = minDist - dist;
 
-        if (a.asleep || c.asleep) {
-          // Treat the sleeping one as immovable - the awake one absorbs
-          // the whole correction - unless the awake one is hitting it
-          // hard enough (a fresh pop, not just a slow settle) to justify
-          // waking it back up and handing it a share of that momentum.
-          const sleeper = a.asleep ? a : c;
-          const mover = a.asleep ? c : a;
-          const sign = a.asleep ? 1 : -1;
-          mover.x += sign * dx * overlap;
-          mover.y += sign * dy * overlap;
-          const moverSpeed = Math.hypot(mover.vx, mover.vy);
-          if (moverSpeed > POPCORN_WAKE_SPEED) {
-            sleeper.asleep = false;
-            sleeper.restFrames = 0;
-            sleeper.vx = sign * dx * moverSpeed * 0.4;
-            sleeper.vy = sign * dy * moverSpeed * 0.4;
-            if (!(mover.launchFrames > 0)) {
-              mover.vx *= 0.6;
-              mover.vy *= 0.6;
+          if (a.asleep || c.asleep) {
+            // Treat the sleeping one as immovable - the awake one absorbs
+            // the whole correction - unless the awake one is hitting it
+            // hard enough (a fresh pop, not just a slow settle) to justify
+            // waking it back up and handing it a share of that momentum.
+            const sleeper = a.asleep ? a : c;
+            const mover = a.asleep ? c : a;
+            const sign = a.asleep ? 1 : -1;
+            mover.x += sign * dx * overlap;
+            mover.y += sign * dy * overlap;
+            if (applyImpulse) {
+              const moverSpeed = Math.hypot(mover.vx, mover.vy);
+              if (moverSpeed > POPCORN_WAKE_SPEED) {
+                sleeper.asleep = false;
+                sleeper.restFrames = 0;
+                sleeper.vx = sign * dx * moverSpeed * 0.4;
+                sleeper.vy = sign * dy * moverSpeed * 0.4;
+                if (!(mover.launchFrames > 0)) {
+                  mover.vx *= 0.6;
+                  mover.vy *= 0.6;
+                }
+              } else if (!(mover.launchFrames > 0)) {
+                mover.vx *= 0.9;
+                mover.vy *= 0.9;
+              }
             }
-          } else if (!(mover.launchFrames > 0)) {
-            mover.vx *= 0.9;
-            mover.vy *= 0.9;
+          } else {
+            const push = overlap / 2;
+            a.x -= dx * push;
+            a.y -= dy * push;
+            c.x += dx * push;
+            c.y += dy * push;
+            if (applyImpulse) {
+              if (!(a.launchFrames > 0)) { a.vx *= 0.9; a.vy *= 0.9; }
+              if (!(c.launchFrames > 0)) { c.vx *= 0.9; c.vy *= 0.9; }
+            }
           }
-        } else {
-          const push = overlap / 2;
-          a.x -= dx * push;
-          a.y -= dy * push;
-          c.x += dx * push;
-          c.y += dy * push;
-          if (!(a.launchFrames > 0)) { a.vx *= 0.9; a.vy *= 0.9; }
-          if (!(c.launchFrames > 0)) { c.vx *= 0.9; c.vy *= 0.9; }
         }
       }
     }
@@ -1485,14 +1509,40 @@ function renderStatsPage(archive, tmdb, pickers, members) {
   // shortest where the number alone doesn't say what it's the number of.
   // `sub` is a third, quieter tier below the label - for a detail (a film
   // title) that belongs to the stat but shouldn't shout like the label does.
-  function statItem(display, label, { text = false, sub = null, heading = null } = {}) {
+  // `film` is the archive film object (the same shape computeStats() builds
+  // - .title plus .meta from tmdb.json) behind a stat that's really about
+  // one specific movie (longest, highest rated, ...) - when given, its
+  // poster renders in a fixed-width slot at the start of the row, reusing
+  // the exact same posterFor()/imdbLink() treatment as the archive list so
+  // it looks like it belongs to the same site rather than a bespoke crop.
+  // Every row gets that slot, filled or not, purely so every stat's number
+  // lines up at the same x-position whether or not it has one - a poster
+  // on one row and none on the next would otherwise read as misaligned
+  // rather than as "this one just doesn't have a poster".
+  function statItem(display, label, { text = false, sub = null, heading = null, film = null } = {}) {
     const item = el('div', 'stats-hero-item');
-    if (heading) item.append(el('span', 'hero-label', heading));
-    item.append(
+
+    const posterSlot = el('div', 'stats-hero-poster');
+    if (film) {
+      // posterFor() already renders its own empty/untitled fallback when
+      // there's no poster art for this film - reuse that rather than
+      // leaving the slot blank, so a film stat with missing art still
+      // reads as "this stat has a poster, just no image for it" rather
+      // than looking identical to a stat with no film behind it at all.
+      const poster = posterFor(tmdb?.imageBase, film.meta?.posterPath, film.title);
+      posterSlot.append(film.meta?.imdbUrl ? imdbLink(film.meta.imdbUrl, poster, film.title) : poster);
+    }
+    item.append(posterSlot);
+
+    const textCol = el('div', 'stats-hero-text');
+    if (heading) textCol.append(el('span', 'hero-label', heading));
+    textCol.append(
       el('span', text ? 'stats-hero-number stats-hero-number--text' : 'stats-hero-number', display != null ? display : '\u2014'),
       el('span', 'hero-label', label),
     );
-    if (sub) item.append(el('span', 'stats-hero-sub', sub));
+    if (sub) textCol.append(el('span', 'stats-hero-sub', sub));
+    item.append(textCol);
+
     return item;
   }
 
@@ -1501,13 +1551,13 @@ function renderStatsPage(archive, tmdb, pickers, members) {
     statItem(s.total.toLocaleString(), 'movies'),
     statItem(minutes != null ? minutes.toLocaleString() : null, 'minutes'),
     statItem(s.oldest ? String(s.oldest.year) : null, 'oldest movie'),
-    statItem(s.longest ? String(s.longest.meta.runtime) : null, 'minutes', { heading: 'longest movie', sub: s.longest?.title }),
-    statItem(s.shortest ? String(s.shortest.meta.runtime) : null, 'minutes', { heading: 'shortest movie', sub: s.shortest?.title }),
+    statItem(s.longest ? String(s.longest.meta.runtime) : null, 'minutes', { heading: 'longest movie', sub: s.longest?.title, film: s.longest }),
+    statItem(s.shortest ? String(s.shortest.meta.runtime) : null, 'minutes', { heading: 'shortest movie', sub: s.shortest?.title, film: s.shortest }),
     statItem(s.topGenre ? s.topGenre.names.join(' / ') : null, s.topGenre ? `${s.topGenre.count} films` : 'top genre', { text: true }),
     statItem(s.davePctAnime != null ? `${s.davePctAnime}%` : null, 'of Dave’s picks are anime'),
     statItem(s.avgImdbRating != null ? s.avgImdbRating.toFixed(1) : null, 'avg IMDb rating'),
-    statItem(s.highestRated ? s.highestRated.meta.imdbRating.toFixed(1) : null, 'IMDb rating', { heading: 'highest rated', sub: s.highestRated?.title }),
-    statItem(s.lowestRated ? s.lowestRated.meta.imdbRating.toFixed(1) : null, 'IMDb rating', { heading: 'lowest rated', sub: s.lowestRated?.title }),
+    statItem(s.highestRated ? s.highestRated.meta.imdbRating.toFixed(1) : null, 'IMDb rating', { heading: 'highest rated', sub: s.highestRated?.title, film: s.highestRated }),
+    statItem(s.lowestRated ? s.lowestRated.meta.imdbRating.toFixed(1) : null, 'IMDb rating', { heading: 'lowest rated', sub: s.lowestRated?.title, film: s.lowestRated }),
   );
   page.replaceChildren(hero);
 }

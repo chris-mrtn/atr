@@ -1,10 +1,14 @@
 /**
- * Runs the full local update in one go: sync the film list from Letterboxd,
- * enrich with TMDB, backfill IMDb ratings from OMDb. The same three steps
- * the "Sync Letterboxd" GitHub Action runs, for whenever it is easier to
- * just run this here than to trigger that workflow.
+ * Runs the full local update in one go: enrich data/films.json with TMDB,
+ * backfill IMDb ratings from OMDb. The same two steps the "Update film
+ * data" GitHub Action runs, for whenever it is easier to just run this
+ * here than to trigger that workflow.
  *
  *   TMDB_API_KEY=... OMDB_API_KEY=... node scripts/update-data.mjs
+ *
+ * data/films.json itself is no longer generated - films go in by hand (or
+ * via chat) as they're picked, not pulled from Letterboxd. This just fills
+ * in the TMDB/OMDb metadata for whatever's already in there.
  *
  * Nothing here runs on a schedule (locally or in CI) - the archive only
  * changes when a new film gets added, so this is meant to be run by hand,
@@ -14,7 +18,6 @@
 import { spawn } from 'node:child_process';
 
 const STEPS = [
-  { label: 'Syncing film list from Letterboxd', script: 'sync.mjs' },
   { label: 'Enriching with TMDB', script: 'enrich.mjs' },
   { label: 'Backfilling IMDb ratings', script: 'imdb-ratings.mjs' },
 ];

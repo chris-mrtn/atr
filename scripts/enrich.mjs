@@ -1,22 +1,24 @@
 /**
- * Enriches the Letterboxd film database with TMDB metadata and poster paths.
+ * Enriches the film database with TMDB metadata and poster paths.
  *
  *   TMDB_API_KEY=... node scripts/enrich.mjs
  *   TMDB_API_KEY=... node scripts/enrich.mjs --retry-unmatched
  *
- * data/films.json is the Letterboxd truth and is rewritten wholesale by
- * sync.mjs. This writes a separate data/tmdb.json keyed by Letterboxd slug, so
- * the two never fight: a re-sync cannot wipe TMDB data, and this script cannot
- * corrupt the list.
+ * data/films.json is maintained by hand (films go in as they're picked,
+ * not pulled from anywhere) - this writes a separate data/tmdb.json keyed
+ * by that same slug, so the two never fight: editing the film list cannot
+ * wipe TMDB data, and this script cannot corrupt the list.
  *
- * Lookups are cached. A film already resolved is never queried again, so the
- * daily run costs a handful of requests for whatever is new rather than 122.
+ * Lookups are cached. A film already resolved is never queried again, so a
+ * run only costs a handful of requests for whatever is new, not the whole
+ * archive - and this only runs when triggered by hand anyway, not on a
+ * schedule.
  *
  * Films that cannot be matched confidently are recorded in `unmatched` with the
  * candidates that were considered, and retried on later runs. To settle one by
  * hand, put its TMDB id in data/tmdb-overrides.json:
  *
- *   { "some-letterboxd-slug": 12345 }
+ *   { "some-film-slug": 12345 }
  */
 
 import { mkdir, readFile, writeFile } from 'node:fs/promises';
@@ -68,7 +70,7 @@ async function main() {
 
   const db = await readJson(FILMS, null);
   if (!db?.years?.length) {
-    console.error('data/films.json is missing or empty. Run scripts/sync.mjs first.');
+    console.error('data/films.json is missing or empty - add some films to it first.');
     process.exit(1);
   }
 
