@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-14T04:08:37.051Z",
+  "generatedAt": "2026-09-20T03:54:52.521Z",
   "note": "This product uses the TMDB API but is not endorsed or certified by TMDB.",
   "imageBase": "https://image.tmdb.org/t/p",
-  "matched": 122,
+  "matched": 123,
   "unmatchedCount": 0,
   "films": {
     "3-idiots": {
@@ -3389,6 +3389,40 @@
       "letterboxdYear": 2024,
       "confidence": "exact",
       "imdbRating": 8.2
+    },
+    "the-rivals-of-amziah-king": {
+      "tmdbId": 1124142,
+      "originalTitle": "The Rivals of Amziah King",
+      "releaseDate": "2026-08-13",
+      "runtime": 131,
+      "overview": "Deep within the backwoods of rural Oklahoma, charismatic and musically gifted Amziah King herds a bluegrass-playing band of misfits while overseeing the premier honey-making operation in town. When Amziah’s estranged foster daughter unexpectedly returns, Amziah leaps at the possibility to renew connection and create a family business. But the honey game is ruthless, and Amziah’s rivals threaten to destroy everything he has built.",
+      "posterPath": "/3iVDCDS1VwHIm95PjWEPwsfdhaf.jpg",
+      "backdropPath": "/3qR1ZxuEzDksDGT13mHH2IiEq7G.jpg",
+      "directors": [
+        "Andrew Patterson"
+      ],
+      "cast": [
+        "Matthew McConaughey",
+        "Kurt Russell",
+        "Angelina LookingGlass",
+        "Cole Sprouse"
+      ],
+      "genres": [
+        "Thriller",
+        "Crime",
+        "Drama"
+      ],
+      "countries": [
+        "United Kingdom",
+        "United States of America"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1124142",
+      "imdbId": "tt27706593",
+      "imdbUrl": "https://www.imdb.com/title/tt27706593/",
+      "letterboxdTitle": "The Rivals of Amziah King",
+      "letterboxdYear": 2025,
+      "confidence": "exact",
+      "imdbRating": 7.3
     },
     "the-sparks-brothers": {
       "tmdbId": 776485,
