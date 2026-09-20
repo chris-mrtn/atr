@@ -748,7 +748,7 @@ function buildMovieChatIcs({ film, meta, scheduledFor, discordUrl }) {
   return lines.join('\r\n');
 }
 
-/** Triggers the .ics download for one hero's "+ Add to Calendar" button. */
+/** Triggers the .ics download for one hero's "Add to Calendar" button. */
 function downloadMovieChatIcs(film, meta, scheduledFor) {
   const ics = buildMovieChatIcs({ film, meta, scheduledFor, discordUrl: DISCORD_CHAT_URL });
   const blob = new Blob([ics], { type: 'text/calendar;charset=utf-8' });
@@ -832,8 +832,15 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor) {
   scheduleText.append(el('p', 'hero-time', schedule.time));
   scheduleRow.append(scheduleText);
 
-  const calendarBtn = el('button', 'hero-calendar-btn', '+ Add to Calendar');
+  const calendarBtn = el('button', 'hero-calendar-btn');
   calendarBtn.type = 'button';
+  // Same inline-SVG icon convention as the toolbar buttons (filters,
+  // stats) - Lucide's current "calendar-plus" glyph (the redesigned one
+  // with the plus cut into the corner, not the older "calendar-plus-2"
+  // centred-plus style) so it reads as specifically an add-to-calendar
+  // action at a glance. Path data pulled straight from lucide.dev's own
+  // "Edit in studio" link for this icon, so it matches exactly.
+  calendarBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 18h6"/><path d="M16 2v3"/><path d="M19 15v6"/><path d="M21 11.5V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h8.3"/><path d="M3 9h18"/><path d="M8 2v3"/></svg> Add to Calendar';
   calendarBtn.addEventListener('click', () => downloadMovieChatIcs(film, meta, scheduledFor));
   scheduleRow.append(calendarBtn);
   body.append(scheduleRow);
@@ -1406,6 +1413,23 @@ function computeStats(archive, tmdb, pickers, members) {
 
   const genreCounts = tally(f => f.meta?.genres);
   const topGenre = top(genreCounts);
+  // TMDB's genre list is a small fixed set, so a lookup table reads more
+  // naturally than a generic pluralizer would for the handful of genres
+  // that are normally treated as mass nouns (Action, Crime, Horror...) -
+  // anything not listed here falls back to a plain "+s"/"y -> ies" guess.
+  const GENRE_PLURALS = {
+    'Action': 'Action', 'Adventure': 'Adventures', 'Animation': 'Animation',
+    'Comedy': 'Comedies', 'Crime': 'Crime', 'Documentary': 'Documentaries',
+    'Drama': 'Dramas', 'Family': 'Family', 'Fantasy': 'Fantasies',
+    'History': 'History', 'Horror': 'Horror', 'Music': 'Music',
+    'Mystery': 'Mysteries', 'Romance': 'Romances', 'Science Fiction': 'Science Fiction',
+    'TV Movie': 'TV Movies', 'Thriller': 'Thrillers', 'War': 'War', 'Western': 'Westerns',
+  };
+  const pluralizeGenre = name => GENRE_PLURALS[name]
+    ?? (/[^aeiou]y$/i.test(name) ? `${name.slice(0, -1)}ies` : `${name}s`);
+  // Folded in here (rather than left for renderStatsPage() to build) since
+  // pluralizeGenre/GENRE_PLURALS are only in scope inside computeStats().
+  if (topGenre) topGenre.pluralLabel = topGenre.names.map(pluralizeGenre).join(' / ');
 
   const directorCounts = tally(f => f.meta?.directors);
   const topDirector = top(directorCounts);
@@ -1498,7 +1522,20 @@ function renderStatsPage(archive, tmdb, pickers, members) {
   //   oldest / newest film (s.oldest, s.newest)
   //   picker leaderboard / unattributed count (s.pickerBoard, s.attributed)
 
+  // Rounds to 1 decimal place, but drops it entirely when that rounds to
+  // a whole number ("6" rather than "6.0") - a trailing ".0" reads as
+  // false precision on a number that landed on the nose.
+  function formatDays(totalMins) {
+    const days = Math.round((totalMins / 60 / 24) * 10) / 10;
+    return Number.isInteger(days) ? String(days) : days.toFixed(1);
+  }
+
   const minutes = s.totalMinutes || null;
+  const totalDays = minutes != null ? formatDays(minutes) : null;
+  // Same flat-30-minutes-per-film assumption as the calendar invite itself
+  // (MOVIE_CHAT_DURATION_MINUTES, above) - reused here rather than a second
+  // hardcoded 30, so the two stay in sync if that ever changes.
+  const chatDays = formatDays(s.total * MOVIE_CHAT_DURATION_MINUTES);
 
   // Values arrive pre-formatted (not raw numbers) so a year like 1985 never
   // picks up a thousands comma the way toLocaleString() would give it.
@@ -1512,18 +1549,18 @@ function renderStatsPage(archive, tmdb, pickers, members) {
   // `film` is the archive film object (the same shape computeStats() builds
   // - .title plus .meta from tmdb.json) behind a stat that's really about
   // one specific movie (longest, highest rated, ...) - when given, its
-  // poster renders in a fixed-width slot at the start of the row, reusing
-  // the exact same posterFor()/imdbLink() treatment as the archive list so
-  // it looks like it belongs to the same site rather than a bespoke crop.
-  // Every row gets that slot, filled or not, purely so every stat's number
-  // lines up at the same x-position whether or not it has one - a poster
-  // on one row and none on the next would otherwise read as misaligned
-  // rather than as "this one just doesn't have a poster".
-  function statItem(display, label, { text = false, sub = null, heading = null, film = null } = {}) {
+  // Each stat is centred and stands alone now, so a poster (when there is
+  // one behind the stat) renders centred above the number instead of in a
+  // fixed-width left-hand slot - reusing the exact same posterFor()/
+  // imdbLink() treatment as the archive list so it looks like it belongs
+  // to the same site rather than a bespoke crop. Only rendered when a
+  // film is actually behind the stat; there's no column of numbers left
+  // to keep aligned, so a stat with no film just has no poster.
+  function statItem(display, label, { text = false, sub = null, heading = null, film = null, unit = null } = {}) {
     const item = el('div', 'stats-hero-item');
 
-    const posterSlot = el('div', 'stats-hero-poster');
     if (film) {
+      const posterSlot = el('div', 'stats-hero-poster');
       // posterFor() already renders its own empty/untitled fallback when
       // there's no poster art for this film - reuse that rather than
       // leaving the slot blank, so a film stat with missing art still
@@ -1531,15 +1568,19 @@ function renderStatsPage(archive, tmdb, pickers, members) {
       // than looking identical to a stat with no film behind it at all.
       const poster = posterFor(tmdb?.imageBase, film.meta?.posterPath, film.title);
       posterSlot.append(film.meta?.imdbUrl ? imdbLink(film.meta.imdbUrl, poster, film.title) : poster);
+      item.append(posterSlot);
     }
-    item.append(posterSlot);
 
     const textCol = el('div', 'stats-hero-text');
     if (heading) textCol.append(el('span', 'hero-label', heading));
-    textCol.append(
-      el('span', text ? 'stats-hero-number stats-hero-number--text' : 'stats-hero-number', display != null ? display : '\u2014'),
-      el('span', 'hero-label', label),
-    );
+    // `unit` renders as a smaller suffix on the same line as the number
+    // itself (e.g. "171" + "minutes") rather than a separate line below -
+    // sized in em so it's always exactly half the number's own font-size,
+    // whatever that resolves to at the current viewport width.
+    const numberEl = el('span', text ? 'stats-hero-number stats-hero-number--text' : 'stats-hero-number');
+    numberEl.append(display != null ? display : '\u2014');
+    if (unit && display != null) numberEl.append(el('span', 'stats-hero-unit', unit));
+    textCol.append(numberEl, el('span', 'hero-label', label));
     if (sub) textCol.append(el('span', 'stats-hero-sub', sub));
     item.append(textCol);
 
@@ -1548,16 +1589,17 @@ function renderStatsPage(archive, tmdb, pickers, members) {
 
   const hero = el('div', 'stats-hero');
   hero.append(
-    statItem(s.total.toLocaleString(), 'movies'),
-    statItem(minutes != null ? minutes.toLocaleString() : null, 'minutes'),
+    statItem(s.total.toLocaleString(), 'movies watched'),
+    statItem(totalDays, 'time spent watching movies', { unit: 'days' }),
+    statItem(chatDays, 'time spent chatting', { unit: 'days' }),
     statItem(s.oldest ? String(s.oldest.year) : null, 'oldest movie'),
-    statItem(s.longest ? String(s.longest.meta.runtime) : null, 'minutes', { heading: 'longest movie', sub: s.longest?.title, film: s.longest }),
-    statItem(s.shortest ? String(s.shortest.meta.runtime) : null, 'minutes', { heading: 'shortest movie', sub: s.shortest?.title, film: s.shortest }),
-    statItem(s.topGenre ? s.topGenre.names.join(' / ') : null, s.topGenre ? `${s.topGenre.count} films` : 'top genre', { text: true }),
-    statItem(s.davePctAnime != null ? `${s.davePctAnime}%` : null, 'of Dave’s picks are anime'),
+    statItem(s.longest ? String(s.longest.meta.runtime) : null, 'longest movie', { film: s.longest, unit: 'mins' }),
+    statItem(s.shortest ? String(s.shortest.meta.runtime) : null, 'shortest movie', { film: s.shortest, unit: 'mins' }),
+    statItem(s.topGenre ? String(s.topGenre.count) : null, 'most watched genre', { unit: s.topGenre?.pluralLabel }),
+    statItem(s.davePctAnime != null ? `${s.davePctAnime}%` : null, 'dave picks are anime'),
     statItem(s.avgImdbRating != null ? s.avgImdbRating.toFixed(1) : null, 'avg IMDb rating'),
-    statItem(s.highestRated ? s.highestRated.meta.imdbRating.toFixed(1) : null, 'IMDb rating', { heading: 'highest rated', sub: s.highestRated?.title, film: s.highestRated }),
-    statItem(s.lowestRated ? s.lowestRated.meta.imdbRating.toFixed(1) : null, 'IMDb rating', { heading: 'lowest rated', sub: s.lowestRated?.title, film: s.lowestRated }),
+    statItem(s.highestRated ? s.highestRated.meta.imdbRating.toFixed(1) : null, 'highest rated on IMDB', { film: s.highestRated }),
+    statItem(s.lowestRated ? s.lowestRated.meta.imdbRating.toFixed(1) : null, 'lowest rated on IMDB', { film: s.lowestRated }),
   );
   page.replaceChildren(hero);
 }
@@ -1580,16 +1622,28 @@ function setupStatsPage() {
 
   let hideTimer;
 
-  // The button jumps from top-right to top-left (and back) on click without
-  // the mouse moving, so the browser has nothing to prompt it to re-check
-  // whether the cursor is still over the button - it just leaves :hover
-  // switched on at the old position's coordinates. Toggling pointer-events
-  // off and back forces a re-check on the next frame, against wherever the
-  // mouse actually is now.
+  // The button jumps from top-right to top-left (and back) on click
+  // without the mouse moving, so the browser never gets a real mousemove
+  // crossing the button's edge to fire a genuine mouseleave - it was
+  // truly hovered right up until the click, at the OLD position, and
+  // nothing ever tells it that position is no longer under the cursor.
+  // Relying on :hover directly leaves that stuck indefinitely (the
+  // pointer-events toggle this used to do is a common trick for forcing
+  // a re-check, but it depends on the browser re-running hit-testing on
+  // its own timing, which isn't reliable enough here). Tracking hover
+  // manually instead (.is-hovered, via mouseenter/mouseleave below) means
+  // this can just clear it outright, deterministically, the moment the
+  // button teleports - no waiting on the browser to notice anything.
+  // Transition is suppressed for one frame so the ring disappears
+  // instantly rather than visibly easing back down.
   function dropStaleHover() {
-    toggle.style.pointerEvents = 'none';
-    requestAnimationFrame(() => { toggle.style.pointerEvents = ''; });
+    toggle.style.transition = 'none';
+    toggle.classList.remove('is-hovered');
+    void toggle.offsetHeight;
+    requestAnimationFrame(() => { toggle.style.transition = ''; });
   }
+  toggle.addEventListener('mouseenter', () => toggle.classList.add('is-hovered'));
+  toggle.addEventListener('mouseleave', () => toggle.classList.remove('is-hovered'));
 
   function open() {
     clearTimeout(hideTimer);

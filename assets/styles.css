@@ -35,6 +35,18 @@ body {
   color: var(--fg);
   font: 16px/1.55 'Mona Sans', ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
   -webkit-font-smoothing: antialiased;
+  /* The blobs behind .stats-toggle (and anything else using the same
+     plus-lighter "vibrancy" trick) are permanently on their own GPU
+     layers (will-change: transform, filter: blur() - see .blob), and
+     browsers can composite mix-blend-mode content against fragmented
+     layers inconsistently: it blends correctly for a single frame right
+     after a DOM mutation forces a fresh paint (e.g. the icon swapping on
+     stats open/close), then reverts to looking flat once the compositor
+     settles back into its normal layered state. Isolating at the body
+     level forces the whole page to composite as one shared buffer before
+     any blend mode is applied within it, which is the standard fix for
+     this class of bug - unconfirmed until checked in a real browser. */
+  isolation: isolate;
 }
 
 /* Top-of-page wash --------------------------------------------------- */
@@ -244,7 +256,12 @@ body.stats-open, body.filters-open { overflow: hidden; }
    directly, otherwise it just sits on top looking flat grey instead of
    lighting up against the backdrop like the ring around it does. */
 .stats-toggle svg { width: 1.1rem; height: 1.1rem; mix-blend-mode: plus-lighter; }
-.stats-toggle:hover {
+/* Tracked manually via mouseenter/mouseleave in app.js rather than a
+   plain :hover selector - see dropStaleHover()'s comment for why: this
+   button teleports across the screen on click without the mouse moving,
+   and needs to be able to force-clear the ring deterministically right
+   at that moment instead of hoping the browser notices on its own. */
+.stats-toggle.is-hovered {
   border-color: rgb(255 255 255 / .5);
 }
 /* The close (x) state reads better top-left, out of the way of whatever
@@ -259,6 +276,14 @@ body.stats-open .stats-toggle {
   inset: 0;
   z-index: 10;
   overflow-y: auto;
+  /* Explicit, rather than left to default from overflow-y alone - a
+     fixed-position full-bleed box like this only needs to ever scroll
+     vertically, but any sub-pixel rounding in the flex/clamp() layout
+     below (there's a lot of it: cqw-based font-size, flex-basis: 100%
+     line breaks, etc.) can otherwise leave it a few px wider than the
+     viewport, which surfaces as a faint, unintended horizontal scroll
+     on phones - this cuts that off rather than chasing the rounding. */
+  overflow-x: hidden;
   padding: 20pt 20px clamp(2.5rem, 8vh, 5rem);
   opacity: 0;
   pointer-events: none;
@@ -495,54 +520,112 @@ body.filters-open .filter-overlay {
 .stats-hero {
   display: flex;
   flex-direction: column;
-  max-width: 34rem;
+  max-width: 28rem;
   margin: 0 auto;
   justify-content: center;
   min-height: 70vh;
 }
+/* Full-bleed, centred, one-at-a-time - each stat gets a big slab of
+   vertical space to itself (padding is ~4x the old row-list version)
+   rather than reading as a dense table of numbers. The divider is still
+   just a top border on every row but the first (same "only between rows"
+   trick as .filter-overlay-section-toggle uses). */
 .stats-hero-item {
   display: flex;
+  flex-direction: column;
   align-items: center;
+  text-align: center;
   gap: 1rem;
-  padding: 1.15rem 0;
+  padding: 4.6rem 0;
   mix-blend-mode: plus-lighter;
 }
 .stats-hero-item:not(:first-child) {
   border-top: 1px solid rgb(255 255 255 / .2);
 }
-/* A fixed-width slot at the start of every row, poster or not - see the
-   comment on statItem()'s `film` option in app.js for why a row with no
-   poster still reserves the space rather than collapsing to nothing: it's
-   what keeps every stat's number starting at the same x position down the
-   whole list. Reuses the site's normal .poster/.poster-link styling
-   (rounded corner, border, IMDb link, hover lift) at a smaller size than
-   the archive list's, rather than inventing a second poster treatment.
-   Photographic content shouldn't pick up the additive glow the rest of
-   this hero does, hence the blend reset - same reasoning as
-   .stats-hero-number below. */
+/* Only rendered at all when a film is actually behind the stat (see
+   statItem() in app.js) - reuses the site's normal .poster/.poster-link
+   styling (rounded corner, border, IMDb link, hover lift), just bigger
+   than the old row-list treatment. Photographic content shouldn't pick
+   up the additive glow the rest of this hero does, hence the blend
+   reset - same reasoning as .stats-hero-number below. The image itself
+   stays a fixed width regardless of how wide its half of the row ends up
+   being - see the :has() rule below, which is what actually centres it
+   within that half. */
 .stats-hero-poster {
-  flex: none;
-  width: 3.75rem;
   mix-blend-mode: normal;
 }
 .stats-hero-poster .poster {
-  width: 100%;
+  width: 9rem;
+}
+/* A stat with a poster splits its row 50/50 into a poster half and a
+   text half, each centred within its own share of the width, rather
+   than the poster just sitting at its natural size next to the text -
+   :has() rather than a second JS-driven class, since "does this item
+   have a poster" is already exactly what statItem() decides when it
+   renders one or not. flex: 1 (not a 50% basis) is what makes the
+   split exactly even regardless of how wide the poster or text
+   actually are. */
+.stats-hero-item:has(.stats-hero-poster) {
+  flex-direction: row;
+  align-items: center;
+}
+.stats-hero-item:has(.stats-hero-poster) > .stats-hero-poster {
+  flex: 1;
+  display: flex;
+  justify-content: center;
 }
 .stats-hero-text {
   display: flex;
   flex-direction: column;
-  gap: .35rem;
+  align-items: center;
+  gap: .5rem;
   min-width: 0;
-  text-align: left;
+  text-align: center;
+}
+/* A bit of extra breathing room above the label under the number, on top
+   of .stats-hero-text's own flex gap - .hero-label's base bottom margin
+   (for spacing below it elsewhere on the page) doesn't help here since
+   there's nothing after it in a stat item. */
+.stats-hero-text .hero-label {
+  margin-top: .3rem;
+}
+/* A container (not just a flex item) so .stats-hero-number's font-size
+   below can scale off THIS half's own width (cqw) rather than the full
+   viewport (vw) - a star glyph plus digits at the viewport-relative size
+   tuned for a full-width centred stat is routinely wider than just half
+   the row once a poster is taking up the other half. */
+.stats-hero-item:has(.stats-hero-poster) > .stats-hero-text {
+  flex: 1;
+  container-type: inline-size;
+}
+.stats-hero-item:has(.stats-hero-poster) .stats-hero-number {
+  font-size: clamp(2rem, 34cqw, 4.75rem);
 }
 .stats-hero-number {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
   font-family: 'Mona Sans', ui-sans-serif, -apple-system, "Helvetica Neue", Arial, sans-serif;
   font-weight: 900;
   font-stretch: 125%;
   letter-spacing: .01em;
   line-height: 1;
-  font-size: clamp(1.8rem, 6vw, 2.75rem);
+  font-size: clamp(3.5rem, 15vw, 6.5rem);
   mix-blend-mode: normal;
+}
+/* A unit suffix (e.g. "mins") on its own line under the number, sized in
+   em so it's always exactly half the number's own font-size, whatever
+   that resolves to at the current viewport width, rather than a second
+   clamp() to keep in sync with the first. Still a child of the number
+   span (not a sibling in .stats-hero-text) specifically so that em sizing
+   keeps working - display:block just drops it to its own line without
+   changing what its font-size is relative to. Weight and stretch are
+   inherited from .stats-hero-number (same bold/wide look, just smaller)
+   rather than overridden. */
+.stats-hero-unit {
+  flex-basis: 100%;
+  font-size: .5em;
 }
 /* A headline that's a title/name (a film, a genre) rather than a short
    number - the numeric size/tight tracking above would run a whole title
@@ -552,18 +635,17 @@ body.filters-open .filter-overlay {
   font-stretch: 110%;
   letter-spacing: 0;
   line-height: 1.15;
-  font-size: clamp(1rem, 3.2vw, 1.4rem);
+  font-size: clamp(1.75rem, 7vw, 3rem);
   text-wrap: balance;
 }
 
 /* A third, quieter tier under the label - same treatment as .film-meta:
    small, faint, regular weight, sentence case, so it reads as a footnote
-   rather than competing with the label above it. No margin-top or
-   horizontal padding any more - both were for the old centred square
-   layout; .stats-hero-text's own flex `gap` handles the vertical spacing
-   now, and a left-aligned row has no edges to clear. */
+   rather than competing with the label above it. .stats-hero-text's own
+   flex `gap` handles the vertical spacing, and everything here is centred
+   to match the rest of the item. */
 .stats-hero-sub {
-  font-size: .75rem;
+  font-size: .8rem;
   font-weight: 400;
   color: var(--faint);
   text-transform: none;
@@ -755,19 +837,31 @@ h1 {
 .hero-calendar-btn {
   display: inline-flex;
   align-items: center;
+  gap: .35rem;
   padding: .55rem 1.1rem;
-  border: 1px solid #fff;
+  border: none;
   border-radius: 999px;
-  background: #fff;
-  color: var(--bg);
+  background: rgb(255 255 255 / .1);
+  color: #fff;
   font: inherit;
   font-size: .8rem;
   font-weight: 600;
   letter-spacing: .01em;
   cursor: pointer;
-  transition: opacity .15s ease;
+  transition: opacity .15s ease, transform .15s ease, background .15s ease, color .15s ease;
 }
-.hero-calendar-btn:hover { opacity: .85; }
+/* Resting state is a ghost pill (translucent fill, white text/border) -
+   hover fills solid white with dark text, same look the button always
+   had, so the fill itself becomes the hover cue on top of the scale. */
+.hero-calendar-btn:hover {
+  opacity: .85;
+  transform: scale(1.05);
+  background: #fff;
+  color: var(--bg);
+}
+/* Icon picks up the button's own text colour via currentColor, same as
+   the toolbar icons pick up theirs - no separate colour to keep in sync. */
+.hero-calendar-btn svg { width: .95rem; height: .95rem; flex: none; }
 
 /* Popcorn easter egg --------------------------------------------------- */
 
