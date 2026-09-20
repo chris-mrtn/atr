@@ -45,8 +45,19 @@ const FILTER_COLLAPSE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="24" 
 const POPCORN_KERNEL_SRCS = Array.from({ length: 9 }, (_, i) => `assets/effects/kernel-${i + 1}.png`);
 const POPCORN_POPPED_SRCS = Array.from({ length: 9 }, (_, i) => `assets/effects/popcorn-${i + 1}.png`);
 const randomOf = arr => arr[Math.floor(Math.random() * arr.length)];
-// One kernel per movie in the archive - set once main() knows the real
-// count; this fallback only matters if somehow triggered before that.
+// One kernel per movie in the archive, up to a ceiling - set once main()
+// knows the real count; this fallback only matters if somehow triggered
+// before that. The ceiling exists because this used to be an uncapped
+// 1:1 with the archive size (122 and growing) - Chris had it crash on iOS
+// Safari ("a problem repeatedly occurred", i.e. the page's content
+// process got killed and kept restarting), which fits: that many
+// concurrently-animated <img> pieces each becomes its own composited
+// layer, and mobile Safari's per-tab GPU/memory budget is a lot tighter
+// than desktop's. Capping the count is a blunter fix than rewriting this
+// to a single <canvas> (which would dodge the per-element layer cost
+// entirely), but it directly cuts the thing actually driving the crash
+// and keeps the effect exactly as simple as it already was.
+const POPCORN_MAX_KERNELS = 70;
 let POPCORN_KERNEL_COUNT = 10;
 
 /**
@@ -1280,10 +1291,14 @@ function setupFilterOverlay(sections) {
   const toggle = document.getElementById('filters-toggle');
   const overlay = document.getElementById('filter-overlay');
   // A sibling of #filter-overlay, not appended inside it - see the comment
-  // on this button in index.html for why: .filter-overlay fades via
-  // opacity, which isolates any mix-blend-mode inside it from the real
-  // page backdrop, so a vibrancy-blended close button living inside that
-  // fade never actually lights up the way #stats-toggle does.
+  // on this button in index.html for why: an opacity-faded ancestor
+  // isolates any mix-blend-mode inside it from the real page backdrop, so
+  // a vibrancy-blended close button living inside that fade never actually
+  // lights up the way #stats-toggle does. (.filter-overlay itself no
+  // longer uses opacity at all now - see the comment on it in styles.css -
+  // but the close button stays out here regardless, same as the sections/
+  // icons/pills that couldn't be moved out and needed the ancestor fixed
+  // instead.)
   const closeBtn = document.getElementById('filter-overlay-close');
   if (!toggle || !overlay || !closeBtn) return;
 
@@ -1307,7 +1322,7 @@ function setupFilterOverlay(sections) {
     overlay.hidden = false;
     closeBtn.hidden = false;
     // Same reasoning as setupStatsPage()'s open(): force layout so
-    // "no longer hidden" commits before the class flip, or the opacity
+    // "no longer hidden" commits before the class flip, or the transform
     // transition has nothing to animate from.
     void overlay.offsetHeight;
     document.body.classList.add('filters-open');
@@ -1826,7 +1841,7 @@ async function main() {
   const moviesCount = el('span', null, `${total} movies`);
   moviesCount.addEventListener('click', () => triggerPopcornEffect());
   stats.replaceChildren(moviesCount, document.createTextNode(` since ${since}`));
-  POPCORN_KERNEL_COUNT = total;
+  POPCORN_KERNEL_COUNT = Math.min(total, POPCORN_MAX_KERNELS);
 
   setupArchiveFilters(archive, container, tmdb, pickers);
   renderStatsPage(archive, tmdb, pickers, members);

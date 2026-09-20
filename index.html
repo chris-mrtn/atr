@@ -29,13 +29,17 @@
        one section per filter category. -->
 </section>
 <!-- A sibling of #filter-overlay, not a child of it, same as #stats-toggle
-     is a sibling of #stats-page - .filter-overlay fades in via opacity,
-     which isolates any mix-blend-mode inside it from the real page
-     backdrop (the animated blobs), so a vibrancy-blended close button
-     living inside that fade would only ever blend against the overlay's
-     own empty background instead. Staying outside it is what lets this
-     button's "x" light up against the backdrop the same way the stats
-     close button's does. -->
+     is a sibling of #stats-page - an opacity-faded ancestor isolates any
+     mix-blend-mode inside it from the real page backdrop (the animated
+     blobs), so a vibrancy-blended close button living inside one would
+     only ever blend against the ancestor's own empty background instead.
+     Staying outside it is what lets this button's "x" light up against
+     the backdrop the same way the stats close button's does.
+     (.filter-overlay itself has since been changed to animate via
+     transform instead of opacity - see styles.css - specifically so its
+     own real content, the section toggles/icons/pills, doesn't have this
+     problem either; this button just stays a sibling regardless, same as
+     it already was.) -->
 <button id="filter-overlay-close" class="filter-overlay-close" type="button" aria-label="Close filters" hidden>&times;</button>
 <main>
   <header class="masthead">

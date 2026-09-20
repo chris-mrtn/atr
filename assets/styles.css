@@ -276,18 +276,30 @@ body.stats-open .stats-page {
  * body.filters-open), just triggered by .filters-toggle instead and
  * filled with plain toggle lists rather than a dropdown menu.
  * ------------------------------------------------------------------------ */
+/* No opacity here, unlike .stats-page above - opacity on this box would
+   force every mix-blend-mode descendant (section toggles, the +/- icons,
+   option pills, the section dividers) into an isolated blending group,
+   cut off from the real page backdrop behind it. That's the exact bug
+   already diagnosed and fixed once for #filter-overlay-close (see the
+   comment on that button, and on setupFilterOverlay() in app.js) - the
+   difference is those icons/pills/dividers are real content that scrolls
+   with the section list, so they can't just be moved out to a sibling
+   the way the close button was. The fix instead is to never give this
+   ancestor an isolating property in the first place: a plain
+   position:fixed stacking context (no opacity/filter/mask) doesn't
+   isolate blending, so a transform-based rise stands in for the fade. */
 .filter-overlay {
   position: fixed;
   inset: 0;
   z-index: 10;
   overflow-y: auto;
   padding: 20pt 20px clamp(4rem, 14vh, 7rem);
-  opacity: 0;
+  transform: translateY(1rem);
   pointer-events: none;
-  transition: opacity .4s ease;
+  transition: transform .4s ease;
 }
 body.filters-open .filter-overlay {
-  opacity: 1;
+  transform: translateY(0);
   pointer-events: auto;
 }
 .filter-overlay[hidden] { display: none; }
@@ -404,10 +416,10 @@ body.filters-open .filter-overlay {
 
 /* Same circular "x" treatment as .stats-toggle, and the same top-left
    corner too - fixed rather than scrolling away with a long list of
-   options. It inherits its fade and pointer-events from .filter-overlay
-   above rather than animating its own - a child renders invisible/inert
-   right along with a faded-out, pointer-events:none ancestor with no
-   extra rule needed here. */
+   options. A plain sibling of #filter-overlay in the DOM (see
+   index.html), not a child of it, so its own show/hide is driven
+   directly by setupFilterOverlay()'s open()/close() in app.js rather
+   than inherited from an ancestor's fade. */
 .filter-overlay-close {
   position: fixed;
   top: 16px;
