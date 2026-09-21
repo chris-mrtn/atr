@@ -1431,6 +1431,16 @@ function computeStats(archive, tmdb, pickers, members) {
   // pluralizeGenre/GENRE_PLURALS are only in scope inside computeStats().
   if (topGenre) topGenre.pluralLabel = topGenre.names.map(pluralizeGenre).join(' / ');
 
+  // Release decade, not watch year - "top decade" means the era the films
+  // themselves are from, same as "oldest"/"newest" already do. Buckets via
+  // the same tally()/top() helpers as genre and director above, so ties
+  // (e.g. two decades sharing the lead) are handled the same way too.
+  const decadeCounts = tally(f => f.meta?.releaseDate
+    ? [`${Math.floor(Number(f.meta.releaseDate.slice(0, 4)) / 10) * 10}`]
+    : []);
+  const topDecade = top(decadeCounts);
+  if (topDecade) topDecade.label = topDecade.names.map(d => `${d}s`).join(' / ');
+
   const directorCounts = tally(f => f.meta?.directors);
   const topDirector = top(directorCounts);
 
@@ -1492,7 +1502,7 @@ function computeStats(archive, tmdb, pickers, members) {
 
   return {
     total, firstYear, lastYear, totalMinutes, avgRuntime, longest, shortest,
-    topGenre, topDirector, numCountries: countryCounts.size, pctNonUs, topForeignCountry,
+    topGenre, topDecade, topDirector, numCountries: countryCounts.size, pctNonUs, topForeignCountry,
     busiestYears, busiestYearCount, oldest, newest, attributed, pickerBoard,
     davePctAnime, daveAnimeCount, davePickCount: davePicks.length,
     avgImdbRating, ratedFilmCount: withImdbRating.length, highestRated, lowestRated,
@@ -1587,19 +1597,58 @@ function renderStatsPage(archive, tmdb, pickers, members) {
     return item;
   }
 
+  // Two films side by side in one stat (highest/lowest rated, longest/
+  // shortest) rather than two separate full-width rows - each gets its own
+  // poster with its own number/label stacked underneath, sharing the same
+  // poster/number building blocks as statItem() above so it reads as the
+  // same visual language, just two columns instead of one. `a` and `b` are
+  // { film, display, label, unit? } - same shape statItem() takes for a
+  // film-backed stat, just without the "no film" case since a pair only
+  // ever makes sense when both sides have one.
+  function statPairCol(one) {
+    const col = el('div', 'stats-hero-pair-col');
+    // Same graceful-degradation rule as statItem() above: no film (e.g. no
+    // ratings backfilled yet) just means no poster, not a broken stat.
+    if (one.film) {
+      const posterSlot = el('div', 'stats-hero-poster');
+      const poster = posterFor(tmdb?.imageBase, one.film.meta?.posterPath, one.film.title);
+      posterSlot.append(one.film.meta?.imdbUrl ? imdbLink(one.film.meta.imdbUrl, poster, one.film.title) : poster);
+      col.append(posterSlot);
+    }
+
+    const textCol = el('div', 'stats-hero-text');
+    const numberEl = el('span', 'stats-hero-number');
+    numberEl.append(one.display != null ? one.display : '\u2014');
+    if (one.unit && one.display != null) numberEl.append(el('span', 'stats-hero-unit', one.unit));
+    textCol.append(numberEl, el('span', 'hero-label', one.label));
+
+    col.append(textCol);
+    return col;
+  }
+  function statPair(a, b) {
+    const item = el('div', 'stats-hero-item stats-hero-pair');
+    item.append(statPairCol(a), statPairCol(b));
+    return item;
+  }
+
   const hero = el('div', 'stats-hero');
   hero.append(
     statItem(s.total.toLocaleString(), 'movies watched'),
     statItem(totalDays, 'time spent watching movies', { unit: 'days' }),
     statItem(chatDays, 'time spent chatting', { unit: 'days' }),
     statItem(s.oldest ? String(s.oldest.year) : null, 'oldest movie'),
-    statItem(s.longest ? String(s.longest.meta.runtime) : null, 'longest movie', { film: s.longest, unit: 'mins' }),
-    statItem(s.shortest ? String(s.shortest.meta.runtime) : null, 'shortest movie', { film: s.shortest, unit: 'mins' }),
+    statPair(
+      { film: s.shortest, display: s.shortest ? String(s.shortest.meta.runtime) : null, label: 'shortest movie', unit: 'mins' },
+      { film: s.longest, display: s.longest ? String(s.longest.meta.runtime) : null, label: 'longest movie', unit: 'mins' },
+    ),
     statItem(s.topGenre ? String(s.topGenre.count) : null, 'most watched genre', { unit: s.topGenre?.pluralLabel }),
+    statItem(s.topDecade?.label ?? null, 'most picked decade'),
     statItem(s.davePctAnime != null ? `${s.davePctAnime}%` : null, 'dave picks are anime'),
     statItem(s.avgImdbRating != null ? s.avgImdbRating.toFixed(1) : null, 'avg IMDb rating'),
-    statItem(s.highestRated ? s.highestRated.meta.imdbRating.toFixed(1) : null, 'highest rated on IMDB', { film: s.highestRated }),
-    statItem(s.lowestRated ? s.lowestRated.meta.imdbRating.toFixed(1) : null, 'lowest rated on IMDB', { film: s.lowestRated }),
+    statPair(
+      { film: s.lowestRated, display: s.lowestRated ? s.lowestRated.meta.imdbRating.toFixed(1) : null, label: 'lowest rated on IMDB' },
+      { film: s.highestRated, display: s.highestRated ? s.highestRated.meta.imdbRating.toFixed(1) : null, label: 'highest rated on IMDB' },
+    ),
   );
   page.replaceChildren(hero);
 }
@@ -1953,16 +2002,17 @@ async function main() {
   document.getElementById('tmdb-note').textContent =
     tmdb?.note ?? 'Posters and credits from TMDB.';
 
-  // TEMP — see the block above.
-  setupDebugPanel({
-    allFilms: (films.years ?? []).flatMap(y => y.films),
-    tmdb,
-    imageBase,
-    upcoming: scheduledFilm
-      ? { film: scheduledFilm, meta: tmdb?.films?.[scheduledFilm.slug], imageBase, picker: schedule.picker, scheduledFor: schedule.scheduledFor }
-      : null,
-    waitingName: nextPickerName(schedule, members),
-  });
+  // TEMP — see the block above. Disabled (not deleted) - flip this back on
+  // by uncommenting the call below if the effect sliders are needed again.
+  // setupDebugPanel({
+  //   allFilms: (films.years ?? []).flatMap(y => y.films),
+  //   tmdb,
+  //   imageBase,
+  //   upcoming: scheduledFilm
+  //     ? { film: scheduledFilm, meta: tmdb?.films?.[scheduledFilm.slug], imageBase, picker: schedule.picker, scheduledFor: schedule.scheduledFor }
+  //     : null,
+  //   waitingName: nextPickerName(schedule, members),
+  // });
 }
 
 main();
