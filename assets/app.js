@@ -2012,6 +2012,25 @@ function computeStats(archive, tmdb, pickers, members) {
   ).length;
   const davePctAnime = davePicks.length ? Math.round((daveAnimeCount / davePicks.length) * 100) : null;
 
+  // Most nostalgic picker: whoever has the biggest share of picks released
+  // before 2000 (by TMDB release date). Only people with at least 5 dated
+  // picks count, so someone new with a couple of old films can't top it on
+  // a tiny sample; ties go to whoever has more picks.
+  const datedPicksBy = new Map();
+  for (const f of allFilms) {
+    const picker = pickers?.picks?.[`${f.watchYear}:${f.slug}`];
+    const year = Number(f.meta?.releaseDate?.slice(0, 4));
+    if (!picker || !year) continue;
+    const tally = datedPicksBy.get(picker) ?? { total: 0, old: 0 };
+    tally.total++;
+    if (year < 2000) tally.old++;
+    datedPicksBy.set(picker, tally);
+  }
+  const nostalgic = [...datedPicksBy.entries()]
+    .filter(([, t]) => t.total >= 5 && t.old > 0)
+    .map(([name, t]) => ({ name, pct: Math.round((t.old / t.total) * 100), total: t.total }))
+    .sort((a, b) => b.pct - a.pct || b.total - a.total)[0] ?? null;
+
   // OMDb's IMDb-rating backfill (scripts/imdb-ratings.mjs) is optional and
   // may not have run yet, so most films can genuinely have no imdbRating -
   // that's just excluded from the average rather than counted as a 0.
@@ -2024,7 +2043,7 @@ function computeStats(archive, tmdb, pickers, members) {
     total, firstYear, lastYear, totalMinutes, avgRuntime, longest, shortest,
     topGenre, topDecade, topDirector, numCountries: countryCounts.size, pctNonUs, topForeignCountry,
     busiestYears, busiestYearCount, oldest, newest, attributed, pickerBoard,
-    davePctAnime, daveAnimeCount, davePickCount: davePicks.length,
+    davePctAnime, daveAnimeCount, davePickCount: davePicks.length, nostalgic,
     avgImdbRating, ratedFilmCount: withImdbRating.length,
   };
 }
@@ -2164,6 +2183,7 @@ function renderStatsPage(archive, tmdb, pickers, members) {
     statItem(s.topGenre ? String(s.topGenre.count) : null, 'most watched genre', { unit: s.topGenre?.pluralLabel }),
     statItem(s.topDecade?.label ?? null, 'most picked decade'),
     statItem(s.davePctAnime != null ? `${s.davePctAnime}%` : null, 'dave picks are anime'),
+    ...(s.nostalgic ? [statItem(`${s.nostalgic.pct}%`, `${s.nostalgic.name.toLowerCase()} picks are from last century`)] : []),
     statItem(s.avgImdbRating != null ? s.avgImdbRating.toFixed(1) : null, 'avg IMDb rating'),
   );
   page.replaceChildren(hero);
