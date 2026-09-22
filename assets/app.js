@@ -2290,21 +2290,20 @@ async function main() {
   // sync by hand.
   function showFront() {
     if (isUpcoming) {
-      renderHeroUpcoming(
+      return renderHeroUpcoming(
         scheduledFilm, tmdb?.films?.[scheduledFilm.slug], imageBase, schedule.picker, schedule.scheduledFor,
         { onShowPrevious: history.length ? () => transitionHero(() => goToHistory(0), 'prev') : null },
       );
-    } else {
-      renderHeroWaiting(nextPickerName(schedule, members), {
-        onShowPrevious: history.length ? () => transitionHero(() => goToHistory(0), 'prev') : null,
-      });
     }
+    return renderHeroWaiting(nextPickerName(schedule, members), {
+      onShowPrevious: history.length ? () => transitionHero(() => goToHistory(0), 'prev') : null,
+    });
   }
 
   function goToHistory(index) {
     const entry = history[index];
     const picker = pickers?.picks?.[`${entry.year}:${entry.film.slug}`];
-    renderHeroPrevious(entry.film, entry.meta, imageBase, picker, {
+    return renderHeroPrevious(entry.film, entry.meta, imageBase, picker, {
       onOlder: index + 1 < history.length ? () => transitionHero(() => goToHistory(index + 1), 'prev') : null,
       onNewer: () => transitionHero(index === 0 ? showFront : () => goToHistory(index - 1), 'next'),
     });
