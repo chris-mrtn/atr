@@ -1,0 +1,12 @@
+{
+  "note": "Films A24 released (distributed) without producing them. TMDB only lists production companies, so these are counted as A24 films by hand, on top of any TMDB lists A24 as producing. Keyed by film slug.",
+  "slugs": [
+    "a-ghost-story-2017",
+    "aftersun",
+    "close-2022",
+    "first-reformed",
+    "minari",
+    "talk-to-me-2022",
+    "the-florida-project"
+  ]
+}

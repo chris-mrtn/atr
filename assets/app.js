@@ -1981,7 +1981,7 @@ function setupFilterOverlay(sections) {
  * tmdb and pickers data the rest of the page already uses, so nothing here
  * needs re-fetching or hand-updating as the list grows.
  * ---------------------------------------------------------------------- */
-function computeStats(archive, tmdb, pickers, members) {
+function computeStats(archive, tmdb, pickers, members, { a24Releases = [] } = {}) {
   const tf = tmdb?.films ?? {};
   const allFilms = archive.flatMap(y => y.films.map(f => ({ ...f, watchYear: y.year, meta: tf[f.slug] })));
   const total = allFilms.length;
@@ -2111,11 +2111,15 @@ function computeStats(archive, tmdb, pickers, members) {
   const chrisMadsCount = allFilms.filter(f =>
     f.meta?.cast?.includes('Mads Mikkelsen') && pickers?.picks?.[`${f.watchYear}:${f.slug}`] === 'Chris').length;
 
-  // A24 films, going by TMDB's production companies. null (so the stat
-  // stays hidden) until the data has companies at all - older data/tmdb.json
-  // files were written before they were tracked.
+  // A24 films: ones TMDB lists A24 as producing, plus the ones A24 only
+  // released, which TMDB doesn't record and data/a24-releases.json lists by
+  // hand. null (so the stat stays hidden) until the data has companies at
+  // all - older data/tmdb.json files were written before they were tracked.
   const hasCompanies = allFilms.some(f => Array.isArray(f.meta?.companies));
-  const a24Count = hasCompanies ? allFilms.filter(f => f.meta?.companies?.includes('A24')).length : null;
+  const a24Released = new Set(a24Releases);
+  const a24Count = hasCompanies
+    ? allFilms.filter(f => f.meta?.companies?.includes('A24') || a24Released.has(f.slug)).length
+    : null;
 
   // Share of films watched within a year of coming out - the club only
   // records which year's list a film is on, not the exact date, so "within
@@ -2141,12 +2145,12 @@ function computeStats(archive, tmdb, pickers, members) {
   };
 }
 
-function renderStatsPage(archive, tmdb, pickers, members) {
+function renderStatsPage(archive, tmdb, pickers, members, extras = {}) {
   const page = document.getElementById('stats-page');
   if (!page) return;
   if (!archive.length) { page.replaceChildren(); return; }
 
-  const s = computeStats(archive, tmdb, pickers, members);
+  const s = computeStats(archive, tmdb, pickers, members, extras);
 
   // Reserved for later: the full fact set below is still computed by
   // computeStats() above, just not rendered yet. Re-introduce these one at a
@@ -2716,7 +2720,9 @@ async function main() {
   POPCORN_KERNEL_COUNT = Math.min(total, POPCORN_MAX_KERNELS);
 
   setupArchiveFilters(archive, container, tmdb, pickers);
-  renderStatsPage(archive, tmdb, pickers, members);
+  // Hand-kept list of films A24 released but didn't produce - optional.
+  const a24Releases = (await loadJson('data/a24-releases.json', { required: false }))?.slugs ?? [];
+  renderStatsPage(archive, tmdb, pickers, members, { a24Releases });
 
   document.getElementById('tmdb-note').textContent =
     tmdb?.note ?? 'Posters and credits from TMDB.';
