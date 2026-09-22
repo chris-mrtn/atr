@@ -623,17 +623,65 @@ function vivify(rgb, { minSat = 0.45, minLight = 0.32, maxLight = 0.6 } = {}) {
   return hslToRgb([h, Math.max(s, minSat), Math.min(Math.max(l, minLight), maxLight)]);
 }
 
-/** Paints the top-of-page mesh once we know the poster's colours. */
-function applyBackdrop(colors) {
+/**
+ * The three vivid colours currently painted into --hero-rgb-1/2/3, so a
+ * later applyBackdrop() call can crossfade from here instead of snapping -
+ * null until the first call, which always applies instantly (nothing to
+ * fade from yet, and it's covered by the backdrop's own opacity transition
+ * as it lights up for the first time).
+ */
+let currentBackdropColors = null;
+let backdropColorFrame = null;
+
+function setBackdropColorVars(vivid) {
+  const root = document.documentElement.style;
+  root.setProperty('--hero-rgb-1', vivid[0].map(Math.round).join(' '));
+  root.setProperty('--hero-rgb-2', vivid[1].map(Math.round).join(' '));
+  root.setProperty('--hero-rgb-3', vivid[2].map(Math.round).join(' '));
+}
+
+/**
+ * Paints the top-of-page mesh once we know the poster's colours. CSS can't
+ * transition a gradient's own colours directly (they're baked into .blob's
+ * background from these custom properties), so when animate is on this
+ * hand-rolls the fade with requestAnimationFrame instead - lerping each
+ * channel of each blob's colour from whatever's currently applied to the
+ * new value every frame - rather than the old approach of fading the whole
+ * backdrop element through transparent, which read as a dip to black.
+ */
+function applyBackdrop(colors, { animate = false, duration = 260 } = {}) {
   if (!colors || !colors.length) return;
   const vivid = colors.map(rgb => vivify(rgb));
   while (vivid.length < 3) vivid.push(vivid[vivid.length - 1]);
 
-  const root = document.documentElement.style;
-  root.setProperty('--hero-rgb-1', vivid[0].join(' '));
-  root.setProperty('--hero-rgb-2', vivid[1].join(' '));
-  root.setProperty('--hero-rgb-3', vivid[2].join(' '));
   document.getElementById('backdrop')?.classList.add('is-lit');
+
+  if (backdropColorFrame) {
+    cancelAnimationFrame(backdropColorFrame);
+    backdropColorFrame = null;
+  }
+
+  if (!animate || !currentBackdropColors) {
+    setBackdropColorVars(vivid);
+    currentBackdropColors = vivid;
+    return;
+  }
+
+  const from = currentBackdropColors;
+  const to = vivid;
+  const start = performance.now();
+  const step = now => {
+    const t = Math.min(1, (now - start) / duration);
+    const mixed = to.map((rgb, i) => rgb.map((c, ch) => from[i][ch] + (c - from[i][ch]) * t));
+    setBackdropColorVars(mixed);
+    if (t < 1) {
+      backdropColorFrame = requestAnimationFrame(step);
+    } else {
+      currentBackdropColors = to;
+      backdropColorFrame = null;
+    }
+  };
+  backdropColorFrame = requestAnimationFrame(step);
 }
 
 /**
@@ -776,11 +824,207 @@ function nextPickerName(schedule, members) {
 }
 
 /**
+ * Carousel-style prev/next arrows for stepping back through the archive
+ * from the hero, one film at a time in either direction - prev steps back
+ * (to the most recently watched film, then further back through the
+ * archive from there), next steps forward again, back to whatever the
+ * hero would normally be showing (upcoming pick, or waiting) once you're
+ * back at the start. Anchored to the screen edges rather than the poster
+ * itself (see .hero-nav in styles.css - they're children of body, not of
+ * the poster), so they need repositioning whenever the poster's own
+ * on-screen position changes; updateHeroNavPosition() below handles that,
+ * same idea as updateBackdropExtent() already does for the backdrop.
+ */
+const HERO_NAV_ICON_LEFT = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"/></svg>';
+const HERO_NAV_ICON_RIGHT = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"/></svg>';
+
+function heroNavButton(direction, label, onClick) {
+  const btn = el('button', `hero-nav hero-nav-${direction}`);
+  btn.type = 'button';
+  btn.setAttribute('aria-label', label);
+  btn.innerHTML = direction === 'prev' ? HERO_NAV_ICON_LEFT : HERO_NAV_ICON_RIGHT;
+  btn.addEventListener('click', onClick);
+  return btn;
+}
+
+/**
+ * (Re)creates the prev/next arrows as children of body - not the poster,
+ * see the comment above - clearing out whichever ones a previous hero
+ * render left behind first, since body itself is never cleared the way
+ * #hero is on each render. Called once at the end of every hero render
+ * function with whichever callbacks actually apply (a null skips that
+ * button entirely, same "not created at all" rule as before).
+ */
+function setHeroNav({ onPrev, onNext }) {
+  document.querySelectorAll('.hero-nav').forEach(n => n.remove());
+  if (onPrev) document.body.append(heroNavButton('prev', 'Show previous film', onPrev));
+  if (onNext) document.body.append(heroNavButton('next', 'Back to current pick', onNext));
+  updateHeroNavPosition();
+}
+
+/**
+ * Keeps the nav arrows vertically centred on the poster's actual on-screen
+ * position - same measurement approach as updateBackdropExtent() below,
+ * called from the same places (each hero render, and on resize).
+ */
+function updateHeroNavPosition() {
+  const poster = document.querySelector('.hero-poster');
+  const navs = document.querySelectorAll('.hero-nav');
+  if (!poster || !navs.length) return;
+  const bodyTop = document.body.getBoundingClientRect().top;
+  const rect = poster.getBoundingClientRect();
+  const centerY = (rect.top - bodyTop) + rect.height / 2;
+  for (const nav of navs) nav.style.top = `${Math.round(centerY)}px`;
+}
+
+/**
+ * Crossfades between hero states around a nav click, rather than the
+ * abrupt swap a plain re-render gives you - slides the current poster/
+ * title/etc out (a short lateral shift alongside the fade, in whichever
+ * direction the click moved through the archive) and swaps in the new
+ * render (a normal hero render function, unaware it's being animated -
+ * it just rebuilds .hero-inner from scratch like it always has), which
+ * slides and fades in from the opposite side. The backdrop mesh crossfades
+ * its colours directly (see applyBackdrop()'s animate option) rather than
+ * dipping through transparent, so it never reads as a flash to black.
+ * Only ever called from a nav click - the very first hero render on page
+ * load stays instant, going through the render functions directly.
+ */
+const HERO_FADE_MS = 220;
+const HERO_SLIDE_PX = 24;
+
+function transitionHero(renderFn, direction = 'prev') {
+  const hero = document.getElementById('hero');
+  const currentInner = hero.querySelector('.hero-inner');
+
+  // Nothing on screen yet to fade from (shouldn't happen once a nav arrow
+  // exists at all, but cheap to guard) - just render straight away.
+  if (!currentInner) { renderFn(); return; }
+
+  // 'prev' (older, left arrow) slides the outgoing poster right and brings
+  // the incoming one in from the left; 'next' (newer, right arrow) is the
+  // mirror image.
+  const exitX = direction === 'prev' ? HERO_SLIDE_PX : -HERO_SLIDE_PX;
+  const enterX = direction === 'prev' ? -HERO_SLIDE_PX : HERO_SLIDE_PX;
+
+  currentInner.style.opacity = '0';
+  currentInner.style.transform = `translateX(${exitX}px)`;
+
+  setTimeout(() => {
+    renderFn();
+
+    const newInner = hero.querySelector('.hero-inner');
+    if (newInner) {
+      // Same transition-suppression trick dropStaleHover() uses - start
+      // faded/offset with transitions off, force the browser to register
+      // that frame, then hand control back so the slide-fade-in actually
+      // animates instead of the swap and the transition landing in the
+      // same paint.
+      newInner.style.transition = 'none';
+      newInner.style.opacity = '0';
+      newInner.style.transform = `translateX(${enterX}px)`;
+      void newInner.offsetHeight;
+      newInner.style.transition = '';
+      requestAnimationFrame(() => {
+        newInner.style.opacity = '1';
+        newInner.style.transform = 'translateX(0)';
+      });
+    }
+  }, HERO_FADE_MS);
+}
+
+/**
+ * An empty stand-in for .hero-schedule-row, same markup shape (schedule
+ * text block + calendar button) so it takes up exactly the same height via
+ * ordinary layout rather than a guessed min-height - just invisible
+ * (visibility, not display, so the box stays) and inert. Used behind a
+ * previously-watched film, which has no date/time of its own to show, so
+ * the archive list below the hero doesn't jump up when there's nothing
+ * real to put here.
+ */
+function buildReservedScheduleRow() {
+  const row = el('div', 'hero-schedule-row hero-schedule-row--reserved');
+  row.setAttribute('aria-hidden', 'true');
+
+  const scheduleText = el('div', 'hero-schedule-text');
+  scheduleText.append(el('p', 'hero-date', 'Placeholder'));
+  scheduleText.append(el('p', 'hero-time', 'Placeholder'));
+  row.append(scheduleText);
+
+  const btn = el('button', 'hero-calendar-btn');
+  btn.type = 'button';
+  btn.tabIndex = -1;
+  btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 18h6"/><path d="M16 2v3"/><path d="M19 15v6"/><path d="M21 11.5V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h8.3"/><path d="M3 9h18"/><path d="M8 2v3"/></svg> Add to Calendar';
+  row.append(btn);
+
+  return row;
+}
+
+/**
+ * The most recently watched film, shown in place of the upcoming pick (or
+ * the waiting state) when the hero's back arrow is used - same poster/
+ * title/meta treatment as renderHeroUpcoming(), just without a real
+ * schedule (see buildReservedScheduleRow() above) and with the forward
+ * arrow instead of the back one.
+ */
+function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } = {}) {
+  const hero = document.getElementById('hero');
+  hero.hidden = false;
+  hero.replaceChildren();
+
+  const wrap = el('div', 'hero-inner');
+
+  const art = el('div', 'hero-poster');
+  if (meta?.posterPath) {
+    const img = el('img');
+    img.src = `${imageBase}/w500${meta.posterPath}`;
+    img.srcset = [342, 500, 780].map(w => `${imageBase}/w${w}${meta.posterPath} ${w}w`).join(', ');
+    img.sizes = '(max-width: 34rem) 60vw, 20rem';
+    img.alt = `Poster for ${film.title}`;
+    img.width = 500;
+    img.height = 750;
+    img.addEventListener('error', () => art.classList.add('empty'), { once: true });
+
+    loadSampleImage(`${imageBase}/w185${meta.posterPath}`)
+      .then(bitmap => applyBackdrop(dominantColors(bitmap), { animate: true }))
+      .catch(err => console.warn('backdrop: could not sample poster —', err.message));
+
+    art.append(img);
+  } else {
+    art.classList.add('empty');
+  }
+  wrap.append(art);
+
+  const body = el('div', 'hero-body');
+
+  const info = el('div', 'hero-info');
+  info.append(el('p', 'hero-label', 'Previously'));
+  info.append(el('h2', 'hero-title', film.title));
+
+  const bits = [];
+  if (film.year) bits.push(String(film.year));
+  if (meta?.directors?.length) bits.push(meta.directors.slice(0, 2).join(', '));
+  if (meta?.genres?.length) bits.push(meta.genres.slice(0, 2).join(', '));
+  if (meta?.runtime) bits.push(`${meta.runtime} min`);
+  if (bits.length) info.append(el('p', 'hero-meta', bits.join(' · ')));
+  if (picker) info.append(el('p', 'hero-picker', `Picked by ${picker}`));
+  body.append(info);
+
+  body.append(buildReservedScheduleRow());
+
+  wrap.append(body);
+  hero.append(wrap);
+
+  updateBackdropExtent();
+  setHeroNav({ onPrev: onOlder, onNext: onNewer });
+}
+
+/**
  * The upcoming pick, per data/schedule.json - shown until its scheduledFor
  * instant passes, at which point main() stops calling this and the film
  * just renders in its year section like any other archive entry.
  */
-function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor) {
+function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onShowPrevious } = {}) {
   const hero = document.getElementById('hero');
   hero.hidden = false;
   hero.replaceChildren();
@@ -801,7 +1045,7 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor) {
     // Sample the poster for the backdrop colour. Failure here is cosmetic:
     // the poster still renders, we just get no wash.
     loadSampleImage(`${imageBase}/w185${meta.posterPath}`)
-      .then(bitmap => applyBackdrop(dominantColors(bitmap)))
+      .then(bitmap => applyBackdrop(dominantColors(bitmap), { animate: true }))
       .catch(err => console.warn('backdrop: could not sample poster —', err.message));
 
     art.append(img);
@@ -849,6 +1093,7 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor) {
   hero.append(wrap);
 
   updateBackdropExtent();
+  setHeroNav({ onPrev: onShowPrevious, onNext: null });
 }
 
 /**
@@ -896,7 +1141,7 @@ function heroWaitingPalette(name) {
   return HERO_WAITING_PALETTES[name ? hashName(name) % HERO_WAITING_PALETTES.length : 0];
 }
 
-function renderHeroWaiting(pickerName) {
+function renderHeroWaiting(pickerName, { onShowPrevious } = {}) {
   const hero = document.getElementById('hero');
   hero.hidden = false;
   hero.replaceChildren();
@@ -909,7 +1154,7 @@ function renderHeroWaiting(pickerName) {
   // Same source as the backdrop mesh below (--hero-rgb-1/2), so the blurred
   // poster placeholder and the wash behind it are always the same colours,
   // not two independent guesses.
-  applyBackdrop(heroWaitingPalette(pickerName));
+  applyBackdrop(heroWaitingPalette(pickerName), { animate: true });
 
   const body = el('div', 'hero-body');
   const info = el('div', 'hero-info');
@@ -920,6 +1165,7 @@ function renderHeroWaiting(pickerName) {
   hero.append(wrap);
 
   updateBackdropExtent();
+  setHeroNav({ onPrev: onShowPrevious, onNext: null });
 }
 
 /**
@@ -943,7 +1189,10 @@ function updateBackdropExtent() {
 let backdropResizeTimer;
 window.addEventListener('resize', () => {
   clearTimeout(backdropResizeTimer);
-  backdropResizeTimer = setTimeout(updateBackdropExtent, 100);
+  backdropResizeTimer = setTimeout(() => {
+    updateBackdropExtent();
+    updateHeroNavPosition();
+  }, 100);
 });
 
 function filmGridItem(film, meta, imageBase) {
@@ -1968,13 +2217,52 @@ async function main() {
 
   if (isUpcoming) {
     scheduledYear.films.splice(scheduledYear.films.indexOf(scheduledFilm), 1);
-    renderHeroUpcoming(scheduledFilm, tmdb?.films?.[scheduledFilm.slug], imageBase, schedule.picker, schedule.scheduledFor);
-  } else {
-    renderHeroWaiting(nextPickerName(schedule, members));
   }
 
   // A year emptied by lifting the upcoming pick out has nothing left to show.
   const archive = years.filter(y => y.films.length > 0);
+
+  // Every watched film, most recently watched first - archive is already
+  // in that order year-to-year (newest year first), so this just flattens
+  // it, reading each year's own films newest-to-oldest the same way the
+  // archive list below does ([...year.films].reverse()). history[0] is
+  // the single most recently watched film; walking further into the
+  // array is walking further back through club history. Powers the
+  // hero's back arrow - an empty array just means nothing's been watched
+  // yet, so there's nowhere for it to go.
+  const history = archive.flatMap(y =>
+    [...y.films].reverse().map(film => ({ film, year: y.year, meta: tmdb?.films?.[film.slug] })));
+
+  // The hero flips between its normal state (upcoming pick, or waiting)
+  // and however far back into history the prev/next arrows have gone -
+  // showFront() and goToHistory() below are both callable more than once
+  // (showFront() is also what "next" returns to once you're back at the
+  // start), each render's own onOlder/onNewer closures carry whatever
+  // index comes next, so there's no separate index variable to keep in
+  // sync by hand.
+  function showFront() {
+    if (isUpcoming) {
+      renderHeroUpcoming(
+        scheduledFilm, tmdb?.films?.[scheduledFilm.slug], imageBase, schedule.picker, schedule.scheduledFor,
+        { onShowPrevious: history.length ? () => transitionHero(() => goToHistory(0), 'prev') : null },
+      );
+    } else {
+      renderHeroWaiting(nextPickerName(schedule, members), {
+        onShowPrevious: history.length ? () => transitionHero(() => goToHistory(0), 'prev') : null,
+      });
+    }
+  }
+
+  function goToHistory(index) {
+    const entry = history[index];
+    const picker = pickers?.picks?.[`${entry.year}:${entry.film.slug}`];
+    renderHeroPrevious(entry.film, entry.meta, imageBase, picker, {
+      onOlder: index + 1 < history.length ? () => transitionHero(() => goToHistory(index + 1), 'prev') : null,
+      onNewer: () => transitionHero(index === 0 ? showFront : () => goToHistory(index - 1), 'next'),
+    });
+  }
+
+  showFront();
 
   const total = archive.reduce((n, y) => n + y.films.length, 0);
   const since = archive.length ? archive.at(-1).year : '';

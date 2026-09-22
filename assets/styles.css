@@ -704,13 +704,16 @@ h1 {
 #hero { margin-bottom: clamp(2.5rem, 8vh, 5rem); }
 
 /* No card around it: at this size the poster is the object, and a border
-   would just draw a box around a picture that already has edges. */
+   would just draw a box around a picture that already has edges. The
+   opacity transition is for the hero-swap crossfade (see transitionHero()
+   in app.js) - toggled from JS around a nav click, never on first paint. */
 .hero-inner {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
   gap: 1.5rem;
+  transition: opacity .22s ease, transform .22s ease;
 }
 
 .hero-poster {
@@ -724,6 +727,44 @@ h1 {
   box-shadow: 0 2px 4px rgba(0,0,0,.5), 0 18px 44px rgba(0,0,0,.45);
 }
 .hero-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+/* Carousel-style prev/next arrows for stepping through the archive from
+   the hero - anchored to the screen edges (children of body, not the
+   poster - body's the nearest positioned ancestor, see body's own
+   position: relative above), same as a full-bleed carousel control,
+   rather than sitting on the poster itself which only spans a narrow
+   centred column on anything wider than a phone. Vertical position is
+   set from JS (updateHeroNavPosition() in app.js) to track the poster's
+   own vertical centre, since that's the only thing that knows the
+   poster's current on-screen position - top here is just a pre-JS
+   fallback. Always visible - bare glyph, no button chrome/background,
+   at reduced opacity so it doesn't compete with the poster; brightens
+   on hover/focus and touch. */
+.hero-nav {
+  position: absolute;
+  top: 50%;
+  left: 16px;
+  transform: translateY(-50%);
+  z-index: 5;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 2.4rem;
+  height: 2.4rem;
+  padding: 0;
+  border: none;
+  background: none;
+  color: rgb(255 255 255 / .5);
+  cursor: pointer;
+  transition: color .15s ease, transform .15s ease;
+}
+.hero-nav:hover,
+.hero-nav:focus-visible {
+  color: rgb(255 255 255 / .85);
+  transform: translateY(-50%) scale(1.08);
+}
+.hero-nav svg { width: 1.8rem; height: 1.8rem; }
+.hero-nav-next { left: auto; right: 16px; }
 
 /* No film chosen yet - rather than faking a colour that can drift from
    the backdrop's own (which is animated - saturation pulses, drift), this
@@ -880,6 +921,16 @@ h1 {
 /* Icon picks up the button's own text colour via currentColor, same as
    the toolbar icons pick up theirs - no separate colour to keep in sync. */
 .hero-calendar-btn svg { width: .95rem; height: .95rem; flex: none; }
+
+/* A previously-watched film has no real date/time to show, but this still
+   renders (with placeholder content, see buildReservedScheduleRow() in
+   app.js) so the row keeps its normal height via ordinary layout instead
+   of a guessed min-height - visibility (not display) is what keeps that
+   space reserved while hiding it. */
+.hero-schedule-row--reserved {
+  visibility: hidden;
+  pointer-events: none;
+}
 
 /* Popcorn easter egg --------------------------------------------------- */
 
