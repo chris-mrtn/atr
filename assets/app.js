@@ -1160,12 +1160,8 @@ function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } 
   info.append(label);
   info.append(el('h2', 'hero-title', film.title));
 
-  const bits = [];
-  if (film.year) bits.push(String(film.year));
-  if (meta?.directors?.length) bits.push(meta.directors.slice(0, 2).join(', '));
-  if (meta?.genres?.length) bits.push(meta.genres.slice(0, 2).join(', '));
-  if (meta?.runtime) bits.push(`${meta.runtime} min`);
-  if (bits.length) info.append(el('p', 'hero-meta', bits.join(' · ')));
+  const metaText = heroMetaText(film, meta);
+  if (metaText) info.append(el('p', 'hero-meta', metaText));
   if (picker) info.append(el('p', 'hero-picker', `Picked by ${picker}`));
   body.append(info);
   body.append(buildScheduleSlot(null));
@@ -1174,6 +1170,7 @@ function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } 
   hero.append(wrap);
 
   updateBackdropExtent();
+  updateHeroReserve();
   setHeroNav({ onPrev: onOlder, onNext: onNewer });
 }
 
@@ -1226,12 +1223,8 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
   info.append(label);
   info.append(el('h2', 'hero-title', film.title));
 
-  const bits = [];
-  if (film.year) bits.push(String(film.year));
-  if (meta?.directors?.length) bits.push(meta.directors.slice(0, 2).join(', '));
-  if (meta?.genres?.length) bits.push(meta.genres.slice(0, 2).join(', '));
-  if (meta?.runtime) bits.push(`${meta.runtime} min`);
-  if (bits.length) info.append(el('p', 'hero-meta', bits.join(' · ')));
+  const metaText = heroMetaText(film, meta);
+  if (metaText) info.append(el('p', 'hero-meta', metaText));
   if (picker) info.append(el('p', 'hero-picker', `Picked by ${picker}`));
   body.append(info);
 
@@ -1259,6 +1252,7 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
   hero.append(wrap);
 
   updateBackdropExtent();
+  updateHeroReserve();
   setHeroNav({ onPrev: onShowPrevious, onNext: null });
 }
 
@@ -1338,6 +1332,7 @@ function renderHeroWaiting(pickerName, { onShowPrevious } = {}) {
   hero.append(wrap);
 
   updateBackdropExtent();
+  updateHeroReserve();
   setHeroNav({ onPrev: onShowPrevious, onNext: null });
 }
 
@@ -1359,13 +1354,76 @@ function updateBackdropExtent() {
   document.documentElement.style.setProperty('--backdrop-height', `${Math.round(extent)}px`);
 }
 
+/** The hero's "year · director · genres · runtime" line. */
+function heroMetaText(film, meta) {
+  const bits = [];
+  if (film.year) bits.push(String(film.year));
+  if (meta?.directors?.length) bits.push(meta.directors.slice(0, 2).join(', '));
+  if (meta?.genres?.length) bits.push(meta.genres.slice(0, 2).join(', '));
+  if (meta?.runtime) bits.push(`${meta.runtime} min`);
+  return bits.join(' · ');
+}
+
+/**
+ * The hero's text block (label, title, metadata, picker) is a different
+ * height from film to film - titles and, on a phone, the metadata line run
+ * to one or two lines - which moved the archive list up and down as you
+ * stepped between films. So every film the hero can show is measured once
+ * at the current width (again only if the width changes), and whatever's
+ * on screen gets the difference between its own height and the tallest
+ * one as extra space below the hero (--hero-reserve on #hero in
+ * styles.css). The hero's own layout doesn't change; the archive just
+ * always sits where the tallest film would put it. Set by main().
+ */
+let heroReserveEntries = [];
+let tallestHeroInfo = { width: 0, height: 0 };
+
+function measureTallestHeroInfo(body) {
+  const width = body.clientWidth;
+  if (tallestHeroInfo.width === width) return tallestHeroInfo.height;
+  // A hidden copy of .hero-body at the same width, inside the hero so it
+  // picks up exactly the same styles, filled with each film's text in turn.
+  const probe = el('div', 'hero-body');
+  probe.setAttribute('aria-hidden', 'true');
+  probe.style.cssText = `position:absolute;left:0;top:0;width:${width}px;visibility:hidden;pointer-events:none;`;
+  body.parentNode.append(probe);
+  let height = 0;
+  for (const entry of heroReserveEntries) {
+    const info = el('div', 'hero-info');
+    info.append(el('p', 'hero-label', 'Previously'), el('h2', 'hero-title', entry.title));
+    if (entry.meta) info.append(el('p', 'hero-meta', entry.meta));
+    if (entry.picker) info.append(el('p', 'hero-picker', `Picked by ${entry.picker}`));
+    probe.replaceChildren(info);
+    height = Math.max(height, info.getBoundingClientRect().height);
+  }
+  probe.remove();
+  tallestHeroInfo = { width, height };
+  return height;
+}
+
+function updateHeroReserve() {
+  const hero = document.getElementById('hero');
+  const body = hero?.querySelector('.hero-body');
+  const info = body?.querySelector('.hero-info');
+  if (!info || !heroReserveEntries.length) return;
+  const reserve = Math.max(0, measureTallestHeroInfo(body) - info.getBoundingClientRect().height);
+  hero.style.setProperty('--hero-reserve', `${reserve}px`);
+}
+
 let backdropResizeTimer;
 window.addEventListener('resize', () => {
   clearTimeout(backdropResizeTimer);
   backdropResizeTimer = setTimeout(() => {
     updateBackdropExtent();
     updateHeroNavPosition();
+    updateHeroReserve();
   }, 100);
+});
+// Line counts can change once the web font finishes loading (it's wider
+// than the fallback), after the first render has already measured.
+document.fonts?.ready.then(() => {
+  tallestHeroInfo = { width: 0, height: 0 };
+  updateHeroReserve();
 });
 
 function filmGridItem(film, meta, imageBase) {
@@ -2445,6 +2503,19 @@ async function main() {
     return renderHeroPrevious(entry.film, entry.meta, imageBase, picker, {
       onOlder: index + 1 < history.length ? () => transitionHero(() => goToHistory(index + 1), 'prev') : null,
       onNewer: () => transitionHero(index === 0 ? showFront : () => goToHistory(index - 1), 'next'),
+    });
+  }
+
+  heroReserveEntries = history.map(entry => ({
+    title: entry.film.title,
+    meta: heroMetaText(entry.film, entry.meta),
+    picker: pickers?.picks?.[`${entry.year}:${entry.film.slug}`],
+  }));
+  if (isUpcoming) {
+    heroReserveEntries.push({
+      title: scheduledFilm.title,
+      meta: heroMetaText(scheduledFilm, tmdb?.films?.[scheduledFilm.slug]),
+      picker: schedule.picker,
     });
   }
 

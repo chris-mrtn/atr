@@ -735,7 +735,11 @@ h1 {
 
 /* Hero - the next film ----------------------------------------------- */
 
-#hero { margin-bottom: 40pt; }
+/* --hero-reserve tops the hero up to the height of the tallest film it can
+   show (set from JS, see updateHeroReserve() in app.js), so the archive
+   list below stays put as you step between films whose titles/metadata
+   wrap to a different number of lines. */
+#hero { margin-bottom: calc(40pt + var(--hero-reserve, 0px)); }
 
 /* No card around it: at this size the poster is the object, and a border
    would just draw a box around a picture that already has edges. The
