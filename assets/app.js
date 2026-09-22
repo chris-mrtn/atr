@@ -2191,7 +2191,7 @@ function renderStatsPage(archive, tmdb, pickers, members) {
       { film: s.shortest, display: s.shortest ? String(s.shortest.meta.runtime) : null, label: 'shortest movie', unit: 'mins' },
       { film: s.longest, display: s.longest ? String(s.longest.meta.runtime) : null, label: 'longest movie', unit: 'mins' },
     ),
-    statItem(s.topGenre ? String(s.topGenre.count) : null, 'most watched genre', { unit: s.topGenre?.pluralLabel }),
+    statItem(s.topGenre ? String(s.topGenre.count) : null, 'most picked genre', { unit: s.topGenre?.pluralLabel }),
     statItem(s.topDecade?.label ?? null, 'most picked decade'),
     statItem(s.davePctAnime != null ? `${s.davePctAnime}%` : null, 'dave picks are anime'),
     ...(s.jamesBollywoodCount ? [statItem(String(s.jamesBollywoodCount), 'bollywood films picked by james')] : []),
