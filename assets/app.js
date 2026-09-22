@@ -585,6 +585,33 @@ function dominantColors(img, { size = 32, count = 3 } = {}) {
   return colors;
 }
 
+/**
+ * Sampling a poster is a network fetch + decode, so it's too slow to do on
+ * every hero nav click and still have the backdrop colour ready the instant
+ * the new poster reveals (see transitionHero() and applyBackdrop()) -
+ * without this, the label/backdrop visibly caught up to the right colour
+ * after the poster had already landed. Caching by sample URL means a film
+ * only ever gets sampled once per page load; main() also prefetches
+ * whichever film a nav click would go to next, so by the time someone
+ * actually clicks, this is usually already resolved.
+ */
+const backdropColorCache = new Map();
+
+function fetchBackdropColors(sampleUrl) {
+  if (!sampleUrl) return Promise.resolve(null);
+  if (!backdropColorCache.has(sampleUrl)) {
+    const promise = loadSampleImage(sampleUrl)
+      .then(bitmap => dominantColors(bitmap))
+      .catch(err => {
+        console.warn('backdrop: could not sample poster —', err.message);
+        backdropColorCache.delete(sampleUrl); // don't poison the cache - let a later attempt retry
+        return null;
+      });
+    backdropColorCache.set(sampleUrl, promise);
+  }
+  return backdropColorCache.get(sampleUrl);
+}
+
 function rgbToHsl([r, g, b]) {
   r /= 255; g /= 255; b /= 255;
   const max = Math.max(r, g, b), min = Math.min(r, g, b);
@@ -649,7 +676,7 @@ function setBackdropColorVars(vivid) {
  * new value every frame - rather than the old approach of fading the whole
  * backdrop element through transparent, which read as a dip to black.
  */
-function applyBackdrop(colors, { animate = false, duration = 260 } = {}) {
+function applyBackdrop(colors, { animate = false, duration = 200 } = {}) {
   if (!colors || !colors.length) return Promise.resolve();
   const vivid = colors.map(rgb => vivify(rgb));
   while (vivid.length < 3) vivid.push(vivid[vivid.length - 1]);
@@ -906,8 +933,18 @@ function updateHeroNavPosition() {
  * hero render on page load stays instant, going through the render
  * functions directly.
  */
-const HERO_FADE_MS = 220;
+const HERO_FADE_MS = 180;
 const HERO_SLIDE_PX = 24;
+// Most nav clicks land on an already-prefetched poster (see
+// prefetchPoster() in main()), so backdropReady below usually resolves
+// near-instantly. This just bounds the rare case where it doesn't (a cold
+// cache, a slow connection) so a nav click never feels stuck waiting on
+// the network - past this, reveal anyway with whatever colour's current.
+const HERO_BACKDROP_WAIT_MS = 180;
+
+function delay(ms) {
+  return new Promise(resolve => setTimeout(resolve, ms));
+}
 
 function transitionHero(renderFn, direction = 'prev') {
   const hero = document.getElementById('hero');
@@ -954,15 +991,16 @@ function transitionHero(renderFn, direction = 'prev') {
     if (newPoster) newPoster.style.transition = '';
     if (newBody) newBody.style.transition = '';
 
-    Promise.resolve(backdropReady).catch(() => {}).then(() => {
-      requestAnimationFrame(() => {
-        if (newPoster) {
-          newPoster.style.opacity = '1';
-          newPoster.style.transform = 'translateX(0)';
-        }
-        if (newBody) newBody.style.opacity = '1';
+    Promise.race([Promise.resolve(backdropReady).catch(() => {}), delay(HERO_BACKDROP_WAIT_MS)])
+      .then(() => {
+        requestAnimationFrame(() => {
+          if (newPoster) {
+            newPoster.style.opacity = '1';
+            newPoster.style.transform = 'translateX(0)';
+          }
+          if (newBody) newBody.style.opacity = '1';
+        });
       });
-    });
   }, HERO_FADE_MS);
 }
 
@@ -1024,9 +1062,8 @@ function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } 
     img.height = 750;
     img.addEventListener('error', () => art.classList.add('empty'), { once: true });
 
-    backdropReady = loadSampleImage(`${imageBase}/w185${meta.posterPath}`)
-      .then(bitmap => applyBackdrop(dominantColors(bitmap), { animate: true }))
-      .catch(err => console.warn('backdrop: could not sample poster —', err.message));
+    backdropReady = fetchBackdropColors(`${imageBase}/w185${meta.posterPath}`)
+      .then(colors => applyBackdrop(colors, { animate: true }));
 
     art.append(img);
   } else {
@@ -1086,11 +1123,11 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
     img.height = 750;
     img.addEventListener('error', () => art.classList.add('empty'), { once: true });
 
-    // Sample the poster for the backdrop colour. Failure here is cosmetic:
-    // the poster still renders, we just get no wash.
-    backdropReady = loadSampleImage(`${imageBase}/w185${meta.posterPath}`)
-      .then(bitmap => applyBackdrop(dominantColors(bitmap), { animate: true }))
-      .catch(err => console.warn('backdrop: could not sample poster —', err.message));
+    // Sample the poster for the backdrop colour (cached - see
+    // fetchBackdropColors()). Failure here is cosmetic: the poster still
+    // renders, we just get no wash.
+    backdropReady = fetchBackdropColors(`${imageBase}/w185${meta.posterPath}`)
+      .then(colors => applyBackdrop(colors, { animate: true }));
 
     art.append(img);
   } else {
@@ -2288,7 +2325,15 @@ async function main() {
   // start), each render's own onOlder/onNewer closures carry whatever
   // index comes next, so there's no separate index variable to keep in
   // sync by hand.
+  // Warms fetchBackdropColors()'s cache for whichever film a nav click
+  // would take you to next, so by the time that click actually happens the
+  // colour is usually already known instead of only starting to load then.
+  function prefetchPoster(meta) {
+    if (meta?.posterPath) fetchBackdropColors(`${imageBase}/w185${meta.posterPath}`);
+  }
+
   function showFront() {
+    if (history.length) prefetchPoster(history[0].meta);
     if (isUpcoming) {
       return renderHeroUpcoming(
         scheduledFilm, tmdb?.films?.[scheduledFilm.slug], imageBase, schedule.picker, schedule.scheduledFor,
@@ -2301,6 +2346,10 @@ async function main() {
   }
 
   function goToHistory(index) {
+    if (index + 1 < history.length) prefetchPoster(history[index + 1].meta);
+    if (index > 0) prefetchPoster(history[index - 1].meta);
+    else if (isUpcoming) prefetchPoster(tmdb?.films?.[scheduledFilm.slug]);
+
     const entry = history[index];
     const picker = pickers?.picks?.[`${entry.year}:${entry.film.slug}`];
     return renderHeroPrevious(entry.film, entry.meta, imageBase, picker, {
