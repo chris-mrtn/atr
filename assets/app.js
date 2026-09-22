@@ -1044,23 +1044,36 @@ function transitionHero(renderFn, direction = 'prev') {
     if (newPoster) newPoster.style.transition = '';
     if (newBody) newBody.style.transition = '';
     requestAnimationFrame(() => {
-      hero.style.height = `${heightAfter}px`;
       if (newPoster) {
         newPoster.style.opacity = '1';
         newPoster.style.transform = 'translateX(0)';
       }
       if (newBody) newBody.style.opacity = '1';
     });
+    // Height needs its own double rAF, not the single one above - height is
+    // a layout-affecting property, and browsers are much more willing to
+    // coalesce a layout-triggering "before" and "after" value into one
+    // frame (skipping the transition entirely, which read as the archive
+    // list popping into place) than they are for a compositor-only one
+    // like opacity/transform. Two nested rAFs reliably straddle an actual
+    // painted frame in between; one on its own doesn't always.
+    requestAnimationFrame(() => {
+      requestAnimationFrame(() => {
+        hero.style.height = `${heightAfter}px`;
 
-    // Once the height's had time to settle, hand it back to ordinary
-    // layout (auto height) rather than leaving it pinned to a stale pixel
-    // value a later resize or content change wouldn't naturally track. A
-    // plain timeout rather than a transitionend listener, since heights
-    // that land on (or round to) the same pixel value never fire one.
-    heroHeightCleanupTimer = setTimeout(() => {
-      hero.style.height = '';
-      hero.style.overflow = '';
-    }, HERO_HEIGHT_MS);
+        // Once the height's had time to settle, hand it back to ordinary
+        // layout (auto height) rather than leaving it pinned to a stale
+        // pixel value a later resize or content change wouldn't naturally
+        // track. A plain timeout rather than a transitionend listener,
+        // since heights that land on (or round to) the same pixel value
+        // never fire one. Started from here, not before the double rAF
+        // above, so it actually covers the transition's own duration.
+        heroHeightCleanupTimer = setTimeout(() => {
+          hero.style.height = '';
+          hero.style.overflow = '';
+        }, HERO_HEIGHT_MS);
+      });
+    });
   }, HERO_FADE_MS);
 }
 
