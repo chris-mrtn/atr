@@ -1,5 +1,5 @@
 {
-  "generatedAt": "2026-09-22T03:27:58+00:00",
+  "generatedAt": "2026-09-22T05:39:05+00:00",
   "note": "Dominant poster colours for the hero backdrop - see scripts/poster-colors.py.",
   "colors": {
     "/105stT9GkiENXiYqvWYKoAuHKQL.jpg": [
@@ -87,23 +87,6 @@
         72
       ]
     ],
-    "/1ho0d4LNZw3Y0voeKmSvPSgJOJ2.jpg": [
-      [
-        74,
-        84,
-        131
-      ],
-      [
-        106,
-        116,
-        151
-      ],
-      [
-        139,
-        148,
-        173
-      ]
-    ],
     "/1qhOyf5C4s9ZdvY8d5JDx9DFMeT.jpg": [
       [
         88,
@@ -170,23 +153,6 @@
         102,
         101,
         140
-      ]
-    ],
-    "/3iVDCDS1VwHIm95PjWEPwsfdhaf.jpg": [
-      [
-        168,
-        102,
-        56
-      ],
-      [
-        230,
-        212,
-        184
-      ],
-      [
-        119,
-        70,
-        42
       ]
     ],
     "/43I9DcNoCzpyzK8JCkJYpHqHqGG.jpg": [
@@ -272,6 +238,23 @@
         119,
         164,
         181
+      ]
+    ],
+    "/5konZnIbcAxZjP616Cz5o9bKEfW.jpg": [
+      [
+        226,
+        24,
+        14
+      ],
+      [
+        234,
+        170,
+        166
+      ],
+      [
+        231,
+        141,
+        137
       ]
     ],
     "/66A9MqXOyVFCssoloscw79z8Tew.jpg": [
@@ -611,23 +594,6 @@
         152
       ]
     ],
-    "/af7yguGbWQyvYtk6QCD5l4yBbKN.jpg": [
-      [
-        54,
-        73,
-        72
-      ],
-      [
-        24,
-        42,
-        40
-      ],
-      [
-        56,
-        102,
-        104
-      ]
-    ],
     "/aviJMFZSnnCAsCVyJGaPNx4Ef3i.jpg": [
       [
         8,
@@ -660,6 +626,23 @@
         88,
         168,
         196
+      ]
+    ],
+    "/bVlXZnI24U4QPlGvggUbeShMhz8.jpg": [
+      [
+        102,
+        103,
+        73
+      ],
+      [
+        2,
+        122,
+        61
+      ],
+      [
+        72,
+        73,
+        53
       ]
     ],
     "/bgnXNBdjqQmVrIthQI5B8eKDKp1.jpg": [
@@ -1118,6 +1101,23 @@
         11
       ]
     ],
+    "/j2ajSnvBSb0rvDJrlTWTsxsmHWJ.jpg": [
+      [
+        181,
+        105,
+        56
+      ],
+      [
+        198,
+        150,
+        121
+      ],
+      [
+        219,
+        196,
+        171
+      ]
+    ],
     "/jBg64OA2QEWL0zaOFMoAGipeGjJ.jpg": [
       [
         118,
@@ -1150,6 +1150,23 @@
         200,
         152,
         106
+      ]
+    ],
+    "/kQs6keheMwCxJxrzV83VUwFtHkB.jpg": [
+      [
+        106,
+        115,
+        148
+      ],
+      [
+        137,
+        147,
+        169
+      ],
+      [
+        60,
+        69,
+        87
       ]
     ],
     "/kcBYKHyg9GcQqa6DWq0AuQDhtPI.jpg": [
@@ -1399,6 +1416,23 @@
         199
       ]
     ],
+    "/rWcfOdY7TU6lTdazWj0ebDZnAfO.jpg": [
+      [
+        41,
+        200,
+        232
+      ],
+      [
+        56,
+        101,
+        106
+      ],
+      [
+        56,
+        72,
+        73
+      ]
+    ],
     "/rp5JPIyZi9sMob15l46zNQLe5cO.jpg": [
       [
         36,
@@ -1421,23 +1455,6 @@
         103,
         53,
         41
-      ]
-    ],
-    "/s7XYieuZg9kMe07i9VI4bfGN4Pw.jpg": [
-      [
-        135,
-        27,
-        38
-      ],
-      [
-        149,
-        59,
-        70
-      ],
-      [
-        181,
-        122,
-        133
       ]
     ],
     "/sCSQFK9kMsprT4jgWqgw82dT6WI.jpg": [
@@ -1940,13 +1957,6 @@
         235,
         211,
         169
-      ]
-    ],
-    "/zK7HsOC7QxW1ldKIeFG8YJ5F2Eb.jpg": [
-      [
-        34,
-        37,
-        30
       ]
     ],
     "/zQoNkO99qfaBjh5aoA0pKau1prp.jpg": [
