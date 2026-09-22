@@ -1125,6 +1125,34 @@ function transitionHero(renderFn, direction = 'prev') {
 }
 
 /**
+ * The hero poster's image sources, in one place so preloadHeroPoster()
+ * below asks for exactly the same size the real <img> will pick - the
+ * browser chooses from srcset by screen width and pixel density, so a
+ * preload with different sources would warm the cache for the wrong file.
+ */
+function setHeroPosterSources(img, imageBase, posterPath) {
+  img.sizes = '(max-width: 34rem) 60vw, 20rem';
+  img.srcset = [342, 500, 780].map(w => `${imageBase}/w${w}${posterPath} ${w}w`).join(', ');
+  img.src = `${imageBase}/w500${posterPath}`;
+}
+
+/**
+ * Downloads (and decodes) a hero poster ahead of time, so stepping to that
+ * film shows its poster straight away instead of an empty frame while it
+ * loads. Kept in a map both so each poster is only requested once and so
+ * the Image objects stay referenced until they've finished loading.
+ */
+const preloadedHeroPosters = new Map();
+
+function preloadHeroPoster(imageBase, posterPath) {
+  if (!posterPath || preloadedHeroPosters.has(posterPath)) return;
+  const img = new Image();
+  setHeroPosterSources(img, imageBase, posterPath);
+  img.decode?.().catch(() => {}); // failures show as the usual empty poster later
+  preloadedHeroPosters.set(posterPath, img);
+}
+
+/**
  * "Where to Watch" - a link out to the film on JustWatch, in the visitor's
  * country: Australia for an Australian time zone (the Melbourne/Adelaide
  * members), the US otherwise (the LA member, and a reasonable default for
@@ -1191,9 +1219,7 @@ function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } 
   const label = el('p', 'hero-label', 'Previously');
   if (meta?.posterPath) {
     const img = el('img');
-    img.src = `${imageBase}/w500${meta.posterPath}`;
-    img.srcset = [342, 500, 780].map(w => `${imageBase}/w${w}${meta.posterPath} ${w}w`).join(', ');
-    img.sizes = '(max-width: 34rem) 60vw, 20rem';
+    setHeroPosterSources(img, imageBase, meta.posterPath);
     img.alt = `Poster for ${film.title}`;
     img.width = 500;
     img.height = 750;
@@ -1258,9 +1284,7 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
   const label = el('p', 'hero-label', 'Now Showing');
   if (meta?.posterPath) {
     const img = el('img');
-    img.src = `${imageBase}/w500${meta.posterPath}`;
-    img.srcset = [342, 500, 780].map(w => `${imageBase}/w${w}${meta.posterPath} ${w}w`).join(', ');
-    img.sizes = '(max-width: 34rem) 60vw, 20rem';
+    setHeroPosterSources(img, imageBase, meta.posterPath);
     img.alt = `Poster for ${film.title}`;
     img.width = 500;
     img.height = 750;
@@ -2595,11 +2619,14 @@ async function main() {
   // start), each render's own onOlder/onNewer closures carry whatever
   // index comes next, so there's no separate index variable to keep in
   // sync by hand.
-  // Warms fetchBackdropColors()'s cache for whichever film a nav click
-  // would take you to next, so by the time that click actually happens the
-  // colour is usually already known instead of only starting to load then.
+  // Gets whichever film a nav click (or swipe) would take you to next
+  // ready ahead of time - its backdrop colours, if they aren't already
+  // known from poster-colors.json, and the poster image itself - so it
+  // shows up complete rather than loading in after it arrives.
   function prefetchPoster(meta) {
-    if (meta?.posterPath) fetchBackdropColors(`${imageBase}/w185${meta.posterPath}`);
+    if (!meta?.posterPath) return;
+    fetchBackdropColors(`${imageBase}/w185${meta.posterPath}`);
+    preloadHeroPoster(imageBase, meta.posterPath);
   }
 
   function showFront() {
@@ -2616,7 +2643,10 @@ async function main() {
   }
 
   function goToHistory(index) {
+    // Two back rather than one, since stepping back through the archive
+    // is the usual direction and swipes can come in quick succession.
     if (index + 1 < history.length) prefetchPoster(history[index + 1].meta);
+    if (index + 2 < history.length) prefetchPoster(history[index + 2].meta);
     if (index > 0) prefetchPoster(history[index - 1].meta);
     else if (isUpcoming) prefetchPoster(tmdb?.films?.[scheduledFilm.slug]);
 
