@@ -1,0 +1,6 @@
+{
+  "note": "Hand-picked hero colours that replace a film's sampled poster colours (data/poster-colors.json). Keyed by film slug; up to three [r, g, b] colours, most prominent first.",
+  "colors": {
+    "the-substance": [[57, 255, 20], [30, 205, 60], [160, 255, 70]]
+  }
+}

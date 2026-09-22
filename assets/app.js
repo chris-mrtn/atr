@@ -943,6 +943,22 @@ function heroNavButton(direction, label, onClick) {
  * function with whichever callbacks actually apply (a null skips that
  * button entirely, same "not created at all" rule as before).
  */
+// Left/right arrow keys step through the hero the same as its prev/next
+// arrows - they just click whichever arrow is currently showing. Ignored
+// while typing somewhere, with a modifier held (so browser shortcuts like
+// Cmd+Left still work), or while the stats page or filters are open.
+document.addEventListener('keydown', e => {
+  if (e.key !== 'ArrowLeft' && e.key !== 'ArrowRight') return;
+  if (e.defaultPrevented || e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+  if (e.target.closest?.('input, textarea, select, [contenteditable]')) return;
+  if (document.getElementById('stats-page')?.hidden === false) return;
+  if (document.getElementById('filter-overlay')?.hidden === false) return;
+  const arrow = document.querySelector(e.key === 'ArrowLeft' ? '.hero-nav-prev' : '.hero-nav-next');
+  if (!arrow) return;
+  e.preventDefault();
+  arrow.click();
+});
+
 function setHeroNav({ onPrev, onNext }) {
   document.querySelectorAll('.hero-nav').forEach(n => n.remove());
   if (onPrev) document.body.append(heroNavButton('prev', 'Show previous film', onPrev));
@@ -2429,6 +2445,15 @@ async function main() {
   const imageBase = tmdb?.imageBase ?? 'https://image.tmdb.org/t/p';
   // Pre-sampled poster colours - optional, like the other enrichment files.
   seedBackdropColors(imageBase, await loadJson('data/poster-colors.json', { required: false }));
+  // Hand-picked colours for particular films, keyed by slug - seeded after
+  // the sampled ones so they win. Hand-edited, unlike poster-colors.json,
+  // which the update workflow regenerates.
+  const colorOverrides = await loadJson('data/poster-color-overrides.json', { required: false });
+  seedBackdropColors(imageBase, {
+    colors: Object.fromEntries(Object.entries(colorOverrides?.colors ?? {})
+      .map(([slug, colors]) => [tmdb?.films?.[slug]?.posterPath, colors])
+      .filter(([posterPath]) => posterPath)),
+  });
   const years = [...(films.years ?? [])].sort((a, b) => b.year - a.year)
     .map(y => ({ ...y, films: [...y.films] }));
 
