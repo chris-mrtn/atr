@@ -1226,7 +1226,7 @@ function buildScheduleSlot(content) {
  * for an upcoming pick - transitionHero() animates that height change, so
  * the archive list below visibly slides up rather than jumping.
  */
-function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } = {}) {
+function renderHeroPrevious(film, meta, imageBase, picker, { pickNumber, onOlder, onNewer } = {}) {
   const hero = document.getElementById('hero');
   hero.hidden = false;
   hero.replaceChildren();
@@ -1234,7 +1234,8 @@ function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } 
   const wrap = el('div', 'hero-inner');
 
   const art = el('div', 'hero-poster');
-  const label = el('p', 'hero-label', 'Previously');
+  // Where this film sits in the club's history - #1 is the very first pick.
+  const label = el('p', 'hero-label', pickNumber ? `#${pickNumber}` : 'Previously');
   if (meta?.posterPath) {
     const img = el('img');
     setHeroPosterSources(img, imageBase, meta.posterPath);
@@ -1506,7 +1507,7 @@ function measureTallestHeroInfo(body) {
   let height = 0;
   for (const entry of heroReserveEntries) {
     const info = el('div', 'hero-info');
-    info.append(el('p', 'hero-label', 'Previously'), el('h2', 'hero-title', entry.title));
+    info.append(el('p', 'hero-label', '#000'), el('h2', 'hero-title', entry.title));
     if (entry.meta) info.append(el('p', 'hero-meta', entry.meta));
     if (entry.picker) info.append(el('p', 'hero-picker', `Picked by ${entry.picker}`));
     probe.replaceChildren(info);
@@ -2671,6 +2672,8 @@ async function main() {
     const entry = history[index];
     const picker = pickers?.picks?.[`${entry.year}:${entry.film.slug}`];
     return renderHeroPrevious(entry.film, entry.meta, imageBase, picker, {
+      // history runs newest first, so the oldest film (the last entry) is #1.
+      pickNumber: history.length - index,
       onOlder: index + 1 < history.length ? () => transitionHero(() => goToHistory(index + 1), 'prev') : null,
       onNewer: () => transitionHero(index === 0 ? showFront : () => goToHistory(index - 1), 'next'),
     });
