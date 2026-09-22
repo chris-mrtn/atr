@@ -817,7 +817,7 @@ h1 {
 .hero-schedule-slot.is-collapsed {
   grid-template-rows: 0fr;
   opacity: 0;
-  transition: grid-template-rows .2s ease, opacity .1s ease;
+  transition: grid-template-rows .2s ease, opacity .05s linear;
 }
 .hero-schedule-clip { min-height: 0; overflow: hidden; }
 .hero-schedule-pad { padding-top: 1.25rem; }
