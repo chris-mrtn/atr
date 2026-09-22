@@ -713,7 +713,6 @@ h1 {
   align-items: center;
   text-align: center;
   gap: 1.5rem;
-  transition: opacity .22s ease, transform .22s ease;
 }
 
 .hero-poster {
@@ -725,6 +724,9 @@ h1 {
   overflow: hidden;
   background: var(--rule);
   box-shadow: 0 2px 4px rgba(0,0,0,.5), 0 18px 44px rgba(0,0,0,.45);
+  /* Only the poster slides/fades on a nav click (see transitionHero() in
+     app.js) - title, metadata etc below it swap instantly and stay put. */
+  transition: opacity .22s ease, transform .22s ease;
 }
 .hero-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
 

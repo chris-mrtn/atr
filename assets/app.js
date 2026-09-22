@@ -878,28 +878,30 @@ function updateHeroNavPosition() {
 }
 
 /**
- * Crossfades between hero states around a nav click, rather than the
- * abrupt swap a plain re-render gives you - slides the current poster/
- * title/etc out (a short lateral shift alongside the fade, in whichever
- * direction the click moved through the archive) and swaps in the new
- * render (a normal hero render function, unaware it's being animated -
- * it just rebuilds .hero-inner from scratch like it always has), which
- * slides and fades in from the opposite side. The backdrop mesh crossfades
- * its colours directly (see applyBackdrop()'s animate option) rather than
- * dipping through transparent, so it never reads as a flash to black.
- * Only ever called from a nav click - the very first hero render on page
- * load stays instant, going through the render functions directly.
+ * Steps between hero states around a nav click, rather than the abrupt
+ * swap a plain re-render gives you - slides and fades only the poster
+ * itself out and the new one in (in whichever direction the click moved
+ * through the archive); the title/metadata/picker/schedule row next to it
+ * stay exactly where they are and just swap to the new film's text the
+ * instant the render happens, no animation of their own. The render
+ * function is a normal hero render function, unaware it's being animated -
+ * it just rebuilds .hero-inner from scratch like it always has. The
+ * backdrop mesh crossfades its colours directly (see applyBackdrop()'s
+ * animate option) rather than dipping through transparent, so it never
+ * reads as a flash to black. Only ever called from a nav click - the very
+ * first hero render on page load stays instant, going through the render
+ * functions directly.
  */
 const HERO_FADE_MS = 220;
 const HERO_SLIDE_PX = 24;
 
 function transitionHero(renderFn, direction = 'prev') {
   const hero = document.getElementById('hero');
-  const currentInner = hero.querySelector('.hero-inner');
+  const currentPoster = hero.querySelector('.hero-poster');
 
   // Nothing on screen yet to fade from (shouldn't happen once a nav arrow
   // exists at all, but cheap to guard) - just render straight away.
-  if (!currentInner) { renderFn(); return; }
+  if (!currentPoster) { renderFn(); return; }
 
   // 'prev' (older, left arrow) slides the outgoing poster right and brings
   // the incoming one in from the left; 'next' (newer, right arrow) is the
@@ -907,27 +909,27 @@ function transitionHero(renderFn, direction = 'prev') {
   const exitX = direction === 'prev' ? HERO_SLIDE_PX : -HERO_SLIDE_PX;
   const enterX = direction === 'prev' ? -HERO_SLIDE_PX : HERO_SLIDE_PX;
 
-  currentInner.style.opacity = '0';
-  currentInner.style.transform = `translateX(${exitX}px)`;
+  currentPoster.style.opacity = '0';
+  currentPoster.style.transform = `translateX(${exitX}px)`;
 
   setTimeout(() => {
     renderFn();
 
-    const newInner = hero.querySelector('.hero-inner');
-    if (newInner) {
+    const newPoster = hero.querySelector('.hero-poster');
+    if (newPoster) {
       // Same transition-suppression trick dropStaleHover() uses - start
       // faded/offset with transitions off, force the browser to register
       // that frame, then hand control back so the slide-fade-in actually
       // animates instead of the swap and the transition landing in the
       // same paint.
-      newInner.style.transition = 'none';
-      newInner.style.opacity = '0';
-      newInner.style.transform = `translateX(${enterX}px)`;
-      void newInner.offsetHeight;
-      newInner.style.transition = '';
+      newPoster.style.transition = 'none';
+      newPoster.style.opacity = '0';
+      newPoster.style.transform = `translateX(${enterX}px)`;
+      void newPoster.offsetHeight;
+      newPoster.style.transition = '';
       requestAnimationFrame(() => {
-        newInner.style.opacity = '1';
-        newInner.style.transform = 'translateX(0)';
+        newPoster.style.opacity = '1';
+        newPoster.style.transform = 'translateX(0)';
       });
     }
   }, HERO_FADE_MS);
