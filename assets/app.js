@@ -934,7 +934,7 @@ function updateHeroNavPosition() {
  * functions directly.
  */
 const HERO_FADE_MS = 120;
-const HERO_SLIDE_PX = 50;
+const HERO_SLIDE_PX = 10;
 // Most nav clicks land on an already-prefetched poster (see
 // prefetchPoster() in main()), so backdropReady below usually resolves
 // near-instantly. This just bounds the rare case where it doesn't (a cold
