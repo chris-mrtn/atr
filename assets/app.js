@@ -676,7 +676,7 @@ function setBackdropColorVars(vivid) {
  * new value every frame - rather than the old approach of fading the whole
  * backdrop element through transparent, which read as a dip to black.
  */
-function applyBackdrop(colors, { animate = false, duration = 140 } = {}) {
+function applyBackdrop(colors, { animate = false, duration = 90 } = {}) {
   if (!colors || !colors.length) return Promise.resolve();
   const vivid = colors.map(rgb => vivify(rgb));
   while (vivid.length < 3) vivid.push(vivid[vivid.length - 1]);
@@ -936,11 +936,15 @@ function updateHeroNavPosition() {
 const HERO_FADE_MS = 120;
 const HERO_SLIDE_PX = 10;
 // Most nav clicks land on an already-prefetched poster (see
-// prefetchPoster() in main()), so backdropReady below usually resolves
-// near-instantly. This just bounds the rare case where it doesn't (a cold
-// cache, a slow connection) so a nav click never feels stuck waiting on
-// the network - past this, reveal anyway with whatever colour's current.
-const HERO_BACKDROP_WAIT_MS = 100;
+// prefetchPoster() in main()), so backdropReady below usually resolves in
+// well under this - just the backdrop's own ~90ms crossfade (applyBackdrop()'s
+// default duration), not a network round trip. This is a fallback, not the
+// normal path: it only matters for a cold cache on a slow connection, so a
+// nav click can never feel stuck waiting on the network - past this, reveal
+// anyway with whatever colour's current. It must stay comfortably above
+// applyBackdrop()'s crossfade duration, or the common case would itself hit
+// this timeout before the crossfade finishes, revealing early every time.
+const HERO_BACKDROP_WAIT_MS = 600;
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));
