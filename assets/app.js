@@ -678,16 +678,34 @@ function hslToRgb([h, s, l]) {
  * sepia resolves to a grey-green that looks like nothing on screen - and the
  * point of the wash is to be seen.
  */
-function vivify(rgb, { minSat = 0.45, minLight = 0.32, maxLight = 0.6 } = {}) {
+function vivify(rgb, { minSat = 0.45, minLight = 0.32, maxLight = 0.6, grey = false } = {}) {
   const [h, s, l] = rgbToHsl(rgb);
-  return hslToRgb([h, Math.max(s, minSat), Math.min(Math.max(l, minLight), maxLight)]);
+  const light = Math.min(Math.max(l, minLight), maxLight);
+  // Grey stays grey (see vivifyAll()) - only the lightness is adjusted, so
+  // the wash is still visible.
+  if (grey) return hslToRgb([0, 0, light]);
+  return hslToRgb([h, Math.max(s, minSat), light]);
 }
+
+/**
+ * Below this saturation a colour is effectively grey. 0.12 sits between the
+ * black-and-white posters (all ~0.11 or less) and the greyest real tint in
+ * the archive (Eyes Without a Face, ~0.14).
+ */
+const GREY_SATURATION = 0.12;
 
 /** vivify() each sampled colour, padding out to three if the poster only
  * yielded one or two - shared by applyBackdrop() and blendLabelColor() so
  * they're always working from the same three colours. */
 function vivifyAll(colors) {
-  const vivid = colors.map(rgb => vivify(rgb));
+  // A poster whose colours are all near-grey - a black-and-white one - gets
+  // a grey wash rather than a boosted one: a grey's hue is just rounding
+  // noise, so boosting it gave Persona a red wash, Before the Devil Knows
+  // You're Dead a blue one, and so on, for no reason to do with the film.
+  // Decided for the poster as a whole, so a muted colour poster whose
+  // palette happens to include one greyish swatch keeps all its colour.
+  const grey = colors.every(rgb => rgbToHsl(rgb)[1] < GREY_SATURATION);
+  const vivid = colors.map(rgb => vivify(rgb, { grey }));
   while (vivid.length < 3) vivid.push(vivid[vivid.length - 1]);
   return vivid;
 }
