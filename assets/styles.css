@@ -762,6 +762,9 @@ h1 {
      app.js) - .hero-body below it fades along with it but never slides,
      so the title/metadata don't shift position. */
   transition: opacity calc(.12s * var(--hero-anim-scale, 1)) ease, transform calc(.12s * var(--hero-anim-scale, 1)) ease;
+  /* Same reason as .hero-body's will-change - no layer drop (and redraw)
+     when the slide/fade finishes. */
+  will-change: opacity, transform;
 }
 .hero-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -824,6 +827,14 @@ h1 {
      app.js) - no slide of its own, just opacity, so it doesn't shift the
      archive list below it. */
   transition: opacity calc(.12s * var(--hero-anim-scale, 1)) ease;
+  /* Safari draws text differently while an opacity fade is running (in
+     its own compositing layer) than after it finishes (layer dropped,
+     text redrawn normally) - on the small coloured hero label that read
+     as its colour popping in right after the fade. Keeping the layer
+     permanently (will-change) and using the same text smoothing either
+     way means nothing changes at the end of the fade. */
+  will-change: opacity;
+  -webkit-font-smoothing: antialiased;
 }
 
 .hero-info { text-align: center; }
