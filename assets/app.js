@@ -879,18 +879,18 @@ function updateHeroNavPosition() {
 
 /**
  * Steps between hero states around a nav click, rather than the abrupt
- * swap a plain re-render gives you - slides and fades only the poster
- * itself out and the new one in (in whichever direction the click moved
- * through the archive); the title/metadata/picker/schedule row next to it
- * stay exactly where they are and just swap to the new film's text the
- * instant the render happens, no animation of their own. The render
- * function is a normal hero render function, unaware it's being animated -
- * it just rebuilds .hero-inner from scratch like it always has. The
- * backdrop mesh crossfades its colours directly (see applyBackdrop()'s
- * animate option) rather than dipping through transparent, so it never
- * reads as a flash to black. Only ever called from a nav click - the very
- * first hero render on page load stays instant, going through the render
- * functions directly.
+ * swap a plain re-render gives you - slides and fades the poster itself
+ * out and the new one in (in whichever direction the click moved through
+ * the archive), while the title/metadata/picker/schedule row next to it
+ * fades along with it (opacity only, no slide of its own) so the two read
+ * as one movement without the text shifting position and jostling the
+ * archive list below it. The render function is a normal hero render
+ * function, unaware it's being animated - it just rebuilds .hero-inner
+ * from scratch like it always has. The backdrop mesh crossfades its
+ * colours directly (see applyBackdrop()'s animate option) rather than
+ * dipping through transparent, so it never reads as a flash to black.
+ * Only ever called from a nav click - the very first hero render on page
+ * load stays instant, going through the render functions directly.
  */
 const HERO_FADE_MS = 220;
 const HERO_SLIDE_PX = 24;
@@ -898,6 +898,7 @@ const HERO_SLIDE_PX = 24;
 function transitionHero(renderFn, direction = 'prev') {
   const hero = document.getElementById('hero');
   const currentPoster = hero.querySelector('.hero-poster');
+  const currentBody = hero.querySelector('.hero-body');
 
   // Nothing on screen yet to fade from (shouldn't happen once a nav arrow
   // exists at all, but cheap to guard) - just render straight away.
@@ -905,33 +906,44 @@ function transitionHero(renderFn, direction = 'prev') {
 
   // 'prev' (older, left arrow) slides the outgoing poster right and brings
   // the incoming one in from the left; 'next' (newer, right arrow) is the
-  // mirror image.
+  // mirror image. The body only ever fades, never slides.
   const exitX = direction === 'prev' ? HERO_SLIDE_PX : -HERO_SLIDE_PX;
   const enterX = direction === 'prev' ? -HERO_SLIDE_PX : HERO_SLIDE_PX;
 
   currentPoster.style.opacity = '0';
   currentPoster.style.transform = `translateX(${exitX}px)`;
+  if (currentBody) currentBody.style.opacity = '0';
 
   setTimeout(() => {
     renderFn();
 
     const newPoster = hero.querySelector('.hero-poster');
+    const newBody = hero.querySelector('.hero-body');
+
+    // Same transition-suppression trick dropStaleHover() uses - start
+    // faded/offset with transitions off, force the browser to register
+    // that frame, then hand control back so the fade-in (and, for the
+    // poster, the slide) actually animates instead of the swap and the
+    // transition landing in the same paint.
     if (newPoster) {
-      // Same transition-suppression trick dropStaleHover() uses - start
-      // faded/offset with transitions off, force the browser to register
-      // that frame, then hand control back so the slide-fade-in actually
-      // animates instead of the swap and the transition landing in the
-      // same paint.
       newPoster.style.transition = 'none';
       newPoster.style.opacity = '0';
       newPoster.style.transform = `translateX(${enterX}px)`;
-      void newPoster.offsetHeight;
-      newPoster.style.transition = '';
-      requestAnimationFrame(() => {
+    }
+    if (newBody) {
+      newBody.style.transition = 'none';
+      newBody.style.opacity = '0';
+    }
+    void hero.offsetHeight;
+    if (newPoster) newPoster.style.transition = '';
+    if (newBody) newBody.style.transition = '';
+    requestAnimationFrame(() => {
+      if (newPoster) {
         newPoster.style.opacity = '1';
         newPoster.style.transform = 'translateX(0)';
-      });
-    }
+      }
+      if (newBody) newBody.style.opacity = '1';
+    });
   }, HERO_FADE_MS);
 }
 

@@ -785,6 +785,10 @@ h1 {
   gap: 1.25rem;
   width: 100%;
   text-align: center;
+  /* Fades alongside the poster on a nav click (see transitionHero() in
+     app.js) - no slide of its own, just opacity, so it doesn't shift the
+     archive list below it. */
+  transition: opacity .22s ease;
 }
 
 .hero-info { text-align: center; }
