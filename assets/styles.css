@@ -806,9 +806,19 @@ h1 {
   grid-template-rows: 1fr;
   width: 100%;
   margin-top: -1.25rem;
-  transition: grid-template-rows .2s ease;
+  /* Opening: the box fades in a beat after the row starts growing, so it
+     appears into space that's already mostly there rather than being
+     revealed by the clip edge. */
+  transition: grid-template-rows .2s ease, opacity .14s ease .06s;
 }
-.hero-schedule-slot.is-collapsed { grid-template-rows: 0fr; }
+/* Closing: fades out quicker than the row shrinks, so it's gone before
+   the clip edge has cut into it noticeably. (A transition is taken from
+   the state being entered, hence the two different timings.) */
+.hero-schedule-slot.is-collapsed {
+  grid-template-rows: 0fr;
+  opacity: 0;
+  transition: grid-template-rows .2s ease, opacity .1s ease;
+}
 .hero-schedule-clip { min-height: 0; overflow: hidden; }
 .hero-schedule-pad { padding-top: 1.25rem; }
 
