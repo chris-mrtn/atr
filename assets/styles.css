@@ -696,7 +696,41 @@ h1 {
   font-stretch: extra-expanded;
   letter-spacing: .15em;
   text-transform: uppercase;
-  mix-blend-mode: plus-lighter;
+}
+/* The blend mode lives on the text spans rather than on .stats itself, so
+   the popcorn kernel that replaces the "o" on hover (below) can render
+   normally - a blend mode on the parent would wash out anything inside it. */
+.stats > span { mix-blend-mode: plus-lighter; }
+
+/* Popcorn easter egg trigger: the "o" in "movies". Hovering swaps it for a
+   kernel; clicking starts the effect (see main() in app.js). */
+.stats .movies-o {
+  position: relative;
+  display: inline-block;
+  cursor: pointer;
+  /* A slightly bigger hit area than the glyph itself, for touch. */
+  padding: .5em .2em;
+  margin: -.5em -.2em;
+}
+.stats .movies-o::after {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 50%;
+  width: 1.35em;
+  height: 1.35em;
+  /* Nudged left by half the letter-spacing, which sits after the glyph. */
+  margin-left: -.075em;
+  background: url('effects/kernel-1.png') center / contain no-repeat;
+  opacity: 0;
+  transform: translate(-50%, -55%) scale(.5) rotate(-20deg);
+  transition: opacity .15s ease, transform .2s ease;
+  pointer-events: none;
+}
+.stats .movies-o:hover { color: transparent; mix-blend-mode: normal; }
+.stats .movies-o:hover::after {
+  opacity: 1;
+  transform: translate(-50%, -55%) scale(1) rotate(0deg);
 }
 
 /* Hero - the next film ----------------------------------------------- */
@@ -902,6 +936,14 @@ h1 {
      out the line lengths so a title never leaves a single trailing word
      stranded on its own last line. */
   text-wrap: balance;
+  /* In ems, so the allowed line length scales with the font size (which
+     itself scales with the viewport, see font-size above) - without this a
+     title that wraps to two lines at full width jumped to one very long
+     line at in-between widths, where the font had shrunk but the column
+     hadn't yet. 17em is roughly the full-width column at the largest font
+     size, so the widest layout looks the same as before. */
+  max-width: 17em;
+  margin-inline: auto;
 }
 
 .hero-meta {

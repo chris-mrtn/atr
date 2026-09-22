@@ -33,11 +33,10 @@ const FILTER_EXPAND_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="24" he
 const FILTER_COLLAPSE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12h14"/></svg>';
 
 /* ------------------------------------------------------------------------
- * Easter egg: click the movie count in the header ("122 movies") to drop a
- * screen full of popcorn. Kernels fall from the top and pile up at the
- * bottom, then after a short pause pop into popcorn and fill the whole
- * screen. No cursor change or link styling on that text - it's not meant
- * to look clickable.
+ * Easter egg: click the "o" in "movies" in the header ("122 movies" - it
+ * turns into a popcorn kernel on hover) to drop a screen full of popcorn.
+ * Kernels fall from the top and pile up at the bottom, then after a short
+ * pause pop into popcorn and fill the whole screen.
  * ---------------------------------------------------------------------- */
 // 9 variants each (from the two 3x3 sprite sheets Chris generated) rather
 // than one fixed shape, so a screen full of pieces doesn't look like a
@@ -2453,12 +2452,16 @@ async function main() {
 
   const total = archive.reduce((n, y) => n + y.films.length, 0);
   const since = archive.length ? archive.at(-1).year : '';
-  // The "<total> movies" span is the easter egg's hidden trigger - plain
-  // text otherwise (no cursor, no underline), so clicking it looks like an
-  // accident, not an invitation.
-  const moviesCount = el('span', null, `${total} movies`);
-  moviesCount.addEventListener('click', () => triggerPopcornEffect());
-  stats.replaceChildren(moviesCount, document.createTextNode(` since ${since}`));
+  // The "o" in "movies" is the easter egg's trigger - it turns into a
+  // popcorn kernel on hover (see .movies-o in styles.css) and starts the
+  // effect when clicked. The rest of the line is plain text.
+  const moviesO = el('span', 'movies-o', 'o');
+  moviesO.addEventListener('click', () => triggerPopcornEffect());
+  stats.replaceChildren(
+    el('span', null, `${total} m`),
+    moviesO,
+    el('span', null, `vies since ${since}`),
+  );
   POPCORN_KERNEL_COUNT = Math.min(total, POPCORN_MAX_KERNELS);
 
   setupArchiveFilters(archive, container, tmdb, pickers);
