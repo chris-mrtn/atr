@@ -1115,7 +1115,8 @@ function buildWhereToWatchLink(film) {
   link.target = '_blank';
   link.rel = 'noopener';
   // Lucide "tv-minimal-play", path data from lucide.dev.
-  link.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.033 9.44a.647.647 0 0 1 0 1.12l-4.065 2.352a.645.645 0 0 1-.968-.56V7.648a.645.645 0 0 1 .967-.56z"/><path d="M7 21h10"/><rect width="20" height="14" x="2" y="3" rx="2"/></svg> Where to Watch';
+  link.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.033 9.44a.647.647 0 0 1 0 1.12l-4.065 2.352a.645.645 0 0 1-.968-.56V7.648a.645.645 0 0 1 .967-.56z"/><path d="M7 21h10"/><rect width="20" height="14" x="2" y="3" rx="2"/></svg><span class="hero-btn-text">Where to Watch</span>';
+  link.title = 'Where to Watch';
   return link;
 }
 
@@ -1282,7 +1283,10 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
   // centred-plus style) so it reads as specifically an add-to-calendar
   // action at a glance. Path data pulled straight from lucide.dev's own
   // "Edit in studio" link for this icon, so it matches exactly.
-  calendarBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 18h6"/><path d="M16 2v3"/><path d="M19 15v6"/><path d="M21 11.5V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h8.3"/><path d="M3 9h18"/><path d="M8 2v3"/></svg> Add to Calendar';
+  calendarBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 18h6"/><path d="M16 2v3"/><path d="M19 15v6"/><path d="M21 11.5V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h8.3"/><path d="M3 9h18"/><path d="M8 2v3"/></svg><span class="hero-btn-text">Add to Calendar</span>';
+  // Tooltip for when narrow screens show the icon on its own (see
+  // .hero-btn-text in styles.css) - the text stays for screen readers.
+  calendarBtn.title = 'Add to Calendar';
   calendarBtn.addEventListener('click', () => downloadMovieChatIcs(film, meta, scheduledFor));
 
   const actions = el('div', 'hero-schedule-actions');

@@ -892,28 +892,6 @@ h1 {
   text-align: left;
 }
 
-/* Once it's too narrow for the date/time and the button side by side,
-   stack them - text on top (it's already first in the markup), button
-   under it - and switch everything to centered rather than left-aligned,
-   which only made sense in the side-by-side layout. */
-@media (max-width: 440px) {
-  .hero-schedule-row {
-    flex-direction: column;
-    justify-content: center;
-    text-align: center;
-  }
-  .hero-schedule-text { align-items: center; text-align: center; }
-  /* Stacked, same width, centred under the date - there isn't room for
-     the two side by side at this width. (.hero-schedule-row prefix so this
-     outranks the base .hero-schedule-actions rule further down.) */
-  .hero-schedule-row .hero-schedule-actions {
-    margin-left: 0;
-    flex-direction: column;
-    align-items: stretch;
-  }
-  .hero-schedule-row .hero-schedule-actions .hero-calendar-btn { justify-content: center; }
-}
-
 .hero-schedule-text { display: flex; flex-direction: column; gap: .15rem; }
 
 /* "Where to Watch" and "Add to Calendar", side by side. margin-left: auto
@@ -1035,6 +1013,24 @@ a.hero-calendar-btn { text-decoration: none; }
 /* Icon picks up the button's own text colour via currentColor, same as
    the toolbar icons pick up theirs - no separate colour to keep in sync. */
 .hero-calendar-btn svg { width: .95rem; height: .95rem; flex: none; }
+
+/* Too narrow for both full buttons beside the date: drop to round,
+   icon-only buttons, so everything stays on one row instead of wrapping.
+   The label is hidden visually but kept for screen readers (not
+   display: none), and each button has a matching title for a tooltip. */
+@media (max-width: 680px) {
+  .hero-schedule-row { column-gap: .75rem; }
+  .hero-calendar-btn { padding: .65rem; }
+  .hero-calendar-btn svg { width: 1.1rem; height: 1.1rem; }
+  .hero-btn-text {
+    position: absolute;
+    width: 1px;
+    height: 1px;
+    overflow: hidden;
+    clip-path: inset(50%);
+    white-space: nowrap;
+  }
+}
 
 /* Popcorn easter egg --------------------------------------------------- */
 
