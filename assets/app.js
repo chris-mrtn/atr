@@ -974,11 +974,12 @@ function updateHeroNavPosition() {
  * Only ever called from a nav click - the very first hero render on page
  * load stays instant, going through the render functions directly.
  */
-// TEMP - slow-motion for tuning the hero nav animation. Multiplies every
+// Slow-motion knob for tuning the hero nav animation - multiplies every
 // hero transition: the JS timings here plus, via --hero-anim-scale, the
 // CSS transition durations on .hero-poster, .hero-body and
-// .hero-schedule-slot. Set back to 1 when done.
-const HERO_ANIM_SCALE = 10;
+// .hero-schedule-slot. 1 is normal speed; bump it (e.g. to 10) to watch
+// the animation closely, then set it back.
+const HERO_ANIM_SCALE = 1;
 document.documentElement.style.setProperty('--hero-anim-scale', String(HERO_ANIM_SCALE));
 
 const HERO_FADE_MS = 120 * HERO_ANIM_SCALE;
