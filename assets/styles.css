@@ -701,7 +701,14 @@ h1 {
 
 /* Hero - the next film ----------------------------------------------- */
 
-#hero { margin-bottom: clamp(2.5rem, 8vh, 5rem); }
+#hero {
+  margin-bottom: 40pt;
+  /* Animated from JS (transitionHero() in app.js) when a nav click swaps
+     in content of a different height - e.g. the calendar/schedule row
+     disappearing for a previously-watched film - so the archive list
+     below visibly slides into the freed space rather than jumping. */
+  transition: height .15s ease;
+}
 
 /* No card around it: at this size the poster is the object, and a border
    would just draw a box around a picture that already has edges. The
@@ -928,16 +935,6 @@ h1 {
 /* Icon picks up the button's own text colour via currentColor, same as
    the toolbar icons pick up theirs - no separate colour to keep in sync. */
 .hero-calendar-btn svg { width: .95rem; height: .95rem; flex: none; }
-
-/* A previously-watched film has no real date/time to show, but this still
-   renders (with placeholder content, see buildReservedScheduleRow() in
-   app.js) so the row keeps its normal height via ordinary layout instead
-   of a guessed min-height - visibility (not display) is what keeps that
-   space reserved while hiding it. */
-.hero-schedule-row--reserved {
-  visibility: hidden;
-  pointer-events: none;
-}
 
 /* Popcorn easter egg --------------------------------------------------- */
 

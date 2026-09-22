@@ -965,11 +965,29 @@ function updateHeroNavPosition() {
  * synchronously wherever possible, so there's nothing to wait for. The
  * backdrop mesh itself still crossfades its own colours smoothly on its
  * own timeline (see applyBackdrop()'s animate option), independent of
- * this. Only ever called from a nav click - the very first hero render on
- * page load stays instant, going through the render functions directly.
+ * this.
+ *
+ * A previously-watched film has no schedule row, so #hero itself ends up
+ * a different height than it is for an upcoming pick - locking #hero to
+ * its current pixel height before the swap and then animating it to the
+ * new content's natural height (a classic FLIP: measure, lock, swap,
+ * measure again, animate the difference) is what makes the archive list
+ * below visibly slide up or down into place, via #hero's own `transition:
+ * height` in styles.css, rather than jumping the instant the DOM changes.
+ *
+ * Only ever called from a nav click - the very first hero render on page
+ * load stays instant, going through the render functions directly.
  */
 const HERO_FADE_MS = 120;
 const HERO_SLIDE_PX = 10;
+// Must match #hero's own `transition: height` duration in styles.css.
+const HERO_HEIGHT_MS = 150;
+
+// Whichever transitionHero() call is most recently responsible for #hero's
+// locked height - so a second nav click fired before the first one's
+// height settles cancels that earlier cleanup instead of racing it (which
+// would otherwise unpin #hero's height mid-animation and snap it).
+let heroHeightCleanupTimer = null;
 
 function transitionHero(renderFn, direction = 'prev') {
   const hero = document.getElementById('hero');
@@ -985,6 +1003,14 @@ function transitionHero(renderFn, direction = 'prev') {
   // mirror image. The body only ever fades, never slides.
   const exitX = direction === 'prev' ? HERO_SLIDE_PX : -HERO_SLIDE_PX;
   const enterX = direction === 'prev' ? -HERO_SLIDE_PX : HERO_SLIDE_PX;
+
+  // Lock #hero at its current height before anything else changes, so the
+  // upcoming DOM swap (which may want a different natural height) doesn't
+  // just snap there - see the height-animation note above.
+  clearTimeout(heroHeightCleanupTimer);
+  const heightBefore = hero.getBoundingClientRect().height;
+  hero.style.height = `${heightBefore}px`;
+  hero.style.overflow = 'hidden';
 
   currentPoster.style.opacity = '0';
   currentPoster.style.transform = `translateX(${exitX}px)`;
@@ -1010,52 +1036,42 @@ function transitionHero(renderFn, direction = 'prev') {
       newBody.style.transition = 'none';
       newBody.style.opacity = '0';
     }
+    // #hero is still locked at heightBefore (overflow: hidden clips
+    // anything past it), so scrollHeight reads the new content's actual,
+    // natural height regardless of which way it's changing.
+    const heightAfter = hero.scrollHeight;
     void hero.offsetHeight;
     if (newPoster) newPoster.style.transition = '';
     if (newBody) newBody.style.transition = '';
     requestAnimationFrame(() => {
+      hero.style.height = `${heightAfter}px`;
       if (newPoster) {
         newPoster.style.opacity = '1';
         newPoster.style.transform = 'translateX(0)';
       }
       if (newBody) newBody.style.opacity = '1';
     });
+
+    // Once the height's had time to settle, hand it back to ordinary
+    // layout (auto height) rather than leaving it pinned to a stale pixel
+    // value a later resize or content change wouldn't naturally track. A
+    // plain timeout rather than a transitionend listener, since heights
+    // that land on (or round to) the same pixel value never fire one.
+    heroHeightCleanupTimer = setTimeout(() => {
+      hero.style.height = '';
+      hero.style.overflow = '';
+    }, HERO_HEIGHT_MS);
   }, HERO_FADE_MS);
-}
-
-/**
- * An empty stand-in for .hero-schedule-row, same markup shape (schedule
- * text block + calendar button) so it takes up exactly the same height via
- * ordinary layout rather than a guessed min-height - just invisible
- * (visibility, not display, so the box stays) and inert. Used behind a
- * previously-watched film, which has no date/time of its own to show, so
- * the archive list below the hero doesn't jump up when there's nothing
- * real to put here.
- */
-function buildReservedScheduleRow() {
-  const row = el('div', 'hero-schedule-row hero-schedule-row--reserved');
-  row.setAttribute('aria-hidden', 'true');
-
-  const scheduleText = el('div', 'hero-schedule-text');
-  scheduleText.append(el('p', 'hero-date', 'Placeholder'));
-  scheduleText.append(el('p', 'hero-time', 'Placeholder'));
-  row.append(scheduleText);
-
-  const btn = el('button', 'hero-calendar-btn');
-  btn.type = 'button';
-  btn.tabIndex = -1;
-  btn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 18h6"/><path d="M16 2v3"/><path d="M19 15v6"/><path d="M21 11.5V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h8.3"/><path d="M3 9h18"/><path d="M8 2v3"/></svg> Add to Calendar';
-  row.append(btn);
-
-  return row;
 }
 
 /**
  * The most recently watched film, shown in place of the upcoming pick (or
  * the waiting state) when the hero's back arrow is used - same poster/
- * title/meta treatment as renderHeroUpcoming(), just without a real
- * schedule (see buildReservedScheduleRow() above) and with the forward
- * arrow instead of the back one.
+ * title/meta treatment as renderHeroUpcoming(), just without a schedule
+ * row at all (there's no real date/time to show) and with the forward
+ * arrow instead of the back one. Hero ends up shorter here than it does
+ * for an upcoming pick - transitionHero() animates that height change, so
+ * the archive list below visibly slides up rather than jumping.
  */
 function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } = {}) {
   const hero = document.getElementById('hero');
@@ -1113,8 +1129,6 @@ function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } 
   if (bits.length) info.append(el('p', 'hero-meta', bits.join(' · ')));
   if (picker) info.append(el('p', 'hero-picker', `Picked by ${picker}`));
   body.append(info);
-
-  body.append(buildReservedScheduleRow());
 
   wrap.append(body);
   hero.append(wrap);
