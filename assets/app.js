@@ -596,6 +596,14 @@ function dominantColors(img, { size = 32, count = 3 } = {}) {
  * actually clicks, this is usually already resolved.
  */
 const backdropColorCache = new Map();
+// Same keys as backdropColorCache, but the plain resolved value rather than
+// a promise - lets a render function check synchronously whether a film's
+// colour is already known (it usually is, thanks to prefetchPoster() in
+// main()) instead of only ever finding out a tick later via .then(), which
+// was the root of the "Previously" label recolouring well after it had
+// already appeared - see the comment on .hero-label's colour handling in
+// renderHeroPrevious() etc.
+const resolvedBackdropColors = new Map();
 
 function fetchBackdropColors(sampleUrl) {
   if (!sampleUrl) return Promise.resolve(null);
@@ -606,10 +614,19 @@ function fetchBackdropColors(sampleUrl) {
         console.warn('backdrop: could not sample poster —', err.message);
         backdropColorCache.delete(sampleUrl); // don't poison the cache - let a later attempt retry
         return null;
+      })
+      .then(colors => {
+        resolvedBackdropColors.set(sampleUrl, colors);
+        return colors;
       });
     backdropColorCache.set(sampleUrl, promise);
   }
   return backdropColorCache.get(sampleUrl);
+}
+
+/** Whatever fetchBackdropColors() already knows for this URL, if anything. */
+function getKnownBackdropColors(sampleUrl) {
+  return sampleUrl ? (resolvedBackdropColors.get(sampleUrl) ?? null) : null;
 }
 
 function rgbToHsl([r, g, b]) {
@@ -650,6 +667,25 @@ function vivify(rgb, { minSat = 0.45, minLight = 0.32, maxLight = 0.6 } = {}) {
   return hslToRgb([h, Math.max(s, minSat), Math.min(Math.max(l, minLight), maxLight)]);
 }
 
+/** vivify() each sampled colour, padding out to three if the poster only
+ * yielded one or two - shared by applyBackdrop() and blendLabelColor() so
+ * they're always working from the same three colours. */
+function vivifyAll(colors) {
+  const vivid = colors.map(rgb => vivify(rgb));
+  while (vivid.length < 3) vivid.push(vivid[vivid.length - 1]);
+  return vivid;
+}
+
+/**
+ * Mirrors .hero-label's own color-mix() formula in styles.css exactly (blend
+ * 1+2, then blend that with 3), so a render function can give the label this
+ * colour directly - see the comment on that in renderHeroPrevious() etc.
+ */
+function blendLabelColor(vivid) {
+  const mix = (a, b) => a.map((v, i) => Math.round((v + b[i]) / 2));
+  return `rgb(${mix(mix(vivid[0], vivid[1]), vivid[2]).join(' ')})`;
+}
+
 /**
  * The three vivid colours currently painted into --hero-rgb-1/2/3, so a
  * later applyBackdrop() call can crossfade from here instead of snapping -
@@ -674,12 +710,13 @@ function setBackdropColorVars(vivid) {
  * hand-rolls the fade with requestAnimationFrame instead - lerping each
  * channel of each blob's colour from whatever's currently applied to the
  * new value every frame - rather than the old approach of fading the whole
- * backdrop element through transparent, which read as a dip to black.
+ * backdrop element through transparent, which read as a dip to black. This
+ * runs on its own timeline now - nothing waits on it (see the comment on
+ * .hero-label's colour handling for why the label doesn't either).
  */
 function applyBackdrop(colors, { animate = false, duration = 90 } = {}) {
   if (!colors || !colors.length) return Promise.resolve();
-  const vivid = colors.map(rgb => vivify(rgb));
-  while (vivid.length < 3) vivid.push(vivid[vivid.length - 1]);
+  const vivid = vivifyAll(colors);
 
   document.getElementById('backdrop')?.classList.add('is-lit');
 
@@ -921,34 +958,18 @@ function updateHeroNavPosition() {
  * as one movement without the text shifting position and jostling the
  * archive list below it. The render function is a normal hero render
  * function, unaware it's being animated - it just rebuilds .hero-inner
- * from scratch like it always has, and returns a promise (see
- * renderHeroPrevious() etc.) that resolves once the new film's backdrop
- * colour has actually finished being applied. Revealing the new poster/
- * text waits on that promise, so .hero-label (coloured straight off the
- * backdrop's own CSS variables) is never still mid-recolour once it's
- * already faded in - it shows up already right. The backdrop mesh itself
- * crossfades its colours directly (see applyBackdrop()'s animate option)
- * rather than dipping through transparent, so it never reads as a flash
- * to black either. Only ever called from a nav click - the very first
- * hero render on page load stays instant, going through the render
- * functions directly.
+ * from scratch like it always has. Reveal doesn't wait on the backdrop
+ * colour at all (an earlier version did, gating it on a promise - that
+ * turned out fragile and still let the label recolour late); instead
+ * renderHeroPrevious() etc. give .hero-label its correct colour directly,
+ * synchronously wherever possible, so there's nothing to wait for. The
+ * backdrop mesh itself still crossfades its own colours smoothly on its
+ * own timeline (see applyBackdrop()'s animate option), independent of
+ * this. Only ever called from a nav click - the very first hero render on
+ * page load stays instant, going through the render functions directly.
  */
 const HERO_FADE_MS = 120;
 const HERO_SLIDE_PX = 10;
-// Most nav clicks land on an already-prefetched poster (see
-// prefetchPoster() in main()), so backdropReady below usually resolves in
-// well under this - just the backdrop's own ~90ms crossfade (applyBackdrop()'s
-// default duration), not a network round trip. This is a fallback, not the
-// normal path: it only matters for a cold cache on a slow connection, so a
-// nav click can never feel stuck waiting on the network - past this, reveal
-// anyway with whatever colour's current. It must stay comfortably above
-// applyBackdrop()'s crossfade duration, or the common case would itself hit
-// this timeout before the crossfade finishes, revealing early every time.
-const HERO_BACKDROP_WAIT_MS = 600;
-
-function delay(ms) {
-  return new Promise(resolve => setTimeout(resolve, ms));
-}
 
 function transitionHero(renderFn, direction = 'prev') {
   const hero = document.getElementById('hero');
@@ -970,7 +991,7 @@ function transitionHero(renderFn, direction = 'prev') {
   if (currentBody) currentBody.style.opacity = '0';
 
   setTimeout(() => {
-    const backdropReady = renderFn();
+    renderFn();
 
     const newPoster = hero.querySelector('.hero-poster');
     const newBody = hero.querySelector('.hero-body');
@@ -979,9 +1000,7 @@ function transitionHero(renderFn, direction = 'prev') {
     // faded/offset with transitions off, force the browser to register
     // that frame, then hand control back so the fade-in (and, for the
     // poster, the slide) actually animates instead of the swap and the
-    // transition landing in the same paint. Done immediately (rather than
-    // waiting on the colour first) so the poster image itself - already
-    // known, not dependent on the colour sample - isn't held up.
+    // transition landing in the same paint.
     if (newPoster) {
       newPoster.style.transition = 'none';
       newPoster.style.opacity = '0';
@@ -994,17 +1013,13 @@ function transitionHero(renderFn, direction = 'prev') {
     void hero.offsetHeight;
     if (newPoster) newPoster.style.transition = '';
     if (newBody) newBody.style.transition = '';
-
-    Promise.race([Promise.resolve(backdropReady).catch(() => {}), delay(HERO_BACKDROP_WAIT_MS)])
-      .then(() => {
-        requestAnimationFrame(() => {
-          if (newPoster) {
-            newPoster.style.opacity = '1';
-            newPoster.style.transform = 'translateX(0)';
-          }
-          if (newBody) newBody.style.opacity = '1';
-        });
-      });
+    requestAnimationFrame(() => {
+      if (newPoster) {
+        newPoster.style.opacity = '1';
+        newPoster.style.transform = 'translateX(0)';
+      }
+      if (newBody) newBody.style.opacity = '1';
+    });
   }, HERO_FADE_MS);
 }
 
@@ -1049,13 +1064,8 @@ function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } 
 
   const wrap = el('div', 'hero-inner');
 
-  // Resolves once this film's backdrop colour (and anything derived from
-  // it, like .hero-label) is fully applied - transitionHero() awaits this
-  // before revealing the new poster/text. No poster to sample just means
-  // nothing to wait for.
-  let backdropReady = Promise.resolve();
-
   const art = el('div', 'hero-poster');
+  const label = el('p', 'hero-label', 'Previously');
   if (meta?.posterPath) {
     const img = el('img');
     img.src = `${imageBase}/w500${meta.posterPath}`;
@@ -1066,8 +1076,22 @@ function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } 
     img.height = 750;
     img.addEventListener('error', () => art.classList.add('empty'), { once: true });
 
-    backdropReady = fetchBackdropColors(`${imageBase}/w185${meta.posterPath}`)
-      .then(colors => applyBackdrop(colors, { animate: true }));
+    const sampleUrl = `${imageBase}/w185${meta.posterPath}`;
+    // The label's colour is set directly here rather than left to read
+    // .hero-label's own color-mix() off the (separately, smoothly
+    // crossfading) backdrop CSS variables - reading a value that's still
+    // mid-animation is exactly how the label used to visibly recolour a
+    // beat after it had already appeared. blendLabelColor() mirrors the
+    // same formula, so it's set once, synchronously, to its final colour
+    // if this film was already prefetched (the common case - see
+    // prefetchPoster() in main()), or the moment the sample resolves if
+    // not - either way a single correct value, never an in-between one.
+    const known = getKnownBackdropColors(sampleUrl);
+    if (known) label.style.color = blendLabelColor(vivifyAll(known));
+    fetchBackdropColors(sampleUrl).then(colors => {
+      applyBackdrop(colors, { animate: true });
+      if (colors) label.style.color = blendLabelColor(vivifyAll(colors));
+    });
 
     art.append(img);
   } else {
@@ -1078,7 +1102,7 @@ function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } 
   const body = el('div', 'hero-body');
 
   const info = el('div', 'hero-info');
-  info.append(el('p', 'hero-label', 'Previously'));
+  info.append(label);
   info.append(el('h2', 'hero-title', film.title));
 
   const bits = [];
@@ -1097,8 +1121,6 @@ function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } 
 
   updateBackdropExtent();
   setHeroNav({ onPrev: onOlder, onNext: onNewer });
-
-  return backdropReady;
 }
 
 /**
@@ -1113,10 +1135,8 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
 
   const wrap = el('div', 'hero-inner');
 
-  // See the matching comment in renderHeroPrevious().
-  let backdropReady = Promise.resolve();
-
   const art = el('div', 'hero-poster');
+  const label = el('p', 'hero-label', 'Now Showing');
   if (meta?.posterPath) {
     const img = el('img');
     img.src = `${imageBase}/w500${meta.posterPath}`;
@@ -1129,9 +1149,16 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
 
     // Sample the poster for the backdrop colour (cached - see
     // fetchBackdropColors()). Failure here is cosmetic: the poster still
-    // renders, we just get no wash.
-    backdropReady = fetchBackdropColors(`${imageBase}/w185${meta.posterPath}`)
-      .then(colors => applyBackdrop(colors, { animate: true }));
+    // renders, we just get no wash. See the matching comment in
+    // renderHeroPrevious() for why the label's colour is set directly here
+    // rather than left to read the live (separately crossfading) CSS vars.
+    const sampleUrl = `${imageBase}/w185${meta.posterPath}`;
+    const known = getKnownBackdropColors(sampleUrl);
+    if (known) label.style.color = blendLabelColor(vivifyAll(known));
+    fetchBackdropColors(sampleUrl).then(colors => {
+      applyBackdrop(colors, { animate: true });
+      if (colors) label.style.color = blendLabelColor(vivifyAll(colors));
+    });
 
     art.append(img);
   } else {
@@ -1142,7 +1169,7 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
   const body = el('div', 'hero-body');
 
   const info = el('div', 'hero-info');
-  info.append(el('p', 'hero-label', 'Now Showing'));
+  info.append(label);
   info.append(el('h2', 'hero-title', film.title));
 
   const bits = [];
@@ -1179,8 +1206,6 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
 
   updateBackdropExtent();
   setHeroNav({ onPrev: onShowPrevious, onNext: null });
-
-  return backdropReady;
 }
 
 /**
@@ -1240,12 +1265,18 @@ function renderHeroWaiting(pickerName, { onShowPrevious } = {}) {
 
   // Same source as the backdrop mesh below (--hero-rgb-1/2), so the blurred
   // poster placeholder and the wash behind it are always the same colours,
-  // not two independent guesses.
-  const backdropReady = applyBackdrop(heroWaitingPalette(pickerName), { animate: true });
+  // not two independent guesses. This palette is a fixed lookup, not a
+  // sample, so - unlike renderHeroPrevious()/renderHeroUpcoming() - the
+  // label's colour is always known synchronously; still set directly
+  // rather than off the live CSS vars, for the same reason as those.
+  const palette = heroWaitingPalette(pickerName);
+  applyBackdrop(palette, { animate: true });
 
   const body = el('div', 'hero-body');
   const info = el('div', 'hero-info');
-  info.append(el('p', 'hero-label', 'Waiting for Selection'));
+  const label = el('p', 'hero-label', 'Waiting for Selection');
+  label.style.color = blendLabelColor(vivifyAll(palette));
+  info.append(label);
   info.append(el('h2', 'hero-title', heroWaitingTitle(pickerName)));
   body.append(info);
   wrap.append(body);
@@ -1253,8 +1284,6 @@ function renderHeroWaiting(pickerName, { onShowPrevious } = {}) {
 
   updateBackdropExtent();
   setHeroNav({ onPrev: onShowPrevious, onNext: null });
-
-  return backdropReady;
 }
 
 /**
