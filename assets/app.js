@@ -959,6 +959,34 @@ document.addEventListener('keydown', e => {
   arrow.click();
 });
 
+// Swiping the hero on a touch screen does the same: swipe right to go back
+// (like tapping the left arrow - the older film comes in from the left),
+// swipe left to go forward. Only a clearly sideways, reasonably quick swipe
+// counts, so scrolling the page past the hero is unaffected; the listeners
+// are passive and never block the browser's own scrolling. Attached to
+// #hero itself, which stays put while its contents are re-rendered.
+(() => {
+  const hero = document.getElementById('hero');
+  if (!hero) return;
+  let start = null;
+  hero.addEventListener('touchstart', e => {
+    if (e.touches.length !== 1) { start = null; return; }
+    const t = e.touches[0];
+    start = { x: t.clientX, y: t.clientY, time: performance.now() };
+  }, { passive: true });
+  hero.addEventListener('touchend', e => {
+    if (!start) return;
+    const t = e.changedTouches[0];
+    const dx = t.clientX - start.x;
+    const dy = t.clientY - start.y;
+    const quick = performance.now() - start.time < 800;
+    start = null;
+    if (!quick || Math.abs(dx) < 50 || Math.abs(dx) < Math.abs(dy) * 1.5) return;
+    document.querySelector(dx > 0 ? '.hero-nav-prev' : '.hero-nav-next')?.click();
+  }, { passive: true });
+  hero.addEventListener('touchcancel', () => { start = null; }, { passive: true });
+})();
+
 function setHeroNav({ onPrev, onNext }) {
   document.querySelectorAll('.hero-nav').forEach(n => n.remove());
   if (onPrev) document.body.append(heroNavButton('prev', 'Show previous film', onPrev));
