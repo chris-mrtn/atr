@@ -676,7 +676,7 @@ function setBackdropColorVars(vivid) {
  * new value every frame - rather than the old approach of fading the whole
  * backdrop element through transparent, which read as a dip to black.
  */
-function applyBackdrop(colors, { animate = false, duration = 200 } = {}) {
+function applyBackdrop(colors, { animate = false, duration = 140 } = {}) {
   if (!colors || !colors.length) return Promise.resolve();
   const vivid = colors.map(rgb => vivify(rgb));
   while (vivid.length < 3) vivid.push(vivid[vivid.length - 1]);
@@ -933,14 +933,14 @@ function updateHeroNavPosition() {
  * hero render on page load stays instant, going through the render
  * functions directly.
  */
-const HERO_FADE_MS = 180;
+const HERO_FADE_MS = 120;
 const HERO_SLIDE_PX = 24;
 // Most nav clicks land on an already-prefetched poster (see
 // prefetchPoster() in main()), so backdropReady below usually resolves
 // near-instantly. This just bounds the rare case where it doesn't (a cold
 // cache, a slow connection) so a nav click never feels stuck waiting on
 // the network - past this, reveal anyway with whatever colour's current.
-const HERO_BACKDROP_WAIT_MS = 180;
+const HERO_BACKDROP_WAIT_MS = 100;
 
 function delay(ms) {
   return new Promise(resolve => setTimeout(resolve, ms));

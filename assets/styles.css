@@ -727,7 +727,7 @@ h1 {
   /* Only the poster slides on a nav click (see transitionHero() in
      app.js) - .hero-body below it fades along with it but never slides,
      so the title/metadata don't shift position. */
-  transition: opacity .18s ease, transform .18s ease;
+  transition: opacity .12s ease, transform .12s ease;
 }
 .hero-poster img { width: 100%; height: 100%; object-fit: cover; display: block; }
 
@@ -789,7 +789,7 @@ h1 {
   /* Fades alongside the poster on a nav click (see transitionHero() in
      app.js) - no slide of its own, just opacity, so it doesn't shift the
      archive list below it. */
-  transition: opacity .18s ease;
+  transition: opacity .12s ease;
 }
 
 .hero-info { text-align: center; }
