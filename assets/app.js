@@ -2035,6 +2035,11 @@ function computeStats(archive, tmdb, pickers, members) {
   const jamesBollywoodCount = allFilms.filter(f =>
     f.meta?.countries?.includes('India') && pickers?.picks?.[`${f.watchYear}:${f.slug}`] === 'James').length;
 
+  // Chris's corner: every Mads Mikkelsen film the club has watched so far
+  // has been his pick. Counted from TMDB's cast list.
+  const chrisMadsCount = allFilms.filter(f =>
+    f.meta?.cast?.includes('Mads Mikkelsen') && pickers?.picks?.[`${f.watchYear}:${f.slug}`] === 'Chris').length;
+
   // Share of films watched within a year of coming out - the club only
   // records which year's list a film is on, not the exact date, so "within
   // a year" means released that year or the year before.
@@ -2054,7 +2059,7 @@ function computeStats(archive, tmdb, pickers, members) {
     total, firstYear, lastYear, totalMinutes, avgRuntime, longest, shortest,
     topGenre, topDecade, topDirector, numCountries: countryCounts.size, pctNonUs, topForeignCountry,
     busiestYears, busiestYearCount, oldest, newest, attributed, pickerBoard,
-    davePctAnime, daveAnimeCount, davePickCount: davePicks.length, nostalgic, pctWithinYear, jamesBollywoodCount,
+    davePctAnime, daveAnimeCount, davePickCount: davePicks.length, nostalgic, pctWithinYear, jamesBollywoodCount, chrisMadsCount,
     avgImdbRating, ratedFilmCount: withImdbRating.length,
   };
 }
@@ -2195,6 +2200,7 @@ function renderStatsPage(archive, tmdb, pickers, members) {
     statItem(s.topDecade?.label ?? null, 'most picked decade'),
     statItem(s.davePctAnime != null ? `${s.davePctAnime}%` : null, 'dave picks are anime'),
     ...(s.jamesBollywoodCount ? [statItem(String(s.jamesBollywoodCount), 'bollywood films picked by james')] : []),
+    ...(s.chrisMadsCount ? [statItem(String(s.chrisMadsCount), 'mads mikkelsen films picked by chris')] : []),
     ...(s.nostalgic ? [statItem(String(Math.round(s.nostalgic.avgYear)), `${s.nostalgic.name.toLowerCase()}'s favorite year`)] : []),
     statItem(s.pctWithinYear != null ? `${s.pctWithinYear}%` : null, 'movies watched within a year'),
     statItem(s.avgImdbRating != null ? s.avgImdbRating.toFixed(1) : null, 'avg IMDb rating'),
