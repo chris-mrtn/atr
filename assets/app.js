@@ -1178,7 +1178,7 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
   if (meta?.genres?.length) bits.push(meta.genres.slice(0, 2).join(', '));
   if (meta?.runtime) bits.push(`${meta.runtime} min`);
   if (bits.length) info.append(el('p', 'hero-meta', bits.join(' · ')));
-  if (picker) info.append(el('p', 'hero-picker', `Chosen by ${picker}`));
+  if (picker) info.append(el('p', 'hero-picker', `Picked by ${picker}`));
   body.append(info);
 
   const scheduleRow = el('div', 'hero-schedule-row');
