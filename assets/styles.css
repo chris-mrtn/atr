@@ -903,9 +903,29 @@ h1 {
     text-align: center;
   }
   .hero-schedule-text { align-items: center; text-align: center; }
+  /* Stacked, same width, centred under the date - there isn't room for
+     the two side by side at this width. (.hero-schedule-row prefix so this
+     outranks the base .hero-schedule-actions rule further down.) */
+  .hero-schedule-row .hero-schedule-actions {
+    margin-left: 0;
+    flex-direction: column;
+    align-items: stretch;
+  }
+  .hero-schedule-row .hero-schedule-actions .hero-calendar-btn { justify-content: center; }
 }
 
 .hero-schedule-text { display: flex; flex-direction: column; gap: .15rem; }
+
+/* "Where to Watch" and "Add to Calendar", side by side. margin-left: auto
+   keeps them on the right if they wrap under the date on a mid-width
+   screen, rather than dropping to the left edge. */
+.hero-schedule-actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: .5rem;
+  justify-content: flex-end;
+  margin-left: auto;
+}
 
 /* Primary - same size/weight as a film title in the archive. */
 .hero-date {
@@ -1004,6 +1024,8 @@ h1 {
 /* Resting state is a ghost pill (translucent fill, white text/border) -
    hover fills solid white with dark text, same look the button always
    had, so the fill itself becomes the hover cue on top of the scale. */
+/* The "Where to Watch" link shares the button look - just no underline. */
+a.hero-calendar-btn { text-decoration: none; }
 .hero-calendar-btn:hover {
   opacity: .85;
   transform: scale(1.05);

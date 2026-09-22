@@ -1097,6 +1097,29 @@ function transitionHero(renderFn, direction = 'prev') {
 }
 
 /**
+ * "Where to Watch" - a link out to the film on JustWatch, in the visitor's
+ * country: Australia for an Australian time zone (the Melbourne/Adelaide
+ * members), the US otherwise (the LA member, and a reasonable default for
+ * anyone else). It's JustWatch's search for the title rather than the
+ * film's own page, since those page addresses use JustWatch's own slugs,
+ * which can't be worked out reliably from ours - the film is normally the
+ * first result.
+ */
+function buildWhereToWatchLink(film) {
+  let country = 'us';
+  try {
+    if (Intl.DateTimeFormat().resolvedOptions().timeZone?.startsWith('Australia/')) country = 'au';
+  } catch { /* no time zone info - stick with the default */ }
+  const link = el('a', 'hero-calendar-btn hero-watch-btn');
+  link.href = `https://www.justwatch.com/${country}/search?q=${encodeURIComponent(film.title)}`;
+  link.target = '_blank';
+  link.rel = 'noopener';
+  // Lucide "tv-minimal-play", path data from lucide.dev.
+  link.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.033 9.44a.647.647 0 0 1 0 1.12l-4.065 2.352a.645.645 0 0 1-.968-.56V7.648a.645.645 0 0 1 .967-.56z"/><path d="M7 21h10"/><rect width="20" height="14" x="2" y="3" rx="2"/></svg> Where to Watch';
+  return link;
+}
+
+/**
  * Every hero state has one of these where the calendar/schedule box goes -
  * holding the real box for an upcoming pick, or empty and collapsed to
  * zero height for a previously-watched film / the waiting state. It's a
@@ -1261,7 +1284,10 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
   // "Edit in studio" link for this icon, so it matches exactly.
   calendarBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 18h6"/><path d="M16 2v3"/><path d="M19 15v6"/><path d="M21 11.5V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h8.3"/><path d="M3 9h18"/><path d="M8 2v3"/></svg> Add to Calendar';
   calendarBtn.addEventListener('click', () => downloadMovieChatIcs(film, meta, scheduledFor));
-  scheduleRow.append(calendarBtn);
+
+  const actions = el('div', 'hero-schedule-actions');
+  actions.append(buildWhereToWatchLink(film), calendarBtn);
+  scheduleRow.append(actions);
   body.append(buildScheduleSlot(scheduleRow));
 
   wrap.append(body);
