@@ -624,6 +624,23 @@ function fetchBackdropColors(sampleUrl) {
   return backdropColorCache.get(sampleUrl);
 }
 
+/**
+ * Loads data/poster-colors.json's pre-sampled colours (see
+ * scripts/poster-colors.py) straight into the caches above, so every poster
+ * listed there is already known the moment a hero renders - no download,
+ * no sampling, nothing arriving late. Posters not in the file yet (added
+ * since it was last generated) still go through fetchBackdropColors()'s
+ * live sampling as before.
+ */
+function seedBackdropColors(imageBase, data) {
+  for (const [posterPath, colors] of Object.entries(data?.colors ?? {})) {
+    if (!Array.isArray(colors) || !colors.length) continue;
+    const url = `${imageBase}/w185${posterPath}`;
+    resolvedBackdropColors.set(url, colors);
+    backdropColorCache.set(url, Promise.resolve(colors));
+  }
+}
+
 /** Whatever fetchBackdropColors() already knows for this URL, if anything. */
 function getKnownBackdropColors(sampleUrl) {
   return sampleUrl ? (resolvedBackdropColors.get(sampleUrl) ?? null) : null;
@@ -2353,6 +2370,8 @@ async function main() {
   const members = await loadJson('data/members.json', { required: false });
 
   const imageBase = tmdb?.imageBase ?? 'https://image.tmdb.org/t/p';
+  // Pre-sampled poster colours - optional, like the other enrichment files.
+  seedBackdropColors(imageBase, await loadJson('data/poster-colors.json', { required: false }));
   const years = [...(films.years ?? [])].sort((a, b) => b.year - a.year)
     .map(y => ({ ...y, films: [...y.films] }));
 

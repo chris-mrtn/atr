@@ -62,6 +62,18 @@ jobs:
           OMDB_API_KEY: ${{ secrets.OMDB_API_KEY }}
         run: node scripts/imdb-ratings.mjs
 
+      # Pre-samples each poster's colours into data/poster-colors.json, so
+      # the site doesn't have to download and sample posters in the browser
+      # (see scripts/poster-colors.py). Only new posters get downloaded.
+      - uses: actions/setup-python@v5
+        with:
+          python-version: '3.12'
+
+      - name: Sample poster colours
+        run: |
+          pip install --quiet pillow
+          python scripts/poster-colors.py
+
       - name: Commit if the data changed
         run: |
           # Stage first: `git diff` alone cannot see a file git has never
