@@ -650,7 +650,7 @@ function setBackdropColorVars(vivid) {
  * backdrop element through transparent, which read as a dip to black.
  */
 function applyBackdrop(colors, { animate = false, duration = 260 } = {}) {
-  if (!colors || !colors.length) return;
+  if (!colors || !colors.length) return Promise.resolve();
   const vivid = colors.map(rgb => vivify(rgb));
   while (vivid.length < 3) vivid.push(vivid[vivid.length - 1]);
 
@@ -664,24 +664,32 @@ function applyBackdrop(colors, { animate = false, duration = 260 } = {}) {
   if (!animate || !currentBackdropColors) {
     setBackdropColorVars(vivid);
     currentBackdropColors = vivid;
-    return;
+    return Promise.resolve();
   }
 
   const from = currentBackdropColors;
   const to = vivid;
   const start = performance.now();
-  const step = now => {
-    const t = Math.min(1, (now - start) / duration);
-    const mixed = to.map((rgb, i) => rgb.map((c, ch) => from[i][ch] + (c - from[i][ch]) * t));
-    setBackdropColorVars(mixed);
-    if (t < 1) {
-      backdropColorFrame = requestAnimationFrame(step);
-    } else {
-      currentBackdropColors = to;
-      backdropColorFrame = null;
-    }
-  };
-  backdropColorFrame = requestAnimationFrame(step);
+  // Resolves once the crossfade actually finishes, not just once it's
+  // kicked off - transitionHero() awaits this before revealing the new
+  // poster/text, so anything whose colour is derived from these variables
+  // (the "Previously" label, say) never visibly recolours after it's
+  // already faded in.
+  return new Promise(resolve => {
+    const step = now => {
+      const t = Math.min(1, (now - start) / duration);
+      const mixed = to.map((rgb, i) => rgb.map((c, ch) => from[i][ch] + (c - from[i][ch]) * t));
+      setBackdropColorVars(mixed);
+      if (t < 1) {
+        backdropColorFrame = requestAnimationFrame(step);
+      } else {
+        currentBackdropColors = to;
+        backdropColorFrame = null;
+        resolve();
+      }
+    };
+    backdropColorFrame = requestAnimationFrame(step);
+  });
 }
 
 /**
@@ -886,11 +894,17 @@ function updateHeroNavPosition() {
  * as one movement without the text shifting position and jostling the
  * archive list below it. The render function is a normal hero render
  * function, unaware it's being animated - it just rebuilds .hero-inner
- * from scratch like it always has. The backdrop mesh crossfades its
- * colours directly (see applyBackdrop()'s animate option) rather than
- * dipping through transparent, so it never reads as a flash to black.
- * Only ever called from a nav click - the very first hero render on page
- * load stays instant, going through the render functions directly.
+ * from scratch like it always has, and returns a promise (see
+ * renderHeroPrevious() etc.) that resolves once the new film's backdrop
+ * colour has actually finished being applied. Revealing the new poster/
+ * text waits on that promise, so .hero-label (coloured straight off the
+ * backdrop's own CSS variables) is never still mid-recolour once it's
+ * already faded in - it shows up already right. The backdrop mesh itself
+ * crossfades its colours directly (see applyBackdrop()'s animate option)
+ * rather than dipping through transparent, so it never reads as a flash
+ * to black either. Only ever called from a nav click - the very first
+ * hero render on page load stays instant, going through the render
+ * functions directly.
  */
 const HERO_FADE_MS = 220;
 const HERO_SLIDE_PX = 24;
@@ -915,7 +929,7 @@ function transitionHero(renderFn, direction = 'prev') {
   if (currentBody) currentBody.style.opacity = '0';
 
   setTimeout(() => {
-    renderFn();
+    const backdropReady = renderFn();
 
     const newPoster = hero.querySelector('.hero-poster');
     const newBody = hero.querySelector('.hero-body');
@@ -924,7 +938,9 @@ function transitionHero(renderFn, direction = 'prev') {
     // faded/offset with transitions off, force the browser to register
     // that frame, then hand control back so the fade-in (and, for the
     // poster, the slide) actually animates instead of the swap and the
-    // transition landing in the same paint.
+    // transition landing in the same paint. Done immediately (rather than
+    // waiting on the colour first) so the poster image itself - already
+    // known, not dependent on the colour sample - isn't held up.
     if (newPoster) {
       newPoster.style.transition = 'none';
       newPoster.style.opacity = '0';
@@ -937,12 +953,15 @@ function transitionHero(renderFn, direction = 'prev') {
     void hero.offsetHeight;
     if (newPoster) newPoster.style.transition = '';
     if (newBody) newBody.style.transition = '';
-    requestAnimationFrame(() => {
-      if (newPoster) {
-        newPoster.style.opacity = '1';
-        newPoster.style.transform = 'translateX(0)';
-      }
-      if (newBody) newBody.style.opacity = '1';
+
+    Promise.resolve(backdropReady).catch(() => {}).then(() => {
+      requestAnimationFrame(() => {
+        if (newPoster) {
+          newPoster.style.opacity = '1';
+          newPoster.style.transform = 'translateX(0)';
+        }
+        if (newBody) newBody.style.opacity = '1';
+      });
     });
   }, HERO_FADE_MS);
 }
@@ -988,6 +1007,12 @@ function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } 
 
   const wrap = el('div', 'hero-inner');
 
+  // Resolves once this film's backdrop colour (and anything derived from
+  // it, like .hero-label) is fully applied - transitionHero() awaits this
+  // before revealing the new poster/text. No poster to sample just means
+  // nothing to wait for.
+  let backdropReady = Promise.resolve();
+
   const art = el('div', 'hero-poster');
   if (meta?.posterPath) {
     const img = el('img');
@@ -999,7 +1024,7 @@ function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } 
     img.height = 750;
     img.addEventListener('error', () => art.classList.add('empty'), { once: true });
 
-    loadSampleImage(`${imageBase}/w185${meta.posterPath}`)
+    backdropReady = loadSampleImage(`${imageBase}/w185${meta.posterPath}`)
       .then(bitmap => applyBackdrop(dominantColors(bitmap), { animate: true }))
       .catch(err => console.warn('backdrop: could not sample poster —', err.message));
 
@@ -1031,6 +1056,8 @@ function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } 
 
   updateBackdropExtent();
   setHeroNav({ onPrev: onOlder, onNext: onNewer });
+
+  return backdropReady;
 }
 
 /**
@@ -1045,6 +1072,9 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
 
   const wrap = el('div', 'hero-inner');
 
+  // See the matching comment in renderHeroPrevious().
+  let backdropReady = Promise.resolve();
+
   const art = el('div', 'hero-poster');
   if (meta?.posterPath) {
     const img = el('img');
@@ -1058,7 +1088,7 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
 
     // Sample the poster for the backdrop colour. Failure here is cosmetic:
     // the poster still renders, we just get no wash.
-    loadSampleImage(`${imageBase}/w185${meta.posterPath}`)
+    backdropReady = loadSampleImage(`${imageBase}/w185${meta.posterPath}`)
       .then(bitmap => applyBackdrop(dominantColors(bitmap), { animate: true }))
       .catch(err => console.warn('backdrop: could not sample poster —', err.message));
 
@@ -1108,6 +1138,8 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
 
   updateBackdropExtent();
   setHeroNav({ onPrev: onShowPrevious, onNext: null });
+
+  return backdropReady;
 }
 
 /**
@@ -1168,7 +1200,7 @@ function renderHeroWaiting(pickerName, { onShowPrevious } = {}) {
   // Same source as the backdrop mesh below (--hero-rgb-1/2), so the blurred
   // poster placeholder and the wash behind it are always the same colours,
   // not two independent guesses.
-  applyBackdrop(heroWaitingPalette(pickerName), { animate: true });
+  const backdropReady = applyBackdrop(heroWaitingPalette(pickerName), { animate: true });
 
   const body = el('div', 'hero-body');
   const info = el('div', 'hero-info');
@@ -1180,6 +1212,8 @@ function renderHeroWaiting(pickerName, { onShowPrevious } = {}) {
 
   updateBackdropExtent();
   setHeroNav({ onPrev: onShowPrevious, onNext: null });
+
+  return backdropReady;
 }
 
 /**
