@@ -982,6 +982,8 @@ const HERO_ANIM_SCALE = 10;
 document.documentElement.style.setProperty('--hero-anim-scale', String(HERO_ANIM_SCALE));
 
 const HERO_FADE_MS = 120 * HERO_ANIM_SCALE;
+// Must match .hero-schedule-slot's grid-template-rows duration in styles.css.
+const HERO_SLOT_MS = 200 * HERO_ANIM_SCALE;
 const HERO_SLIDE_PX = 10;
 
 function transitionHero(renderFn, direction = 'prev') {
@@ -999,12 +1001,16 @@ function transitionHero(renderFn, direction = 'prev') {
   const exitX = direction === 'prev' ? HERO_SLIDE_PX : -HERO_SLIDE_PX;
   const enterX = direction === 'prev' ? -HERO_SLIDE_PX : HERO_SLIDE_PX;
 
-  // Whether the calendar box was showing before the swap, and its content,
-  // so the new render's slot can start from that state and animate to its
-  // own (see buildScheduleSlot()).
+  // Only the current film has a calendar box, so leaving it means the box
+  // is going away: collapse it right here, on the outgoing content, while
+  // everything else fades out - rather than carrying it over into the
+  // incoming film (which has none) and collapsing it there, which showed a
+  // box fading in on a film that shouldn't have one. The swap then waits
+  // for the collapse to finish, so the new (already collapsed) slot takes
+  // over at exactly the same height.
   const oldSlot = hero.querySelector('.hero-schedule-slot');
   const wasOpen = oldSlot ? !oldSlot.classList.contains('is-collapsed') : null;
-  const oldPad = oldSlot?.querySelector('.hero-schedule-pad');
+  if (wasOpen) oldSlot.classList.add('is-collapsed');
 
   currentPoster.style.opacity = '0';
   currentPoster.style.transform = `translateX(${exitX}px)`;
@@ -1040,31 +1046,21 @@ function transitionHero(renderFn, direction = 'prev') {
       }
       if (newBody) newBody.style.opacity = '1';
     });
-    // Calendar box: if it's appearing or disappearing, start the new slot in
-    // the old state (transitions off), then flip it to its real state so the
-    // grid row animates and the archive list below slides with it. A box
-    // that's disappearing has nothing in its new (empty) slot to shrink
-    // from, so it gets an inert copy of the old box to collapse away.
+    // Calendar box appearing (coming back to the current film): its slot
+    // starts collapsed, then opens, growing the box and pushing the archive
+    // list down with it. The disappearing case was already handled before
+    // the swap, above.
     const newSlot = hero.querySelector('.hero-schedule-slot');
-    if (newSlot && wasOpen !== null) {
-      const willOpen = !newSlot.classList.contains('is-collapsed');
-      if (wasOpen !== willOpen) {
-        if (!willOpen && oldPad) {
-          const ghost = oldPad.cloneNode(true);
-          ghost.setAttribute('aria-hidden', 'true');
-          ghost.inert = true;
-          newSlot.querySelector('.hero-schedule-clip').replaceChildren(ghost);
-        }
-        newSlot.style.transition = 'none';
-        newSlot.classList.toggle('is-collapsed', !wasOpen);
-        void newSlot.offsetHeight;
-        newSlot.style.transition = '';
-        requestAnimationFrame(() => requestAnimationFrame(() => {
-          newSlot.classList.toggle('is-collapsed', !willOpen);
-        }));
-      }
+    if (newSlot && wasOpen === false && !newSlot.classList.contains('is-collapsed')) {
+      newSlot.style.transition = 'none';
+      newSlot.classList.add('is-collapsed');
+      void newSlot.offsetHeight;
+      newSlot.style.transition = '';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        newSlot.classList.remove('is-collapsed');
+      }));
     }
-  }, HERO_FADE_MS);
+  }, wasOpen ? Math.max(HERO_FADE_MS, HERO_SLOT_MS) : HERO_FADE_MS);
 }
 
 /**
