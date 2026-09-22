@@ -701,14 +701,7 @@ h1 {
 
 /* Hero - the next film ----------------------------------------------- */
 
-#hero {
-  margin-bottom: 40pt;
-  /* Animated from JS (transitionHero() in app.js) when a nav click swaps
-     in content of a different height - e.g. the calendar/schedule row
-     disappearing for a previously-watched film - so the archive list
-     below visibly slides into the freed space rather than jumping. */
-  transition: height .15s ease;
-}
+#hero { margin-bottom: 40pt; }
 
 /* No card around it: at this size the poster is the object, and a border
    would just draw a box around a picture that already has edges. The
@@ -800,6 +793,24 @@ h1 {
 }
 
 .hero-info { text-align: center; }
+
+/* Wraps the calendar/schedule box (see buildScheduleSlot() in app.js) so
+   its height can animate open and closed: a one-row grid whose row goes
+   between 1fr (the box's natural height) and 0fr (nothing), which unlike
+   height: auto is something CSS can actually transition. The negative
+   margin cancels .hero-body's own flex gap and the pad puts it back
+   inside the clipped area, so a collapsed slot takes up no space at all -
+   the archive list then sits 40pt below whatever's above it. */
+.hero-schedule-slot {
+  display: grid;
+  grid-template-rows: 1fr;
+  width: 100%;
+  margin-top: -1.25rem;
+  transition: grid-template-rows .2s ease;
+}
+.hero-schedule-slot.is-collapsed { grid-template-rows: 0fr; }
+.hero-schedule-clip { min-height: 0; overflow: hidden; }
+.hero-schedule-pad { padding-top: 1.25rem; }
 
 /* A rounded "platter" the date/time and button sit on, rather than
    floating loose against the backdrop - full width, date/time to the

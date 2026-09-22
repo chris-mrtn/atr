@@ -967,27 +967,15 @@ function updateHeroNavPosition() {
  * own timeline (see applyBackdrop()'s animate option), independent of
  * this.
  *
- * A previously-watched film has no schedule row, so #hero itself ends up
- * a different height than it is for an upcoming pick - locking #hero to
- * its current pixel height before the swap and then animating it to the
- * new content's natural height (a classic FLIP: measure, lock, swap,
- * measure again, animate the difference) is what makes the archive list
- * below visibly slide up or down into place, via #hero's own `transition:
- * height` in styles.css, rather than jumping the instant the DOM changes.
+ * A previously-watched film has no calendar box, so its slot animates
+ * closed (and back open on the way forward again) - see the calendar box
+ * handling near the end, and buildScheduleSlot().
  *
  * Only ever called from a nav click - the very first hero render on page
  * load stays instant, going through the render functions directly.
  */
 const HERO_FADE_MS = 120;
 const HERO_SLIDE_PX = 10;
-// Must match #hero's own `transition: height` duration in styles.css.
-const HERO_HEIGHT_MS = 150;
-
-// Whichever transitionHero() call is most recently responsible for #hero's
-// locked height - so a second nav click fired before the first one's
-// height settles cancels that earlier cleanup instead of racing it (which
-// would otherwise unpin #hero's height mid-animation and snap it).
-let heroHeightCleanupTimer = null;
 
 function transitionHero(renderFn, direction = 'prev') {
   const hero = document.getElementById('hero');
@@ -1004,13 +992,12 @@ function transitionHero(renderFn, direction = 'prev') {
   const exitX = direction === 'prev' ? HERO_SLIDE_PX : -HERO_SLIDE_PX;
   const enterX = direction === 'prev' ? -HERO_SLIDE_PX : HERO_SLIDE_PX;
 
-  // Lock #hero at its current height before anything else changes, so the
-  // upcoming DOM swap (which may want a different natural height) doesn't
-  // just snap there - see the height-animation note above.
-  clearTimeout(heroHeightCleanupTimer);
-  const heightBefore = hero.getBoundingClientRect().height;
-  hero.style.height = `${heightBefore}px`;
-  hero.style.overflow = 'hidden';
+  // Whether the calendar box was showing before the swap, and its content,
+  // so the new render's slot can start from that state and animate to its
+  // own (see buildScheduleSlot()).
+  const oldSlot = hero.querySelector('.hero-schedule-slot');
+  const wasOpen = oldSlot ? !oldSlot.classList.contains('is-collapsed') : null;
+  const oldPad = oldSlot?.querySelector('.hero-schedule-pad');
 
   currentPoster.style.opacity = '0';
   currentPoster.style.transform = `translateX(${exitX}px)`;
@@ -1036,10 +1023,6 @@ function transitionHero(renderFn, direction = 'prev') {
       newBody.style.transition = 'none';
       newBody.style.opacity = '0';
     }
-    // #hero is still locked at heightBefore (overflow: hidden clips
-    // anything past it), so scrollHeight reads the new content's actual,
-    // natural height regardless of which way it's changing.
-    const heightAfter = hero.scrollHeight;
     void hero.offsetHeight;
     if (newPoster) newPoster.style.transition = '';
     if (newBody) newBody.style.transition = '';
@@ -1050,31 +1033,54 @@ function transitionHero(renderFn, direction = 'prev') {
       }
       if (newBody) newBody.style.opacity = '1';
     });
-    // Height needs its own double rAF, not the single one above - height is
-    // a layout-affecting property, and browsers are much more willing to
-    // coalesce a layout-triggering "before" and "after" value into one
-    // frame (skipping the transition entirely, which read as the archive
-    // list popping into place) than they are for a compositor-only one
-    // like opacity/transform. Two nested rAFs reliably straddle an actual
-    // painted frame in between; one on its own doesn't always.
-    requestAnimationFrame(() => {
-      requestAnimationFrame(() => {
-        hero.style.height = `${heightAfter}px`;
-
-        // Once the height's had time to settle, hand it back to ordinary
-        // layout (auto height) rather than leaving it pinned to a stale
-        // pixel value a later resize or content change wouldn't naturally
-        // track. A plain timeout rather than a transitionend listener,
-        // since heights that land on (or round to) the same pixel value
-        // never fire one. Started from here, not before the double rAF
-        // above, so it actually covers the transition's own duration.
-        heroHeightCleanupTimer = setTimeout(() => {
-          hero.style.height = '';
-          hero.style.overflow = '';
-        }, HERO_HEIGHT_MS);
-      });
-    });
+    // Calendar box: if it's appearing or disappearing, start the new slot in
+    // the old state (transitions off), then flip it to its real state so the
+    // grid row animates and the archive list below slides with it. A box
+    // that's disappearing has nothing in its new (empty) slot to shrink
+    // from, so it gets an inert copy of the old box to collapse away.
+    const newSlot = hero.querySelector('.hero-schedule-slot');
+    if (newSlot && wasOpen !== null) {
+      const willOpen = !newSlot.classList.contains('is-collapsed');
+      if (wasOpen !== willOpen) {
+        if (!willOpen && oldPad) {
+          const ghost = oldPad.cloneNode(true);
+          ghost.setAttribute('aria-hidden', 'true');
+          ghost.inert = true;
+          newSlot.querySelector('.hero-schedule-clip').replaceChildren(ghost);
+        }
+        newSlot.style.transition = 'none';
+        newSlot.classList.toggle('is-collapsed', !wasOpen);
+        void newSlot.offsetHeight;
+        newSlot.style.transition = '';
+        requestAnimationFrame(() => requestAnimationFrame(() => {
+          newSlot.classList.toggle('is-collapsed', !willOpen);
+        }));
+      }
+    }
   }, HERO_FADE_MS);
+}
+
+/**
+ * Every hero state has one of these where the calendar/schedule box goes -
+ * holding the real box for an upcoming pick, or empty and collapsed to
+ * zero height for a previously-watched film / the waiting state. It's a
+ * one-row grid whose row animates between 1fr and 0fr (see
+ * .hero-schedule-slot in styles.css), so toggling is-collapsed smoothly
+ * grows or shrinks the box, pushing the archive list below down or up
+ * with it. transitionHero() does the toggling on a nav click.
+ */
+function buildScheduleSlot(content) {
+  const slot = el('div', 'hero-schedule-slot');
+  const clip = el('div', 'hero-schedule-clip');
+  if (content) {
+    const pad = el('div', 'hero-schedule-pad');
+    pad.append(content);
+    clip.append(pad);
+  } else {
+    slot.classList.add('is-collapsed');
+  }
+  slot.append(clip);
+  return slot;
 }
 
 /**
@@ -1142,6 +1148,7 @@ function renderHeroPrevious(film, meta, imageBase, picker, { onOlder, onNewer } 
   if (bits.length) info.append(el('p', 'hero-meta', bits.join(' · ')));
   if (picker) info.append(el('p', 'hero-picker', `Picked by ${picker}`));
   body.append(info);
+  body.append(buildScheduleSlot(null));
 
   wrap.append(body);
   hero.append(wrap);
@@ -1226,7 +1233,7 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
   calendarBtn.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M16 18h6"/><path d="M16 2v3"/><path d="M19 15v6"/><path d="M21 11.5V5a2 2 0 00-2-2H5a2 2 0 00-2 2v14a2 2 0 002 2h8.3"/><path d="M3 9h18"/><path d="M8 2v3"/></svg> Add to Calendar';
   calendarBtn.addEventListener('click', () => downloadMovieChatIcs(film, meta, scheduledFor));
   scheduleRow.append(calendarBtn);
-  body.append(scheduleRow);
+  body.append(buildScheduleSlot(scheduleRow));
 
   wrap.append(body);
   hero.append(wrap);
@@ -1306,6 +1313,7 @@ function renderHeroWaiting(pickerName, { onShowPrevious } = {}) {
   info.append(label);
   info.append(el('h2', 'hero-title', heroWaitingTitle(pickerName)));
   body.append(info);
+  body.append(buildScheduleSlot(null));
   wrap.append(body);
   hero.append(wrap);
 
