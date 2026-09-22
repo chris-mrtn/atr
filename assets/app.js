@@ -714,7 +714,7 @@ function setBackdropColorVars(vivid) {
  * runs on its own timeline now - nothing waits on it (see the comment on
  * .hero-label's colour handling for why the label doesn't either).
  */
-function applyBackdrop(colors, { animate = false, duration = 90 } = {}) {
+function applyBackdrop(colors, { animate = false, duration = 90 * HERO_ANIM_SCALE } = {}) {
   if (!colors || !colors.length) return Promise.resolve();
   const vivid = vivifyAll(colors);
 
@@ -974,7 +974,14 @@ function updateHeroNavPosition() {
  * Only ever called from a nav click - the very first hero render on page
  * load stays instant, going through the render functions directly.
  */
-const HERO_FADE_MS = 120;
+// TEMP - slow-motion for tuning the hero nav animation. Multiplies every
+// hero transition: the JS timings here plus, via --hero-anim-scale, the
+// CSS transition durations on .hero-poster, .hero-body and
+// .hero-schedule-slot. Set back to 1 when done.
+const HERO_ANIM_SCALE = 10;
+document.documentElement.style.setProperty('--hero-anim-scale', String(HERO_ANIM_SCALE));
+
+const HERO_FADE_MS = 120 * HERO_ANIM_SCALE;
 const HERO_SLIDE_PX = 10;
 
 function transitionHero(renderFn, direction = 'prev') {
