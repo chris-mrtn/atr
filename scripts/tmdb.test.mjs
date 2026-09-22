@@ -137,6 +137,17 @@ test('summarize builds an IMDb url from imdb_id, or null without one', () => {
   assert.equal(withoutId.imdbUrl, null);
 });
 
+test('summarize lists production companies by name, or an empty list without any', () => {
+  const got = summarize({
+    id: 10, original_title: 'Midsommar', release_date: '2019-07-03',
+    production_companies: [{ id: 41077, name: 'A24' }, { id: 1, name: 'Square Peg' }],
+  });
+  assert.deepEqual(got.companies, ['A24', 'Square Peg']);
+
+  const none = summarize({ id: 11, original_title: 'No Companies', release_date: '2020-01-01' });
+  assert.deepEqual(none.companies, []);
+});
+
 test('a v3 key goes in the query string, a v4 token in the header', async () => {
   const seen = [];
   const fake = async (url, opts) => {

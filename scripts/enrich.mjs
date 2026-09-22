@@ -95,7 +95,8 @@ async function main() {
       return !('genres' in cache.films[f.slug])
         || !('countries' in cache.films[f.slug])
         || !('cast' in cache.films[f.slug])
-        || !('imdbUrl' in cache.films[f.slug]);
+        || !('imdbUrl' in cache.films[f.slug])
+        || !('companies' in cache.films[f.slug]);
     }
     if (cache.unmatched?.[f.slug] && !RETRY_UNMATCHED) return false;
     return true;
@@ -139,8 +140,17 @@ async function main() {
       }
 
       delete unmatched[film.slug];
+      // A re-fetch (e.g. a backfill for a newly tracked field) rebuilds the
+      // entry from scratch, which would drop the IMDb rating that
+      // imdb-ratings.mjs adds afterwards - keep it, as long as this is still
+      // the same film (an override pointing somewhere new starts fresh).
+      const previous = resolved[film.slug];
+      const keptRating = previous?.tmdbId === details.id && typeof previous.imdbRating === 'number'
+        ? { imdbRating: previous.imdbRating }
+        : {};
       resolved[film.slug] = {
         ...summarize(details),
+        ...keptRating,
         letterboxdTitle: film.title,
         letterboxdYear: film.year,
         confidence: confidence ?? 'exact',

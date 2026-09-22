@@ -155,6 +155,10 @@ export function summarize(details) {
   // Both already on the base /movie/{id} response, same tier as genres -
   // no extra append_to_response needed.
   const countries = (details?.production_countries ?? []).map(c => c.name);
+  // Also on the base response. Production companies only - TMDB doesn't
+  // list distributors - so a film a studio just released (rather than
+  // produced) won't show that studio here.
+  const companies = (details?.production_companies ?? []).map(c => c.name);
   const imdbId = details?.imdb_id || null;
   return {
     tmdbId: details.id,
@@ -168,6 +172,7 @@ export function summarize(details) {
     cast,
     genres,
     countries,
+    companies,
     tmdbUrl: `https://www.themoviedb.org/movie/${details.id}`,
     imdbId,
     imdbUrl: imdbId ? `https://www.imdb.com/title/${imdbId}/` : null,

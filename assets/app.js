@@ -2111,6 +2111,12 @@ function computeStats(archive, tmdb, pickers, members) {
   const chrisMadsCount = allFilms.filter(f =>
     f.meta?.cast?.includes('Mads Mikkelsen') && pickers?.picks?.[`${f.watchYear}:${f.slug}`] === 'Chris').length;
 
+  // A24 films, going by TMDB's production companies. null (so the stat
+  // stays hidden) until the data has companies at all - older data/tmdb.json
+  // files were written before they were tracked.
+  const hasCompanies = allFilms.some(f => Array.isArray(f.meta?.companies));
+  const a24Count = hasCompanies ? allFilms.filter(f => f.meta?.companies?.includes('A24')).length : null;
+
   // Share of films watched within a year of coming out - the club only
   // records which year's list a film is on, not the exact date, so "within
   // a year" means released that year or the year before.
@@ -2130,7 +2136,7 @@ function computeStats(archive, tmdb, pickers, members) {
     total, firstYear, lastYear, totalMinutes, avgRuntime, longest, shortest,
     topGenre, topDecade, topDirector, numCountries: countryCounts.size, pctNonUs, topForeignCountry,
     busiestYears, busiestYearCount, oldest, newest, attributed, pickerBoard,
-    davePctAnime, daveAnimeCount, davePickCount: davePicks.length, nostalgic, pctWithinYear, jamesBollywoodCount, chrisMadsCount,
+    davePctAnime, daveAnimeCount, davePickCount: davePicks.length, nostalgic, pctWithinYear, jamesBollywoodCount, chrisMadsCount, a24Count,
     avgImdbRating, ratedFilmCount: withImdbRating.length,
   };
 }
@@ -2268,6 +2274,7 @@ function renderStatsPage(archive, tmdb, pickers, members) {
       { film: s.longest, display: s.longest ? String(s.longest.meta.runtime) : null, label: 'longest movie', unit: 'mins' },
     ),
     statItem(s.topGenre ? String(s.topGenre.count) : null, 'most picked genre', { unit: s.topGenre?.pluralLabel }),
+    ...(s.a24Count != null ? [statItem(String(s.a24Count), 'a24 films')] : []),
     statItem(s.topDecade?.label ?? null, 'most picked decade'),
     statItem(s.davePctAnime != null ? `${s.davePctAnime}%` : null, 'dave picks are anime'),
     ...(s.jamesBollywoodCount ? [statItem(String(s.jamesBollywoodCount), 'bollywood films picked by james')] : []),
