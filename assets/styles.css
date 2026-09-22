@@ -703,7 +703,8 @@ h1 {
 .stats > span { mix-blend-mode: plus-lighter; }
 
 /* Popcorn easter egg trigger: the "o" in "movies". Hovering swaps it for a
-   kernel; clicking starts the effect (see main() in app.js). */
+   popped kernel (the roundest of the popcorn pieces, so it still reads as
+   an "o"); clicking starts the effect (see main() in app.js). */
 .stats .movies-o {
   position: relative;
   display: inline-block;
@@ -721,7 +722,7 @@ h1 {
   height: 1.35em;
   /* Nudged left by half the letter-spacing, which sits after the glyph. */
   margin-left: -.075em;
-  background: url('effects/kernel-1.png') center / contain no-repeat;
+  background: url('effects/popcorn-2.png') center / contain no-repeat;
   opacity: 0;
   transform: translate(-50%, -55%) scale(.5) rotate(-20deg);
   transition: opacity .15s ease, transform .2s ease;

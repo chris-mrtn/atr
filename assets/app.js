@@ -34,7 +34,7 @@ const FILTER_COLLAPSE_SVG = '<svg xmlns="http://www.w3.org/2000/svg" width="24" 
 
 /* ------------------------------------------------------------------------
  * Easter egg: click the "o" in "movies" in the header ("122 movies" - it
- * turns into a popcorn kernel on hover) to drop a screen full of popcorn.
+ * turns into a piece of popcorn on hover) to drop a screen full of popcorn.
  * Kernels fall from the top and pile up at the bottom, then after a short
  * pause pop into popcorn and fill the whole screen.
  * ---------------------------------------------------------------------- */
@@ -2579,7 +2579,7 @@ async function main() {
   const total = archive.reduce((n, y) => n + y.films.length, 0);
   const since = archive.length ? archive.at(-1).year : '';
   // The "o" in "movies" is the easter egg's trigger - it turns into a
-  // popcorn kernel on hover (see .movies-o in styles.css) and starts the
+  // piece of popcorn on hover (see .movies-o in styles.css) and starts the
   // effect when clicked. The rest of the line is plain text.
   const moviesO = el('span', 'movies-o', 'o');
   moviesO.addEventListener('click', () => triggerPopcornEffect());
