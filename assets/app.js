@@ -2029,6 +2029,13 @@ function computeStats(archive, tmdb, pickers, members) {
     .map(([name, years]) => ({ name, avgYear: years.reduce((a, b) => a + b, 0) / years.length }))
     .sort((a, b) => a.avgYear - b.avgYear)[0] ?? null;
 
+  // James's corner of the archive: his share of the club's Indian films
+  // (India as a TMDB producing country - currently all Hindi-language,
+  // hence the Bollywood label on the stat).
+  const indianFilms = allFilms.filter(f => f.meta?.countries?.includes('India'));
+  const jamesIndianCount = indianFilms.filter(f => pickers?.picks?.[`${f.watchYear}:${f.slug}`] === 'James').length;
+  const jamesPctBollywood = indianFilms.length ? Math.round((jamesIndianCount / indianFilms.length) * 100) : null;
+
   // Share of films watched within a year of coming out - the club only
   // records which year's list a film is on, not the exact date, so "within
   // a year" means released that year or the year before.
@@ -2048,7 +2055,7 @@ function computeStats(archive, tmdb, pickers, members) {
     total, firstYear, lastYear, totalMinutes, avgRuntime, longest, shortest,
     topGenre, topDecade, topDirector, numCountries: countryCounts.size, pctNonUs, topForeignCountry,
     busiestYears, busiestYearCount, oldest, newest, attributed, pickerBoard,
-    davePctAnime, daveAnimeCount, davePickCount: davePicks.length, nostalgic, pctWithinYear,
+    davePctAnime, daveAnimeCount, davePickCount: davePicks.length, nostalgic, pctWithinYear, jamesPctBollywood,
     avgImdbRating, ratedFilmCount: withImdbRating.length,
   };
 }
@@ -2188,6 +2195,7 @@ function renderStatsPage(archive, tmdb, pickers, members) {
     statItem(s.topGenre ? String(s.topGenre.count) : null, 'most watched genre', { unit: s.topGenre?.pluralLabel }),
     statItem(s.topDecade?.label ?? null, 'most picked decade'),
     statItem(s.davePctAnime != null ? `${s.davePctAnime}%` : null, 'dave picks are anime'),
+    statItem(s.jamesPctBollywood ? `${s.jamesPctBollywood}%` : null, 'of our bollywood came from james'),
     ...(s.nostalgic ? [statItem(String(Math.round(s.nostalgic.avgYear)), `${s.nostalgic.name.toLowerCase()}'s favorite year`)] : []),
     statItem(s.pctWithinYear != null ? `${s.pctWithinYear}%` : null, 'movies watched within a year'),
     statItem(s.avgImdbRating != null ? s.avgImdbRating.toFixed(1) : null, 'avg IMDb rating'),
