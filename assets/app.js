@@ -2012,24 +2012,29 @@ function computeStats(archive, tmdb, pickers, members) {
   ).length;
   const davePctAnime = davePicks.length ? Math.round((daveAnimeCount / davePicks.length) * 100) : null;
 
-  // Most nostalgic picker: whoever has the biggest share of picks released
-  // before 2000 (by TMDB release date). Only people with at least 5 dated
-  // picks count, so someone new with a couple of old films can't top it on
-  // a tiny sample; ties go to whoever has more picks.
-  const datedPicksBy = new Map();
+  // Most nostalgic picker: whoever's picks have the earliest average
+  // release year (by TMDB release date), shown as that year - "evan's
+  // favorite year". Only people with at least 5 dated picks count, so
+  // someone new with a couple of old films can't top it on a tiny sample.
+  const releaseYearsBy = new Map();
   for (const f of allFilms) {
     const picker = pickers?.picks?.[`${f.watchYear}:${f.slug}`];
     const year = Number(f.meta?.releaseDate?.slice(0, 4));
     if (!picker || !year) continue;
-    const tally = datedPicksBy.get(picker) ?? { total: 0, old: 0 };
-    tally.total++;
-    if (year < 2000) tally.old++;
-    datedPicksBy.set(picker, tally);
+    if (!releaseYearsBy.has(picker)) releaseYearsBy.set(picker, []);
+    releaseYearsBy.get(picker).push(year);
   }
-  const nostalgic = [...datedPicksBy.entries()]
-    .filter(([, t]) => t.total >= 5 && t.old > 0)
-    .map(([name, t]) => ({ name, pct: Math.round((t.old / t.total) * 100), total: t.total }))
-    .sort((a, b) => b.pct - a.pct || b.total - a.total)[0] ?? null;
+  const nostalgic = [...releaseYearsBy.entries()]
+    .filter(([, years]) => years.length >= 5)
+    .map(([name, years]) => ({ name, avgYear: years.reduce((a, b) => a + b, 0) / years.length }))
+    .sort((a, b) => a.avgYear - b.avgYear)[0] ?? null;
+
+  // Share of films watched within a year of coming out - the club only
+  // records which year's list a film is on, not the exact date, so "within
+  // a year" means released that year or the year before.
+  const datedFilms = allFilms.filter(f => f.meta?.releaseDate);
+  const recentCount = datedFilms.filter(f => f.watchYear - Number(f.meta.releaseDate.slice(0, 4)) <= 1).length;
+  const pctWithinYear = datedFilms.length ? Math.round((recentCount / datedFilms.length) * 100) : null;
 
   // OMDb's IMDb-rating backfill (scripts/imdb-ratings.mjs) is optional and
   // may not have run yet, so most films can genuinely have no imdbRating -
@@ -2043,7 +2048,7 @@ function computeStats(archive, tmdb, pickers, members) {
     total, firstYear, lastYear, totalMinutes, avgRuntime, longest, shortest,
     topGenre, topDecade, topDirector, numCountries: countryCounts.size, pctNonUs, topForeignCountry,
     busiestYears, busiestYearCount, oldest, newest, attributed, pickerBoard,
-    davePctAnime, daveAnimeCount, davePickCount: davePicks.length, nostalgic,
+    davePctAnime, daveAnimeCount, davePickCount: davePicks.length, nostalgic, pctWithinYear,
     avgImdbRating, ratedFilmCount: withImdbRating.length,
   };
 }
@@ -2183,7 +2188,8 @@ function renderStatsPage(archive, tmdb, pickers, members) {
     statItem(s.topGenre ? String(s.topGenre.count) : null, 'most watched genre', { unit: s.topGenre?.pluralLabel }),
     statItem(s.topDecade?.label ?? null, 'most picked decade'),
     statItem(s.davePctAnime != null ? `${s.davePctAnime}%` : null, 'dave picks are anime'),
-    ...(s.nostalgic ? [statItem(`${s.nostalgic.pct}%`, `${s.nostalgic.name.toLowerCase()} picks are from last century`)] : []),
+    ...(s.nostalgic ? [statItem(String(Math.round(s.nostalgic.avgYear)), `${s.nostalgic.name.toLowerCase()}'s favorite year`)] : []),
+    statItem(s.pctWithinYear != null ? `${s.pctWithinYear}%` : null, 'movies watched within a year'),
     statItem(s.avgImdbRating != null ? s.avgImdbRating.toFixed(1) : null, 'avg IMDb rating'),
   );
   page.replaceChildren(hero);
