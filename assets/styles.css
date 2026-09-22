@@ -801,7 +801,14 @@ h1 {
   background: none;
   color: rgb(255 255 255 / .5);
   cursor: pointer;
-  transition: color .15s ease, transform .15s ease;
+  transition: color .15s ease, transform .15s ease, opacity .4s ease;
+}
+/* The arrows are children of body rather than main (so they can sit at
+   the screen edges), so they miss main's fade-out when the stats page or
+   filters open - fade them the same way here. */
+body.stats-open .hero-nav, body.filters-open .hero-nav {
+  opacity: 0;
+  pointer-events: none;
 }
 .hero-nav:hover,
 .hero-nav:focus-visible {
