@@ -1493,19 +1493,13 @@ function computeStats(archive, tmdb, pickers, members) {
   const avgImdbRating = withImdbRating.length
     ? Math.round((withImdbRating.reduce((n, f) => n + f.meta.imdbRating, 0) / withImdbRating.length) * 10) / 10
     : null;
-  const highestRated = withImdbRating.length
-    ? withImdbRating.reduce((a, b) => (b.meta.imdbRating > a.meta.imdbRating ? b : a))
-    : null;
-  const lowestRated = withImdbRating.length
-    ? withImdbRating.reduce((a, b) => (b.meta.imdbRating < a.meta.imdbRating ? b : a))
-    : null;
 
   return {
     total, firstYear, lastYear, totalMinutes, avgRuntime, longest, shortest,
     topGenre, topDecade, topDirector, numCountries: countryCounts.size, pctNonUs, topForeignCountry,
     busiestYears, busiestYearCount, oldest, newest, attributed, pickerBoard,
     davePctAnime, daveAnimeCount, davePickCount: davePicks.length,
-    avgImdbRating, ratedFilmCount: withImdbRating.length, highestRated, lowestRated,
+    avgImdbRating, ratedFilmCount: withImdbRating.length,
   };
 }
 
@@ -1645,10 +1639,6 @@ function renderStatsPage(archive, tmdb, pickers, members) {
     statItem(s.topDecade?.label ?? null, 'most picked decade'),
     statItem(s.davePctAnime != null ? `${s.davePctAnime}%` : null, 'dave picks are anime'),
     statItem(s.avgImdbRating != null ? s.avgImdbRating.toFixed(1) : null, 'avg IMDb rating'),
-    statPair(
-      { film: s.lowestRated, display: s.lowestRated ? s.lowestRated.meta.imdbRating.toFixed(1) : null, label: 'lowest rated on IMDB' },
-      { film: s.highestRated, display: s.highestRated ? s.highestRated.meta.imdbRating.toFixed(1) : null, label: 'highest rated on IMDB' },
-    ),
   );
   page.replaceChildren(hero);
 }
