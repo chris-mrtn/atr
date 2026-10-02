@@ -917,7 +917,15 @@ function buildMovieChatIcs({ film, meta, scheduledFor, discordUrl }) {
     'CALSCALE:GREGORIAN',
     'BEGIN:VEVENT',
     `UID:${film.slug}-${film.year}@avoidtherut.com`,
+    // Same UID every time, so re-downloading after the time changes updates
+    // the event already in someone's calendar rather than adding a second
+    // one - but only if the revision number goes up, which plenty of
+    // calendar apps insist on before they'll accept a change. Minutes since
+    // the epoch of the screening time itself: it always moves when the
+    // screening does, and never otherwise.
+    `SEQUENCE:${Math.max(0, Math.round(start.getTime() / 60000))}`,
     `DTSTAMP:${toIcsUtcStamp(new Date())}`,
+    `LAST-MODIFIED:${toIcsUtcStamp(new Date())}`,
     `DTSTART:${toIcsUtcStamp(start)}`,
     `DTEND:${toIcsUtcStamp(end)}`,
     'SUMMARY:Movie Chat',
