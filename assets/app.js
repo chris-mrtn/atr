@@ -802,13 +802,16 @@ const HERO_SCHEDULE_ZONES = [
     tzNames: ['Australia/Melbourne', 'Australia/Sydney', 'Australia/Brisbane', 'Australia/Canberra', 'Australia/ACT'],
     ianaTz: 'Australia/Melbourne',
     label: 'AEST',
+    daylightLabel: 'AEDT',
   },
   {
     tzNames: ['Australia/Adelaide', 'Australia/Broken_Hill'],
     ianaTz: 'Australia/Adelaide',
     label: 'ACST',
+    daylightLabel: 'ACDT',
   },
   {
+    // Pacific Time either way - no separate PST/PDT label to pick between.
     tzNames: ['America/Los_Angeles', 'America/Vancouver', 'America/Tijuana'],
     ianaTz: 'America/Los_Angeles',
     label: 'PT',
@@ -827,6 +830,38 @@ function heroScheduleZone() {
 }
 
 /** Renders a real ISO instant as a {date, time} pair in the viewer's own zone. */
+/**
+ * How far ahead of UTC a zone is, in minutes, at a given instant - by
+ * formatting the instant in that zone and reading the clock back.
+ */
+function zoneOffsetMinutes(ianaTz, when) {
+  const parts = Object.fromEntries(new Intl.DateTimeFormat('en-US', {
+    timeZone: ianaTz, hour12: false,
+    year: 'numeric', month: '2-digit', day: '2-digit',
+    hour: '2-digit', minute: '2-digit', second: '2-digit',
+  }).formatToParts(when).map(p => [p.type, Number(p.value)]));
+  const asUtc = Date.UTC(parts.year, parts.month - 1, parts.day, parts.hour % 24, parts.minute, parts.second);
+  return Math.round((asUtc - when.getTime()) / 60000);
+}
+
+/**
+ * The zone's abbreviation for this particular instant: a screening on the
+ * first Sunday of October in Melbourne is AEDT, not AEST, since daylight
+ * saving starts that morning. Worked out by comparing the zone's offset
+ * then against its smallest offset over the year (standard time), rather
+ * than from Intl's own abbreviations, which are inconsistent for these
+ * zones - en-US renders Melbourne as "GMT+11" rather than "AEDT".
+ */
+function zoneLabelFor(zone, when) {
+  if (!zone.daylightLabel) return zone.label;
+  const offset = zoneOffsetMinutes(zone.ianaTz, when);
+  const standard = Math.min(
+    zoneOffsetMinutes(zone.ianaTz, new Date(Date.UTC(when.getUTCFullYear(), 0, 1))),
+    zoneOffsetMinutes(zone.ianaTz, new Date(Date.UTC(when.getUTCFullYear(), 6, 1))),
+  );
+  return offset > standard ? zone.daylightLabel : zone.label;
+}
+
 function formatSchedule(scheduledFor) {
   const zone = heroScheduleZone();
   const when = new Date(scheduledFor);
@@ -836,7 +871,7 @@ function formatSchedule(scheduledFor) {
   const time = new Intl.DateTimeFormat('en-US', {
     hour: 'numeric', minute: '2-digit', timeZone: zone.ianaTz,
   }).format(when);
-  return { date, time: `${time} (${zone.label})` };
+  return { date, time: `${time} (${zoneLabelFor(zone, when)})` };
 }
 
 /**
