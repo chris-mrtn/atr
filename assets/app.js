@@ -2628,13 +2628,27 @@ async function main() {
   // Posters are a nice-to-have: if tmdb.json is missing the page still works.
   const tmdb = await loadJson('data/tmdb.json', { required: false });
   // Picker attribution is hand-sourced and often absent - also optional.
-  const pickers = await loadJson('data/pickers.json', { required: false });
+  // let, not const: the schedule's own picker is folded in below.
+  let pickers = await loadJson('data/pickers.json', { required: false });
   // The current pick cycle - who picked (or picked last), which film (once
   // decided) and when it screens. Missing just means "waiting, no name yet".
   const schedule = await loadJson('data/schedule.json', { required: false });
   // The pick rotation, oldest to newest turn - for working out whose turn is
   // next once a screening passes with nothing queued up after it.
   const members = await loadJson('data/members.json', { required: false });
+
+  // data/schedule.json already knows who picked the film it has queued up,
+  // so once that screening passes and the film joins the archive it can be
+  // attributed straight away, rather than showing no badge until someone
+  // records it in data/pickers.json by hand. That file still wins where it
+  // has an entry, and stays the long-term record - the schedule only ever
+  // names one film, and is overwritten by the next pick.
+  if (schedule?.picker && schedule?.pick?.year && schedule?.pick?.slug) {
+    const key = `${schedule.pick.year}:${schedule.pick.slug}`;
+    if (!pickers?.picks?.[key]) {
+      pickers = { ...pickers, picks: { ...pickers?.picks, [key]: schedule.picker } };
+    }
+  }
 
   const imageBase = tmdb?.imageBase ?? 'https://image.tmdb.org/t/p';
   // Pre-sampled poster colours - optional, like the other enrichment files.
