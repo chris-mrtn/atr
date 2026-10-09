@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-09-22T05:38:57.708Z",
+  "generatedAt": "2026-10-09T04:24:43.795Z",
   "note": "This product uses the TMDB API but is not endorsed or certified by TMDB.",
   "imageBase": "https://image.tmdb.org/t/p",
-  "matched": 123,
+  "matched": 124,
   "unmatchedCount": 0,
   "films": {
     "3-idiots": {
@@ -632,6 +632,40 @@
       "letterboxdTitle": "Before the Devil Knows You're Dead",
       "letterboxdYear": 2007,
       "confidence": "exact"
+    },
+    "begotten": {
+      "tmdbId": 1483,
+      "originalTitle": "Begotten",
+      "releaseDate": "1991-06-05",
+      "runtime": 72,
+      "overview": "Begotten is the creation myth brought to life, the story of no less than the violent death of God and the (re)birth of nature on a barren earth.",
+      "posterPath": "/tddYsHrlWBOcG3M333jQXQjU2vv.jpg",
+      "backdropPath": "/GtblqNxBX0fUbLVNhempSYwCWe.jpg",
+      "directors": [
+        "E. Elias Merhige"
+      ],
+      "cast": [
+        "Brian Salzburg",
+        "Donna Dempsey",
+        "Stephen Charles Barry"
+      ],
+      "genres": [
+        "Fantasy",
+        "Horror"
+      ],
+      "countries": [
+        "United States of America"
+      ],
+      "companies": [
+        "Theatre Of Material"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1483",
+      "imdbId": "tt0101420",
+      "imdbUrl": "https://www.imdb.com/title/tt0101420/",
+      "letterboxdTitle": "Begotten",
+      "letterboxdYear": 1989,
+      "confidence": "exact",
+      "imdbRating": 5.5
     },
     "belle-2021": {
       "tmdbId": 776305,
