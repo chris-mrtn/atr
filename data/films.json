@@ -4,7 +4,7 @@
     "kind": "letterboxd-list",
     "member": "chrismrtn"
   },
-  "totalFilms": 123,
+  "totalFilms": 124,
   "years": [
     {
       "year": 2020,
@@ -913,6 +913,13 @@
           "year": 2025,
           "slug": "the-rivals-of-amziah-king",
           "letterboxdUrl": "https://letterboxd.com/film/the-rivals-of-amziah-king/"
+        },
+        {
+          "position": 16,
+          "title": "Begotten",
+          "year": 1989,
+          "slug": "begotten",
+          "letterboxdUrl": "https://letterboxd.com/film/begotten/"
         }
       ]
     }
