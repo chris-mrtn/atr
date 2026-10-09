@@ -1,0 +1,8 @@
+{
+  "note": "Films you can watch directly somewhere, keyed by film slug. When a film is listed here the hero's \"Where to Watch\" button (which otherwise searches JustWatch) becomes a direct link, labelled \"Watch Now\" unless a label is given.",
+  "links": {
+    "begotten": {
+      "url": "https://www.youtube.com/watch?v=_TxT1dwr7WM"
+    }
+  }
+}

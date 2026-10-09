@@ -1222,18 +1222,23 @@ function preloadHeroPoster(imageBase, posterPath) {
  * which can't be worked out reliably from ours - the film is normally the
  * first result.
  */
-function buildWhereToWatchLink(film) {
+function buildWhereToWatchLink(film, watchLink) {
   let country = 'us';
   try {
     if (Intl.DateTimeFormat().resolvedOptions().timeZone?.startsWith('Australia/')) country = 'au';
   } catch { /* no time zone info - stick with the default */ }
+  // A film listed in data/watch-links.json can be watched directly
+  // somewhere, so link straight there instead of sending people to search
+  // JustWatch for it.
+  const label = watchLink?.url ? (watchLink.label ?? 'Watch Now') : 'Where to Watch';
   const link = el('a', 'hero-calendar-btn hero-watch-btn');
-  link.href = `https://www.justwatch.com/${country}/search?q=${encodeURIComponent(film.title)}`;
+  link.href = watchLink?.url ?? `https://www.justwatch.com/${country}/search?q=${encodeURIComponent(film.title)}`;
   link.target = '_blank';
-  link.rel = 'noopener';
+  link.rel = 'noopener noreferrer';
   // Lucide "tv-minimal-play", path data from lucide.dev.
-  link.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.033 9.44a.647.647 0 0 1 0 1.12l-4.065 2.352a.645.645 0 0 1-.968-.56V7.648a.645.645 0 0 1 .967-.56z"/><path d="M7 21h10"/><rect width="20" height="14" x="2" y="3" rx="2"/></svg><span class="hero-btn-text">Where to Watch</span>';
-  link.title = 'Where to Watch';
+  link.innerHTML = '<svg xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M15.033 9.44a.647.647 0 0 1 0 1.12l-4.065 2.352a.645.645 0 0 1-.968-.56V7.648a.645.645 0 0 1 .967-.56z"/><path d="M7 21h10"/><rect width="20" height="14" x="2" y="3" rx="2"/></svg>';
+  link.append(el('span', 'hero-btn-text', label));
+  link.title = label;
   return link;
 }
 
@@ -1335,7 +1340,7 @@ function renderHeroPrevious(film, meta, imageBase, picker, { pickNumber, onOlder
  * instant passes, at which point main() stops calling this and the film
  * just renders in its year section like any other archive entry.
  */
-function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onShowPrevious } = {}) {
+function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onShowPrevious, watchLink } = {}) {
   const hero = document.getElementById('hero');
   hero.hidden = false;
   hero.replaceChildren();
@@ -1404,7 +1409,7 @@ function renderHeroUpcoming(film, meta, imageBase, picker, scheduledFor, { onSho
   calendarBtn.addEventListener('click', () => downloadMovieChatIcs(film, meta, scheduledFor));
 
   const actions = el('div', 'hero-schedule-actions');
-  actions.append(buildWhereToWatchLink(film), calendarBtn);
+  actions.append(buildWhereToWatchLink(film, watchLink), calendarBtn);
   scheduleRow.append(actions);
   body.append(buildScheduleSlot(scheduleRow));
 
@@ -2656,6 +2661,8 @@ async function main() {
   // Hand-picked colours for particular films, keyed by slug - seeded after
   // the sampled ones so they win. Hand-edited, unlike poster-colors.json,
   // which the update workflow regenerates.
+  // Films you can watch directly somewhere - optional, keyed by slug.
+  const watchLinks = await loadJson('data/watch-links.json', { required: false });
   const colorOverrides = await loadJson('data/poster-color-overrides.json', { required: false });
   seedBackdropColors(imageBase, {
     colors: Object.fromEntries(Object.entries(colorOverrides?.colors ?? {})
@@ -2721,7 +2728,10 @@ async function main() {
     if (isUpcoming) {
       return renderHeroUpcoming(
         scheduledFilm, tmdb?.films?.[scheduledFilm.slug], imageBase, schedule.picker, schedule.scheduledFor,
-        { onShowPrevious: history.length ? () => transitionHero(() => goToHistory(0), 'prev') : null },
+        {
+          onShowPrevious: history.length ? () => transitionHero(() => goToHistory(0), 'prev') : null,
+          watchLink: watchLinks?.links?.[scheduledFilm.slug],
+        },
       );
     }
     return renderHeroWaiting(nextPickerName(schedule, members), {
