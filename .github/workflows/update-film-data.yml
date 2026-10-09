@@ -18,6 +18,10 @@ on:
     paths:
       - 'scripts/**'
       - '.github/workflows/update-film-data.yml'
+      # A new film going into the list is the one data change that needs
+      # enriching - without this its poster, runtime and credits stay blank
+      # on the site until someone remembers to run this by hand.
+      - 'data/films.json'
 
 # Only what the job needs: it commits the data files and nothing else.
 permissions:
