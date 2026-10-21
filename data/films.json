@@ -4,7 +4,7 @@
     "kind": "letterboxd-list",
     "member": "chrismrtn"
   },
-  "totalFilms": 124,
+  "totalFilms": 125,
   "years": [
     {
       "year": 2020,
@@ -920,6 +920,13 @@
           "year": 1989,
           "slug": "begotten",
           "letterboxdUrl": "https://letterboxd.com/film/begotten/"
+        },
+        {
+          "position": 17,
+          "title": "Teenage Sex and Death at Camp Miasma",
+          "year": 2026,
+          "slug": "teenage-sex-and-death-at-camp-miasma",
+          "letterboxdUrl": "https://letterboxd.com/film/teenage-sex-and-death-at-camp-miasma/"
         }
       ]
     }
