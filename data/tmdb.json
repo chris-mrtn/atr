@@ -1,8 +1,8 @@
 {
-  "generatedAt": "2026-10-09T04:24:43.795Z",
+  "generatedAt": "2026-10-21T22:47:05.875Z",
   "note": "This product uses the TMDB API but is not endorsed or certified by TMDB.",
   "imageBase": "https://image.tmdb.org/t/p",
-  "matched": 124,
+  "matched": 125,
   "unmatchedCount": 0,
   "films": {
     "3-idiots": {
@@ -3394,6 +3394,44 @@
       "letterboxdTitle": "Taste of Cherry",
       "letterboxdYear": 1997,
       "confidence": "exact"
+    },
+    "teenage-sex-and-death-at-camp-miasma": {
+      "tmdbId": 1240889,
+      "originalTitle": "Teenage Sex and Death at Camp Miasma",
+      "releaseDate": "2026-08-06",
+      "runtime": 112,
+      "overview": "An ambitious director sets out to revive a faded slasher franchise, but her meeting with the film’s reclusive original star spirals into a terrifying maze of obsession, fear, and blood-soaked delusion.",
+      "posterPath": "/6Q6Zo6GNXMLP600OJSh6MhW21um.jpg",
+      "backdropPath": "/d1n2ySWSanU34eEsluRjfrjRq52.jpg",
+      "directors": [
+        "Jane Schoenbrun"
+      ],
+      "cast": [
+        "Hannah Einbinder",
+        "Gillian Anderson",
+        "Amanda Fix",
+        "Arthur Conti"
+      ],
+      "genres": [
+        "Comedy",
+        "Horror",
+        "Romance"
+      ],
+      "countries": [
+        "United Kingdom",
+        "United States of America"
+      ],
+      "companies": [
+        "MUBI",
+        "Plan B Entertainment"
+      ],
+      "tmdbUrl": "https://www.themoviedb.org/movie/1240889",
+      "imdbId": "tt35298123",
+      "imdbUrl": "https://www.imdb.com/title/tt35298123/",
+      "letterboxdTitle": "Teenage Sex and Death at Camp Miasma",
+      "letterboxdYear": 2026,
+      "confidence": "exact",
+      "imdbRating": 7.1
     },
     "terms-of-endearment": {
       "tmdbId": 11050,
